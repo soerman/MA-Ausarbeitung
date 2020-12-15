@@ -11,9 +11,15 @@
 % Useful Supplied Packages:
 % amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
+\usepackage{siunitx}
 
 
+\usepackage{graphicx}
 
+%for tables
+\usepackage{tabularx}
+\usepackage{float}
+\renewcommand\thempfootnote{\arabic{mpfootnote}} %to show footnote with numbers in tables
 
 
 %% -------------------------
@@ -22,19 +28,19 @@
 % english or ngerman (new german für neue deutsche Rechtschreibung statt german)
 \SelectLanguage{english}
 % details on this thesis
-\newcommand{\thesisauthor}{Klara Fall}
-\newcommand{\thesistopic}{Name des Themas auf Deutsch}
-\newcommand{\thesisentopic}{Name of the Topic in English}
-\newcommand{\thesislongtopic}{Very long and very detailed description of the very interesting thesis topic (only necessary for pdfsubject tag).}
-\newcommand{\thesisinstitute}{Institut für Experimentelle Kernphysik}
-\newcommand{\thesisreviewerone}{Prof. Dr. D. Cay}
-\newcommand{\thesisreviewertwo}{Prof. Dr. E. Vil}
+\newcommand{\thesisauthor}{Olena Manzhura}
+\newcommand{\thesistopic}{A Terabit sampling system with a photonics time-stretch analog-to-digital converter}
+\newcommand{\thesisentopic}{Ein Terabit Abtastsystem mit Photonic-Time-Stretch Analog-Digital-Wandler}
+\newcommand{\thesislongtopic}{}
+\newcommand{\thesisinstitute}{Institute for Data Processing and Electronics (IPE)}
+\newcommand{\thesisreviewerone}{Prof. Dr. Anke-Susanne Müller}
+\newcommand{\thesisreviewertwo}{Dr. Michele Caselle}
 \newcommand{\thesisadvisorone}{} % to use: enter names and uncomment in titlepg
 \newcommand{\thesisadvisortwo}{}
-\newcommand{\thesistimestart}{01.04.2015} % on titlepage
-\newcommand{\thesistimeend}{30.09.2015} % on titlepage
-\newcommand{\thesistimehandin}{30.09.2015} % on second page 'preamble'
-\newcommand{\thesispagehead}{Bachelor Thesis: \thesisentopic} % page heading
+\newcommand{\thesistimestart}{15.11.2020} % on titlepage
+\newcommand{\thesistimeend}{14.05.2021} % on titlepage
+\newcommand{\thesistimehandin}{14.05.2021} % on second page 'preamble'
+\newcommand{\thesispagehead}{Master Thesis: \thesisentopic} % page heading
 
 
 
@@ -48,7 +54,7 @@
 \hypersetup
 {
     pdfauthor={\thesisauthor},
-    pdftitle={Bachelorarbeit: \thesistopic},
+    pdftitle={Masterarbeit: \thesistopic},
     pdfsubject={\thesislongtopic},
     pdfkeywords={kit,physik,bachelor,thesis,\thesisauthor}
 }
@@ -87,15 +93,15 @@
 %% -----------------------
 %% |    Main Document    |
 %% -----------------------
-\usepackage{lipsum} % for Lorem Ipsum text example
 \begin{document}
     % Titlepage and ToC
     \FrontMatter
 
     \input{include/titlepage}
     \input{include/preamble}
+    \input{include/abstract}
 
-    \begingroup \let\clearpage\relax    % in order to avoid listoffigures and
+    \begingroup   % in order to avoid listoffigures and
     \tableofcontents                    % listoftables on new pages
     \listoffigures
     \listoftables
@@ -106,28 +112,21 @@
 
     % Contents
     \MainMatter
-
     \chapter{Introduction}
-    \input{./chap/chapter1.tex}
+    		\input{./chap/introduction/introduction}
     \chapter{Theoretical Background}
-    \input{./chap/chapter2.tex}
-    \chapter{Experimental Investigations}
-    \input{./chap/chapter3.tex}
-
-    \emptychapter[3]{ROOT Routines}     % usage: \emptychapter[page displayed 
-                                        %        in toc]{name of the chapter}
-
-
-
+    		\input{./chap/theory/theory}
+	\chapter{Work}
+		\input{./chap/work/work}
     \chapter{Conclusions}
-    \input{./chap/chapter4.tex}
+    		\input{./chap/conclusion/conclusion}
 
     % appendix for more or less interesting calculations
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
     % to make the appendix appear in ToC without number. \appendixname = 
     % Appendix or Anhang (depending on chosen language)
-    \input{./chap/appendix.tex} %\cleardoublepage
+    \input{./chap/appendix/appendix} %\cleardoublepage
 
 
 
