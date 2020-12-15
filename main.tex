@@ -11,16 +11,22 @@
 % Useful Supplied Packages:
 % amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
-\usepackage{siunitx}
 
-
+%images
 \usepackage{graphicx}
 
 %for tables
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{float}
 \renewcommand\thempfootnote{\arabic{mpfootnote}} %to show footnote with numbers in tables
 
+% acronyms
+\usepackage{acronym} 
+
+%misc
+\usepackage{siunitx}
+\usepackage{glossaries}
 
 %% -------------------------
 %% |    Thesis Settings    |
@@ -33,8 +39,8 @@
 \newcommand{\thesisentopic}{Ein Terabit Abtastsystem mit Photonic-Time-Stretch Analog-Digital-Wandler}
 \newcommand{\thesislongtopic}{}
 \newcommand{\thesisinstitute}{Institute for Data Processing and Electronics (IPE)}
-\newcommand{\thesisreviewerone}{Prof. Dr. Anke-Susanne Müller}
-\newcommand{\thesisreviewertwo}{Dr. Michele Caselle}
+\newcommand{\thesisreviewerone}{Prof. Dr. Anke-Susanne Müller (LAS)}
+\newcommand{\thesisreviewertwo}{Dr. Michele Caselle (IPE)}
 \newcommand{\thesisadvisorone}{} % to use: enter names and uncomment in titlepg
 \newcommand{\thesisadvisortwo}{}
 \newcommand{\thesistimestart}{15.11.2020} % on titlepage
@@ -86,21 +92,19 @@
     %Kon-troll-in-stanz
 }
 
-
-
-
-
 %% -----------------------
 %% |    Main Document    |
 %% -----------------------
 \begin{document}
     % Titlepage and ToC
     \FrontMatter
+    
 
     \input{include/titlepage}
     \input{include/preamble}
     \input{include/abstract}
-
+    
+	
     \begingroup   % in order to avoid listoffigures and
     \tableofcontents                    % listoftables on new pages
     \listoffigures
@@ -108,7 +112,7 @@
     \endgroup
     \cleardoublepage
 
-
+	\input{include/acrolist}
 
     % Contents
     \MainMatter
