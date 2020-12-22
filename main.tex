@@ -1,4 +1,4 @@
-\documentclass{include/thesisclass}
+\documentclass[dvipsnames,table]{include/thesisclass}
 % Main File - Based on thesisclass.cls
 % Comments are mostly in English
 % ------------------------------------------------------------------------------
@@ -12,14 +12,37 @@
 % amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
 
+%\usepackage[dvipsnames,table]{xcolor}
+
 %images
 \usepackage{graphicx}
+\usepackage{float}
+
+%tikz & pgfplots
+\usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz}
+\usetikzlibrary{arrows.meta,shapes,shadows,external}
+\tikzexternalize[optimize=false,prefix=tikz/]
+
+\usepgfplotslibrary{units,fillbetween,colormaps} 
+\pgfplotsset{compat=newest}
+
+\pgfdeclarehorizontalshading{visiblelight}{50bp}{
+color(0.00000000000000bp)=(violet);
+color(8.33333333333333bp)=(blue);
+color(16.66666666666670bp)=(cyan);
+color(25.00000000000000bp)=(green);
+color(33.33333333333330bp)=(yellow);
+color(41.66666666666670bp)=(orange);
+color(50.00000000000000bp)=(red)
+} 
+
 
 %for tables
 \usepackage{tabularx}
-\usepackage{booktabs}
-\usepackage{float}
+\usepackage{dcolumn,booktabs}
 \renewcommand\thempfootnote{\arabic{mpfootnote}} %to show footnote with numbers in tables
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}} % handy shortcut macro
 
 % acronyms
 \usepackage{acronym} 
@@ -35,8 +58,8 @@
 \SelectLanguage{english}
 % details on this thesis
 \newcommand{\thesisauthor}{Olena Manzhura}
-\newcommand{\thesistopic}{A Terabit sampling system with a photonics time-stretch analog-to-digital converter}
-\newcommand{\thesisentopic}{Ein Terabit Abtastsystem mit Photonic-Time-Stretch Analog-Digital-Wandler}
+\newcommand{\thesisentopic}{A Terabit sampling system with a photonics time-stretch ADC}
+%\newcommand{\thesisentopic}{Ein Terabit Abtastsystem mit Photonic-Time-Stretch Analog-Digital-Wandler}
 \newcommand{\thesislongtopic}{}
 \newcommand{\thesisinstitute}{Institute for Data Processing and Electronics (IPE)}
 \newcommand{\thesisreviewerone}{Prof. Dr. Anke-Susanne Müller (LAS)}
@@ -60,12 +83,10 @@
 \hypersetup
 {
     pdfauthor={\thesisauthor},
-    pdftitle={Masterarbeit: \thesistopic},
+    pdftitle={Masterarbeit: \thesisentopic},
     pdfsubject={\thesislongtopic},
     pdfkeywords={kit,physik,bachelor,thesis,\thesisauthor}
 }
-
-
 
 
 
@@ -99,8 +120,9 @@
     % Titlepage and ToC
     \FrontMatter
     
-
+	\tikzexternaldisable
     \input{include/titlepage}
+    \tikzexternalenable
     \input{include/preamble}
     \input{include/abstract}
     
@@ -117,20 +139,20 @@
     % Contents
     \MainMatter
     \chapter{Introduction}
-    		\input{./chap/introduction/introduction}
+    		\input{./chap/01-introduction/introduction}
     \chapter{Theoretical Background}
-    		\input{./chap/theory/theory}
+    		\input{./chap/02-theory/theory}
 	\chapter{Work}
-		\input{./chap/work/work}
+		\input{./chap/03-work/work}
     \chapter{Conclusions}
-    		\input{./chap/conclusion/conclusion}
+    		\input{./chap/04-conclusion/conclusion}
 
     % appendix for more or less interesting calculations
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
     % to make the appendix appear in ToC without number. \appendixname = 
     % Appendix or Anhang (depending on chosen language)
-    \input{./chap/appendix/appendix} %\cleardoublepage
+    \input{./chap/05-appendix/appendix} %\cleardoublepage
 
 
 
