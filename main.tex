@@ -113,6 +113,8 @@ color(50.00000000000000bp)=(red)
     %Kon-troll-in-stanz
 }
 
+\DeclareSIUnit{\sample}{S}
+\sisetup{per-mode=symbol}
 %% -----------------------
 %% |    Main Document    |
 %% -----------------------
@@ -144,7 +146,7 @@ color(50.00000000000000bp)=(red)
     		\input{./chap/02-theory/theory}
 	\chapter{Work}
 		\input{./chap/03-work/work}
-    \chapter{Conclusions}
+    \chapter{Conclusions and Outlook}
     		\input{./chap/04-conclusion/conclusion}
 
     % appendix for more or less interesting calculations
@@ -158,13 +160,13 @@ color(50.00000000000000bp)=(red)
 
     % Bibliography
     \TheBibliography
-
+    \nocite{*}
     % BIBTEX
     % use if you want citations to appear even if they are not referenced to: 
     % \nocite{*} or maybe \nocite{Kon64,And59} for specific entries
-    %\nocite{*}
     \bibliographystyle{babalpha}
     \bibliography{lit.bib}
+
 
     % THEBIBLIOGRAPHY
     %\begin{thebibliography}{000}

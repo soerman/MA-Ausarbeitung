@@ -1,9 +1,10 @@
-\begin{center}
+\section{Front-End Electronics}
+In a first step, a new front-end board needs to be developed for the new system. This will be plugged into the Xilinx Evaluation Board. As the new system should operate for "normal" and in time-stretch mode, two boards need to be developed to meet the respective requirements.
 
-\end{center}\section{Power Supply}
-
+\subsection{Power Supply for Track-And-Hold}
+For the boards to develop a new Power-Supply-Unit for the TAH units -- the ADP1741 (Analog Devices) -- should be used. It is therefore necessary to think about the quantity of power supply units needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components which it drives. The power consumption/maximum current for the respective components on the KAPTURE-board is listed in \autoref{tab:kapturecomp}. 
 \begin{table}[tbh!]
-	\caption{Power consumption of KAPTURE-2 components}
+	\caption{Power consumption of KAPTURE components (for "KARA-mode")}
 	\label{tab:kapturecomp}
 	\begin{minipage}{\textwidth}
 		\centering
@@ -15,37 +16,42 @@
 									& -5  	& -0.242 & 1.21 &  & 3.872\\
 			HMC856 (Delay) 			& -3.3	& 0.185 & -0.611 & 16 & 2.96\\
 			HMC987LP5E (Fan-Out) 	& 3.3 	& 0.234\footnote{All Outputs and RF-Buffer} & 0.772 & 2 & 0.468\\
-			LMC0480 (PLL) 			& 3.3 	& 0.590\footnote{All CLKs} & 1.947 & ? & ???\\
-			VCXO 					& 3.3 	& 0.03 & 0.198 & ? & ???\\
+			LMC0480 (PLL) 			& 3.3 	& 0.590\footnote{All CLKs} & 1.947 & 1 & 0.590\\
+			VCXO 					& 3.3 	& 0.03 & 0.198 & 1 & 0.03\\
 			\bottomrule
 		\end{tabularx}
 	\end{minipage}
 \end{table}
 
-\paragraph{PLL LMK0480}
-The LMK0480 is used for jitter cleaning of the clock signal coming from KARA. It feeds to the FanOut, FPGA and -- in KAPTURE-2 -- to the ADCs.
+The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampere}. This means, with the TAH-unit requiring a maximal current of \SI{0.221}{\ampere}, one ADP1741 can handle four TAH-units ($I_{max\_ADP1741} = \SI{2}{\ampere} > 2 * I_{tot}, I_{tot} = 4 \times \SI{0.221}{\ampere} =  \SI{0.884}{\ampere}$).
+
+\subsection{PLL}
+For the two modes different PLLs are needed. For "KARA-mode" the already existing PLL-solution can be used, as the clocking is distributed with the help of two fanouts. 
+In "time-stretch mode" however the PLL is used as a Delay-Locked-Loop (DLL) and should drive all 16 delay/TAH-unit respectively, so that a new, fitting component is necessary.
+\subsubsection{"Normal mode"}
+\paragraph{LMK0480}
+The LMK0480 feeds into the two fan-out modules and to the FPGA. As the ADCs are now integrated on the FPGA board, it is not necessary to drive them with an external PLL anymore, like in KAPTURE-2.
 \begin{itemize}
 	\item Number of CLKOuts: 11
-	\item CLKOuts are grouped together as follows
-	\begin{table}[tbh!]
-	\caption{CLKOut Groups of PLL LMK0480}
-	\label{tab:pll}
-	\begin{minipage}{\textwidth}
-		\centering
-		\begin{tabularx}{0.5\textwidth}{cc}
-			\toprule
-			\textbf{Clock Group} & \textbf{Clock Outputs} \\
-				\midrule
-			0	& CLKout0, CLKout1\\
-			1	& CLKout2, CLKout3\\
-			2	& CLKout4, CLKout5\\
-			3	& CLKout6, CLKout7\\
-			4	& CLKout8, CLKout9\\
-			5	& CLKout10, CLKout11\\
-			\bottomrule
-		\end{tabularx}
-	\end{minipage}
-\end{table}
+	\item CLKOuts are grouped together as listed in \autoref{tab:pll}:
+		\begin{table}[H]
+			\caption{CLKOut Groups of PLL LMK0480}
+			\label{tab:pll}
+			\centering
+			\begin{tabularx}{0.5\textwidth}{cc}
+					\toprule
+					\textbf{Clock Group} & \textbf{Clock Outputs} \\
+						\midrule
+					0	& CLKout0, CLKout1\\
+					1	& CLKout2, CLKout3\\
+					2	& CLKout4, CLKout5\\
+					3	& CLKout6, CLKout7\\
+					4	& CLKout8, CLKout9\\
+					5	& CLKout10, CLKout11\\
+					\bottomrule
+				\end{tabularx}
+		\end{table}
+		\item Two outputs of the same group provide a clock signal at the same frequency, phase, etc. As the two fan-out modules should be synchronous, they should be connected to the CLKouts of the same group, e.g. CLKout 0 and 1 of Clock Group 0.
 	\item Adjustable delay at CLKouts: 
 	\begin{itemize}
 		\item \textbf{Fine, analog delay}: Step size \SI{25}{\pico\second}, range from 0 to \SI{475}{\pico \second} \newline 
@@ -60,10 +66,16 @@ The LMK0480 is used for jitter cleaning of the clock signal coming from KARA. It
 	For a desired delay \texttt{CLKX\_Y\_DDLY} and \texttt{CLKX\_Y\_HS} have to be set accordingly, with \texttt{X} being the even and \texttt{Y} being the odd number of the \texttt{CLKout} in the group.
 \end{itemize}
 
+\subsubsection{For time stretch}
+\paragraph{NB6L295}
+Dual Channel Programmable Delay Chip.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.6\textwidth]{chap/03-work/img/pll.tikz}
-	\caption{Schema with PLL. Red: only in "time-stretch-mode"}
-	\label{fig:pll}
-\end{figure}
+\begin{itemize}
+	\item Two individual variable delay channels
+	\item Dual Delay: minimal delay \SI{3.2}{\nano \second}
+	\item \SI{11}{\pico \second} in 511 steps
+	\item \SI{100}{\pico \second} Typical Rise and Fall Times
+\end{itemize}
+\subsection{Delay-Chip (for Time-Stretch-Mode)}
+\newpage
+\section{FPGA}

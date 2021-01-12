@@ -1,0 +1,16 @@
+﻿\begin{tikzpicture}	
+		\draw[step=1.0,white,thin] (-7.5,-1) grid (0.5,5.5);
+		\tikzset{doubleblock/.style={ shape=rectangle,draw,fill=white,tape bend top=none, copy shadow}}
+
+		\node (pll) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=4cm,label=PLL] {};
+		\node (vcxo) at (-6,0.9) [draw,thick,minimum width=2cm,minimum height=1cm] {VCXO};
+
+		\node (fanout) at (-1,3.5) [doubleblock,minimum width=2cm,minimum height=1cm] {FanOut};
+		\node (fpga) at (-1,0.9) [draw,thick,minimum width=2cm,minimum height=1cm] {FPGA};
+
+        \draw[-Latex] (-6,2.2) node[anchor=south] {KARA Clock} -- (pll);
+		\draw[-Latex] (vcxo) -- ([yshift=-1.3cm]pll.west);
+		
+		\draw[-Latex] ([yshift=+1.3cm]pll.east) -- (fanout.west);
+		\draw[-Latex] ([yshift=-1.3cm]pll.east) -- (fpga.west);
+\end{tikzpicture}
