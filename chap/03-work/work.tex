@@ -66,6 +66,8 @@ The LMK0480 feeds into the two fan-out modules and to the FPGA. As the ADCs are 
 	For a desired delay \texttt{CLKX\_Y\_DDLY} and \texttt{CLKX\_Y\_HS} have to be set accordingly, with \texttt{X} being the even and \texttt{Y} being the odd number of the \texttt{CLKout} in the group.
 \end{itemize}
 
+
+\subsection{Delay-Chip}
 \subsubsection{For time stretch}
 \paragraph{NB6L295}
 Dual Channel Programmable Delay Chip.
@@ -73,9 +75,10 @@ Dual Channel Programmable Delay Chip.
 \begin{itemize}
 	\item Two individual variable delay channels
 	\item Dual Delay: minimal delay \SI{3.2}{\nano \second}
-	\item \SI{11}{\pico \second} in 511 steps
+	\item Total Delay Range: \SI{3.2}{\nano \second} to \SI{8.8}{\nano \second} per Delay Channel
+	\item \SI{11}{\pico \second} Increments in 511 steps
 	\item \SI{100}{\pico \second} Typical Rise and Fall Times
 \end{itemize}
-\subsection{Delay-Chip (for Time-Stretch-Mode)}
+
 \newpage
 \section{FPGA}
