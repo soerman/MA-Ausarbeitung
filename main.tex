@@ -13,6 +13,7 @@
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
 
 %\usepackage[dvipsnames,table]{xcolor}
+\usepackage{media9}
 
 %images
 \usepackage{graphicx}
@@ -20,7 +21,7 @@
 
 %tikz & pgfplots
 \usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz}
-\usetikzlibrary{arrows,shapes,shadows,external}
+\usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing}
 \tikzexternalize[optimize=false,prefix=tikz/]
 
 \usepgfplotslibrary{units,fillbetween,colormaps} 
@@ -36,6 +37,7 @@ color(41.66666666666670bp)=(orange);
 color(50.00000000000000bp)=(red)
 } 
 
+\usepackage{tikz-timing}[2009/05/15]
 
 %for tables
 \usepackage{tabularx}
@@ -144,17 +146,19 @@ color(50.00000000000000bp)=(red)
     		\input{./chap/01-introduction/introduction}
     \chapter{Theoretical Fundamentals}
     		\input{./chap/02-theory/theory}
-	\chapter{Development of the system}
+	\chapter{Design of the system}
 		\input{./chap/03-work/work}
+	\chapter{Characterization}	
+		\input{./chap/04-characterization/characterization}
     \chapter{Conclusions and Outlook}
-    		\input{./chap/04-conclusion/conclusion}
+    		\input{./chap/05-conclusion/conclusion}
 
     % appendix for more or less interesting calculations
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
     % to make the appendix appear in ToC without number. \appendixname = 
     % Appendix or Anhang (depending on chosen language)
-    \input{./chap/05-appendix/appendix} %\cleardoublepage
+    \input{./chap/06-appendix/appendix} %\cleardoublepage
 
 
 
