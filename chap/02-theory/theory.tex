@@ -57,12 +57,46 @@
 
 
 \newpage
-\section{Analog-To-Digital-Converter}
+\section{Characteristics of Analog-To-Digital-Converters}
+Analog-to-digital converters (ADCs) are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. This section covers the different characteristics of an ADC, which are needed to evaluate the performance of the developed system. 
 \subsection{Sampling Theory}
-\begin{itemize}
-\item Nyquist-Criteria
-\item Need for S/H
-\end{itemize}
+
+\paragraph{Nyquist-Criteria}
+To fully reconstruct a bandlimited continuous signal 
+\begin{equation}
+y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
+\end{equation}
+it has to be sampled with a frequency $f_A$ respecting:
+\begin{equation}
+f_A \geq B
+\end{equation}
+
+\paragraph{Sample-And-Hold-Amplifier}
+ADCs need a certain amount of time to sample the input signal. If the value of the signal changes by more than one Least-Significant-Bit (LSB) during this period, this can result in large errors in the output signal. Therefore, so called Sample-And-Hold-Amplifiers (SHA) are used in front of ADCs to hold the  input value for the needed amount of time. The ADC sampling needs to be timed in such way, that the analog-to-digital conversion falls into the hold period of the SHA and doesn't exceed into the sample period.
+
+
+
+\begin{figure} [H]
+\centering
+\tikzexternaldisable
+\begin{tikztimingtable}
+[%
+    timing/dslope=0.1,
+    timing/name/.style={font=\sffamily\normalsize},
+    timing/d/text/.style={font=\sffamily\normalsize},
+    grayz/.style={timing/z/.append style={gray}},
+    timing/n/.style={rectangle},
+    timing/metachar={{K}[2]{#1l !{++(0,+.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,-.5\yunit)} #1l}},
+    timing/metachar={{J}[2]{#1h !{++(0,-.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,+.5\yunit)} #1h}},
+  ]
+ SHA & 1H 8K{HOLD} 8J{SAMPLE} 8K{HOLD} 3H\\
+ Sampling & 5S A 16S A                    \\
+\end{tikztimingtable}
+\tikzexternalenable
+\end{figure}
+
+
+
 \subsection{AC errors}
 \begin{itemize}
 \item Quantization Noise

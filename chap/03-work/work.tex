@@ -33,10 +33,10 @@ The resulting sampling of the detector signal is shown \autoref{fig:detector_sig
 
 \newpage
 \subsection{THERESA}
-In principle, the new system has the same structure, as KAPTURE. Notable differences are firstly the number of ADCs, which is increased up to 16. Secondly, the latter are not located on the daughter card anymore, but inside of the FPGA on the Xilinx Zynq UltraScale+ RFSoC ZCU216 Evaluation Kit on which the front-end card is mounted. \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
+In principle, the new system has the same structure, as KAPTURE. Notable differences are firstly the number of ADCs, which is increased up to 16. Secondly, the latter are not located on the daughter card anymore, but inside the Xilinx Zynq UltraScale+ RFSoC ZU49DR on the ZCU216 Evaluation Kit on which the front-end card is mounted. \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
 \begin{figure}[H]
 	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/theresa_scheme.tikz}
+	\includegraphics[height = 0.3\textwidth, width = 0.5\textwidth]{chap/03-work/img/theresa_scheme.tikz}
 	\caption{General schema of THERESA. For presentation purposes only four channels are shown.}
 	\label{fig:theresa_scheme}
 \end{figure}
@@ -67,6 +67,8 @@ The card, holding the sampling channels, should be mounted on a ZCU216 evaluatio
 The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
 
 \paragraph{Frequency}
+
+
 \begin{figure}[H]
 \centering
 \tikzexternaldisable
@@ -100,6 +102,10 @@ The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sam
 \caption{Track-And-Hold Timing diagram}
 \label{fig:THA}
 \end{figure}
+
+
+
+
 \paragraph{Data Rate}
 \paragraph{Visualization/GUI}
 \newpage
