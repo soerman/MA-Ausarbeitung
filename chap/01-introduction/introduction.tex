@@ -1,0 +1,18 @@
+The ULTRASYNC (Exploration et contrôle ULTRArapide de la dynamique des paquets d'électrons dans les sources de lumière SYNChrotron, ANG-DFG) aims to study and control coherent synchrotron radiation (CSR) and microbunching instability. The goal is to obtain a high power and stable coherent emission (KARA and SOLEIL) by feedback control. At SOLEIL, this was already succesfully achieved, still there is a significant limit to the range, where this concept works. One possible way would be to calculate the necessary feedback from a whole THz CSR pulse shape, which would require to record an electro-optical signal (time-stretch). This leads to a possible approach by combining time-stretch and FPGA. 
+
+For the moment, the only experimental test has been made using a relatively simple feedback:
+- a bolometer signal as the feedback loop input
+- a low-cost FPGA (redpitaya) that sends the feedback on the accelerating voltage
+There are limitations in the maximal bunch charge in the accelerator. So an open question is whether measuring each THz pulse using EO sampling + time-stretch may help to solve this open problem. In clear:
+- EO sampling + time-stretch as in Eléonore's thesis
+-> association with the new FPGA-based system
+-> finding adequate feedback that is programmed in the FPGA
+may solve the problem, and allow the control to succeed at the highest currents in SOLEIL. 
+Target would be ~15 mA for 1 bunch (and feedback control presently works to a little more than ~10 mA).
+
+At 1 micron wavelength, the maximum stretch is limited due to fiber glass properties (at this wavelength). The maximum length achieved are 2-4 ns (SOLEIL and KARA). For this reason, a fast ADC is critical, to get a good ENOB/number of sampling points. A relevant figure of merit (that characterizes the effective number of points) is -- we think: FOM=electronic bandwidth x stretch time. There is some bottleneck concerning time-stretch at this wavelength, and one way to solve the issue is to try pushing the bandwidth of ADCs.
+
+At 1550 nm wavelength, it is possible to stretch the signal up to tens of nanoseconds. Therefore, a relatively cheap ADC would already be sufficient and allow an effective number of samples at around 100. Applications still need to be investigated.
+
+As potential applications for the new system would be applications for accelerators in the 1 micron wavelength (best concerning EO sampling SNR and bandwidth).
+

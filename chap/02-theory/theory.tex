@@ -1,5 +1,13 @@
 \section{Coherent Synchrotron Radiation}
-
+Relativistic electron bunches circulating in storage rings are used to produce intense
+radiation from far-infrared to X-rays. However, above a density threshold
+value, the interaction between the electron bunch and its own radiation can lead
+to a spatio-temporal instability called microbunching instability. This instability
+is characterized by a strong emission of coherent THz radiation (typically 100000
+times stronger than the classical synchrotron radiation) which is a signature of the
+presence of microstructures (at mm scale) in the electron bunch. This instability is
+known to be a fundamental limitation of the operation of synchrotron light sources
+at high beam current.
 
 \begin{figure}[H]
 	\centering
@@ -36,6 +44,17 @@
 \end{figure}
 
 \subsection{Micro-Bunching Instability}
+
+in the quest for higher emitted synchrotron radiation
+power, electron bunches with high charge densities are naturally subject to
+a complex nonlinear dynamics which can lead to instabilities. The so-called microbunching
+instability or CSR (Coherent Synchrotron Radiation) instability (due
+to the interaction of the electrons with their own radiation in bending magnets) is
+known to be responsible for the spontaneous formation of microstructures in the
+bunch. This spatio-temporal instability is recognized to be a fundamental limitation
+of stable operation at high current density in storage rings. In parallel, it
+is also considered as a promising source of brilliant THz radiation at high repetition
+rate.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/csr.png}
@@ -45,6 +64,15 @@
 
 \newpage 
 \section{Photonic time-stretch analog-to-digital converter}
+
+
+
+
+
+
+
+
+
 
 "' In recent and future synchrotron radiation facilities, relativistic electron bunches with increasingly high charge density are needed for producing brilliant light at various wavelengths, from X-rays to terahertz. In such conditions, interaction of electron bunches with their own emitted electromagnetic fields leads to instabilities and spontaneous formation of complex spatial structures. Understanding these instabilities is therefore key in most electron accelerators. However, investigations suffer from the lack of non-destructive recording tools for electron bunch shapes. In storage rings, most studies thus focus on the resulting emitted radiation. Here, we present measurements of the electric field in the immediate vicinity of the electron bunch in a storage ring, over many turns. For recording the ultrafast electric field, we designed a photonic time-stretch analog-to-digital converter with terasamples/second acquisition rate. We could thus observe the predicted link between spontaneous pattern formation and giant bursts of coherent synchrotron radiation in a storage ring. "'  \cite{Bielawski2019}
 
@@ -62,15 +90,15 @@ Analog-to-digital converters (ADCs) are used to translate analog quantities into
 \subsection{Sampling Theory}
 
 \paragraph{Nyquist-Criteria}
-To fully reconstruct a bandlimited continuous signal 
+An ADC samples an analog signal with a frequency $f_s$. This frequency has to be chosen in such way, that the original signal can be fully reconstructed. The Nyquist criteria states, that in order to accurately represent a bandlimited, continous signal
 \begin{equation}
 y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
 \end{equation}
-it has to be sampled with a frequency $f_A$ respecting:
+it has to be sampled with a frequency $f_s$ respecting
 \begin{equation}
-f_A \geq B
+f_s \geq B \quad \text{or} \quad f_s \geq 2 f_a
 \end{equation}
-
+with $f_a$ being the highest frequency contained in the signal. \cite{walt} \cite{puente2015}
 \paragraph{Sample-And-Hold-Amplifier}
 ADCs need a certain amount of time to sample the input signal. If the value of the signal changes by more than one Least-Significant-Bit (LSB) during this period, this can result in large errors in the output signal. Therefore, so called Sample-And-Hold-Amplifiers (SHA) are used in front of ADCs to hold the  input value for the needed amount of time. The ADC sampling needs to be timed in such way, that the analog-to-digital conversion falls into the hold period of the SHA and doesn't exceed into the sample period.
 
