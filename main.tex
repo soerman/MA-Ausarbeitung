@@ -24,6 +24,7 @@
 \usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing}
 \tikzexternalize[optimize=false,prefix=tikz/]
 
+
 \usepgfplotslibrary{units,fillbetween,colormaps} 
 \pgfplotsset{compat=newest}
 
@@ -54,6 +55,12 @@ color(50.00000000000000bp)=(red)
 \usepackage{siunitx}
 \usepackage{glossaries}
 \usepackage{trfsigns}
+\usepackage{ifthen}
+\usepackage{xargs}
+\usepackage{etoolbox}
+\usepackage{iflang}
+\usepackage{verbatim}
+\usepackage{tikz-palattice}
 
 %% -------------------------
 %% |    Thesis Settings    |
@@ -149,7 +156,7 @@ color(50.00000000000000bp)=(red)
     \chapter{Theoretical Fundamentals}
     		\input{./chap/02-theory/theory}
 	\chapter{Design of the system}
-		\input{./chap/03-work/work}
+	%	\input{./chap/03-work/work}
 	\chapter{Characterization}	
 		\input{./chap/04-characterization/characterization}
     \chapter{Conclusions and Outlook}

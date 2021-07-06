@@ -1,4 +1,11 @@
 \section{Coherent Synchrotron Radiation}
+
+Nowadays, synchrotron radiation facilities, e.g. electron storage rings, are used
+to produce intense radiation in wavelength ranges that are not usually reachable
+by traditional optical means, in particular in the X-rays and terahertz domain.
+This radiation, called synchrotron radiation, is produced when a relativistic electron
+is accelerated. In practice, the emission of synchrotron radiation occurs in
+the bending magnets or in the undulators of a storage ring.
 Relativistic electron bunches circulating in storage rings are used to produce intense
 radiation from far-infrared to X-rays. However, above a density threshold
 value, the interaction between the electron bunch and its own radiation can lead
@@ -7,7 +14,53 @@ is characterized by a strong emission of coherent THz radiation (typically 10000
 times stronger than the classical synchrotron radiation) which is a signature of the
 presence of microstructures (at mm scale) in the electron bunch. This instability is
 known to be a fundamental limitation of the operation of synchrotron light sources
-at high beam current.
+at high beam current. \cite{roussel2014}
+
+\tikzexternaldisable
+\begin{figure}[H]
+	\centering
+	\begin{lattice}[0.7]
+		\begin{labeldistance}{0.3}
+			\cavity{RF cavity}{0.3}[0.6]
+		    \drift{0.6}
+			\dipole{}{0.6}{45}[][0.4]
+			\drift{1.5}
+			\dipole{Bending magnet}{0.6}{45}[][0.4]
+			\savecoordinate{synch1}[center]
+			\drift{1.5}
+			\dipole{}{0.6}{45}[][0.4]
+			\drift{1.5}
+			\dipole{}{0.6}{45}[][0.4]
+			\savecoordinate{myCoord1}
+			\drift{1.5}
+			\savecoordinate{myCoord2}
+			\dipole{}{0.6}{45}[][0.4]
+			\savecoordinate{myCoord3}[center]
+			\drift{1.5}
+			\dipole{}{0.6}{45}[][0.4]
+			\drift{0.4}
+			\setelementcolor{kicker}{cyan}
+			\kicker{Undulator}{0.7}
+			\drift{0.4}
+			\dipole{}{0.6}{45}[][0.4]
+			\drift{1.5}
+			\dipole{}{0.6}{45}[][0.4]
+			\drift{0.6}
+		\end{labeldistance}
+	\draw[-latex, thick] (myCoord2) -- (myCoord1) node[ellipse, midway, fill=black, minimum width = 10mm] {};
+	\draw[draw=none, fill opacity=0, text opacity = 1] (myCoord2) -- (myCoord1) node[midway, above, yshift = 2mm] {$e^{-}$ bunch};
+	\draw[-latex, thick, color = red] (synch1) -- ++(-0.5,-1.2) node[near end, color = red, below right] {Synchrotron radiation};
+	\draw[latex-, thick] (myCoord3) -- ++(-3.5,0) node[midway, above] {Injection};
+	\end{lattice}
+	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
+\end{figure}
+\tikzexternalenable
+
+
+
+
+
+
 
 \begin{figure}[H]
 	\centering
