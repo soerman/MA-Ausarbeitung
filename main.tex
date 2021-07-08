@@ -11,35 +11,15 @@
 % Useful Supplied Packages:
 % amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
-
 %\usepackage[dvipsnames,table]{xcolor}
 \usepackage{media9}
 
 %images
-\usepackage{graphicx}
+%\usepackage{graphicx}
 \usepackage{float}
-
-%tikz & pgfplots
-\usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz}
-\usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing}
-\tikzexternalize[optimize=false,prefix=tikz/]
+\usepackage{pdfpages}
 
 
-\usepgfplotslibrary{units,fillbetween,colormaps} 
-\pgfplotsset{compat=newest}
-
-\pgfdeclarehorizontalshading{visiblelight}{50bp}{
-color(0.00000000000000bp)=(violet);
-color(8.33333333333333bp)=(blue);
-color(16.66666666666670bp)=(cyan);
-color(25.00000000000000bp)=(green);
-color(33.33333333333330bp)=(yellow);
-color(41.66666666666670bp)=(orange);
-color(50.00000000000000bp)=(red)
-} 
-
-\usepackage{tikz-timing}[2009/05/15]
-\usetikztiminglibrary{arrows}
 
 %for tables
 \usepackage{tabularx}
@@ -51,16 +31,39 @@ color(50.00000000000000bp)=(red)
 % acronyms
 \usepackage{acronym} 
 
+
 %misc
 \usepackage{siunitx}
 \usepackage{glossaries}
 \usepackage{trfsigns}
-\usepackage{ifthen}
-\usepackage{xargs}
-\usepackage{etoolbox}
-\usepackage{iflang}
-\usepackage{verbatim}
-\usepackage{tikz-palattice}
+\usepackage{enumitem}
+
+%tikz & pgfplots
+\usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz, tikz-timing}
+\usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing}
+\tikzexternalize[optimize=false,prefix=tikz/]
+\usetikztiminglibrary{arrows}
+
+\usepgfplotslibrary{units,fillbetween,colormaps} 
+\pgfplotsset{compat=newest}
+
+\pgfdeclarehorizontalshading{visiblelight}{50bp}{
+	color(0.00000000000000bp)=(violet);
+	color(8.33333333333333bp)=(blue);
+	color(16.66666666666670bp)=(cyan);
+	color(25.00000000000000bp)=(green);
+	color(33.33333333333330bp)=(yellow);
+	color(41.66666666666670bp)=(orange);
+	color(50.00000000000000bp)=(red)
+} 
+
+
+
+
+
+
+
+%\usepackage{tikz-palattice}
 
 %% -------------------------
 %% |    Thesis Settings    |
@@ -96,7 +99,7 @@ color(50.00000000000000bp)=(red)
     pdfauthor={\thesisauthor},
     pdftitle={Masterarbeit: \thesisentopic},
     pdfsubject={\thesislongtopic},
-    pdfkeywords={kit,physik,bachelor,thesis,\thesisauthor}
+    pdfkeywords={kit,etit,master,thesis,\thesisauthor}
 }
 
 
@@ -156,7 +159,7 @@ color(50.00000000000000bp)=(red)
     \chapter{Theoretical Fundamentals}
     		\input{./chap/02-theory/theory}
 	\chapter{Design of the system}
-	%	\input{./chap/03-work/work}
+			\input{./chap/03-work/work}
 	\chapter{Characterization}	
 		\input{./chap/04-characterization/characterization}
     \chapter{Conclusions and Outlook}

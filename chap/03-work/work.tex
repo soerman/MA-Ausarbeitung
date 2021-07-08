@@ -7,12 +7,21 @@ KAPTURE, which was developed at IPE, is a system designed to continuously sample
 The newer version, KAPTURE-2, was designed for more accurate sampling for pulse repetition rates up to \SI{2}{\giga \hertz}. The acquired data is processed with a FPGA and GPU architecture.  \cite{caselleKAP}
 
 The general structure of the board is shown in \autoref{fig:kapture}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-work/img/kapture.tikz}
 	\caption{General schema of KAPTURE-2 (cf. \cite[p.2]{caselleKAP})}
 	\label{fig:kapture}
 \end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.3\textwidth, width = 0.6\textwidth]{chap/03-work/img/pll_karaMode.tikz}
+	\caption{}
+	\label{fig:pll}
+\end{figure}
+
 The pulse from the \SI{}{\tera \hertz} detector is fed into a power splitter, which splits the signal into four identical pulses and distributes them to four channels, consisting of a respective Track-And-Hold-Amplifier (THA) unit and a 12-bit ADC@\SI{500}{\mega\sample\per\second}. The sampling time of each unit can be adjusted individually with a Picosecond Delay Chip with a resolution of \SI{3}{\pico \second} (maximal delay range: \SI{100}{\pico \second}). 
 The clock signal is provided by KARA, which cleared from jitter by a Phase-Locked-Loop (PLL). This ensures the synchronization of the ADCs with the RF system. The clean clock signal is distributed to the delay chips via fan-out. \cite{caselleKAP}
 
@@ -28,7 +37,7 @@ The resulting sampling of the detector signal is shown \autoref{fig:detector_sig
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/kapture_sys.png}
 	\caption{Photo of KAPTURE with highlighted main components. \cite[p.~61]{brosi}}
-	\label{fig:kapture}
+	\label{fig:kapturesys}
 \end{figure}
 
 \newpage
@@ -132,12 +141,12 @@ Dual Channel Programmable Delay Chip.
 	\label{fig:clk104}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/pll_tsMode.tikz}
-	\caption{Clocking scheme on front-end card}
-	\label{fig:pll}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/pll_tsMode.tikz}
+%	\caption{Clocking scheme on front-end card}
+%	\label{fig:pll}
+%\end{figure}
 
 
 \subsection{Power Supply}

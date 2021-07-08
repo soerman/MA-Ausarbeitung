@@ -1,63 +1,63 @@
 \begin{tikzpicture}[amp/.style = {regular polygon, regular polygon sides=3,
-              draw, fill=white, text width=1em,
-              inner sep=1mm, outer sep=0mm,
-              shape border rotate=0}]
-		
-		\node[twoportshape,t=T/H,anchor=0](th1) at (-1,4.5) {};
-		\node[twoportshape,t=T/H,anchor=0](th2) at (0.5,3) {};
-		\node[twoportshape,t=T/H,anchor=0](th3) at (2,1.5) {};
-		\node[twoportshape,t=T/H,anchor=0](th4) at (3.5,0) {};
-		
-		\node[adcshape,anchor=0](ad1) at (5,4.5) {};
-		\node[adcshape,anchor=0](ad2) at (5,3) {};
-		\node[adcshape,anchor=0](ad3) at (5,1.5) {};
-		\node[adcshape,anchor=0](ad4) at (5,0) {};
-		
-		\node[twoportshape,t=$\Delta t_{1}$,anchor=0](d1) at (-1,-2) {};
-		\node[twoportshape,t=$\Delta t_{2}$,anchor=0](d2) at (0.5,-2) {};
-		\node[twoportshape,t=$\Delta t_{3}$,anchor=0](d3) at (2,-2) {};
-		\node[twoportshape,t=$\Delta t_{4}$,anchor=0](d4) at (3.5,-2) {};
-		
-		\node (ps) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=6cm,label=Power Splitter] {};
-		\node (fpga) at (6.5,2.2) [draw,thick,minimum width=1cm,minimum height=6cm,label=FPGA] {};
-
-		\node[amp,right,label=below right:{FanOut}] (fanout)  at (0.26,-4) {};
-
-		\node[twoportshape,t=PLL,anchor=0](pll) at (-3,-5) {};
+		draw, fill=white, text width=1em,
+		inner sep=1mm, outer sep=0mm,
+		shape border rotate=0}]
 	
-		\draw[-Latex]  (th1) to (ad1);
-		\draw[-Latex]  (th2) to (ad2);
-		\draw[-Latex]  (th3) to (ad3);
-		\draw[-Latex]  (th4) to (ad4);
-		
-		
-		\draw[-Latex]  (d1.north) to (th1.south);
-		\draw[-Latex]  (d2.north) to (th2.south);
-		\draw[-Latex]  (d3.north) to (th3.south);
-		\draw[-Latex]  (d4.north) to (th4.south);
-		
-		\draw[-Latex]  ([yshift=+2.3cm]ps.east) to (th1.west);
-		\draw[-Latex]  ([yshift=+0.8cm]ps.east) to (th2.west);
-		\draw[-Latex]  ([yshift=-0.7cm]ps.east) to (th3.west);
-		\draw[-Latex]  ([yshift=-2.2cm]ps.east) to (th4.west);
-		
-		\draw[-Latex] (ad1.east) to ([yshift=+2.3cm]fpga.west);
-		\draw[-Latex] (ad2.east) to ([yshift=+0.8cm]fpga.west);
-		\draw[-Latex] (ad3.east) to ([yshift=-0.7cm]fpga.west);
-		\draw[-Latex] (ad4.east) to ([yshift=-2.2cm]fpga.west);
-		
-		\draw[-Latex] (-6,2.2) node[anchor=south] {From Detector} -- (ps);
-
-		\draw[-Latex] (fanout.west) to (d1.south);
-		\draw[-Latex] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
-		\draw[-Latex] ([xshift=-0.28cm,yshift=0.5cm]fanout.east) to (d3.south);
-		\draw[-Latex] (fanout.east) to (d4.south);
-
-		\draw[-Latex]  (pll.east) - | (fanout.south);
-
-        \draw[-Latex] (-6,-5) node[anchor=south] {KARA Clock} -- (pll);
-
-		\draw[-Latex] (fpga.east) to (8.5,2.2) node[anchor=south] {To GPU-DAQ} ;
-
-		\node[right,label=below right:{Picosecond Delay Chips}] at (3.5,-1.65) {};
+	\node[twoportshape,t=T/H,anchor=0](th1) at (-1,4.5) {};
+	\node[twoportshape,t=T/H,anchor=0](th2) at (0.5,3) {};
+	\node[twoportshape,t=T/H,anchor=0](th3) at (2,1.5) {};
+	\node[twoportshape,t=T/H,anchor=0](th4) at (3.5,0) {};
+	
+	\node[adcshape,anchor=0](ad1) at (5,4.5) {};
+	\node[adcshape,anchor=0](ad2) at (5,3) {};
+	\node[adcshape,anchor=0](ad3) at (5,1.5) {};
+	\node[adcshape,anchor=0](ad4) at (5,0) {};
+	
+	\node[twoportshape,t=$\Delta t_{1}$,anchor=0](d1) at (-1,-2) {};
+	\node[twoportshape,t=$\Delta t_{2}$,anchor=0](d2) at (0.5,-2) {};
+	\node[twoportshape,t=$\Delta t_{3}$,anchor=0](d3) at (2,-2) {};
+	\node[twoportshape,t=$\Delta t_{4}$,anchor=0](d4) at (3.5,-2) {};
+	
+	\node (ps) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=6cm,label=Power Splitter] {};
+	\node (fpga) at (6.5,2.2) [draw,thick,minimum width=1cm,minimum height=6cm,label=FPGA] {};
+	
+	\node[amp,right,label=below right:{FanOut}] (fanout)  at (0.26,-4) {};
+	
+	\node[twoportshape,t=PLL,anchor=0](pll) at (-3,-5) {};
+	
+	\draw[-Latex]  (th1) to (ad1);
+	\draw[-Latex]  (th2) to (ad2);
+	\draw[-Latex]  (th3) to (ad3);
+	\draw[-Latex]  (th4) to (ad4);
+	
+	
+	\draw[-Latex]  (d1.north) to (th1.south);
+	\draw[-Latex]  (d2.north) to (th2.south);
+	\draw[-Latex]  (d3.north) to (th3.south);
+	\draw[-Latex]  (d4.north) to (th4.south);
+	
+	\draw[-Latex]  ([yshift=+2.3cm]ps.east) to (th1.west);
+	\draw[-Latex]  ([yshift=+0.8cm]ps.east) to (th2.west);
+	\draw[-Latex]  ([yshift=-0.7cm]ps.east) to (th3.west);
+	\draw[-Latex]  ([yshift=-2.2cm]ps.east) to (th4.west);
+	
+	\draw[-Latex] (ad1.east) to ([yshift=+2.3cm]fpga.west);
+	\draw[-Latex] (ad2.east) to ([yshift=+0.8cm]fpga.west);
+	\draw[-Latex] (ad3.east) to ([yshift=-0.7cm]fpga.west);
+	\draw[-Latex] (ad4.east) to ([yshift=-2.2cm]fpga.west);
+	
+	\draw[-Latex] (-6,2.2) node[anchor=south] {From Detector} -- (ps);
+	
+	\draw[-Latex] (fanout.west) to (d1.south);
+	\draw[-Latex] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
+	\draw[-Latex] ([xshift=-0.28cm,yshift=0.5cm]fanout.east) to (d3.south);
+	\draw[-Latex] (fanout.east) to (d4.south);
+	
+	\draw[-Latex]  (pll.east) - | (fanout.south);
+	
+	\draw[-Latex] (-6,-5) node[anchor=south] {KARA Clock} -- (pll);
+	
+	\draw[-Latex] (fpga.east) to (8.5,2.2) node[anchor=south] {To GPU-DAQ} ;
+	
+	\node[right,label=below right:{Picosecond Delay Chips}] at (3.5,-1.65) {};
 \end{tikzpicture}
