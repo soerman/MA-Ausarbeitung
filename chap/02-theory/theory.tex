@@ -106,43 +106,64 @@ As demands in these fields are ever-increasing, electron accelerators need to pr
 
 
 \newpage
-\section{Characteristics of Analog-To-Digital-Converters}
-Analog-to-digital converters (ADCs) are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. This section covers the different characteristics of an ADC, which are needed to evaluate the performance of the convertes in the developed system. 
-\subsection{Sampling Theory}
 
-\paragraph{Nyquist-Criteria}
-An ADC samples an analog signal with a frequency $f_s$. This frequency has to be chosen in such way, that the original signal can be fully reconstructed. The Nyquist criteria states, that in order to accurately represent a bandlimited, continous signal
+
+\section{Analog-To-Digital Converters}
+The following section aims to recapitulate the theory and characteristics concerning Analog-To-Digital-Converters (ADCs).
+\subsection{Sampling Theory}
+An ADC samples an analog signal with a frequency $f_s$. This frequency has to be chosen in such way, that the original signal can be fully reconstructed. The \textit{Nyquist criteria} states, that in order to accurately represent a bandlimited, continous signal
 \begin{equation}
-y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
+	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
 \end{equation}
 it has to be sampled with a frequency $f_s$ respecting
 \begin{equation}
-f_s \geq B \quad \text{or} \quad f_s \geq 2 f_a
+	f_s \geq B \quad \text{or} \quad f_s \geq 2 f_a
 \end{equation}
 with $f_a$ being the highest frequency contained in the signal. \cite{walt} \cite{puente2015} \\
-In other words, $f_a$ must be inside of the \textit{Nyquist bandwidth}, which is the spectrum from DC to $f_s/2$. Violation of this rule leads to \textit{aliasing}
+In other words, $f_a$ must be inside of the \textit{Nyquist bandwidth}, which is the spectrum from DC to $f_s/2$. Violation of this rule leads to \textit{aliasing}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+	\centering
+	% include first image
+	\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_f}  
+	\caption{Sampling in frequency domain}
+	\label{fig:alias_f}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+	\centering
+	% include first image
+:alias	\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_t}  
+	\caption{Aliasing in time domain}
+	\label{fig:alias_t}
+	\end{subfigure}
+	\caption{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria. \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
+\end{figure}
+
+
 \paragraph{Sample-And-Hold-Amplifier}
 ADCs need a certain amount of time to sample the input signal. If the value of the signal changes by more than one Least-Significant-Bit (LSB) during this period, this can result in large errors in the output signal. Therefore, so called Sample-And-Hold-Amplifiers (SHA) are used in front of ADCs to hold the  input value for the needed amount of time. The ADC sampling time needs to be timed in such way, that the analog-to-digital conversion falls into the hold period of the SHA and doesn't exceed into the sample period, for example like shown schmeatically in the diagram below. Thus, the upper frequency limitation is not determined by the ADC itself, but rather by the aperture jitter,bandwidth, distortion, etc. of the SHA. \cite{walt}
 
 
 
 \begin{figure} [H]
-\centering
-\tikzexternaldisable
-\begin{tikztimingtable}
-[%
-    timing/dslope=0.1,
-    timing/name/.style={font=\sffamily\normalsize},
-    timing/d/text/.style={font=\sffamily\normalsize},
-    grayz/.style={timing/z/.append style={gray}},
-    timing/n/.style={rectangle},
-    timing/metachar={{K}[2]{#1l !{++(0,+.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,-.5\yunit)} #1l}},
-    timing/metachar={{J}[2]{#1h !{++(0,-.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,+.5\yunit)} #1h}},
-  ]
- SHA & 1H 8K{HOLD} 8J{SAMPLE} 8K{HOLD} 3H\\
- Sampling & 5S A 16S A                    \\
-\end{tikztimingtable}
-\tikzexternalenable
+	\centering
+	\tikzexternaldisable
+	\begin{tikztimingtable}
+		[%
+		timing/dslope=0.1,
+		timing/name/.style={font=\sffamily\normalsize},
+		timing/d/text/.style={font=\sffamily\normalsize},
+		grayz/.style={timing/z/.append style={gray}},
+		timing/n/.style={rectangle},
+		timing/metachar={{K}[2]{#1l !{++(0,+.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,-.5\yunit)} #1l}},
+		timing/metachar={{J}[2]{#1h !{++(0,-.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,+.5\yunit)} #1h}},
+		]
+		SHA & 1H 8K{HOLD} 8J{SAMPLE} 8K{HOLD} 3H\\
+		Sampling & 5S A 15S A                    \\
+	\end{tikztimingtable}
+	\tikzexternalenable
 \end{figure}
 
 In addition to the SHA, there is also the Track-And-Hold-Amplifier (THA). Instead of a sample period, the THA has a track period, where the output of the amplifier tracks the input signal (see also \autoref{fig:tha}). When switching to hold mode, the signal at this instant is held. This is opposed to the SHA, where the output during sample mode is actually not defined and is set to the value of the input signal, only when switching into hold mode. 
@@ -153,56 +174,127 @@ In addition to the SHA, there is also the Track-And-Hold-Amplifier (THA). Instea
 	\caption{Track-And-Hold-Amplifier schematic and principle \cite{walt}}
 	\label{fig:tha}
 \end{figure}
-\subsection{AC errors}
-In this section, the most important AC errors are briefly described.
+
+\subsection{Characteristics of Analog-To-Digital-Converters}
+ADCs are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, N-bit words. This can be experessed as
+\begin{equation}
+	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
+\end{equation}
+with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. 
+For an ideal converter, the number of bits would be sufficient to fully characterize it. Real ADCs however differ from the ideal behaviour, introducing static and dynamic imperfections. Different applications have different requirements, which leads to a number of specifications. These can be divided into three categories \cite{Lundberg}:
+\begin{itemize}
+	\item Static parameters
+	\item Frequency-domain dynamic parameters
+	\item Time-domain dynamic parameters
+\end{itemize}
+This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the ADC has to be chosen for each application respectively.
+
+\subsubsection*{Static parameters}
+\textit{Static parameters} are specifications, which can be measured at low speed/DC. 
+\paragraph{Accuracy}
+\textit{Accuracy} is the total error at a known voltage, which includes:
+\begin{itemize}
+	\item Quantization error
+	\item Gain error
+	\item Offset error
+	\item Nonlinearities
+\end{itemize}
+
+\paragraph{Resolution}
+\textit{Resolution} is the number of bits $N$ of the ADC. Depending from the resolution are the size of the LSB, which in its turn determines the dynamic range, code widths and quantization error.
+
+\paragraph{Dynamic Range}
+Ratio between smallest possible output (LSB voltage) and the largest possible output (full-scale voltage).
+\begin{equation}
+	20 \log 2^{N} \approx 6N
+\end{equation}
+
+
+\paragraph{Offset and Gain Error}
+The \textit{offset error} is the deviation of the first transition voltage from the ideal $1/2$ LSB. \textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. These errors can easily be corrected by calibration. Refer to \autoref{fig:offsetErr}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/offset_err.tikz}
+	\caption{Offset and Gain Error in the ADC characteristic. Notice the difference between the ideal, dotted line}
+	\label{fig:offsetErr}
+\end{figure}
+
+\subsubsection*{Dynamic performance}
+In an ADC (with built-in SHA) there are a couple of sources, which introduce noise and distortion:
+\begin{itemize}
+	\item \textbf{Input Stage:} Wideband noise, nonlinearity and bandwidth limitation
+	\item \textbf{SHA:} Nonlinearity, aperture jitter\footnote{Aperture jitter is the sample-to-sample variation in aperture delay, with \textit{aperture delay} meaning the time, which is needed by the SHA to disconnect the holding capacitor from the input buffer.} and bandwidth limitation
+	\item \textbf{ADC:} Quantization noise, integral and differential nonlinearity
+\end{itemize}
+In the following the most important specifications are described, which are used to characterize the performance of ADCs.
 
 \paragraph{Quantization Noise}
-An ideal N-bit converter has errors occuring during sampling and quantization. For an equidistant quantization the \textbf{quantization error} is:
+Even in an ideal N-bit converter there will be errors during the quantization, which behave like noise. The reason is that each N-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC} for an example transfer function of an ideal, 3-bit ADC) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
 \begin{equation}
-	\left| e_q(t) \right| = \left| x_q(t) - x(t) \right| \leq \frac{q}{2}
+	\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
 \end{equation}
-with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the widht of the quantisation stage. \cite{puente2015}
-In time domain, can be approximated with a sawtooth signal:
+with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
+	\caption{Transfer function of an ideal, 3-bit ADC (redrawn from \cite{Lundberg})}
+	\label{fig:idealADC}
+\end{figure}
+Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
 \begin{equation}
 	e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
 \end{equation}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error}
-	\caption{Quantization noise as function of time\cite{walt}}
+	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
+	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
 	\label{fig:eq}
 \end{figure}
 
-The power of the quantization noise can be calculated as the mean-square of $e(t)$:
+The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e(t)$:
 \begin{equation}
-	P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{q^2}{12}
-\end{equation}
-The rms quantization error is then:
-\begin{equation}
-	e_{rms} = \frac{q}{\sqrt{12}}
+	P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
 \end{equation}
 
-Assuming a full-scale input sinewave, the theoretical Signal-To-Noise-Ratio (SNR) of the ideal converter can be calculated as follows:
+To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
 \begin{equation}
-	\text{Sine wave:} \quad u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)
+	u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)  = 2^{N-1}q \sin(2\pi f t)
 \end{equation}
+With the effective value of the signal amplitude
 \begin{equation}
-	u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{2}\sin(2\pi f t)
+	u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
 \end{equation}
+and the quantization noise power, the SNR can be calculated as
 \begin{equation}
-	\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}}
+	\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
 \end{equation}
+In decibel:
+\begin{equation}
+	\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
+\end{equation}
+\cite{puente2015} \cite{walt}
 
-\begin{itemize}
-\item Equivalent Input Referred Noise
-\item Noise-Free Code Resolution
-\end{itemize}
+\paragraph{Equivalent Input Referred Noise}
+Internal circuits of wideband ADCs produce rms noise due to resistor and thermal ("kT/C") noise, which is also present for DC signals. Therefore, the output of the ADC is a distribution of codes which is centered around the value of a DC input. For measuring the value of the noise, the ADC input is grounded, or held at a specific DC value, and a large amount of samples is collected and plotted as a histrogram. The noise is approximately Gaussian, thus the stndard deviation can easily be calculated.
+
+\paragraph{Noise-Free Code Resolution}
+The input referred noise described above determines the \textit{noise-free code resolution}, which is the number of bits, beyodn which it is not possible to resolve individual codes.
+
 \paragraph{Integral and Differential Nonlinearity Distortion} 
+\textit{Integral nonlinearity} in the transfer function of data converters results from the integral nonlinearities of the front-end, SHA and also the ADC itself. These nonlinearities depend on the input signal amplitude. distance of the code centers in the A/D converter characteristic from the ideal line
+\textit{Differential nonlinearities} stem exclusively from the encoding process in the ADC. They not only depend on the input signal amplitude, but also on the positioning along the transfer function. The deviation of the code transition widths from the ideal width
+of 1 LSB
 
-\paragraph{Dynamic Performance}
+\paragraph{Harmonic Distortion, Worst Harmonic, Total Harmonic Distortion (THD), Total Harmonic Distortion + Noise (THD + N)}
 
 \begin{itemize}
-\item Harmonic Distortion, Worst Harmonic, Total Harmonic Distortion (THD), Total Harmonic Distortion + Noise (THD + N)
+	\item \textbf{Harmonic distortion (dBc\footnote{decibels below carrier}):} Input signal near full scale
+\end{itemize}
+
+\begin{itemize}
+\item 
 \item Signal-to-Noise-and-Distortion Ratio (SINAD, or S/N + D), Signal-to-Noise ratio (SNR), Effective Number of Bits (ENOB)
 \item Analog Bandwidth (Full-Power, Small-Signal)
 \item Spurious Free Dynamic Range (SFDR)
