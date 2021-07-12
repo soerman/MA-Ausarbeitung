@@ -2,4 +2,4 @@
 
 Compile with PDFLatex.
 
-Content not really correctable atm.
+Content not really correctable nor sinnvoll atm.
