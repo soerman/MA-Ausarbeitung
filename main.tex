@@ -161,13 +161,17 @@
     		\input{./chap/01-introduction/introduction}
     \chapter{Theoretical Fundamentals}
     		\input{./chap/02-theory/theory}
-	\chapter{Design of the system}
+	\chapter{Design and Development of the System}
 			\input{./chap/03-work/work}
 	\chapter{Characterization}	
 		\input{./chap/04-characterization/characterization}
     \chapter{Conclusions and Outlook}
     		\input{./chap/05-conclusion/conclusion}
-
+    
+    \addcontentsline{toc}{section}{Acknowledgement}		
+	\chapter*{Acknowledgments}
+	\input{ack.tex}
+	
     % appendix for more or less interesting calculations
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
@@ -177,14 +181,14 @@
 
 
 
-    % Bibliography
-    \TheBibliography
-    \nocite{*}
-    % BIBTEX
-    % use if you want citations to appear even if they are not referenced to: 
-    % \nocite{*} or maybe \nocite{Kon64,And59} for specific entries
-    \bibliographystyle{babalpha}
-    \bibliography{lit}
+	% Bibliography
+	\TheBibliography
+	\nocite{*}
+	% BIBTEX
+	% use if you want citations to appear even if they are not referenced to: 
+	% \nocite{*} or maybe \nocite{Kon64,And59} for specific entries
+	\bibliographystyle{babalpha}
+	\bibliography{lit}
 
 
     % THEBIBLIOGRAPHY
