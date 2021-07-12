@@ -15,12 +15,6 @@ The general structure of the board is shown in \autoref{fig:kapture}.
 	\label{fig:kapture}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.6\textwidth]{chap/03-work/img/pll_karaMode.tikz}
-	\caption{}
-	\label{fig:pll}
-\end{figure}
 
 The pulse from the \SI{}{\tera \hertz} detector is fed into a power splitter, which splits the signal into four identical pulses and distributes them to four channels, consisting of a respective Track-And-Hold-Amplifier (THA) unit and a 12-bit ADC@\SI{500}{\mega\sample\per\second}. The sampling time of each unit can be adjusted individually with a Picosecond Delay Chip with a resolution of \SI{3}{\pico \second} (maximal delay range: \SI{100}{\pico \second}). 
 The clock signal is provided by KARA, which cleared from jitter by a Phase-Locked-Loop (PLL). This ensures the synchronization of the ADCs with the RF system. The clean clock signal is distributed to the delay chips via fan-out. \cite{caselleKAP}
@@ -50,9 +44,9 @@ In principle, the new system has the same structure, as KAPTURE. Notable differe
 	\label{fig:theresa_scheme}
 \end{figure}
 
-\subsubsection{Xilinx Zynq UltraScale+ RFSoC ZCU216 Evaluation Kit}
+\paragraph{Xilinx Zynq UltraScale+ RFSoC ZCU216 Evaluation Card}
 The card, holding the sampling channels, should be mounted on a ZCU216 evaluation board. This board is the newest generation of Xilinx' evaluation cards, which has features suitable for the purpose at hand.
-\begin{itemize}
+\begin{itemize}[noitemsep]
 \item Sixteen 14-bit, 2.5GSPS RF-ADC
 \item Sixteen 14-bit, 10GSPS RF-DAC
 \item I/O expansion options – FPGA Mezzanine Card (FMC+) interfaces, RFMC 2.0 interfaces, and Pmod connections
@@ -104,7 +98,7 @@ The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sam
 \extracode
  \tablerules
  \begin{pgfonlayer}{background}
- \draw [help lines] (A1) -- (B1);
+ \draw [help lines, dashed] (A1) -- (B1);
  \end{pgfonlayer}
 \end{tikztimingtable}
 \tikzexternalenable
@@ -122,10 +116,12 @@ The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sam
 In this section, the design of the front-end card is covered.
 
 \subsection{Sampling-Channel}
+\paragraph{Track-And-Hold}
+Explain why better than Sample-And-Hold.
 \paragraph{Delay Chip NB6L295}
 Dual Channel Programmable Delay Chip.
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Two individual variable delay channels
 	\item Dual Delay: minimal delay \SI{3.2}{\nano \second}
 	\item Total Delay Range: \SI{3.2}{\nano \second} to \SI{8.8}{\nano \second} per Delay Channel
@@ -136,17 +132,26 @@ Dual Channel Programmable Delay Chip.
 \subsection{Clocking}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-work/img/clk104.png}
+	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/clk104.png}
 	\caption{CLK104 Add-on board clocking scheme}
 	\label{fig:clk104}
 \end{figure}
 
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/pll_tsMode.tikz}
-%	\caption{Clocking scheme on front-end card}
-%	\label{fig:pll}
-%\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/pll_tsMode.tikz}
+	\caption{Clocking scheme on front-end card}
+	\label{fig:clocking}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/pll.png}
+	\caption{Placeholder}
+	\label{fig:pll}
+\end{figure}
+
 
 
 \subsection{Power Supply}
@@ -177,154 +182,9 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 
 \newpage
 \section{PCB-Layout}
-\subsection{General Techniques/Strategies?}
+\subsection{Substrate}
 \subsection{Floor Planning}
 \subsection{Transmission lines}
-
-
-
-\paragraph{Surface Coplanar Waveguide with Ground}  
-    \begin{figure}[!htbp]
-        \centering
-        \begin{tikzpicture}
-            \filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
-            \filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
-            \filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
-            \filldraw[color=black, fill=black] (3,3) rectangle ++(1,.2) node[pos=.5](cond1){};
-            \filldraw[color=black, fill=black] (5,3) rectangle ++(1,.2) node[pos=.5](cond2){};
-            \filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
-            \draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
-            \draw[>=triangle 45, <->] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
-            \draw[>=triangle 45, <->] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
-            \draw[>=triangle 45, <->] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
-            %\draw[>=triangle 45,  <->] (5.7,3) -- ++(0,0.2) node[pos=.5,anchor=west](){\(t\)};
-            
-            \draw[dashed] (9,3.2) -- (10,3.2);
-            \draw[dashed] (9,3) -- (10,3);
-            \draw[dashed] (0,1) -- (-1,1);
-            \draw[dashed] (0,3) -- (-1,3);
-            
-            \draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
-            \draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-            \draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
-            
-        \end{tikzpicture}
-        \caption{Edge-Coupled Coplanar Waveguide}
-        \label{fig:microstrip_geometry}
-    \end{figure}
-    
-The corresponding equations are \cite[~p197-198]{wadell}: 
-\begin{equation}
-Z_{0,o} = \frac{\eta_0}{\sqrt{\epsilon_{eff,o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)
-\end{equation}    
-
-\begin{equation}
-Z_{0,e} = \frac{\eta_0}{\sqrt{\epsilon_{eff,e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
-\end{equation} 
-
-
-\begin{equation}
-\epsilon_{eff,o} = \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}
-\end{equation}
-
-\begin{equation}
-\epsilon_{eff,e} = \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
-\end{equation}
-
-Where
-
-\begin{equation}
-k_o = \Lambda \frac{-\sqrt{\Lambda^2 - t_c^2} + \sqrt{\Lambda^2 - t_B^2}}{t_B\sqrt{\Lambda^2 - t_c^2} + t_c \sqrt{\Lambda^2 - t_B^2}}
-\end{equation}
-
-\begin{equation}
-k_e = \Lambda' \frac{-\sqrt{\Lambda'^2 - t_c'^2} + \sqrt{\Lambda'^2 - t_B'^2}}{t_B'\sqrt{\Lambda'^2 - t_c'^2} + t_c' \sqrt{\Lambda'^2 - t_B'^2}}
-\end{equation}
-    
-    
-\begin{equation}
-\Lambda = \frac{\sinh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
-\end{equation}
-
-\begin{equation}
-t_c = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda
-\end{equation}
-
-\begin{equation}
-t_B = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda
-\end{equation}
-
-
-\begin{equation}
-\Lambda' = \frac{\cosh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
-\end{equation}
-
-\begin{equation}
-t_c' = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda' + 1.0
-\end{equation}
-
-\begin{equation}
-t_B' = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda + 1.0
-\end{equation}
-
-The parameters have to be chosen according to 
-\begin{equation}
-s + 2.0 w + 2.0 d \leq h
-\end{equation}
-to guarantee coplanar propagation. \cite{wadell}
-    
-\paragraph{Surface Coplanar Waveguide with Ground}  
-  
-\begin{figure}[!htbp]
-     \centering
-     \begin{tikzpicture}
-            \filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
-            \filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
-            \filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
-            \filldraw[color=black, fill=black] (3.5,3) rectangle ++(2,.2) node[pos=.5](cond1){};
-            \filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
-            \draw[>=triangle 45, <->] (3.5,3.4) -- ++(2,0) node[pos=.5,anchor=south](){\(a\)};
-            \draw[>=triangle 45, <->] (2,3.8) -- ++(5,0) node[pos=.5,anchor=south](){\(b\)};
-            
-            
-            \draw[dashed] (9,3.2) -- (10,3.2);
-            \draw[dashed] (9,3) -- (10,3);
-            \draw[dashed] (0,1) -- (-1,1);
-            \draw[dashed] (0,3) -- (-1,3);
-            
-            \draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
-            \draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-            \draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
-            %\draw[>=triangle 45,  <->] (5.7,3) -- ++(0,0.2) node[pos=.5,anchor=west](){\(t\)};
-        \end{tikzpicture}
-        \caption{Coplanar Waveguide with Ground}
-        \label{fig:microstrip_geometry}
-    \end{figure}
-    
-    
-  The characteristic impedance of a coplanar waveguide is given as follows \cite{wadell}: 
-  \begin{equation}
-  Z_0 = \frac{60.0 \pi}{\sqrt{\epsilon_{eff}}} \frac{1.0}{\frac{K(k)}{K(k')} + \frac{K(k_1)}{K(k_1')}}
-  \end{equation}
-  It comprises of the following components, with K(k) being an elliptical integral of the first kind (see also \cite[p.~430]{bronstein}):
-  \begin{equation}
-  k = a/b
-  \end{equation}
-  \begin{equation}
-  k' = \sqrt{1.0 - k^{2}}
-  \end{equation}
-  \begin{equation}
-  k_1' = \sqrt{1.0 - k_1^{2}}
-  \end{equation}
-  \begin{equation}
-  k_1 = \frac{tanh(\frac{\pi a}{4.0  h})}{tanh(\frac{\pi  b}{4.0 h})}
-  \end{equation}
-  \begin{equation}
-  \epsilon_{eff} = \frac{1.0 + \epsilon_r \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}{1.0 + \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}
-  \end{equation}
-  
-\subsection{Polaris}
-
 
 \begin{figure}[H]
 	\centering
@@ -343,10 +203,20 @@ to guarantee coplanar propagation. \cite{wadell}
   
 \newpage
 \section{Firmware}
-\subsection{Xilinx Designs}
-\subsection{SPI-firmware for components}
-\subsection{IPE-AXI IP block}
-\subsection{GUI}
+\subsection{General Design}
+\subsubsection{Firmware for for Front-End Card}
+\paragraph{SPI-firmware}
+\paragraph{Clocking}
+\subsubsection{Data Capture}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/adc_cap}
+	\caption{Placeholder}
+	\label{fig:adccap}
+\end{figure}
+\paragraph{Xilinx Design}
+
+\subsubsection{Visualization}
 
 
 

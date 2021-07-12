@@ -24,12 +24,14 @@ Due to this properties, synchrotrons are used for microscopy, spectroscopy, and 
 	\caption{Electromagnetic spectrum}
 	\label{fig:spectrum}
 \end{figure}
-As demands in these fields are ever-increasing, electron accelerators need to provide higher brilliance (or brightness). This is achieved by increased photon flux and reduction of the transverse emittance. For longidutinal coherence, the electron bunches are shortened, which results in emission of coherent synchrotron radiation (CSR) at frequencies up to the THz range. However, this introduces complex dynamics, as the electrons interact with their own radiation. This manifests into the so called microbunching instability: the formation of microstructures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches. Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode. On the other side, these instabilities can be potential sources of brilliant THz radiation. A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018} \cite{brosi}
+
+\subsection{Micro-Bunching Instabilities}
+As demands are ever-increasing, electron accelerators need to provide higher brilliance (or brightness). This is achieved by increased photon flux and reduction of the transverse emittance. For longidutinal coherence, the electron bunches are shortened, which results in emission of coherent synchrotron radiation (CSR) at frequencies up to the THz range. However, this introduces complex dynamics, as the electrons interact with their own radiation. This manifests into the so called microbunching instability: the formation of microstructures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches. Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode. On the other side, these instabilities can be potential sources of brilliant THz radiation. A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018} \cite{brosi}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/csr2.png}
-	\caption{CSR \cite{rota2018}}
+	\caption{Placeholder \cite{rota2018}}
 	\label{fig:csr}
 \end{figure}
 
@@ -49,7 +51,7 @@ As demands in these fields are ever-increasing, electron accelerators need to pr
 
 
 \paragraph{KARA}
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Located at the Karlsruhe Institute of Technology (KIT)
 	\item Up to 184 electron packages (bunches) can be filled with a distance of \SI{2}{\nano \second} (\SI{500}{\mega \hertz}) between two adjacent bunches 
 	\item Operated by the Institute of Beam Physics and Technology (IBPT)
@@ -104,6 +106,8 @@ As demands in these fields are ever-increasing, electron accelerators need to pr
 	\label{fig:eo}
 \end{figure}
 
+
+\subsection{Applications for Photonic Time-Stretch}
 
 \newpage
 
@@ -180,20 +184,29 @@ ADCs are used to translate analog quantities into digital signals, which can be 
 \begin{equation}
 	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
 \end{equation}
-with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. 
+with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit ADC.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
+	\caption{Transfer function of an ideal, 3-bit ADC (redrawn from \cite{Lundberg})}
+	\label{fig:idealADC}
+\end{figure}
+
+
+
 For an ideal converter, the number of bits would be sufficient to fully characterize it. Real ADCs however differ from the ideal behaviour, introducing static and dynamic imperfections. Different applications have different requirements, which leads to a number of specifications. These can be divided into three categories \cite{Lundberg}:
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Static parameters
 	\item Frequency-domain dynamic parameters
 	\item Time-domain dynamic parameters
 \end{itemize}
-This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the ADC has to be chosen for each application respectively.
+This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the ADC has to be chosen for each application accordingly.
 
 \subsubsection*{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
 \textit{Accuracy} is the total error at a known voltage, which includes:
-\begin{itemize}
+\begin{itemize}[noitemsep]
 	\item Quantization error
 	\item Gain error
 	\item Offset error
@@ -204,7 +217,7 @@ This section provides an overview of these figures of merit. Which of these are 
 \textit{Resolution} is the number of bits $N$ of the ADC. Depending from the resolution are the size of the LSB, which in its turn determines the dynamic range, code widths and quantization error.
 
 \paragraph{Dynamic Range}
-Ratio between smallest possible output (LSB voltage) and the largest possible output (full-scale voltage).
+Ratio between smallest possible output (LSB voltage) and the largest possible output (full-scale voltage). It cn be calculated as
 \begin{equation}
 	20 \log 2^{N} \approx 6N
 \end{equation}
@@ -224,24 +237,18 @@ The \textit{offset error} is the deviation of the first transition voltage from 
 In an ADC (with built-in SHA) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
 	\item \textbf{Input Stage:} Wideband noise, nonlinearity and bandwidth limitation
-	\item \textbf{SHA:} Nonlinearity, aperture jitter\footnote{Aperture jitter is the sample-to-sample variation in aperture delay, with \textit{aperture delay} meaning the time, which is needed by the SHA to disconnect the holding capacitor from the input buffer.} and bandwidth limitation
+	\item \textbf{SHA:} Nonlinearity, aperture jitter\footnote{\textit{Aperture jitter} is the sample-to-sample variation in aperture delay, with \textit{aperture delay} meaning the time, which is needed by the SHA to disconnect the holding capacitor from the input buffer.} and bandwidth limitation
 	\item \textbf{ADC:} Quantization noise, integral and differential nonlinearity
 \end{itemize}
 In the following the most important specifications are described, which are used to characterize the performance of ADCs.
 
 \paragraph{Quantization Noise}
-Even in an ideal N-bit converter there will be errors during the quantization, which behave like noise. The reason is that each N-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC} for an example transfer function of an ideal, 3-bit ADC) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
+Even in an ideal N-bit converter there will be errors during the quantization, which behave like noise. The reason is that each N-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
 \begin{equation}
 	\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
 \end{equation}
 with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015} 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
-	\caption{Transfer function of an ideal, 3-bit ADC (redrawn from \cite{Lundberg})}
-	\label{fig:idealADC}
-\end{figure}
 Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
 \begin{equation}
 	e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
@@ -320,3 +327,146 @@ of 1 LSB
 
 \newpage
 \section{RF/Microwave Design Basics}
+
+\subsection{General Techniques/Strategies?}
+
+\subsection{Coplanar Waveguides}
+\paragraph{Surface Coplanar Waveguide with Ground}  
+\begin{figure}[!htbp]
+	\centering
+	\begin{tikzpicture}
+		\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
+		\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
+		\filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
+		\filldraw[color=black, fill=black] (3,3) rectangle ++(1,.2) node[pos=.5](cond1){};
+		\filldraw[color=black, fill=black] (5,3) rectangle ++(1,.2) node[pos=.5](cond2){};
+		\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
+		\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
+		\draw[>=triangle 45, <->] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
+		\draw[>=triangle 45, <->] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
+		\draw[>=triangle 45, <->] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
+		%\draw[>=triangle 45,  <->] (5.7,3) -- ++(0,0.2) node[pos=.5,anchor=west](){\(t\)};
+		
+		\draw[dashed] (9,3.2) -- (10,3.2);
+		\draw[dashed] (9,3) -- (10,3);
+		\draw[dashed] (0,1) -- (-1,1);
+		\draw[dashed] (0,3) -- (-1,3);
+		
+		\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
+		\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+		\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
+		
+	\end{tikzpicture}
+	\caption{Edge-Coupled Coplanar Waveguide}
+	\label{fig:microstrip_geometry}
+\end{figure}
+
+The corresponding equations are \cite[~p197-198]{wadell}: 
+\begin{equation}
+	Z_{0,o} = \frac{\eta_0}{\sqrt{\epsilon_{eff,o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)
+\end{equation}    
+
+\begin{equation}
+	Z_{0,e} = \frac{\eta_0}{\sqrt{\epsilon_{eff,e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
+\end{equation} 
+
+
+\begin{equation}
+	\epsilon_{eff,o} = \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}
+\end{equation}
+
+\begin{equation}
+	\epsilon_{eff,e} = \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
+\end{equation}
+
+Where
+
+\begin{equation}
+	k_o = \Lambda \frac{-\sqrt{\Lambda^2 - t_c^2} + \sqrt{\Lambda^2 - t_B^2}}{t_B\sqrt{\Lambda^2 - t_c^2} + t_c \sqrt{\Lambda^2 - t_B^2}}
+\end{equation}
+
+\begin{equation}
+	k_e = \Lambda' \frac{-\sqrt{\Lambda'^2 - t_c'^2} + \sqrt{\Lambda'^2 - t_B'^2}}{t_B'\sqrt{\Lambda'^2 - t_c'^2} + t_c' \sqrt{\Lambda'^2 - t_B'^2}}
+\end{equation}
+
+
+\begin{equation}
+	\Lambda = \frac{\sinh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
+\end{equation}
+
+\begin{equation}
+	t_c = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda
+\end{equation}
+
+\begin{equation}
+	t_B = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda
+\end{equation}
+
+
+\begin{equation}
+	\Lambda' = \frac{\cosh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
+\end{equation}
+
+\begin{equation}
+	t_c' = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda' + 1.0
+\end{equation}
+
+\begin{equation}
+	t_B' = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda + 1.0
+\end{equation}
+
+The parameters have to be chosen according to 
+\begin{equation}
+	s + 2.0 w + 2.0 d \leq h
+\end{equation}
+to guarantee coplanar propagation. \cite{wadell}
+
+\paragraph{Surface Coplanar Waveguide with Ground}  
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{tikzpicture}
+		\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
+		\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
+		\filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
+		\filldraw[color=black, fill=black] (3.5,3) rectangle ++(2,.2) node[pos=.5](cond1){};
+		\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
+		\draw[>=triangle 45, <->] (3.5,3.4) -- ++(2,0) node[pos=.5,anchor=south](){\(a\)};
+		\draw[>=triangle 45, <->] (2,3.8) -- ++(5,0) node[pos=.5,anchor=south](){\(b\)};
+		
+		
+		\draw[dashed] (9,3.2) -- (10,3.2);
+		\draw[dashed] (9,3) -- (10,3);
+		\draw[dashed] (0,1) -- (-1,1);
+		\draw[dashed] (0,3) -- (-1,3);
+		
+		\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
+		\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+		\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
+		%\draw[>=triangle 45,  <->] (5.7,3) -- ++(0,0.2) node[pos=.5,anchor=west](){\(t\)};
+	\end{tikzpicture}
+	\caption{Coplanar Waveguide with Ground}
+	\label{fig:microstrip_geometry}
+\end{figure}
+
+
+The characteristic impedance of a coplanar waveguide is given as follows \cite{wadell}: 
+\begin{equation}
+	Z_0 = \frac{60.0 \pi}{\sqrt{\epsilon_{eff}}} \frac{1.0}{\frac{K(k)}{K(k')} + \frac{K(k_1)}{K(k_1')}}
+\end{equation}
+It comprises of the following components, with K(k) being an elliptical integral of the first kind (see also \cite[p.~430]{bronstein}):
+\begin{equation}
+	k = a/b
+\end{equation}
+\begin{equation}
+	k' = \sqrt{1.0 - k^{2}}
+\end{equation}
+\begin{equation}
+	k_1' = \sqrt{1.0 - k_1^{2}}
+\end{equation}
+\begin{equation}
+	k_1 = \frac{tanh(\frac{\pi a}{4.0  h})}{tanh(\frac{\pi  b}{4.0 h})}
+\end{equation}
+\begin{equation}
+	\epsilon_{eff} = \frac{1.0 + \epsilon_r \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}{1.0 + \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}
+\end{equation}
