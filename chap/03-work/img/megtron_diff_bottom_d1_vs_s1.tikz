@@ -7,11 +7,11 @@
 tick align=outside,
 tick pos=left,
 x grid style={white!69.0196078431373!black},
-xlabel={Strip Separation (µm)},
+xlabel={Strip Separation ($\SI{}{\micro \meter}$)},
 xmin=150, xmax=250,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ylabel={Ground Strip Separation (µm)},
+ylabel={Ground Strip Separation ($\SI{}{\micro \meter}$)},
 ymin=65.3045, ymax=187.4738,
 ytick style={color=black}
 ]
@@ -120,5 +120,4 @@ table {%
 250 65.3045
 };
 \end{axis}
-
 \end{tikzpicture}

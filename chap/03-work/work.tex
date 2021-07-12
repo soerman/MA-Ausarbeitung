@@ -17,7 +17,7 @@ The general structure of the board is shown in \autoref{fig:kapture}.
 
 
 The pulse from the \SI{}{\tera \hertz} detector is fed into a power splitter, which splits the signal into four identical pulses and distributes them to four channels, consisting of a respective Track-And-Hold-Amplifier (THA) unit and a 12-bit ADC@\SI{500}{\mega\sample\per\second}. The sampling time of each unit can be adjusted individually with a Picosecond Delay Chip with a resolution of \SI{3}{\pico \second} (maximal delay range: \SI{100}{\pico \second}). 
-The clock signal is provided by KARA, which cleared from jitter by a Phase-Locked-Loop (PLL). This ensures the synchronization of the ADCs with the RF system. The clean clock signal is distributed to the delay chips via fan-out. \cite{caselleKAP}
+The clock signal is provided by KARA, which is cleared from jitter by a Phase-Locked-Loop (PLL). This ensures the synchronization of the ADCs with the RF system. The clean clock signal is distributed to the delay chips via fan-out. \cite{caselleKAP}
 
 The resulting sampling of the detector signal is shown \autoref{fig:detector_signal} (simplified representation).
 \begin{figure}[H]
@@ -29,7 +29,7 @@ The resulting sampling of the detector signal is shown \autoref{fig:detector_sig
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/kapture_sys.png}
+	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/kapture_sys}
 	\caption{Photo of KAPTURE with highlighted main components. \cite[p.~61]{brosi}}
 	\label{fig:kapturesys}
 \end{figure}
@@ -53,14 +53,14 @@ The card, holding the sampling channels, should be mounted on a ZCU216 evaluatio
 \end{itemize}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-work/img/zcu216.png}
+	\includegraphics[width = \textwidth]{chap/03-work/img/zcu216}
 	\caption{ZCU216 evaluation board}
 	\label{fig:zcu216}
 \end{figure}
  
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.6\textwidth]{chap/03-work/img/rfsoc_blockdiagram.png}
+	\includegraphics[width = 0.6\textwidth]{chap/03-work/img/rfsoc_blockdiagram}
 	\caption{RFSoC block diagram}
 	\label{fig:rfsoc}
 \end{figure}
@@ -116,8 +116,8 @@ The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sam
 In this section, the design of the front-end card is covered.
 
 \subsection{Sampling-Channel}
-\paragraph{Track-And-Hold}
-Explain why better than Sample-And-Hold.
+\paragraph{Track-And-Hold-Amplifier}
+Explain why better than Sample-And-Hold-Amplifier.
 \paragraph{Delay Chip NB6L295}
 Dual Channel Programmable Delay Chip.
 
@@ -130,9 +130,10 @@ Dual Channel Programmable Delay Chip.
 \end{itemize}
 
 \subsection{Clocking}
+On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-frequency clocks for the ADCs/DACs. $\rightarrow$ reuse in front-end card
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/clk104.png}
+	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/clk104}
 	\caption{CLK104 Add-on board clocking scheme}
 	\label{fig:clk104}
 \end{figure}
@@ -188,7 +189,7 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/polaris.png}
+	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/polaris}
 	\caption{Polaris Solver}
 	\label{fig:polaris}
 \end{figure}
@@ -205,8 +206,8 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 \section{Firmware}
 \subsection{General Design}
 \subsubsection{Firmware for for Front-End Card}
-\paragraph{SPI-firmware}
 \paragraph{Clocking}
+\paragraph{SPI-Interface}
 \subsubsection{Data Capture}
 \begin{figure}[H]
 	\centering
@@ -214,7 +215,6 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 	\caption{Placeholder}
 	\label{fig:adccap}
 \end{figure}
-\paragraph{Xilinx Design}
 
 \subsubsection{Visualization}
 

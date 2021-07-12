@@ -1,4 +1,4 @@
-﻿\begin{tikzpicture}[fill between/on layer={axis grid}]
+\begin{tikzpicture}[fill between/on layer={axis grid}]
 	\begin{axis}[
 						xlabel={Wavelength},
 						xticklabel style = {font=\tiny,yshift=0.2ex},
@@ -27,6 +27,7 @@
 				\addplot[violet!60, area legend] fill between[of=gamma and xrays];
 				\addlegendentry{X-ray}
 				\addplot[violet, area legend] fill between[of=xrays and uv];
+				
 				\addlegendentry{Ultra violet}
 				\addplot[shading=visiblelight, area legend] fill between[of=uv and visible];
 				\addlegendentry{Visible light}

@@ -26,7 +26,7 @@ Due to this properties, synchrotrons are used for microscopy, spectroscopy, and 
 \end{figure}
 
 \subsection{Micro-Bunching Instabilities}
-As demands are ever-increasing, electron accelerators need to provide higher brilliance (or brightness). This is achieved by increased photon flux and reduction of the transverse emittance. For longidutinal coherence, the electron bunches are shortened, which results in emission of coherent synchrotron radiation (CSR) at frequencies up to the THz range. However, this introduces complex dynamics, as the electrons interact with their own radiation. This manifests into the so called microbunching instability: the formation of microstructures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches. Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode. On the other side, these instabilities can be potential sources of brilliant THz radiation. A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018} \cite{brosi}
+Increasing demands in current and future accelerators call for higher brilliance of the emitted radiation. This is achieved by increased photon flux and reduction of the transverse emittance. For longitudinal coherence, the electron bunches are shortened, which results in emission of coherent synchrotron radiation (CSR) at frequencies up to the THz range. However, this introduces complex dynamics, as the electrons interact with their own radiation. This manifests into the so called micro-bunching instability: the formation of microstructures (in the sub-millimetre to centimetre range) in the longitudinal density profile of the electron bunches. Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode. On the other side, these instabilities can be potential sources of brilliant THz radiation. A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018} \cite{brosi}
 
 \begin{figure}[H]
 	\centering
@@ -41,14 +41,6 @@ As demands are ever-increasing, electron accelerators need to provide higher bri
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
 	\label{fig:microBunch}
 \end{figure}
-
-
-
-
-
-
-
-
 
 \paragraph{KARA}
 \begin{itemize}[noitemsep]
@@ -86,28 +78,58 @@ As demands are ever-increasing, electron accelerators need to provide higher bri
 \end{figure}
 
 \newpage 
-\section{Photonic time-stretch analog-to-digital converter}
+\section{Electro-Optic Techniques and Time-Stretch}
+Several Electro-Optic (EO) techniques exist, to measure THz radiation  with a sub-picosecond resolution. In this section, the techniques used in storage rings and the time-stretch technique are presented. 
 
-
-
-
-
-
-
-
-
-
-"' In recent and future synchrotron radiation facilities, relativistic electron bunches with increasingly high charge density are needed for producing brilliant light at various wavelengths, from X-rays to terahertz. In such conditions, interaction of electron bunches with their own emitted electromagnetic fields leads to instabilities and spontaneous formation of complex spatial structures. Understanding these instabilities is therefore key in most electron accelerators. However, investigations suffer from the lack of non-destructive recording tools for electron bunch shapes. In storage rings, most studies thus focus on the resulting emitted radiation. Here, we present measurements of the electric field in the immediate vicinity of the electron bunch in a storage ring, over many turns. For recording the ultrafast electric field, we designed a photonic time-stretch analog-to-digital converter with terasamples/second acquisition rate. We could thus observe the predicted link between spontaneous pattern formation and giant bursts of coherent synchrotron radiation in a storage ring. "'  \cite{Bielawski2019}
-
+\subsection{Scanning-Type Electro-Optic Sampling (EOS)}
+A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from CSR (range of picoseconds) in an electro-optical crystal. Due to the Pockels effect\footnote{"The Pockels effect is the name given to the occurrence of
+birefringence and to the change in existing birefringence phenomena in an electric field linearly proportional to the electric
+field strength." \cite{pockels}} the THz pulse causes a time dependent birefringence in the crystal. This modulates the polarization of the laser pulse. To sample the pulse, the delay between the laser and the THz pulse is varied. To detect the changing polarization, the polarization of the laser pulse is transformed in an intensity modulation. A general scheme of the system is shown in \autoref{fig:scan_eo}. For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/EO.png}
-	\caption{Electro-Optical Time-Stretch Technique \cite{Bielawski2019}}
-	\label{fig:eo}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
+	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
+	\label{fig:scan_eo}
 \end{figure}
 
+\subsection{Spectrally Resolved Electro-Optic Detection (EOSD)}
+In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique.
+The short laser pulse is first stretched to a duration similar to the Thz pulse in a dispersive material (stretcher). In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time. Together with the THz the laser pulse propagates in a EO crystal. Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum. The polarization state of the pulse is converted into an amplitude/intensity modulation. To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. A general scheme of the system is shown in \autoref{fig:spectral_eo}. 
+ \cite{roussel2014}
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
+ 	\caption{Scheme of Spactrally Encoded Electro-Optical Detection System \cite{roussel2014}}
+ 	\label{fig:spectral_eo}
+ \end{figure}
+The temporal resolution of this method is limited due to a finite chirp rate
+\begin{equation}
+\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
+\end{equation}
+The resolution $T_{\text{min}}$ is determined as
+\begin{equation}
+T_{\text{min}} = \sqrt{T_0 T_c}
+\end{equation}
+with the bandwidth-limited pulse duration (before stretcher) $T_0$ and and the duration of the chirped laser pulse $T_c$.
 
-\subsection{Applications for Photonic Time-Stretch}
+\subsection{Photonic Time-Stretch Technique}
+The working principle of the optic time-stretch technique can be described in two steps (see \autoref{fig:eo_ts}). First, like in the EOSD before, a short laser pulse is propagated in a dispersive medium (optical fiber of length $L_1$). This results in a chirped laser pulse of the duration
+\begin{equation}
+	T_1 = \Delta \lambda D_1 L_1
+\end{equation}
+with the optical bandwidth of the laser pulse $\Delta \lambda$  and the dispersion parameter $D_1$ of the fiber.  The next step is the time-to-wavelength-mapping where a temporal intensity modulation is imprinted on the chirped pulse. After that, the modulated chirped pulse propagates through another dispersive medium, a fiber of the length $L_2$. In this way, the temporal modulation of the pulse is further stretched to the duration $T_2$, which is long enough for detection with photodetectors. \cite{roussel2014}
+The factor, by which the pulse is slowed down, is calculated as:
+\begin{equation}
+	M = 1 + \frac{L_1}{L_2}
+\end{equation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/time_stretch.png}
+	\caption{Electro-Optical Time-Stretch Technique \cite{szwaj}}
+	\label{fig:eo_ts}
+\end{figure}
+
+\subsection{Time-Stretched Spectrally-Encoded Electro-Optic detection (TS-EOSD)}
 
 \newpage
 
@@ -202,7 +224,50 @@ For an ideal converter, the number of bits would be sufficient to fully characte
 \end{itemize}
 This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the ADC has to be chosen for each application accordingly.
 
-\subsubsection*{Static parameters}
+
+\subsubsection{Quantization Noise}
+Even in an ideal N-bit converter there will be errors during the quantization, which behave like noise. The reason is that each N-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
+\begin{equation}
+\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
+\end{equation}
+with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015} 
+
+Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
+\begin{equation}
+e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
+\end{equation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
+	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
+	\label{fig:eq}
+\end{figure}
+
+The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e(t)$:
+\begin{equation}
+P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
+\end{equation}
+
+To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
+\begin{equation}
+u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)  = 2^{N-1}q \sin(2\pi f t)
+\end{equation}
+With the effective value of the signal amplitude
+\begin{equation}
+u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
+\end{equation}
+and the quantization noise power, the SNR can be calculated as
+\begin{equation}
+\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
+\end{equation}
+In decibel:
+\begin{equation}
+\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
+\end{equation}
+\cite{puente2015} \cite{walt}
+
+
+\subsubsection{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
 \textit{Accuracy} is the total error at a known voltage, which includes:
@@ -233,8 +298,16 @@ The \textit{offset error} is the deviation of the first transition voltage from 
 	\label{fig:offsetErr}
 \end{figure}
 
-\subsubsection*{Dynamic performance}
 
+\paragraph{Integral and Differential Nonlinearity Distortion} 
+\textit{Integral nonlinearity} in the transfer function of data converters results from the integral nonlinearities of the front-end, SHA and also the ADC itself. These nonlinearities depend on the input signal amplitude. distance of the code centers in the A/D converter characteristic from the ideal line
+\textit{Differential nonlinearities} stem exclusively from the encoding process in the ADC. They not only depend on the input signal amplitude, but also on the positioning along the transfer function. The deviation of the code transition widths from the ideal width
+of 1 LSB
+
+
+
+
+\subsubsection{Dynamic performance}
 \paragraph{Frequency-Domain}
 \begin{itemize}
 	\item SINAD
@@ -263,77 +336,16 @@ In an ADC (with built-in SHA) there are a couple of sources, which introduce noi
 \end{itemize}
 In the following the most important specifications are described, which are used to characterize the performance of ADCs.
 
-\paragraph{Quantization Noise}
-Even in an ideal N-bit converter there will be errors during the quantization, which behave like noise. The reason is that each N-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
-\begin{equation}
-	\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
-\end{equation}
-with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015} 
 
-Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
-\begin{equation}
-	e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
-\end{equation}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
-	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
-	\label{fig:eq}
-\end{figure}
-
-The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e(t)$:
-\begin{equation}
-	P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
-\end{equation}
-
-To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
-\begin{equation}
-	u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)  = 2^{N-1}q \sin(2\pi f t)
-\end{equation}
-With the effective value of the signal amplitude
-\begin{equation}
-	u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
-\end{equation}
-and the quantization noise power, the SNR can be calculated as
-\begin{equation}
-	\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
-\end{equation}
-In decibel:
-\begin{equation}
-	\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
-\end{equation}
-\cite{puente2015} \cite{walt}
 
 \paragraph{Equivalent Input Referred Noise}
 Internal circuits of wideband ADCs produce rms noise due to resistor and thermal ("kT/C") noise, which is also present for DC signals. Therefore, the output of the ADC is a distribution of codes which is centered around the value of a DC input. For measuring the value of the noise, the ADC input is grounded, or held at a specific DC value, and a large amount of samples is collected and plotted as a histrogram. The noise is approximately Gaussian, thus the stndard deviation can easily be calculated.
 
 \paragraph{Noise-Free Code Resolution}
 The input referred noise described above determines the \textit{noise-free code resolution}, which is the number of bits, beyodn which it is not possible to resolve individual codes.
-
-\paragraph{Integral and Differential Nonlinearity Distortion} 
-\textit{Integral nonlinearity} in the transfer function of data converters results from the integral nonlinearities of the front-end, SHA and also the ADC itself. These nonlinearities depend on the input signal amplitude. distance of the code centers in the A/D converter characteristic from the ideal line
-\textit{Differential nonlinearities} stem exclusively from the encoding process in the ADC. They not only depend on the input signal amplitude, but also on the positioning along the transfer function. The deviation of the code transition widths from the ideal width
-of 1 LSB
-
-\paragraph{Harmonic Distortion, Worst Harmonic, Total Harmonic Distortion (THD), Total Harmonic Distortion + Noise (THD + N)}
-
-\begin{itemize}
-	\item \textbf{Harmonic distortion (dBc\footnote{decibels below carrier}):} Input signal near full scale
-\end{itemize}
-
-\begin{itemize}
-\item 
-\item Signal-to-Noise-and-Distortion Ratio (SINAD, or S/N + D), Signal-to-Noise ratio (SNR), Effective Number of Bits (ENOB)
-\item Analog Bandwidth (Full-Power, Small-Signal)
-\item Spurious Free Dynamic Range (SFDR)
-\item Two-Tone Intermodulation Distortion, Multi-Tone Intermodulation Distortion
-\item Noise Power Ratio (NPR)
-\item Adjacent Leakage Ratio (ACLR)
-\item Noise Figure
-\item Setting Time, Overvoltage Recovery Time
-\end{itemize}
-
 \cite{walt}
+
+
 \subsection{Interleaving}
 
 \begin{itemize}
@@ -379,7 +391,7 @@ of 1 LSB
 		
 	\end{tikzpicture}
 	\caption{Edge-Coupled Coplanar Waveguide}
-	\label{fig:microstrip_geometry}
+	\label{fig:eccw_geometry}
 \end{figure}
 
 The corresponding equations are \cite[~p197-198]{wadell}: 

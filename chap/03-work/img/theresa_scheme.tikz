@@ -21,7 +21,7 @@
 		\node (ps) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=6cm,label=Power Splitter] {};
 		\node (fpga) at (5,2.2) [draw,thick,minimum width=2cm,minimum height=6cm,label=FPGA] {};
 
-		\node[amp,right,label=below right:{FanOut}] (fanout)  at (0.2,-4) {};
+		\node[amp,right,label=below right:{FanOut}] (fanout)  at (0.1,-4) {};
 
 		\node[twoportshape,t=PLL,anchor=0](pll) at (-3,-5) {};
 	
