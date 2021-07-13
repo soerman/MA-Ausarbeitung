@@ -48,7 +48,7 @@ For longitudinal coherence, the electron bunches are shortened, which results in
 
 However, this introduces complex dynamics, as the electrons interact with their own radiation.
 This manifests into the so called micro-bunching instability.
-The formation of microstructures (in the sub-millimetre to centimetre range) in the longitudinal density profile of the electron bunches.
+The formation of microstructures (in the sub-millimetre to centimetre range) in the longitudinal density profile of the electron bunches. %todo AE or BE ('re' vs 're')?
 Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode.
 On the other side, these instabilities can be potential sources of brilliant THz radiation. %todo why
 A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018,brosi}
@@ -70,7 +70,7 @@ A thorough understanding of these dynamics is necessary to control the emission 
 \paragraph{Karlsruhe Research Accelerator (KARA)(?)}
 \begin{itemize}[noitemsep]
 	\item Located at the Karlsruhe Institute of Technology (KIT)
-	\item Up to 184 electron packages (bunches) can be filled with a distance of \SI{2}{\nano \second} (\SI{500}{\mega \hertz}) between two adjacent bunches 
+	\item Up to 184 electron bunches can be filled with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches %todo filled?
 	\item Operated by the Institute of Beam Physics and Technology (IBPT)
 	\item Microtron, Booster Synchrotron, and Storage Ring
 \end{itemize}
@@ -93,6 +93,7 @@ A thorough understanding of these dynamics is necessary to control the emission 
 	\end{minipage}
 \end{table}
 %todo why minipage? S-columns only make sense if all vars in one column have the same unit, just use a 'l' column here?
+%todo maybe remove the textbf here and in all other tables (unprofessional, clutters page, etc. was auch immer)
 
 
 
@@ -130,7 +131,13 @@ For this technique a stable emission of the THz pulses is crucial, as they are n
 
 \subsection{Spectrally Resolved Electro-Optic Detection}
 In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique. %todo EOS==EO?
-The short laser pulse is first stretched to a duration similar to the Thz pulse in a dispersive material (stretcher). In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time. Together with the THz, the laser pulse propagates in a \gls{eo} crystal. Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum. The polarization state of the pulse is converted into an amplitude/intensity modulation. To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
+The short laser pulse is first stretched to a duration similar to the Thz pulse in a dispersive material (stretcher).
+In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
+Together with the THz, the laser pulse propagates in a \gls{eo} crystal.
+Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum.
+The polarization state of the pulse is converted into an amplitude/intensity modulation.
+To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
+A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
 
 \begin{figure}[H]
  	\centering
@@ -139,10 +146,11 @@ The short laser pulse is first stretched to a duration similar to the Thz pulse 
  	\label{fig:spectral_eo}
 \end{figure}
 
-The temporal resolution of this method is limited due to a finite chirp rate
+The temporal resolution of this method is limited due to the finite chirp rate
 \begin{equation}
 \text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
 \end{equation}
+
 The resolution $T_{\text{min}}$ is determined as
 \begin{equation}
 T_{\text{min}} = \sqrt{T_0 T_c}
@@ -150,11 +158,17 @@ T_{\text{min}} = \sqrt{T_0 T_c}
 with the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$.
 
 \subsection{Photonic Time-Stretch Technique}
-The working principle of the optic time-stretch technique can be described in two steps (see \autoref{fig:eo_ts}). First, like in the EOSD before, a short laser pulse is propagated in a dispersive medium (optical fiber of length $L_1$). This results in a chirped laser pulse of the duration
+The working principle of the optic time-stretch technique can be described in two steps (see \autoref{fig:eo_ts}).
+First, like in the EOSD before, a short laser pulse is propagated in a dispersive medium (optical fiber of length $L_1$). %todo EOSD?
+This results in a chirped laser pulse of the duration
 \begin{equation}
 	T_1 = \Delta \lambda D_1 L_1
 \end{equation}
-with the optical bandwidth of the laser pulse $\Delta \lambda$  and the dispersion parameter $D_1$ of the fiber.  The next step is the time-to-wavelength-mapping where a temporal intensity modulation is imprinted on the chirped pulse. After that, the modulated chirped pulse propagates through another dispersive medium, a fiber of the length $L_2$. In this way, the temporal modulation of the pulse is further stretched to the duration $T_2$, which is long enough for detection with photodetectors. \cite{roussel2014}
+with the optical bandwidth of the laser pulse $\Delta \lambda$  and the dispersion parameter $D_1$ of the fiber.
+The next step is the time-to-wavelength-mapping, where a temporal intensity modulation is imprinted on the chirped pulse.
+After that, the modulated chirped pulse propagates through another dispersive medium, a fiber of the length $L_2$.
+In this way, the temporal modulation of the pulse is further stretched to the duration $T_2$, which is long enough for detection with photodetectors. \cite{roussel2014}
+
 The factor, by which the pulse is slowed down, is calculated as
 \begin{equation}
 	M = 1 + \frac{L_1}{L_2}.
@@ -166,6 +180,7 @@ The factor, by which the pulse is slowed down, is calculated as
 	\caption{Electro-Optical Time-Stretch Technique \cite{szwaj}}
 	\label{fig:eo_ts}
 \end{figure}
+%todo at least re-add labels in the figure with tikz, or they are too small
 
 \subsection{Time-Stretched Spectrally-Encoded Electro-Optic detection}
 
@@ -175,10 +190,13 @@ The factor, by which the pulse is slowed down, is calculated as
 
 \newpage
 \section{Analog-To-Digital Converters}
-The following section reviews the theory and characteristics of \glspl{adc}.
+The following section reviews the theory and characteristics of \glspl{adc}. %todo what is an ADC, why do we need one in general?
 
 \subsection{Sampling Theory}
-An \gls{adc} samples an analog signal with a frequency $f_s$. This frequency has to be chosen in such way, that the original signal can be fully reconstructed. The \textit{Nyquist criteria} states, that in order to accurately represent a band-limited, continuous signal
+An \gls{adc} samples an analog signal with a sample frequency $f_s$.
+This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
+The \textit{Nyquist criteria} states, that in order to accurately represent a band-limited, continuous signal %todo what is B?
+%todo rewrite the condition, maybe like Y(f)=0\vert_f>B/2
 \begin{equation}
 	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
 \end{equation}
@@ -187,34 +205,37 @@ it has to be sampled with a frequency $f_s$ respecting
 	f_s \geq B \quad \text{or} \quad f_s \geq 2 f_a
 \end{equation}
 with $f_a$ being the highest frequency contained in the signal. \cite{walt,puente2015}
+%todo why not relate f_a to B?
 
 In other words, $f_a$ must be inside of the \textit{Nyquist bandwidth}, which is the spectrum from DC to $f_s/2$. Violation of this rule leads to \textit{aliasing}.
+%todo what is DC? state that in this paragraph you argue the other way around: now the sampling rate limits the signal bandwith and not the signal bandwith gouverns the samling freq
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
-	\centering
-	% include first image
-	\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_f}  
-	\caption{Sampling in frequency domain}
-	\label{fig:alias_f}
+		\centering
+		\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_f}  
+		\caption{Sampling in frequency domain}
+		\label{fig:alias_f}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
-	\centering
-	% include first image
-:alias	\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_t}  
-	\caption{Aliasing in time domain}
-	\label{fig:alias_t}
+		\centering
+		\includegraphics[width=.6\linewidth]{chap/02-theory/img/alias_t}  
+		\caption{Aliasing in time domain}
+		\label{fig:alias_t}
 	\end{subfigure}
 	\caption{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria. \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
 \end{figure}
+%todo add [] short image caption
+
+%todo low-pass filter to get B/2<f_s? maybe
 
 
 \paragraph{Sample-And-Hold-Amplifier}
 \Glspl{adc} need a certain amount of time to sample the input signal.
-If the level of the analog signal changes by more than one Least-Significant-Bit (LSB) during this period, this can result in large errors in the output signal.
+If the level of the analog signal changes by more than one \gls{lsb} during this period, this can result in large errors in the output signal.
 Therefore, so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time.
-The \gls{adc} sampling time needs to be timed in such way, that the analog-to-digital conversion falls into the hold period of the \gls{sha} and does not exceed into the sample period, for example like shown schematically in the diagram below. Thus, the upper frequency limitation is not determined by the ADC itself, but rather by the aperture jitter, bandwidth, distortion, etc. of the \gls{sha}. \cite{walt}
+The \gls{adc} sampling time needs to be timed in such way, that the analog-to-digital conversion falls into the hold period of the \gls{sha} and does not exceed into the sample period, for example like shown schematically in the diagram below. Thus, the upper frequency limitation is not determined by the \gls{adc} itself, but rather by the aperture jitter, bandwidth, distortion, etc. of the \gls{sha}. \cite{walt}
 
 
 
@@ -236,8 +257,12 @@ The \gls{adc} sampling time needs to be timed in such way, that the analog-to-di
 	\end{tikztimingtable}
 	\tikzexternalenable
 \end{figure}
+%todo why not save this as .tikz file and include it as a normal figure with caption?
 
-In addition to the \gls{sha}, there is also the \gls{tha}. Instead of a sample period, the \gls{tha} has a track period, where the output of the amplifier tracks the input signal (see also \autoref{fig:tha}). When switching to hold mode, the signal at this instant is held. This is opposed to the SHA, where the output during sample mode is actually not defined and is set to the value of the input signal, only when switching into hold mode. 
+In addition to the \gls{sha}, there is also the \gls{tha}.
+Instead of a sample period, the \gls{tha} has a track period, where the output of the amplifier tracks the input signal (see also \autoref{fig:tha}).
+When switching to hold mode, the signal at this instant is held. This is opposed to the \gls{sha}, where the output during sample mode is actually not defined and is set to the value of the input signal, only when switching into hold mode.
+%todo explanation a bit confusing. use another timing diagram?
 
 \begin{figure}[H]
 	\centering
@@ -247,40 +272,52 @@ In addition to the \gls{sha}, there is also the \gls{tha}. Instead of a sample p
 \end{figure}
 
 \subsection{Characteristics of Analog-To-Digital-Converters}
-ADCs are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, N-bit words. This can be expressed as
+\Glspl{adc} are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This can be expressed as
 \begin{equation}
 	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
 \end{equation}
-with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit ADC.
+with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
-	\caption{Transfer function of an ideal, 3-bit ADC (redrawn from \cite{Lundberg})}
+	\caption{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
 	\label{fig:idealADC}
 \end{figure}
 
+%todo Can this be combined with the other section about nyquist?
+%todo ALL CAPS in the eqs?
 
-
-For an ideal converter, the number of bits would be sufficient to fully characterize it. Real \glspl{adc} however differ from the ideal behavior, introducing static and dynamic imperfections. Different applications have different requirements, which leads to a number of specifications. These can be divided into three categories \cite{Lundberg}:
+For an ideal converter, the number of bits would be sufficient to fully characterize it.
+Real \glspl{adc} however differ from the ideal behavior by introducing static and dynamic imperfections.
+Different applications have different requirements, which leads to a number of specifications. These can be divided into three categories \cite{Lundberg}:
 \begin{itemize}[noitemsep]
 	\item Static parameters
 	\item Frequency-domain dynamic parameters
 	\item Time-domain dynamic parameters
 \end{itemize}
-This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the ADC has to be chosen for each application accordingly.
+This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
 
+%todo i would expect a section called 'static parameters' next
 
 \subsubsection{Quantization Noise}
-Even in an ideal $N$-bit converter there will be errors during the quantization, which behave like noise. The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 LSB wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}. The input voltage is always assigned to the word of the nearest code center. This means that there will always be a difference between the code center and the actual input. The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}. For an equidistant quantization it is
+Even in an ideal $N$-bit converter there will be errors during the quantization, which behave like noise.
+The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}.
+The input voltage is always assigned to the word of the nearest code center. %todo word?
+This means that there will always be a difference between the code center and the actual input.
+The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}.
+For an equidistant quantization it is
 \begin{equation}
 \left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
 \end{equation}
-with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015} 
+with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015}
+%todo maybe push the explanations for x and x_q higher up, like 'for a signal x(t) and its quantized signal x_q(t)[...]'
 
 Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
 \begin{equation}
 e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
 \end{equation}
+%todo why sawtooth? what is 's'? cite?
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
@@ -288,9 +325,11 @@ e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s}
 	\label{fig:eq}
 \end{figure}
 
+%todo how does e relate to e_q?
+
 The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e(t)$:
 \begin{equation}
-P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
+P_\text{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
 \end{equation}
 
 To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
@@ -305,11 +344,12 @@ and the quantization noise power, the SNR can be calculated as
 \begin{equation}
 \text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
 \end{equation}
-In decibel:
+
+Using the unit Decibel, this can be expressed as (see \cite{puente2015,walt})
 \begin{equation}
-\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
+\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76.
 \end{equation}
-\cite{puente2015} \cite{walt}
+
 
 
 \subsubsection{Static parameters}
@@ -320,34 +360,38 @@ In decibel:
 	\item Quantization error
 	\item Gain error
 	\item Offset error
-	\item Nonlinearities
+	\item Non-linearities
 \end{itemize}
 
 \paragraph{Resolution}
-\textit{Resolution} is the number of bits $N$ of the ADC. Depending from the resolution are the size of the LSB, which in its turn determines the dynamic range, code widths and quantization error.
+\textit{Resolution} is the number of bits $N$ of the \gls{adc}. Depending from the resolution are the size of the \gls{lsb}, which in its turn determines the dynamic range, code widths and quantization error.
 
 \paragraph{Dynamic Range}
-Ratio between smallest possible output (LSB voltage) and the largest possible output (full-scale voltage). It can be calculated as
+Ratio between smallest possible output (\gls{lsb} voltage) and the largest possible output (full-scale voltage). It can be calculated as
 \begin{equation}
 	20 \log 2^{N} \approx 6N.
 \end{equation}
 
 
 \paragraph{Offset and Gain Error}
-The \textit{offset error} is the deviation of the first transition voltage from the ideal $1/2$ LSB. \textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. These errors can easily be corrected by calibration. Refer to \autoref{fig:offsetErr}
+The \textit{offset error} is the deviation of the first transition voltage from the ideal $1/2$ \gls{lsb}. \textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. These errors can easily be corrected by calibration. Refer to \autoref{fig:offsetErr}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/offset_err.tikz}
-	\caption{Offset and Gain Error in the ADC characteristic. Notice the difference between the ideal, dotted line}
+	\caption{Offset and Gain Error in the \gls{adc} characteristic. Notice the difference between the ideal, dotted line}
 	\label{fig:offsetErr}
 \end{figure}
 
 
-\paragraph{Integral and Differential Nonlinearity Distortion} 
-\textit{Integral nonlinearity} in the transfer function of data converters results from the integral nonlinearities of the front-end, \gls{sha} and also the ADC itself. These nonlinearities depend on the input signal amplitude. distance of the code centers in the A/D converter characteristic from the ideal line
-\textit{Differential nonlinearities} stem exclusively from the encoding process in the ADC. They not only depend on the input signal amplitude, but also on the positioning along the transfer function. The deviation of the code transition widths from the ideal width
-of 1 LSB
+\paragraph{Integral and Differential Non-linearity Distortion} 
+\textit{Integral non-linearity} in the transfer function of data converters results from the integral non-linearities of the front-end, \gls{sha} and also the \gls{adc} itself.
+These non-linearities depend on the input signal amplitude.
+distance of the code centers in the A/D converter characteristic from the ideal line
+\textit{Differential non-linearities} stem exclusively from the encoding process in the \gls{adc}.
+They not only depend on the input signal amplitude, but also on the positioning along the transfer function.
+The deviation of the code transition widths from the ideal width
+of 1 \gls{lsb}.
 
 
 
@@ -373,18 +417,18 @@ of 1 LSB
 \end{itemize}
 
 
-In an ADC (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
+In an \glspl{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
 	\item \textbf{Input Stage:} Wideband noise, nonlinearity and bandwidth limitation
 	\item \textbf{\gls{sha}:} Nonlinearity, aperture jitter\footnote{\textit{Aperture jitter} is the sample-to-sample variation in aperture delay, with \textit{aperture delay} meaning the time, which is needed by the \gls{sha} to disconnect the holding capacitor from the input buffer.} and bandwidth limitation
-	\item \textbf{ADC:} Quantization noise, integral and differential nonlinearity
+	\item \textbf{\gls{adc}:} Quantization noise, integral and differential nonlinearity
 \end{itemize}
-In the following the most important specifications are described, which are used to characterize the performance of ADCs.
+In the following the most important specifications are described, which are used to characterize the performance of \glspl{adc}.
 
 
 
 \paragraph{Equivalent Input Referred Noise}
-Internal circuits of wideband ADCs produce rms noise due to resistor and thermal ("kT/C") noise, which is also present for DC signals. Therefore, the output of the ADC is a distribution of codes which is centered around the value of a DC input. For measuring the value of the noise, the ADC input is grounded, or held at a specific DC value, and a large amount of samples is collected and plotted as a histrogram. The noise is approximately Gaussian, thus the stndard deviation can easily be calculated.
+Internal circuits of wideband \glspl{adc} produce rms noise due to resistor and thermal ("$kT/C$") noise, which is also present for DC signals. Therefore, the output of the \gls{adc} is a distribution of codes which is centered around the value of a DC input. For measuring the value of the noise, the \gls{adc} input is grounded, or held at a specific DC value, and a large amount of samples is collected and plotted as a histrogram. The noise is approximately Gaussian, thus the stndard deviation can easily be calculated.
 
 \paragraph{Noise-Free Code Resolution}
 The input referred noise described above determines the \textit{noise-free code resolution}, which is the number of bits, beyodn which it is not possible to resolve individual codes.
