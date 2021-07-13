@@ -1,45 +1,24 @@
 \documentclass[dvipsnames,table]{include/thesisclass}
-% Main File - Based on thesisclass.cls
-% Comments are mostly in English
-% ------------------------------------------------------------------------------
-% Further files in folder:
-%  - include/cmds.tex (for macros and additional commands)
-%  - include/kitlogo.pdf (for titlepage)
-%  - lit.bib (bibtex bibliography database)
-%  - include/titlepage.tex (for layout of titelpage)
-% ------------------------------------------------------------------------------
-% Useful Supplied Packages:
-% amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
-% siunitx, varioref, booktabs, graphicx, tikz, multicol
-%\usepackage[dvipsnames,table]{xcolor}
 \usepackage{media9}
+%\usepackage[dvipsnames,table]{xcolor} %option clash with media9
 
 \usepackage{listings}
-%images
-%\usepackage{graphicx}
 \usepackage{float}
 \usepackage{pdfpages}
 \usepackage{subcaption}
 
-
-
 %for tables
 \usepackage{tabularx}
 \usepackage{dcolumn,booktabs}
-\renewcommand\thempfootnote{\arabic{mpfootnote}} %to show footnote with numbers in tables
+\renewcommand\thempfootnote{\arabic{mpfootnote}}
 \newcolumntype{d}[1]{D{.}{.}{#1}}
 \newcommand\mc[1]{\multicolumn{1}{c}{#1}} % handy shortcut macro
 
-% acronyms
-\usepackage{acronym} 
-
-
 %misc
 \usepackage{siunitx}
-\usepackage{glossaries}
 \usepackage{trfsigns}
 \usepackage{enumitem}
-\newcommand{\thz}{\SI{}{\tera \hertz}}
+\newcommand{\thz}{\si{\tera\hertz}}
 
 %tikz & pgfplots
 \usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz, tikz-timing}
@@ -60,22 +39,12 @@
 	color(50.00000000000000bp)=(red)
 } 
 
-
-
-
-
-
-
 %\usepackage{tikz-palattice}
 
-%% -------------------------
-%% |    Thesis Settings    |
-%% -------------------------
-% english or ngerman (new german für neue deutsche Rechtschreibung statt german)
 \SelectLanguage{english}
 % details on this thesis
 \newcommand{\thesisauthor}{Olena Manzhura}
-\newcommand{\thesisentopic}{A Terabit sampling system with a photonics time-stretch ADC}
+\newcommand{\thesisentopic}{A Terabit Sampling System with a Photonics Time-Stretch ADC}
 %\newcommand{\thesisentopic}{Ein Terabit Abtastsystem mit Photonic-Time-Stretch Analog-Digital-Wandler}
 \newcommand{\thesislongtopic}{}
 \newcommand{\thesisinstitute}{Institute for Data Processing and Electronics (IPE)}
@@ -88,15 +57,6 @@
 \newcommand{\thesistimehandin}{13.08.2021} % on second page 'preamble'
 \newcommand{\thesispagehead}{Master Thesis: \thesisentopic} % page heading
 
-
-
-
-
-%% ---------------------
-%% |    PDF - Setup    |
-%% ---------------------
-% This information will appear embed into the PDF file as meta data, but will 
-% not be printed anywhere
 \hypersetup
 {
     pdfauthor={\thesisauthor},
@@ -104,37 +64,19 @@
     pdfsubject={\thesislongtopic},
     pdfkeywords={kit,etit,master,thesis,\thesisauthor}
 }
-
-
-
-%% --------------------------------------
-%% |    Settings for Word Separation    |
-%% --------------------------------------
-% Help for separation:
-% In German package the following hints are additionally available:
-% "- = Additional separation
-% "| = Suppress ligation and possible separation (e.g. Schaf"|fell)
-% "~ = Hyphenation without separation (e.g. bergauf und "~ab)
-% "= = Hyphenation with separation before and after
-% "" = Separation without a hyphenation (e.g. und/""oder)
-
-% Describe separation hints here:
 \hyphenation
 {
     über-nom-me-nen an-ge-ge-be-nen
-    %Pro-to-koll-in-stan-zen
-    %Ma-na-ge-ment  Netz-werk-ele-men-ten
-    %Netz-werk Netz-werk-re-ser-vie-rung
-    %Netz-werk-adap-ter Fein-ju-stier-ung
-    %Da-ten-strom-spe-zi-fi-ka-tion Pa-ket-rumpf
-    %Kon-troll-in-stanz
 }
-
 \DeclareSIUnit{\sample}{S}
 \sisetup{per-mode=symbol}
-%% -----------------------
-%% |    Main Document    |
-%% -----------------------
+
+% acronyms
+\usepackage[acronym,nomain,toc]{glossaries}
+\glstoctrue
+\makeglossaries
+\input{include/acrolist.tex}
+
 \begin{document}
     % Titlepage and ToC
     \FrontMatter
@@ -143,17 +85,15 @@
     \input{include/titlepage}
     \tikzexternalenable
     \input{include/preamble}
-    \input{include/abstract}
-    
+    \input{include/abstract}   
 	
-    \begingroup   % in order to avoid listoffigures and
-    \tableofcontents                    % listoftables on new pages
+    \begingroup      % in order to avoid listoffigures and
+    \tableofcontents % listoftables on new pages
     \listoffigures
     \listoftables
+    \printglossary
     \endgroup
     \cleardoublepage
-
-	\input{include/acrolist}
 
     % Contents
     \MainMatter
@@ -164,35 +104,17 @@
 	\chapter{Design and Development of the System}
 			\input{./chap/03-work/work}
 	\chapter{Characterization}	
-		\input{./chap/04-characterization/characterization}
+			\input{./chap/04-characterization/characterization}
     \chapter{Conclusions and Outlook}
-    		\input{./chap/05-conclusion/conclusion}
-    
-    \addcontentsline{toc}{chapter}{Acknowledgements}		
-	\chapter*{Acknowledgments}
-	\input{ack.tex}
+    		\input{./chap/05-conclusion/conclusion}		
+	\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}
+			\input{include/ack.tex}
 	
-    % appendix for more or less interesting calculations
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
-    % to make the appendix appear in ToC without number. \appendixname = 
-    % Appendix or Anhang (depending on chosen language)
-    \input{./chap/06-appendix/appendix} %\cleardoublepage
+    \input{./chap/06-appendix/appendix}
 
-
-
-	% Bibliography
 	\TheBibliography
-	\nocite{*}
-	% BIBTEX
-	% use if you want citations to appear even if they are not referenced to: 
-	% \nocite{*} or maybe \nocite{Kon64,And59} for specific entries
 	\bibliographystyle{babalpha}
 	\bibliography{lit}
-
-
-    % THEBIBLIOGRAPHY
-    %\begin{thebibliography}{000}
-    %    \bibitem{ident}Entry into Bibliography.
-    %\end{thebibliography}
 \end{document}
