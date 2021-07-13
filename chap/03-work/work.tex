@@ -54,6 +54,12 @@ In principle, the new system has the same structure, as \gls{kapture}. Notable d
 \end{figure}
 
 \paragraph{Xilinx Zynq UltraScale+ RFSoC ZCU216 Evaluation Card}
+
+Zynq UltraScale+ RFSoCs: Combine RF data converter subsystem and forward error correction with industry-leading
+programmable logic and heterogeneous processing capability. Integrated RF-ADCs, RF-DACs, and soft decision FECs (SD-FEC)
+provide the key subsystems for multiband, multi-mode cellular radios and cable infrastructure
+
+
 The card, holding the sampling channels, should be mounted on a ZCU216 evaluation board. This board is the newest generation of Xilinx' evaluation cards, which has features suitable for the purpose at hand.
 \begin{itemize}[noitemsep]
 \item Sixteen 14-bit, 2.5GSPS RF-ADC
@@ -75,35 +81,42 @@ The card, holding the sampling channels, should be mounted on a ZCU216 evaluatio
 \end{figure}
 
 \subsection{Requirements}
-\paragraph{Step size delay chip}
+\paragraph{Interleaving}
 The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
+However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile.
 
-\paragraph{Frequency}
+Clock to THA: \SI{500}{\mega \hertz}
 
+Total Hold time: \SI{1}{\nano \second}
+
+$\rightarrow$ Step size for delay:
+\begin{equation}
+	\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
+\end{equation}
 
 \begin{figure}[H]
 \centering
 \tikzexternaldisable
 \begin{tikztimingtable}
-  TH1 & 1H 8L N(A1) 8L 16H \\
-  TH2 & 2H 16L 15H \\
-  TH3 & 3H 16L 14H \\
-  TH4 & 4H 5L N(B1) 11L 13H \\
+  TH1 & 1L 8H N(A1) 8H 16L \\
+  TH2 & 2L 16H 15L \\
+  TH3 & 3L 16H 14L \\
+  TH4 & 4L 5H N(B1) 11H 13L \\
   \\
-  TH5 & 5H 16L 12H \\
-  TH6 & 6H 16L 11H \\
-  TH7 & 7H 16L 10H \\
-  TH8 & 8H 16L 9H \\
+  TH5 & 5L 16H 12L \\
+  TH6 & 6L 16H 11L \\
+  TH7 & 7L 16H 10L \\
+  TH8 & 8L 16H 9L \\
   \\
-  TH9 & 9H 16L 8H \\
-  TH10 & 10H 16L 7H \\
-  TH11 & 11H 16L 6H \\
-  TH12 & 12H 16L 5H \\
+  TH9 & 9L 16H 8L \\
+  TH10 & 10L 16H 7L \\
+  TH11 & 11L 16H 6L \\
+  TH12 & 12L 16H 5L \\
   \\
-  TH13 & 13H 16L 4H \\
-  TH14 & 14H 16L 3H \\
-  TH15 & 15H 16L 2H \\
-  TH16 & 16H 16L 1H \\
+  TH13 & 13L 16H 4L \\
+  TH14 & 14L 16H 3L \\
+  TH15 & 15L 16H 2L \\
+  TH16 & 16L 16H 1L \\
 \extracode
  \tablerules
  \begin{pgfonlayer}{background}
@@ -120,6 +133,9 @@ The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sam
 
 
 \paragraph{Data Rate}
+
+ADC samples \@ \SI{2.5}{\giga \hertz} with 14-bit resolution.
+
 \paragraph{Visualization/GUI}
 \newpage
 \section{Design of the front-end card}
