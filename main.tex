@@ -57,6 +57,15 @@
 \newcommand{\thesistimehandin}{13.08.2021} % on second page 'preamble'
 \newcommand{\thesispagehead}{Master Thesis: \thesisentopic} % page heading
 
+
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
+ 
+ 
 \hypersetup
 {
     pdfauthor={\thesisauthor},

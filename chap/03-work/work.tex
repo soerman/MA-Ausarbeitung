@@ -12,7 +12,7 @@ The newer version, KAPTURE-2, was designed for more accurate sampling for pulse 
 The general structure of the board is shown in \autoref{fig:kapture}.
 %todo what is THE board?
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-work/img/kapture.tikz}
 	\caption{General schema of KAPTURE-2 (cf. \cite[p.2]{caselleKAP})}
@@ -26,14 +26,14 @@ The clock signal is provided by \gls{kara}, which is cleared from jitter by a \g
 
 The resulting sampling of the detector signal is shown \autoref{fig:detector_signal} (simplified representation).
 %todo what are the S_i?
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[height = 0.3\textwidth, width = 0.6\textwidth]{chap/03-work/img/detector_signal.tikz}
 	\caption{Signal with sample points}
 	\label{fig:detector_signal}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-work/img/kapture_sys}
 	\caption{Photo of KAPTURE with highlighted main components. \cite[p.~61]{brosi}}
@@ -66,14 +66,14 @@ The card, holding the sampling channels, should be mounted on a ZCU216 evaluatio
 \item Sixteen 14-bit, 10GSPS RF-DAC
 \item I/O expansion options – FPGA Mezzanine Card (FMC+) interfaces, RFMC 2.0 interfaces, and Pmod connections
 \end{itemize}
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-work/img/zcu216}
 	\caption{ZCU216 evaluation board}
 	\label{fig:zcu216}
 \end{figure}
  
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-work/img/rfsoc_blockdiagram}
 	\caption{RFSoC block diagram}
@@ -94,7 +94,7 @@ $\rightarrow$ Step size for delay:
 	\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
 \end{equation}
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 \centering
 \tikzexternaldisable
 \begin{tikztimingtable}
@@ -157,14 +157,14 @@ Dual Channel Programmable Delay Chip.
 
 \subsection{Clocking}
 On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-frequency clocks for the ADCs/DACs. $\rightarrow$ reuse in front-end card
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/clk104}
 	\caption{CLK104 Add-on board clocking scheme}
 	\label{fig:clk104}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/03-work/img/pll_tsMode.tikz}
 	\caption{Clocking scheme on front-end card}
@@ -172,7 +172,7 @@ On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-f
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-work/img/pll.png}
 	\caption{Placeholder}
@@ -183,7 +183,7 @@ On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-f
 
 \subsection{Power Supply}
 For the Track-And-Hold amplifiers a new power supply unit -- the ADP1741 (Analog Devices) -- should be used. It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. The power consumption/maximum current for the respective components on the THERESA board is listed in \autoref{tab:kapturecomp}. 
-\begin{table}[tbh!]
+\begin{table}[tbh]
 	\caption{Power consumption of components on the board}
 	\label{tab:kapturecomp}
 	\begin{minipage}{\textwidth}
@@ -212,14 +212,14 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 \subsection{Floor Planning}
 \subsection{Transmission lines}
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/03-work/img/polaris}
 	\caption{Polaris Solver}
 	\label{fig:polaris}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/03-work/img/megtron_diff_bottom_d1_vs_s1.tikz}
 	\caption{Test Graph}
