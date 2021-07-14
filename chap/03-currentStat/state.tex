@@ -6,7 +6,7 @@
 
 The concept and architecture of \gls{kapture} is described in the following, as it will serve as base for the newly developed readout system. 
 
-\section{General Architecture}
+\subsection{General Architecture}
 The system consists of two parts: the sampling front-end card and a \gls{fpga} readout card. In \autoref{fig:thz_chain} the setup for \gls{thz} radiation measurements with \gls{kapture} is shown. 
 
 The incoming radiation is fed into a detector, which converts the incident photons into an electrical signal. This signal is then amplified in a wide-band \gls{lna}. The latter splits the detector signal into four identical signals, which are then propagated to the sampling front-end card. The card consists of four parallel sampling channels with adjustable sample time, each containing a \gls{tha} and an ADC. This card is connected to a read-out card, which has two tasks: programming the components on the front-end card (\gls{fpga}-part) and sending the acquired data to a PC/\gls{daq} system. \cite{caselle2014}
@@ -18,14 +18,14 @@ The incoming radiation is fed into a detector, which converts the incident photo
 	\label{fig:thz_chain}
 \end{figure}
 
-\section{Analog front-end}
+\subsection{Analog front-end}
 Due to the high bandwidth nature of the detector signal, the analog front-end of the system has to be wideband as well to be able to sample the signal with picosecond resolution. 
 
 The used \gls{lna} is based on a commercial GaAs \gls{mmic} which operates from DC to \SI{50}{\giga \hertz}. It is needed to compensate the insertion loss\footnote{\textit{Insertion loss} is the loss of signal power which occurs, when a signal passes through a component.} due to the following power splitter. %todo Ask michele for more info and pictures about lna
 
 Classical dividers are not intrinsically wideband (\cite{caselle2014}). For that reason, an own wideband power-splitter was developed at \gls{ipe} to fulfill the bandwidth requirements. The designed power-splitter works up to \SI{100}{\giga \hertz} with an insertion loss of \SI{8}{\decibel} and a return loss of about \SI{20}{\decibel} at \SI{50}{\giga \hertz}.\cite{caselle2014}
 
-\section{Sampling board}
+\subsection{Sampling board}
 The general structure of the board with the power splitter is shown in \autoref{fig:kapture}. 
 \begin{figure}[tbh]
 	\centering
@@ -54,7 +54,7 @@ A simplified representation of the local sampling of the signal is shown in \aut
 	\label{fig:kapturesys}
 \end{figure}
 
-\section{FPGA-GPU architecture}
+\subsection{FPGA-GPU architecture}
 
 In order to keep a continuous data acquisition the necessary bandwidth is 
 \begin{equation}
@@ -62,7 +62,7 @@ In order to keep a continuous data acquisition the necessary bandwidth is
 \end{equation}
 To ensure high data throughput, the readout board is based on a bus master DMA architecture which is connected to \gls{pcie} end-point logic. This ensure a throughput of up to 2 GByte/s. \cite{caselleKAP}
 
-\section{KAPTURE-2}
+\subsection{KAPTURE-2}
 
 \begin{figure}[tbh]
 	\centering
