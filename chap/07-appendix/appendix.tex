@@ -1,3 +1,91 @@
+\section{Characteristic Impedance Of Coplanar Waveguides}
+\paragraph{Surface Coplanar Waveguide with Ground}
+
+Characteristic impedance\cite[~p197-198]{wadell}: 
+\begin{equation}
+	Z_{0,o} = \frac{\eta_0}{\sqrt{\epsilon_{eff,o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)
+\end{equation}    
+
+\begin{equation}
+	Z_{0,e} = \frac{\eta_0}{\sqrt{\epsilon_{eff,e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
+\end{equation} 
+
+
+\begin{equation}
+	\epsilon_{eff,o} = \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}
+\end{equation}
+
+\begin{equation}
+	\epsilon_{eff,e} = \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
+\end{equation}
+
+Where
+
+\begin{equation}
+	k_o = \Lambda \frac{-\sqrt{\Lambda^2 - t_c^2} + \sqrt{\Lambda^2 - t_B^2}}{t_B\sqrt{\Lambda^2 - t_c^2} + t_c \sqrt{\Lambda^2 - t_B^2}}
+\end{equation}
+
+\begin{equation}
+	k_e = \Lambda' \frac{-\sqrt{\Lambda'^2 - t_c'^2} + \sqrt{\Lambda'^2 - t_B'^2}}{t_B'\sqrt{\Lambda'^2 - t_c'^2} + t_c' \sqrt{\Lambda'^2 - t_B'^2}}
+\end{equation}
+
+
+\begin{equation}
+	\Lambda = \frac{\sinh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
+\end{equation}
+
+\begin{equation}
+	t_c = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda
+\end{equation}
+
+\begin{equation}
+	t_B = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda
+\end{equation}
+
+
+\begin{equation}
+	\Lambda' = \frac{\cosh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
+\end{equation}
+
+\begin{equation}
+	t_c' = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda' + 1.0
+\end{equation}
+
+\begin{equation}
+	t_B' = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda + 1.0
+\end{equation}
+
+The parameters have to be chosen according to 
+\begin{equation}
+	s + 2.0 w + 2.0 d \leq h
+\end{equation}
+to guarantee coplanar propagation. \cite{wadell}
+
+
+\paragraph{Surface Coplanar Waveguide with Ground}  
+The characteristic impedance of a coplanar waveguide is given as follows \cite{wadell}: 
+\begin{equation}
+	Z_0 = \frac{60.0 \pi}{\sqrt{\epsilon_{eff}}} \frac{1.0}{\frac{K(k)}{K(k')} + \frac{K(k_1)}{K(k_1')}}
+\end{equation}
+It comprises of the following components, with K(k) being an elliptical integral of the first kind (see also \cite[p.~430]{bronstein}):
+\begin{equation}
+	k = a/b
+\end{equation}
+\begin{equation}
+	k' = \sqrt{1.0 - k^{2}}
+\end{equation}
+\begin{equation}
+	k_1' = \sqrt{1.0 - k_1^{2}}
+\end{equation}
+\begin{equation}
+	k_1 = \frac{tanh(\frac{\pi a}{4.0  h})}{tanh(\frac{\pi  b}{4.0 h})}
+\end{equation}
+\begin{equation}
+	\epsilon_{eff} = \frac{1.0 + \epsilon_r \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}{1.0 + \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}
+\end{equation}
+
+
+
 \section{QuickStart Guide for Evaluation of ZCU216 Board}
 \section{3D model of front-end card}
 \section{Code}

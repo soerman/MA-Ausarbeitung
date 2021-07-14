@@ -1,38 +1,65 @@
 \section{Photonic Front-End}
-\subsection{Detector/Diode}
-\section{Analog-To-Digital Converters}
-\Glspl{adc} are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This can be expressed as
+The working principle of the optic time-stretch technique can be described in two steps (see \autoref{fig:eo_ts}).
+First, a short laser pulse is propagated in a dispersive medium (optical fiber of length $L_1$). %todo EOSD?
+This results in a chirped laser pulse of the duration
 \begin{equation}
-	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
+	T_1 = \Delta \lambda D_1 L_1
 \end{equation}
-with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}.
+with the optical bandwidth of the laser pulse $\Delta \lambda$  and the dispersion parameter $D_1$ of the fiber.
+The next step is the time-to-wavelength-mapping, where a temporal intensity modulation is imprinted on the chirped pulse.
+After that, the modulated chirped pulse propagates through another dispersive medium, a fiber of the length $L_2$.
+In this way, the temporal modulation of the pulse is further stretched to the duration $T_2$, which is long enough for detection with photodetectors and/or digitizing with \Glspl{adc}. \cite{roussel2014}
+
+The factor, by which the pulse is slowed down, is calculated as
+\begin{equation}
+	M = 1 + \frac{L_1}{L_2}.
+\end{equation}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/time_stretch.png}
+	\caption{Electro-Optical Time-Stretch Technique \cite{szwaj}}
+	\label{fig:eo_ts}
+\end{figure}
+%todo at least re-add labels in the figure with tikz, or they are too small
+
+
+\subsection{Detector/Diode}
+
+The detection and subtraction between the two stretched signals is performed using a amplified balanced photodetector (photoreceiver) from Discovery Semiconductors, with 20 GHz bandwidth and 2800 V/W gain (specified at 1500 nm). The two differential outputs of the detector are sent on a Lecroy LabMaster 10i oscilloscope with 36 GHz bandwidth, 80 GS/s sample rate on each channel and a memory of 256 Mega samples.
+
+\section{Analog-To-Digital Converters}
+\Glspl{adc} are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This process, which is also called \textit{sampling}, can be expressed as
+\begin{equation}
+	V_{\text{In}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
+\end{equation}
+with $V_{\text{In}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
-	\caption{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
+	\caption[Transfer function of ideal, 3-bit ADC]{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
 	\label{fig:idealADC}
 \end{figure}
-%todo Can this be combined with the other section about nyquist?
-%todo ALL CAPS in the eqs?
 %todo what is an ADC, why do we need one in general?
 
 \subsection{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
 The \textit{Nyquist criteria} states, that in order to accurately represent a band-limited, continuous signal %todo what is B?
-%todo rewrite the condition, maybe like Y(f)=0\vert_f>B/2
+%todo rewrite the condition, maybe like 
 \begin{equation}
-	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f) = 0, \, |f| \geq \frac{B}{2}
+	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation}
 it has to be sampled with a frequency $f_s$ respecting
 \begin{equation}
-	f_s \geq B \quad \text{or} \quad f_s \geq 2 f_a
+	f_s > B \quad \text{or} \quad f_s > 2 f_a
 \end{equation}
 with $f_a$ being the highest frequency contained in the signal. \cite{walt,puente2015}
 %todo why not relate f_a to B?
 
-In other words, $f_a$ must be inside of the \textit{Nyquist bandwidth}, which is the spectrum from DC to $f_s/2$. Violation of this rule leads to \textit{aliasing}.
-%todo what is DC? state that in this paragraph you argue the other way around: now the sampling rate limits the signal bandwith and not the signal bandwith gouverns the samling freq
+Violation of this rule leads to \textit{aliasing}.
+%todo explain aliasing
+
 
 \begin{figure}[tbh]
 	\centering
@@ -48,9 +75,8 @@ In other words, $f_a$ must be inside of the \textit{Nyquist bandwidth}, which is
 		\caption{Aliasing in time domain}
 		\label{fig:alias_t}
 	\end{subfigure}
-	\caption{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria. \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
+	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria. \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
 \end{figure}
-%todo add [] short image caption
 
 %todo low-pass filter to get B/2<f_s? maybe
 
@@ -63,7 +89,7 @@ The \gls{adc} sampling time needs to be timed in such way, that the analog-to-di
 
 
 
-\begin{figure} [tbh]
+\begin{figure} [H]
 	\centering
 	\tikzexternaldisable
 	\begin{tikztimingtable}
@@ -143,16 +169,15 @@ The \textit{offset error} is the deviation of the first transition voltage from 
 
 
 \paragraph{Integral and Differential Non-linearity Distortion} 
-\textit{Integral non-linearity} in the transfer function of data converters results from the integral non-linearities of the front-end, \gls{sha} and also the \gls{adc} itself.
-These non-linearities depend on the input signal amplitude.
-distance of the code centers in the A/D converter characteristic from the ideal line
-\textit{Differential non-linearities} stem exclusively from the encoding process in the \gls{adc}.
-They not only depend on the input signal amplitude, but also on the positioning along the transfer function.
-The deviation of the code transition widths from the ideal width
-of 1 \gls{lsb}.
+\textit{Integral non-linearity} in the transfer function is the distance of the code centers from the ideal line. It results from the integral non-linearities of the front-end, \gls{sha} and also the \gls{adc} itself. sThese non-linearities depend on the input signal amplitude.
 
-\subsubsection{Dynamic performance}
-\paragraph{Frequency-Domain}
+\textit{Differential non-linearitiy} is the deviation in code transition width from the ideal 1 LSB width. This nonlinearity stems exclusively from the encoding process in the \gls{adc}. It not only depends on the input signal amplitude, but also on the positioning along the transfer function.
+
+
+\subsubsection{Frequency-Domain Dynamic Parameters}
+
+\paragraph{\gls{sinad}}
+
 \begin{itemize}
 	\item SINAD
 	\item ENOB
@@ -180,9 +205,8 @@ The difference betweenand the analog input $x(t)$ and its quantized signal $x_q(
 For an equidistant quantization it is
 \begin{equation}
 	\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
-\end{equation}
-with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015}
-%todo maybe push the explanations for x and x_q higher up, like 'for a signal x(t) and its quantized signal x_q(t)[...]'
+\end{equation} 
+\cite{puente2015}
 
 Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal \cite{walt}:
 \begin{equation}

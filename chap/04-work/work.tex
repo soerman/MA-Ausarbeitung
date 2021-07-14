@@ -7,40 +7,10 @@ The idea for the new system is to reuse the concept of the already existing samp
 \subsection{New System THERESA}
 In principle, the new system has the same structure, as \gls{kapture}. Notable differences are firstly the number of \glspl{adc}, which is increased up to 16. Secondly, the latter are not located on the daughter card anymore, but inside the Xilinx Zynq UltraScale+ RFSoC ZU49DR on the ZCU216 Evaluation Kit on which the front-end card is mounted.
 %todo On THE xyz board? do we know what this is at this point?
-\autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/theresa_scheme.tikz}
-	\caption{General schema of THERESA. For presentation purposes only four channels are shown.}
-	\label{fig:theresa_scheme}
-\end{figure}
-
-\paragraph{Xilinx Zynq UltraScale+ RFSoC ZCU216 Evaluation Card}
-
-Zynq UltraScale+ RFSoCs: Combine RF data converter subsystem and forward error correction with industry-leading
-programmable logic and heterogeneous processing capability. Integrated RF-ADCs, RF-DACs, and soft decision FECs (SD-FEC)
-provide the key subsystems for multiband, multi-mode cellular radios and cable infrastructure
 
 
-The card, holding the sampling channels, should be mounted on a ZCU216 evaluation board. This board is the newest generation of Xilinx' evaluation cards, which has features suitable for the purpose at hand.
-\begin{itemize}[noitemsep]
-\item Sixteen 14-bit, 2.5GSPS RF-ADC
-\item Sixteen 14-bit, 10GSPS RF-DAC
-\item I/O expansion options – FPGA Mezzanine Card (FMC+) interfaces, RFMC 2.0 interfaces, and Pmod connections
-\end{itemize}
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/zcu216}
-	\caption{ZCU216 evaluation board}
-	\label{fig:zcu216}
-\end{figure}
- 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/rfsoc_blockdiagram}
-	\caption{RFSoC block diagram}
-	\label{fig:rfsoc}
-\end{figure}
+
+
 
 \subsection{Requirements}
 \paragraph{Interleaving}
@@ -103,90 +73,11 @@ ADC samples \@ \SI{2.5}{\giga \hertz} with 14-bit resolution.
 \section{Design of the front-end card}
 In this section, the design of the front-end card is covered.
 
-\subsection{Sampling-Channel}
-\paragraph{Track-And-Hold-Amplifier}
-Explain why better than Sample-And-Hold-Amplifier.
-\paragraph{Delay Chip NB6L295}
-Dual Channel Programmable Delay Chip.
-
-\begin{itemize}[noitemsep]
-	\item Two individual variable delay channels
-	\item Dual Delay: minimal delay \SI{3.2}{\nano \second}
-	\item Total Delay Range: \SI{3.2}{\nano \second} to \SI{8.8}{\nano \second} per Delay Channel
-	\item \SI{11}{\pico \second} Increments in 511 steps
-	\item \SI{100}{\pico \second} Typical Rise and Fall Times
-\end{itemize}
-
-\subsection{Clocking}
-On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-frequency clocks for the ADCs/DACs. $\rightarrow$ reuse in front-end card
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/clk104}
-	\caption{CLK104 Add-on board clocking scheme}
-	\label{fig:clk104}
-\end{figure}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/04-work/img/pll_tsMode.tikz}
-	\caption{Clocking scheme on front-end card}
-	\label{fig:clocking}
-\end{figure}
-
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pll.png}
-	\caption{Placeholder}
-	\label{fig:pll}
-\end{figure}
-
-
-
-\subsection{Power Supply}
-For the Track-And-Hold amplifiers a new power supply unit -- the ADP1741 (Analog Devices) -- should be used. It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. The power consumption/maximum current for the respective components on the THERESA board is listed in \autoref{tab:kapturecomp}. 
-\begin{table}[tbh]
-	\caption{Power consumption of components on the board}
-	\label{tab:kapturecomp}
-	\begin{minipage}{\textwidth}
-		\centering
-		\begin{tabularx}{\textwidth}{XSSSSS}
-			\toprule
-			\textbf{Component} & \textbf{$V_{cc}$ (\SI{}{\volt})} & \textbf{$I_{max}$ (\SI{}{\ampere})} & \textbf{$P_{max}$ (\SI{}{\watt})} & $\#_{parts}$ & \textbf{$I_{tot}$}\footnote{for 16 ADCs} (\SI{}{\ampere})\\
-				\midrule
-			HMC5649 (T/H-Amplifier) 	& 2	  	& 0.221 	 & 0.442 & 16 & 3.536\\
-									& -5  	& -0.242 & 1.21 &  & 3.872\\
-			HMC856 (Delay) 			& -3.3	& 0.185 & -0.611 & 16 & 2.96\\
-			HMC987LP5E (Fan-Out) 	& 3.3 	& 0.234\footnote{All Outputs and RF-Buffer} & 0.772 & 2 & 0.468\\
-			LMC0480 (PLL) 			& 3.3 	& 0.590\footnote{All CLKs} & 1.947 & 1 & 0.590\\
-			VCXO 					& 3.3 	& 0.03 & 0.198 & 1 & 0.03\\
-			\bottomrule
-		\end{tabularx}
-	\end{minipage}
-\end{table}
-
-The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampere}. This means, with one Track-And-Hold amplifier requiring a maximal current of \SI{0.221}{\ampere}, one ADP1741 can handle four units according to the rule mentioned beforehand ($I_{max\_ADP1741} = \SI{2}{\ampere} > 2 * I_{tot}, I_{tot} = 4 \times \SI{0.221}{\ampere} =  \SI{0.884}{\ampere}$).
-
 
 
 \newpage
 \section{PCB-Layout}
-\subsection{Floor Planning}
-\subsection{Transmission lines}
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/polaris}
-	\caption{Polaris Solver}
-	\label{fig:polaris}
-\end{figure}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/megtron_diff_bottom_d1_vs_s1.tikz}
-	\caption{Test Graph}
-	\label{fig:megtron}
-\end{figure}
 
   
 \newpage
