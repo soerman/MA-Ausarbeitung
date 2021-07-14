@@ -2,7 +2,7 @@
 	
 	% horizontal axis
 	\draw[-latex, thick] (-2.5,0) -- (2.5,0) node[anchor=north] {$t$};
-	\draw[-latex, thick] (0,-1.5) -- (0,1.5) node[anchor=east] {$e(t)$};
+	\draw[-latex, thick] (0,-1.5) -- (0,1.5) node[anchor=east] {$e_q(t)$};
 	% labels
 	\draw	(1,0) node[anchor=north west] {$\frac{q}{2s}$}
 			(-1,0) node[anchor=north west] {$-\frac{q}{2s}$};

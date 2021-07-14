@@ -39,6 +39,10 @@
 	color(50.00000000000000bp)=(red)
 } 
 
+\lstset{%
+	breaklines=true,
+	breakatwhitespace=true,
+}
 %\usepackage{tikz-palattice}
 
 \SelectLanguage{english}
@@ -108,20 +112,28 @@
     \MainMatter
     \chapter{Introduction}
     		\input{./chap/01-introduction/introduction}
-    \chapter{Theoretical Fundamentals}
-    		\input{./chap/02-theory/theory}
-	\chapter{Design and Development of the System}
-			\input{./chap/03-work/work}
-	\chapter{Characterization}	
-			\input{./chap/04-characterization/characterization}
+    \chapter{Terabit Sampling System for Photonics Time-Stretch}
+    		\input{./chap/02-theory/system}
+   	\chapter{State Of The Art Read-Out-Systems}
+   			\input{./chap/03-currentStat/state}
+   	\chapter{Architecture of the new system}
+   			\input{./chap/04-work/new_sys}
+   	\chapter{Front-End Sampling Card - \gls{theresa}}
+   			\input{./chap/04-work/theresa}	
+   	\chapter{Readout Card - Xilinx ZCU216}
+   			\input{./chap/04-work/zcu216}
+   	\chapter{Firmware}
+   			\input{./chap/04-work/firmware}			
+	%\chapter{Characterization}	
+	%		\input{./chap/05-characterization/characterization}
     \chapter{Conclusions and Outlook}
-    		\input{./chap/05-conclusion/conclusion}		
+   		\input{./chap/06-conclusion/conclusion}		
 	\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}
 			\input{include/ack.tex}
 	
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
-    \input{./chap/06-appendix/appendix}
+    \input{./chap/07-appendix/appendix}
 
 	\TheBibliography
 	\bibliographystyle{babalpha}

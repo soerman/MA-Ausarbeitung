@@ -1,10 +1,26 @@
+\section{Time-Stretching methods in physics}
+\section{Motivation}
+	\subsection{\gls{kara}}
+	\subsection{Coherent Synchrotron Radiation}
+	\subsection{Longitudinal Bunch Profile Diagnostics}
+	\subsection{Other scientific application for time-stretching methods}
+
+
 \begin{itemize}
 	\item Microbunching instabilites $\rightarrow$ THz radiation $\rightarrow$ Potential source of brilliant radiation
 	\item Need to be studied to be able to control it
-	\item Time-resolution critical, as instabilites at high frequency
-	\item EO techniques to measure such signals
+	\item Time-resolution critical, as instabilities have high bandwidth
+	\item Commercial oscilloscopes don't have enough internal memory
+	\item already developed system KAPTURE/KAPTURE-2 to solve this problem
+	\item however: four/eight points not enough to see the microbunching instabilities
 	\item Concept: combine time-stretch with FPGA $\rightarrow$ THERESA (\textbf{T}era\textbf{He}rtz \textbf{Re}adout \textbf{Sa}mpling)
+	\item EO technique to stretch the signal in time, so requirements on the bandwidth of converters can be relaxed
+	\item more converters, to have more points
+	\item New generation FPGA/SoC for fast readout and high data throughput
 \end{itemize}
+
+Available commercial DAQ system or real-time oscilloscopes for high bandwidth (e.g. above
+40 GHz) are very expensive and, due to limited internal memory and missing fast readout interfaces, are not suitable for long term bunch-to-bunch CSR measurements. To circumvent these limitations a DAQ architecture for fast and continuous sampling of the individual ultra-short THz pulses has been developed.
 
 
 %

@@ -48,7 +48,7 @@ For longitudinal coherence, the electron bunches are shortened, which results in
 
 However, this introduces complex dynamics, as the electrons interact with their own radiation.
 This manifests into the so called micro-bunching instability.
-The formation of microstructures (in the sub-millimetre to centimetre range) in the longitudinal density profile of the electron bunches. %todo AE or BE ('re' vs 're')?
+The formation of micro-structures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches. %todo AE or BE ('re' vs 're')?
 Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode.
 On the other side, these instabilities can be potential sources of brilliant THz radiation. %todo why
 A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018,brosi}
@@ -67,7 +67,7 @@ A thorough understanding of these dynamics is necessary to control the emission 
 	\label{fig:microBunch}
 \end{figure}
 
-\paragraph{Karlsruhe Research Accelerator (KARA)(?)}
+\subsection{Karlsruhe Research Accelerator (KARA)(?)}
 \begin{itemize}[noitemsep]
 	\item Located at the Karlsruhe Institute of Technology (KIT)
 	\item Up to 184 electron bunches can be filled with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches %todo filled?
@@ -78,24 +78,23 @@ A thorough understanding of these dynamics is necessary to control the emission 
 \begin{table}[tbh]
 	\caption{KARA characteristics}
 	\label{tab:kara}
-	\begin{minipage}{\textwidth}
 		\centering
-		\begin{tabularx}{\textwidth}{XS}
+	\begin{tabularx}{\textwidth}{Xl}
 			\toprule
-			\textbf{Beam energy}     				& $ \SI{2.5}{\giga \electronvolt}$ \\
-			\textbf{Circumference} 	 				& $\SI{110}{\meter}$	  \\
-			\textbf{RF frequency }   				& $\SI{499.7}{\mega \hertz}$ 	\\
-			\textbf{Harmonic number} 				& 184	\\
-			\textbf{Number of RF stations} 			& 2 \\
-			\textbf{Number of cavities per station} 	& 2	\\
-			\textbf{Accelerating voltage} 					& $\SI{1.4}{\mega \electronvolt}$ \\
-			\bottomrule		\end{tabularx}
-	\end{minipage}
+			Beam energy    				& $ \SI{2.5}{\giga \electronvolt}$ \\
+			Circumference 	 				& $\SI{110}{\meter}$	  \\
+			RF frequency    				& $\SI{499.7}{\mega \hertz}$ 	\\
+			Harmonic number 				& 184	\\
+			Number of RF stations 			& 2 \\
+			Number of cavities per station 	& 2	\\
+			Accelerating voltage 					& $\SI{1.4}{\mega \electronvolt}$ \\
+			\bottomrule		
+	\end{tabularx}
 \end{table}
 %todo why minipage? S-columns only make sense if all vars in one column have the same unit, just use a 'l' column here?
 %todo maybe remove the textbf here and in all other tables (unprofessional, clutters page, etc. was auch immer)
 
-
+\subsection{Beam Diagnostics at KARA}
 
 \begin{figure}[tbh]
 	\centering
@@ -190,7 +189,20 @@ The factor, by which the pulse is slowed down, is calculated as
 
 \newpage
 \section{Analog-To-Digital Converters}
-The following section reviews the theory and characteristics of \glspl{adc}. %todo what is an ADC, why do we need one in general?
+\Glspl{adc} are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This can be expressed as
+\begin{equation}
+	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
+\end{equation}
+with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
+	\caption{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
+	\label{fig:idealADC}
+\end{figure}
+%todo Can this be combined with the other section about nyquist?
+%todo ALL CAPS in the eqs?
+ %todo what is an ADC, why do we need one in general?
 
 \subsection{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
@@ -272,20 +284,8 @@ When switching to hold mode, the signal at this instant is held. This is opposed
 \end{figure}
 
 \subsection{Characteristics of Analog-To-Digital-Converters}
-\Glspl{adc} are used to translate analog quantities into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This can be expressed as
-\begin{equation}
-	V_{\text{IN}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon
-\end{equation}
-with $V_{\text{IN}}$ being the input voltage, $V_{\text{FS}}$ the full-scale voltage, $b_k$ the individual output bits and $\epsilon$ the quantization error. \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = 0.55\textwidth]{chap/02-theory/img/ideal_adc}
-	\caption{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
-	\label{fig:idealADC}
-\end{figure}
 
-%todo Can this be combined with the other section about nyquist?
-%todo ALL CAPS in the eqs?
+
 
 For an ideal converter, the number of bits would be sufficient to fully characterize it.
 Real \glspl{adc} however differ from the ideal behavior by introducing static and dynamic imperfections.
@@ -296,60 +296,6 @@ Different applications have different requirements, which leads to a number of s
 	\item Time-domain dynamic parameters
 \end{itemize}
 This section provides an overview of these figures of merit. Which of these are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
-
-%todo i would expect a section called 'static parameters' next
-
-\subsubsection{Quantization Noise}
-Even in an ideal $N$-bit converter there will be errors during the quantization, which behave like noise.
-The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}.
-The input voltage is always assigned to the word of the nearest code center. %todo word?
-This means that there will always be a difference between the code center and the actual input.
-The difference between the corresponding voltage of the respective code center and the analog input is called the \textit{quantization error}.
-For an equidistant quantization it is
-\begin{equation}
-\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
-\end{equation}
-with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015}
-%todo maybe push the explanations for x and x_q higher up, like 'for a signal x(t) and its quantized signal x_q(t)[...]'
-
-Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal:
-\begin{equation}
-e(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
-\end{equation}
-%todo why sawtooth? what is 's'? cite?
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
-	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
-	\label{fig:eq}
-\end{figure}
-
-%todo how does e relate to e_q?
-
-The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e(t)$:
-\begin{equation}
-P_\text{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
-\end{equation}
-
-To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
-\begin{equation}
-u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)  = 2^{N-1}q \sin(2\pi f t)
-\end{equation}
-With the effective value of the signal amplitude
-\begin{equation}
-u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
-\end{equation}
-and the quantization noise power, the SNR can be calculated as
-\begin{equation}
-\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
-\end{equation}
-
-Using the unit Decibel, this can be expressed as (see \cite{puente2015,walt})
-\begin{equation}
-\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76.
-\end{equation}
-
 
 
 \subsubsection{Static parameters}
@@ -393,9 +339,6 @@ They not only depend on the input signal amplitude, but also on the positioning 
 The deviation of the code transition widths from the ideal width
 of 1 \gls{lsb}.
 
-
-
-
 \subsubsection{Dynamic performance}
 \paragraph{Frequency-Domain}
 \begin{itemize}
@@ -415,6 +358,64 @@ of 1 \gls{lsb}.
 	\item Transient Response
 	\item Overvoltage Recovery
 \end{itemize}
+
+\subsubsection{Quantization Noise}
+Even in an ideal $N$-bit converter there will be errors during the quantization, which behave like noise.
+The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide (\textit{code width}) and centered around a \textit{code center} (see \autoref{fig:idealADC}) \cite{Lundberg}.
+The input voltage is always assigned to the code of the nearest code center. 
+This means that there will always be a difference between the code center and the actual input.
+The difference betweenand the analog input $x(t)$ and its quantized signal $x_q(t)$ is called the \textit{quantization error}.
+For an equidistant quantization it is
+\begin{equation}
+\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}
+\end{equation}
+with $x_q(t)$ being the quantized/discrete signal, $x(t)$ the input signal and $q$ the width of the quantization stage. \cite{puente2015}
+%todo maybe push the explanations for x and x_q higher up, like 'for a signal x(t) and its quantized signal x_q(t)[...]'
+
+Assuming the error voltage uncorrelated and uniformly distributed, the theoretical (maximum) Signal-To-Noise-Ratio (SNR) of this \textit{quantization noise} can be calculated. In the time domain, the quantization error can be approximated with a sawtooth signal \cite{walt}:
+\begin{equation}
+e_q(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
+\end{equation}
+%todo why sawtooth? what is 's'? cite?
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/quantization_error.tikz}
+	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
+	\label{fig:eq}
+\end{figure}
+
+%todo how does e relate to e_q?
+
+The power of the quantization noise, which is assumed to be uncorrelated and broadband, can be calculated as the mean-square of $e_q(t)$:
+\begin{equation}
+P_\text{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
+\end{equation}
+
+To calculate the maximal SNR of an ideal converter, a full-scale input sine wave is assumed:
+\begin{equation}
+u(t) = u_s \sin(2\pi f t) = \frac{2^{N}q}{2}\sin(2\pi f t)  = 2^{N-1}q \sin(2\pi f t)
+\end{equation}
+With the effective value of the signal amplitude
+\begin{equation}
+u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
+\end{equation}
+and the quantization noise power, the SNR can be calculated as
+\begin{equation}
+\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
+\end{equation}
+
+Using the unit Decibel, this can be expressed as (see \cite{puente2015,walt})
+\begin{equation}
+\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76.
+\end{equation}
+
+
+
+
+
+
+
 
 
 In an \glspl{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
