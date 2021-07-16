@@ -23,3 +23,32 @@ Content not really correctable nor sinnvoll atm.
 
 * 
 
+# Idea ToC
+
+* Introduction
+
+* Structure of a general XYZ System
+
+  The xyz system needs A, B, C, see schematic ... .
+
+  * Theory of A
+  * Theory of B
+  * Theory of C
+
+* Selection of a FPGA Board
+
+  Here are some boards, spartan, kintex, altera, ...
+
+  * Can these boards do A, B, C?
+  * Other factors were: price, mechanical constraints, connectors, board-material color, ...
+  * Thats why we chose board ...
+
+* Development of a Analog Front-End card
+
+  * Card needs to fit board ...
+  * circuit, see TRH in ... , ADCs in ... and ...
+  * pcb layout
+
+* Evaluation of the overall system
+
+* Results
