@@ -16,6 +16,6 @@
 		\addplot[mark=none, dashed] coordinates {(2.7, 0) (2.7, 0.18)}; 
 		\addplot[mark=none, dashed] coordinates {(3.4, 0) (3.4, 0.34)}; 
 		\addplot[mark=none, dashed] coordinates {(4.5, 0) (4.5, 0.35)}; 
-		\addplot[mark=none, dashed] coordinates {(5.5, 0) (5.5, 0.14)}; 
+		\addplot[mark=none, dashed] coordinates {(5.5, 0) (5.5, 0.13)}; 
 	\end{axis}
 \end{tikzpicture}

@@ -19,10 +19,11 @@
 \usepackage{trfsigns}
 \usepackage{enumitem}
 \newcommand{\thz}{\si{\tera\hertz}}
+\newcommand{\eqdev}{\mathrel{\widehat{=}}}
 
 %tikz & pgfplots
-\usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz, tikz-timing}
-\usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing}
+\usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz,tikz-timing}
+\usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing, positioning}
 \tikzexternalize[optimize=false,prefix=tikz/]
 \usetikztiminglibrary{arrows}
 
@@ -111,25 +112,23 @@
     % Contents
     \MainMatter
     \chapter{Introduction}
-    %		\input{./chap/01-introduction/introduction}		
-    \chapter{Terabit Sampling System for Photonics Time-Stretch/Photonic time-stretch data acquisition system}
+    		\input{./chap/01-introduction/introduction}		
     		\input{./chap/02-theory/system}
    	\chapter{State Of The Art Read-Out-Systems}
    	%		\input{./chap/03-currentStat/state}
-   	\chapter{Architecture of the new system}
+   	\chapter{Architecture Of The New System}
    	%		\input{./chap/04-work/new_sys}
-   	\chapter{Front-End Sampling Card - \gls{theresa}}
-   	%		\input{./chap/04-work/theresa}	
-   	\chapter{Readout Card - Xilinx ZCU216}
-   			\input{./chap/04-work/zcu216}
-   	\chapter{Firmware}
-   			\input{./chap/04-work/firmware}			
-	%\chapter{Characterization}	
-	%		\input{./chap/05-characterization/characterization}
-    \chapter{Conclusions and Outlook}
-   		\input{./chap/06-conclusion/conclusion}		
+   	\chapter{Design Of The Front-End Sampling Card}
+   	%		\input{./chap/04-work/theresa}
+   	\chapter{Back-End Readout Card}
+   	%		\input{./chap/04-work/zcu216}
+   	%		\input{./chap/04-work/firmware}		
+	\chapter{Results}	
+	%		\input{./chap/05-results/results}
+    \chapter{Conclusion and Outlook}
+   	%	\input{./chap/06-conclusion/conclusion}		
 	\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}
-			\input{include/ack.tex}
+	%		\input{include/ack.tex}
 	
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
