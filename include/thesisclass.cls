@@ -28,16 +28,21 @@
 %% ------------------
 %% |    Packages    |
 %% ------------------
-\usepackage[utf8]{inputenc}                     % for using utf8 chars (äöüß)
-\usepackage[T1]{fontenc}                        % for correct font encoding (you
+%dont use for lualatex
+%\usepackage[utf8]{inputenc}                     % for using utf8 chars (äöüß)
+%\usepackage[T1]{fontenc}                        % for correct font encoding (you
                                                 % can't search for non-ascii 
                                                 % chars in pdf otherwise)
 \usepackage{lmodern}                            % the font used by T1 font enc
+%cannot use kerning and spacing with lualatex
+%\usepackage[protrusion=true,                    % microtype package for better 
+%            expansion,                          % line breaks, kerning, etc.
+%            tracking,
+%            kerning,
+%            spacing]{microtype}
 \usepackage[protrusion=true,                    % microtype package for better 
             expansion,                          % line breaks, kerning, etc.
-            tracking,
-            kerning,
-            spacing]{microtype}
+            tracking]{microtype}
 \microtypecontext{spacing=nonfrench}            % option for scrbook to allow 
                                                 % microtype->nonfrenchspacing
                                                 % for info on nonfrenchspacing:

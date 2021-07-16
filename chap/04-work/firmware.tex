@@ -1,0 +1,53 @@
+\section{Firmware}
+\subsection{RF Data Converter}
+\subsection{SoC}
+\subsection{RDMA over Converged Ethernet (RoCE)}
+
+\subsection{System Integration}
+\paragraph{Interleaving}
+The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
+However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile.
+
+Clock to THA: \SI{500}{\mega \hertz}
+
+Total Hold time: \SI{1}{\nano \second}
+
+$\rightarrow$ Step size for delay:
+\begin{equation}
+\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
+\end{equation}
+
+\begin{figure}[tbh]
+	\centering
+	\tikzexternaldisable
+	\begin{tikztimingtable}
+		TH1 & 1L 8H N(A1) 8H 16L \\
+		TH2 & 2L 16H 15L \\
+		TH3 & 3L 16H 14L \\
+		TH4 & 4L 5H N(B1) 11H 13L \\
+		\\
+		TH5 & 5L 16H 12L \\
+		TH6 & 6L 16H 11L \\
+		TH7 & 7L 16H 10L \\
+		TH8 & 8L 16H 9L \\
+		\\
+		TH9 & 9L 16H 8L \\
+		TH10 & 10L 16H 7L \\
+		TH11 & 11L 16H 6L \\
+		TH12 & 12L 16H 5L \\
+		\\
+		TH13 & 13L 16H 4L \\
+		TH14 & 14L 16H 3L \\
+		TH15 & 15L 16H 2L \\
+		TH16 & 16L 16H 1L \\
+		\extracode
+		\tablerules
+		\begin{pgfonlayer}{background}
+			\draw [help lines, dashed] (A1) -- (B1);
+		\end{pgfonlayer}
+	\end{tikztimingtable}
+	\tikzexternalenable
+	\caption{Track-And-Hold Timing diagram}
+	\label{fig:THA}
+\end{figure}
+%todo what does the dashed line show?

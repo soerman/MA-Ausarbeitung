@@ -5,125 +5,15 @@ A new generation of instruments based on photonic time stretch is opening the pa
 
 
 
-\section{Time-Stretching techniques in physics}
 
 
 \section{Motivation}
 Terahertz science and laser applications need to analyse the characteristics of ultrafast events. Commercially available real-time equipment is limited in bandwidth (240 GS/s, LeCroy LabMaster 10-100Zi) and cannot be used to characterize these events in the pico-and femtosecond regime. In this thesis you will evaluate a real-time measurement technique based on the photonic time-stretch analog-to-digital converter (TS-ADC) for the measurement of ultrafast signals with a sampling-rate which exceeds TS/s. The principle is to use a photonic front-end that effectively “slows down” the analog signal in time before it is digitized by fast ADCs.
 
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width=\textwidth]{chap/02-theory/img/motivation}
-	\caption{Use case of the system}
-	\label{fig:motivation}
-\end{figure}
-%todo to tikz
-
-\subsection{THz Science and Coherent Synchrotron Radiation}
-\Gls{sr} is produced in synchrotron radiation facilities (like electron storage rings) by accelerating relativistic electrons.
-Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using an undulator\footnote{Undulators are used to make the electrons oscillate by generating a periodic magnetic field}. 
-
-\autoref{fig:storageRing} shows the general scheme of an electron storage ring.
-Electrons, or rather electron bunches, are generated with an electron gun and are accelerated to almost the speed of light by a \gls{linac}.
-After being broad up to their nominal energy in a booster, the bunches are then injected into the storage ring.
-In the ring, the path of the electron bunches is altered by bending magnets, guiding them on a circular trajectory.
-Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
-This is done by accelerating them with an electric field inside a \gls{rf} cavity.
-Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014} \cite{rota2018}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/synchrotron}
-	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
-	\label{fig:storageRing}
-\end{figure}
-%todo where's the booster?
 
 
-The range of \gls{sr} reaches from hard X-rays down to the infrared region of the electromagnetic spectrum (see \autoref{fig:spectrum}). In contrast to other sources, it has properties like:
-%todo which sources, convert list to text?
-\begin{itemize}[noitemsep]
-	\item high intensity 
-	\item high collimation
-	\item polarisation
-	\item well-defined timing of pulses
-\end{itemize}
-
-Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
-%todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
-	\caption{Electromagnetic spectrum} %todo of what?
-	\label{fig:spectrum}
-\end{figure}
-%todo legend -> 7 columns instead of one. or just label the ranges with 'big braces' directly
-%todo replace with measured I(\lambda)/I_0 plot?
-
-\subsubsection{Micro-Bunching Instabilities}
-Increasing demands in current and future accelerators call for higher brilliance of the emitted radiation.
-%todo define brilliance, flux, emittance
-This is achieved by increased photon flux and reduction of the transverse emittance.
-For longitudinal coherence, the electron bunches are shortened, which results in emission of \gls{csr} at frequencies up to the THz range.
-%todo how does coherence relate to the terms mentioned earlier?
-
-However, this introduces complex dynamics, as the electrons interact with their own radiation.
-This manifests into the so called micro-bunching instability.
-The formation of micro-structures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches.
-Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode.
-On the other side, these instabilities can be potential sources of brilliant THz radiation. %todo why
-A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018,brosi}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/csr2.png}
-	\caption{Placeholder \cite{rota2018}}
-	\label{fig:csr}
-\end{figure}
-%todo to tikz
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/microbunching}
-	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
-	\label{fig:microBunch}
-\end{figure}
-
-
-\subsection{Longitudinal Bunch Profile Diagnostics}
-\paragraph{Karlsruhe Research Accelerator}
-\begin{itemize}[noitemsep]
-	\item Located at the Karlsruhe Institute of Technology (KIT)
-	\item Up to 184 electron bunches can be filled with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches %todo filled?
-	\item Operated by the Institute of Beam Physics and Technology (IBPT)
-	\item Microtron, Booster Synchrotron, and Storage Ring
-\end{itemize}
-
-\begin{table}[tbh]
-	\caption{KARA parameters \cite{rota2018}}
-	\label{tab:kara}
-	\centering
-	\begin{tabularx}{0.5\textwidth}{Xl}
-		\toprule
-		\textbf{Parameter} & \textbf{Value} \\
-		\midrule
-		Beam energy    							&  \SI{2.5}{\giga \electronvolt} \\
-		Circumference 	 						& \SI{110}{\meter}	  \\
-		Revolution Frequency (one electron)   	& \SI{2.7}{\mega \hertz} 	\\
-		Minimum bunch spacing:					& 	\\
-		\quad multi-bunch 						& \SI{2}{\nano \second} \\
-		\quad single-bunch 						& \SI{368}{\nano \second}	\\
-		Bunch length							& \\
-		\quad multi-bunch 						& \SI{45}{\pico \second} \\
-		\quad single-bunch 						& \SI{2}{\pico \second} \\
-		\bottomrule		
-	\end{tabularx}
-\end{table}
-
-\subsection{Potential Usage: ANR-DFG ULTRASYNC project?}
-From Serge's email:
-
+\paragraph{Potential Usage}
 For accelerator applications, we have also a project (ANR-DFG ULTRASYNC project) with KARA and SOLEIL.
 There is the question of control (i.e., suppression) of the bursts occuring during the microbunching instability. The objective is to obtain a high power and stable coherent emission (at SOLEIL and KARA). For the moment, the only experimental test has been made using a relatively simple feedback:
 \begin{itemize}
@@ -141,36 +31,121 @@ There are limitations in the maximal bunch charge in the accelerator. So an open
 may solve the problem, and allow the control to succeed at the highest currents in SOLEIL. 
 Target would be ca. 15 mA for 1 bunch (and feedback control presently works to a little more than ca. 10 mA).
 
-\section{Objective}
-Design of a system to be used with photonics time-stretch technique. Fast, continuous sampling of sifnals, integratable in already existing high data-throughput architectures.
+
+\section{Time-Stretching methods in physics}
 
 
+\subsection{\gls{kara}}
+	\begin{itemize}[noitemsep]
+		\item Located at the Karlsruhe Institute of Technology (KIT)
+		\item Up to 184 electron bunches can be filled with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches %todo filled?
+		\item Operated by the Institute of Beam Physics and Technology (IBPT)
+		\item Microtron, Booster Synchrotron, and Storage Ring
+	\end{itemize}
+	
+	\begin{table}[tbh]
+		\caption{KARA characteristics}
+		\label{tab:kara}
+		\centering
+		\begin{tabularx}{\textwidth}{Xl}
+			\toprule
+			Beam energy    				& $ \SI{2.5}{\giga \electronvolt}$ \\
+			Circumference 	 				& $\SI{110}{\meter}$	  \\
+			RF frequency    				& $\SI{499.7}{\mega \hertz}$ 	\\
+			Harmonic number 				& 184	\\
+			Number of RF stations 			& 2 \\
+			Number of cavities per station 	& 2	\\
+			Accelerating voltage 					& $\SI{1.4}{\mega \electronvolt}$ \\
+			\bottomrule		
+		\end{tabularx}
+	\end{table}
+	\subsection{Coherent Synchrotron Radiation}
+	\Gls{sr} is produced in synchrotron radiation facilites (like electron storage rings) by accelerating relativistic electrons.
+	Emission of \gls{sr} occurs, when electron beams are bend or deflected with dipole magnets or using an undulator\footnote{Undulators are used to make the electrons oscillate by generating a periodic magnetic field}. 
+	
+	\autoref{fig:storageRing} shows the general scheme of an electron storage ring.
+	Electrons, or rather electron bunches, are generated with an electron gun and are accelerated to almost the speed of light by a \gls{linac}.
+	After being broad up to their nominal energy in a booster, the bunches are then injected into the storage ring.
+	In the ring, the path of the electron bunches is altered by bending magnets, guiding them on a circular trajectory.
+	Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
+	This is done by accelerating them with an electric field inside a \gls{rf} cavity.
+	Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014} \cite{rota2018}
+	
+	\begin{figure}[tbh]
+		\centering
+		\includegraphics[width=0.7\textwidth]{chap/02-theory/img/synchrotron}
+		\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
+		\label{fig:storageRing}
+	\end{figure}
+	%todo where's the booster?
+	
+	
+	The range of \gls{sr} reaches from hard X-rays down to the infrared region of the electromagnetic spectrum (see \autoref{fig:spectrum}). In contrast to other sources, it has properties like:
+	%todo which sources, convert list to text?
+	\begin{itemize}[noitemsep]
+		\item high intensity 
+		\item high collimation
+		\item polarisation
+		\item well-defined timing of pulses
+	\end{itemize}
+	
+	Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
+	%todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.8\textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
+		\caption{Electromagnetic spectrum} %todo of what?
+		\label{fig:spectrum}
+	\end{figure}
+	%todo legend -> 7 columns instead of one. or just label the ranges with 'big braces' directly
+	%todo replace with measured I(\lambda)/I_0 plot?
+	
+	\subsection{Micro-Bunching Instabilities}
+	Increasing demands in current and future accelerators call for higher brilliance of the emitted radiation.
+	%todo define brilliance, flux, emittance
+	This is achieved by increased photon flux and reduction of the transverse emittance.
+	For longitudinal coherence, the electron bunches are shortened, which results in emission of \gls{csr} at frequencies up to the THz range.
+	%todo how does coherence relate to the terms mentioned earlier?
+	
+	However, this introduces complex dynamics, as the electrons interact with their own radiation.
+	This manifests into the so called micro-bunching instability.
+	The formation of micro-structures (in the sub-millimeter to centimeter range) in the longitudinal density profile of the electron bunches. %todo AE or BE ('re' vs 're')?
+	Being on the one side a limitation to the stable operation of the overall system at high current density/short bunch length mode.
+	On the other side, these instabilities can be potential sources of brilliant THz radiation. %todo why
+	A thorough understanding of these dynamics is necessary to control the emission in this spectral domain which enables usage in experiments. \cite{rota2018,brosi}
+	
+	\begin{figure}[tbh]
+		\centering
+		\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/csr2.png}
+		\caption{Placeholder \cite{rota2018}}
+		\label{fig:csr}
+	\end{figure}
+	
+	\begin{figure}[tbh]
+		\centering
+		\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/microbunching}
+		\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
+		\label{fig:microBunch}
+	\end{figure}
+	\subsection{Longitudinal Bunch Profile Diagnostics}
+	\subsection{Other scientific application for time-stretching methods}
 
 
+\begin{itemize}
+	\item Microbunching instabilites $\rightarrow$ THz radiation $\rightarrow$ Potential source of brilliant radiation
+	\item Need to be studied to be able to control it
+	\item Time-resolution critical, as instabilities have high bandwidth
+	\item Commercial oscilloscopes don't have enough internal memory
+	\item already developed system KAPTURE/KAPTURE-2 to solve this problem
+	\item however: four/eight points not enough to see the microbunching instabilities
+	\item Concept: combine time-stretch with FPGA $\rightarrow$ THERESA (\textbf{T}era\textbf{He}rtz \textbf{Re}adout \textbf{Sa}mpling)
+	\item EO technique to stretch the signal in time, so requirements on the bandwidth of converters can be relaxed
+	\item more converters, to have more points
+	\item New generation FPGA/SoC for fast readout and high data throughput
+\end{itemize}
 
-
-%\begin{itemize}
-%	\item Microbunching instabilites $\rightarrow$ THz radiation $\rightarrow$ Potential source of brilliant radiation
-%	\item Need to be studied to be able to control it
-%	\item Time-resolution critical, as instabilities have high bandwidth
-%	\item Commercial oscilloscopes don't have enough internal memory
-%	\item already developed system KAPTURE/KAPTURE-2 to solve this problem
-%	\item however: four/eight points not enough to see the microbunching instabilities
-%	\item Concept: combine time-stretch with FPGA $\rightarrow$ THERESA (\textbf{T}era\textbf{He}rtz \textbf{Re}adout \textbf{Sa}mpling)
-%	\item EO technique to stretch the signal in time, so requirements on the bandwidth of converters can be relaxed
-%	\item more converters, to have more points
-%	\item New generation FPGA/SoC for fast readout and high data throughput
-%\end{itemize}
-%
-%Available commercial DAQ system or real-time oscilloscopes for high bandwidth (e.g. above
-%40 GHz) are very expensive and, due to limited internal memory and missing fast readout interfaces, are not suitable for long term bunch-to-bunch CSR measurements. To circumvent these limitations a DAQ architecture for fast and continuous sampling of the individual ultra-short THz pulses has been developed.
-
-
-
-
-
-
-
+Available commercial DAQ system or real-time oscilloscopes for high bandwidth (e.g. above
+40 GHz) are very expensive and, due to limited internal memory and missing fast readout interfaces, are not suitable for long term bunch-to-bunch CSR measurements. To circumvent these limitations a DAQ architecture for fast and continuous sampling of the individual ultra-short THz pulses has been developed.
 
 
 %

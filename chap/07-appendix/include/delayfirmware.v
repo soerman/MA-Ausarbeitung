@@ -1,33 +1,33 @@
 `timescale 1ns / 1ps
 
 module SDI_Delay_NB6L295(
-    // data for respective delay chips
-    input [10:0]        In_1, In_2, In_3, In_4, In_5, In_6, In_7, In_8,      
+
+    input [10:0]        In_1, In_2, In_3, In_4, In_5, In_6, In_7, In_8,  // data for respective delay chips   
     input               Clk,
     input               Reset,
-    output reg          [7:0] EN,                                                                           // enable signal for delay chips, active LOW
-    output reg          SDIN,                                                                               // configuration data 
-    output reg          SLOAD,                                                                              // signals delay chip to load previously sent data
-    output              SCLK                                                                                // clock for serial communication with delay chips
+    output reg          [7:0] EN, // enable signal for delay chips, active LOW
+    output reg          SDIN, // configuration data 
+    output reg          SLOAD, // signals delay chip to load previously sent data
+    output              SCLK // clock for serial communication with delay chips
     );
     
     reg                 start_clk;
     assign SCLK = start_clk & (!Clk);
                                                                            
-    reg [21:0]          In_1_reg, In_2_reg, In_3_reg, In_4_reg, In_5_reg, In_6_reg, In_7_reg, In_8_reg;     // registers to intermediately store the inputs
+    reg [21:0]          In_1_reg, In_2_reg, In_3_reg, In_4_reg, In_5_reg, In_6_reg, In_7_reg, In_8_reg; // registers to intermediately store the inputs
     
-    reg [7:0]           select;                                                                             // register used by Priority Encoder to detect which input changed
+    reg [7:0]           select; // register used by Priority Encoder to detect which input changed
          
-    parameter           DATA_SHIFT_WIDTH = 11;                                                              // number of bits to be shifted during transmission, 1 Data word = 11 bits
+    parameter           DATA_SHIFT_WIDTH = 11; // number of bits to be shifted during transmission, 1 Data word = 11 bits
     reg [4:0]           clk_cnt;
     
     
-    reg [DATA_SHIFT_WIDTH-1:0]  Data_reg;                                                                   // register for storing data for state machine
+    reg [DATA_SHIFT_WIDTH-1:0]  Data_reg;  // register for storing data for state machine
     
-    reg                  start;                                                                             // signal for state machine to start sending data 
-    reg                  dataSent;                                                                          // flags if transmission for one delay chip is finished
+    reg                  start; // signal for state machine to start sending data 
+    reg                  dataSent; // flags if transmission for one delay chip is finished
 
-    parameter            dly = 1;                                                                           // delay control
+    parameter            dly = 1; // delay control
     
     reg                  delayReady;
 
