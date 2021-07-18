@@ -1,0 +1,10 @@
+\begin{circuitikz}
+	\draw % draw nodes
+	(-1.5,0) node[ocirc] (A) {}
+	(9,0) node[ocirc] (B) {};
+	\draw
+	(A) -- (0,0)  -- (0,2) to[R, l = $R_P$] (4,2) -- (4,0)
+	to[C, *-*, l=$C$] (0,0) -- (0,0)  -- (0,-2)
+	to[R, l=$R_D$] (2,-2)  to[C, l=$C_D$] (4,-2) -- (4,0)
+	to[R, l=$R_S$] (7,0) to[L, l=$L_S$] (8,0) -- (B); 
+\end{circuitikz}

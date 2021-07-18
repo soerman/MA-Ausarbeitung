@@ -1,68 +1,374 @@
-\section{General Architecture}
-
-
-
-
+In the following, the process of designing the front-end sampling card is described. Designing a \gls{pcb} is a process of two steps: circuit design and layout design. The software tool used to cover both of these steps is PADS xDx Designer (for schematic capture) and PADS Layout/Router (for \gls{pcb} layout design) from Mentor Graphics (Siemens). 
 \section{Schematics}
-\subsection{Sampling-Channel}
-\paragraph{Track-And-Hold-Amplifier}
-Explain why better than Sample-And-Hold-Amplifier.
-\paragraph{Delay Chip NB6L295}
-Dual Channel Programmable Delay Chip.
+Without knowing which components are needed and how they are interconnected, it is impossible to manufacture any board, no matter how high or low the level of complexity is. The main purpose of a schematic is thus to provide a documentation about the necessary components and in which way they should be connected. Furthermore, a schematic provides a starting point for automatic translation of the components into the layout design tool.
+During the creation of the schematics, the following points have to be taken into consideration:
+\begin{itemize}
+	\item Components: Which components are needed and what are the performance requirement? Especially for high-speed components carefully considering specifications like signal rise and fall times, jitter, skew, etc. is crucial to achieve the overall expected performance.
+	\item Connection/Periphery: How many pins are available for peripheral connection? Many components have an interface for programming (e.g. \gls{spi}) which requires several pins. Especially for boards with a lot of components this can quickly become an issue.
+	\item Signaling interfaces of the components: Additional circuitry might be needed for interfacing between two different components. Some signaling interfaces, like \gls{lvds}, require a specific voltage level, which might result in the need of voltage level translators.
+	\item Common mode voltage: Keep in mind the different common mode voltages at input/output pins of different components and placing decoupling capacitors if needed.
+	\item Filtering: Consider placing additional filtering for power supplies, as well as recommended filters from manufacturers of the components. 
+	\item Power Supply: Choose suitable power supplies/voltage regulators. How many of them are needed?
+	\item Size and Packaging: Packaging of the components. Obviously the size matters, as space on the board is limited. But package also introduces additional capacitance/inductance, which can be a problem for precise filtering circuits. 
+	\item Power dissipation: Components, especially voltage regulators, might need coolers. This might not pose any problems for components which are located on the top side of the board. However, components on the bottom side might create an issue, if the designed \gls{pcb} should be mounted on another board.
+	\item Availability: Check if the components are still available and if they can be delivered in the given project time.
+\end{itemize}  
+%todo irgendeine überleitung hinschreiben
+ 
+\paragraph{Decoupling techniques}
+Probably the most important part in schematics design is proper decoupling of power supplies, as \glspl{ic} require a stable voltage on the power supply pin for optimal performance. Any ripple\footnote{\textit{Ripple} is the \gls{ac}-voltage superimposed on an otherwise \gls{dc}-voltage.} or noise can substantially degrade the performance of the \glspl{ic}, i.e. by decreasing the noise margin\footnote{\textit{Noise margin} defines the difference between the useful signal and noise. A sufficient noise margin is necessary to guarantee that the output signal will still be correctly interpreted, even if some noise is added to the signal.}. Usually, manufacturers give information about proper decoupling circuits for their component in the data sheet. Is this not the case, there are basic rules of thumb which can be followed to ensure good decoupling. \cite{decouple}
 
-\begin{itemize}[noitemsep]
-	\item Two individual variable delay channels
-	\item Dual Delay: minimal delay \SI{3.2}{\nano \second}
-	\item Total Delay Range: \SI{3.2}{\nano \second} to \SI{8.8}{\nano \second} per Delay Channel
-	\item \SI{11}{\pico \second} Increments in 511 steps
-	\item \SI{100}{\pico \second} Typical Rise and Fall Times
+Basically, two types of voltage variations on the power supply pin can be distinguished: low frequency and high frequency variation. Low frequency variation occurs e.g. due to devices (or parts of them) being enabled/disabled or in the event of data traffic or processing. The current draw during these occurrences can't be compensated immediately by the voltage regulator providing the supply voltage, which leads to voltage level sagging. Time frames of this noise vary in the range of milliseconds up to days. High frequency variation results from switching events in the device, occurring in the range of the clock frequency and the corresponding harmonics up to about \SI{5}{\giga \hertz}. Spikes due to \gls{emi} are also a source of high frequency variation and need to be compensated for. \cite{xilDecouple} 
+
+Ideally, one capacitor, which acts like a low-pass filter, should be enough to mitigate these variations. A real capacitor however has parasitics and thus can in general not be modeled by a "pure" capacitive behavior, especially for high-frequency applications. Additional resistances and inductance need to be considered \cite{decouple}:
+\begin{itemize}
+	\item A parallel resistance $R_P$, which shunts the nominal capacitance ($C$), representing insulation resistance or leakage.
+	\item A series resistance $R_S$, or \gls{esr}, which represents the plates and the leads of the capcitor.
+	\item A series inductance $L_S$, or \gls{esl}, that models the inductance of the plates and leads of the capacitor.
+	\item A parallel resistance and capacitance, $R_D$ and $R_C$, which model the effect called dielectric absorption. This denotes the phenomenon, that a capacitor which has been charged for a long time, doesn't fully discharge when briefly discharged. Dielectric absorption can be detrimental for high-precision use-cases, for power supply decoupling this effect doesn't have to be considered.
 \end{itemize}
+Considering all these effects leads to the equivalent circuit shown in \autoref{fig:real_cap}. It can be seen that this forms a RLC circuit, meaning the capacitor won't have the ideal behavior over all frequency range. Indeed, a real capacitor shows an impedance response as seen in \autoref{fig:esl_esr}, which resembles one of a band stop, rather than a low pass. Typical capacitive behavior is seen in region (I). Region (II) shows the influence of the \gls{esr}, which is why there is a residual impedance at the lowest point. Region (III) showcases the effect of the \gls{esl}. 
+To "extend" the capacitive behavior over a wider frequency range, at least two capacitors are placed 
+
+\tikzexternaldisable
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = .7\textwidth]{chap/04-work/img/real_cap.tikz}
+	\caption[Capacitor equivalent circuit]{Equivalent circuit of a real capacitance (redrawn from \cite{decouple})}
+	\label{fig:real_cap}
+\end{figure}
+\tikzexternalenable
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/esl_esr}
+	\caption[Impedance response of a real capacitor]{Qualitative impedance response of a real capacitance \cite{Dang2020}}
+	\label{fig:esl_esr}
+\end{figure}
+
+
+To deal with the low frequency variation, a large capacitor (typical values: 10 - \SI{100}{\micro \farad}) is placed next to the chip, not more than \SI{5}{\centi \metre} ($\approx$ 2 inch.) away. The role of this capacitor is to be a charge supply for the instantaneous needs of the device, i.e. "taking the role" of the voltage regulator until the latter can adjust to the changed current draw. \cite{decouple}
+
+A small capacitor (typical values: 0.01 - \SI{0.1}{\micro \farad}), placed as close as possible to the power pins of the component. This capacitor should bypass the high frequency variation on the power supply line. \cite{decouple}
+
+All capacitors should be connected through via\footnote{See \autoref{ssec:pcb_structs}} or short trace to a large area, low impedance ground plane\footnote{See \autoref{ssec:pcb_structs}}. This way the inductance due to connection traces is minimized. \cite{decouple}
+
+An optional ferrite bead in series with the supply pin keeps external high frequency from the device and the internally generated noise from the rest of the board. \cite{decouple}
+
+\paragraph{Separating Analog and Digital Ground}
+TODO
+
+
+%todo maybe some more theory, e.g. that real capacitor has resistive and inductive components due to packaging, connection and dielectric. doesn't behave like a capacitor at high frequencies -> several capacitors needed to ensure capacitive behaviour at high frequencies
+
+\subsection{Connectors}\label{sec:connectors}
+The number and type of connectors is primarily defined by the read-out card, on which the sampling board is mounted. The different connector types serve different purposes, which can be organized into three categories.
+\paragraph{Digital Control Signals}
+For digital control signals (i.e. \gls{spi}, enable signals, ...) and clocking a VITA 57.4 FMC+ connector from \textit{SAMTEC} is used (see \autoref{fig:fmcp}). 
+
+\gls{fmc} is a standard defined by \gls{vita} to provide a standard mezzanine card\footnote{A \gls{pcb} which is plugged on a plug-in board. \cite{mezzanine}} form factor, connectors, and modular interface to a \gls{fpga} located on a base board (carrier card).\cite{Seelam2009} The \gls{fmc}+ standard extends the pin count and throughput of the present high-speed interfaces. 
+
+This connector provides 560 pins arranged in a 14x40 array, 80 of which are additional high-speed interfaces, located on either side of the connector (therefore this connector type is also called \gls{hspce} connector, as opposed to the HSPC connector which doesn't have additional rows). 160 of them are data-pins configurable by the user. They can be used as single-ended or differential pins. Clocking capable pins can be used to propagate clocking from the mezzanine to the carrier board. 
+
+Furthermore, the connector provides pins for power supply from carrier board to mezzanine card \cite{fmc}:
+\begin{itemize}
+	\item VADJ: Voltage adjustable from 0 to \SI{3.3}{\volt} (max. \SI{4}{\ampere}, max. \SI{1000}{\micro \farad} capacitive load) 
+	\item \SI{3.3}{\volt} (max. \SI{3}{\ampere}, max. \SI{1000}{\micro \farad} capacitive load)
+	\item \SI{12}{\volt} (max. \SI{1}{\ampere}, max. \SI{1000}{\micro \farad} capacitive load)
+\end{itemize}
+%todo to table?
+
+An assembly drawing of the connectors is shown in \autoref{fig:fmcp}.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/fmcp.pdf}
+	\caption[Rendering of FMC+ connector]{Part drawing of FMC+ connector \cite{fmcpic}}
+	\label{fig:fmcp}
+\end{figure}
+
+\paragraph{Analog Signals}
+The signal from the detector is provided to the \glspl{tha} through \gls{sma}\footnote{Coaxial \gls{rf} connector} \gls{rf} connectors from \textit{molex}, which are mounted at the edge of the board. \autoref{fig:sma} shows a 3D model of this connector type. 
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{chap/04-work/img/sma}
+	\caption[Edge-Mount RF SMA connector]{3D model of the edge-mount \gls{rf} \gls{sma} connector from \textit{molex} \cite{molex}}
+	\label{fig:sma}
+\end{figure}
+
+On the read-out board two RFMC 2.0 (\gls{rf} Mezzanine Card) interface connectors are provided. The connectors used are LPAF (Low Profile Array, Female) connectors from \textit{SAMTEC} with 400 pins arranged in a 8x50 array. One is dedicated for transmitting signals from the mezzanine card to the on-board \glspl{adc}, the other provides the analog output from the on-board \glspl{dac}\footnote{A \gls{dac} translates digital values into an analog signal.} to the mezzanine card. On the sampling board, the "male" (LPAM) counterpart of the connectors is used (see \autoref{fig:lpam1}).
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/lpam_50_top.pdf}
+	\caption[LPAM 8x50 connector]{Part drawing of a LPAM 8x50 connector}
+	\label{fig:lpam1}
+\end{figure}
+
+
+\paragraph{Clock Signals}
+The clock from the \glspl{pll} on the sampling board are propagated in different ways. The reference clock for the \gls{fpga} is propagated through the \gls{fmc}+ connector. Clocking for \glspl{adc} and \glspl{dac} is provided through a 6x20 LPAM connector (see \autoref{fig:lpam2}). For interleaving 
+
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/lpam_20.pdf}
+	\caption[LPAM 6x20 connector]{Part drawing of LPAM 6x20 connector}
+	\label{fig:lpam2}
+\end{figure}
+
+%todo other pictures of connectors? maybe photos/renderings are better?
+
+
+
+\subsection{Sampling-Channel}
+The sampling channel consists of the \gls{tha}, which is driven by a delay chip. 
+
+\paragraph{Track-And-Hold-Amplifier}
+The \gls{tha} used is the same as in \gls{kapture}. The component was chosen such that jitter lies in the range of hundreds of femtoseconds. \cite{caselle2013}
+According to the data sheet \cite{hmc5640}, the component shows the characteristics shown in \autoref{tab:hmc5640}.
+\begin{table}[tbh]
+	\caption[HMC5640 Characteristics]{Specifications of the HMC5640 \gls{tha}}
+	\label{tab:hmc5640}
+	\begin{minipage}{\textwidth}
+		\centering
+		\begin{tabularx}{\textwidth}{Xcccc}
+			\toprule
+			\textbf{Parameter} & \textbf{Min} & \textbf{Typ.} & \textbf{Max} & \textbf{Unit}\\
+			\midrule
+			\textbf{Analog Inputs} &&&& \\
+			Differential \gls{fs} Range & & 1 & & Vpp\footnote{Volt peak-to-peak}\\
+			Common mode voltage & -0.1 & 0 & 0.1 & V\\[0.3cm]
+			\textbf{Clock Inputs} &&&&\\
+			DC Differential High Voltage (Track Mode) & 20 & 40 & 2000 & mV\\
+			DC Differential Low Voltage (Hold Mode) & -2000 & -40 & -20 & mV\\
+			Common mode voltage & -0.5 & 0 & 0.5 & V\\[0.3cm]
+			\textbf{Analog Outputs} &&&&\\
+			Differential \gls{fs} Range &  & 1 && Vpp\\
+			Common mode voltage & & 0 & & V\\[0.3cm]
+			\textbf{Track-to-Hold/Hold-to-Track Switching} &&&&\\
+			Aperture Delay & & -6 &  & ps\\
+			Random Aperture Jitter (\gls{fs}, \SI{1}{\giga \hertz}) & & < 70 & & fs\\
+			Settling time\footnote{\textit{Settling time} is the interval between the internal track-hold transition and the time when the output signal is settled within the specified value.} (to \SI{1}{\milli \volt}) &	&  116 & & ps \\
+			\bottomrule
+		\end{tabularx}
+	\end{minipage}
+\end{table}
+
+As the analog input to the \gls{tha} is single-ended, a \SI{50}{\ohm} termination on the unused input pin has been added, as recommended in the data sheet.\cite{hmc5640}
+%todo the siunitx omega looks kinda ugly   	explain transmission lines and termination?
+
+At the power pins, decoupling capacitors and a ferrite bead  were placed. The \gls{tha} is a crucial component, as it samples the detector signal, therefore any possible noise should be reduced to a minimum.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/hmc5640}
+	\caption[HMC5640 THA Schematic]{HMC5640 \gls{tha} schematic}
+	\label{fig:hmc5640}
+\end{figure}
+%todo better picture/somehow improve this BS
+%todo maybe only a pic of the component itself
+
+
+\paragraph{Delay Chip}
+The delay chip is used to create a delay in the clocking signal, which then goes to the \gls{tha} chip. For the selection of the delay chip, the most important characteristic, apart from jitter, is the delay step size and delay range. 
+
+The delay step size must be small enough, such that the \gls{adc} interleaving technique \autoref{sssec:time-interleaving} can be implemented. The \glspl{adc} on the read-out card sample at a maximal sample rate of \SI{2.5}{\giga \sample \per \second}, meaning during the time
+\begin{equation}
+	t_s = \frac{1}{\SI{2.5}{\giga \sample \per \second}} = \SI{400}{\pico \second}
+\end{equation}
+all 16 \glspl{adc} have to be clocked one time. This means, a delay step can not be greater than $\SI{400}{\pico \second}/16 = \SI{25}{\pico \second}$.
+
+With the HMC856 programmable delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling, a minimal step size of \SI{3}{\pico \second} \cite{hmc856} is possible. However, one draw-back is the maximal delay range of \SI{100}{\pico \second}. Considering a signal, which is stretched over several nanoseconds, this range limits the possibility to freely chose the resulting timing resolution. The major problem is the programming interface of the chip, which consists of five differential \gls{cml} inputs. This means, one chip already takes up 10 pins. For in total 16 necessary delay chips, this results in 160 pins occupied only by the delay chips. This occupies all pins of the \gls{fmc}+ connector (see \autoref{sec:connectors}) available for the user. 
+
+A better candidate is the dual channel programmable delay chip NB6L295 from \textit{ON Semiconductor}. This chip provides two programmable delay channels, therefore effectively reducing the chip count by half. With a delay step size of \SI{11}{\pico \second} it is still suitable for the targeted interleaving method, covering a total delay range from \SI{3.2}{\nano \second} to \SI{8.8}{\nano \second} per delay channel. The chip is programmed via \gls{sdi}, which only requires 3 pins and one enable pin. Thus, the total number of pins used by the delay chips is $4\cdot8 = 32$, which is a significant reduction compared to the HMC856.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/delay_chip}
+	\caption[NB6L295 Delay Chip Schematic]{NB6L295 schematic}
+	\label{fig:nb6l295}
+\end{figure}
+
+\paragraph{Outputs}
+The output of the delay chip is using a \gls{lvpecl} signaling interface, which is based on an open-emitter topology (see \autoref{fig:lvpecl}). This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} resistors.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/lvpecl}
+	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
+	\label{fig:lvpecl}
+\end{figure}
+%todo to tikz
+
+As the output will be connected to the \gls{tha}, it is necessary to check the compatibitility of the maximum amplitude and common mode. According to the data sheet \cite{NB6L295}, the voltage level of the output can vary between  $V_{cc} - 1825$ mV and $V_{cc} - 825$ mV (see \autoref{tab:nb6l295}).  Maximal voltage amplitude acceptable by the \gls{tha} inputs is \SI{2000}{\milli \volt} (see \autoref{tab:hmc5640}). When using a supply voltage of $V_{cc} = \SI{3.3}{\volt}$, which is e.g. provided by the read-out card through the \gls{fmc}+ connector, this leads to a maximum output level of \SI{2475}{\milli \volt}. This succeeds the limit given by the \gls{tha}. Therefore, for $V_{cc}$ a smaller voltage should be considered. In this design a voltage of $V_{cc} = \SI{2.5}{\volt}$ is chosen, which guarantees that the amplitude lies within the range $\SI{675}{\milli \volt} - \SI{1675}{\milli \volt}$.
+
+The common mode voltage $V_{\text{CM}}$ is calculated as
+\begin{equation}
+	V_{\text{CM}} = \frac{\SI{675}{\milli \volt} + \SI{1675}{\milli \volt}}{2} = \SI{1175}{\milli \volt}.
+\end{equation}
+
+This is higher than the maximal input common mode voltage of $\SI{0.1}{\volt}$ of the \gls{tha}(see \autoref{tab:hmc5640}). \gls{ac} coupling is therefore necessary in this case. 
+
+
+\paragraph{Inputs}
+When driving the inputs with a \gls{lvpecl} driver (output from the preceding \gls{pll}), the VTx and $\overline{\text{VTx}}$ pins of the delay chip need to be connected to $V_{cc} - \SI{2}{\volt}$ (see \autoref{fig:delay_lvpecl}). In case of $V_{cc} = \SI{2.5}{\volt}$, this results in a voltage level of $\SI{0.5}{\volt}$. To avoid using an additional voltage regulator, this voltage level is achieved by using a simple voltage divider connected to $V_{cc}$. Choosing the resistor values to $\SI{43}{\kilo \ohm}$ and $\SI{11}{\kilo \ohm}$ resuts in a voltage of
+\begin{equation}
+	V_{cc} \frac{\SI{11}{\kilo \ohm}}{\SI{11}{\kilo \ohm} + \SI{43}{\kilo \ohm}} = \SI{0.5093}{\volt} \approx \SI{0.5}{\volt}
+\end{equation}
+A \SI{100}{\nano \farad} capacitor is put in parallel for power supply decoupling.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/delay_lvpecl}
+	\caption[NB6L295 Delay Chip Schematic]{LVPECL recommendations for NB6L295 \cite{NB6L295}}
+	\label{fig:delay_lvpecl}
+\end{figure}
+
+
+\begin{table}[tbh]
+	\caption[NB6L295 Characteristics]{Specifications of the NB6L295 delay chip \cite{NB6L295}}
+	\label{tab:nb6l295}
+	\begin{minipage}{\textwidth}
+		\centering
+		\begin{tabularx}{\textwidth}{Xcccc}
+			\toprule
+			\textbf{Parameter} & \textbf{Min} & \textbf{Typ.} & \textbf{Max} & \textbf{Unit}\\
+			\midrule
+			\textbf{Outputs} &&&& \\
+			Output HIGH Voltage & $V_{cc} - 1075$ & $V_{cc} - 950$ & $V_{cc} - 825$ & mV\\
+			Output LOW Voltage & $V_{cc} - 1825$ & $V_{cc} - 1725$ & $V_{cc} - 1625$ & mV\\
+			Common mode voltage & -0.1 & 0 & 0.1 & V\\[0.3cm]
+			\textbf{AC Characteristics} &&&&\\
+			Random Clock Jitter \gls{rms}&  & 3 & 10 & ps\\
+			Output Rise/Fall Times (@\SI{50}{\mega \hertz}) & 85 & 120 & 170 & ps\\
+			Serial Clock Input Frequency (50\% Duty Cycle\footnote{Percentage of the ratio of pulse width and total period of the waveform.}) &  &  & 20 & MHz\\
+			Minimum Pulse width SLOAD  & 1 &  &  & ns\\
+			\bottomrule
+		\end{tabularx}
+	\end{minipage}
+\end{table}
+%todo fix problem with [XSSSSS]
+
 
 \subsection{Clocking}
-On Xilinx CLK104 add-on board the LMX2594 is used to generate additional, high-frequency clocks for the ADCs/DACs. $\rightarrow$ reuse in front-end card
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/clk104}
-	\caption{CLK104 Add-on board clocking scheme}
-	\label{fig:clk104}
-\end{figure}
+TODO:
+\begin{itemize}
+	\item Brief theory about PLL -> VCO, Loop Filter, Charge pump, etc.
+	\item Maybe some simulation with the PLLatinum Tool (used for calculation of the noise, jitter, etc. over the frequency)
+\end{itemize}
+Clocking distribution is designed as shown in \autoref{fig:clocking}. The LMK0480x Low-Noise Clock Jitter Cleaner \gls{pll} from \textit{Texas Instruments} cleans the incoming reference clock coming from the system (e.g. from \gls{kara}) for high temporal accuracy \cite{caselle2013}. It is used with an external \gls{vcxo} from \textit{ABRACON}. The LMK0480x has only 12 outputs, not enough for the 16 \glspl{tha} and additional clocking for \gls{fpga}, \gls{adc} and \gls{dac}, especially considering that the outputs are divided into six groups à two outputs. Outputs in one group have the same configuration (frequency, phase, ...), which means that effectively only six different outputs are available. A low noise clock distribution fanout buffer, the HMC987LP5E from \textit{Analog Devices} is therefore used for distributing the clock signal to the delay chips. As one fanout buffer has eight outputs, two chips are needed to cover all channels. One output of the \gls{pll} is propagated to the \gls{fmc}+ connector as reference clock for the \gls{fpga}. Up until this part, this architecture is not different from the one on the \gls{kapture} sampling board. 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[height = 0.3\textwidth, width = 0.55\textwidth]{chap/04-work/img/pll_tsMode.tikz}
-	\caption{Clocking scheme on front-end card}
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll_tsMode}
+	\caption{Placeholder}
 	\label{fig:clocking}
 \end{figure}
+%todo clean picture
 
+The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). A second \gls{pll} is therefore needed. The read-out card is provided with an \gls{rf} Clock add-on card, which is necessary to generate the high-frequency clocks for the converters. The schematic is provided by the manufacturer and is used as reference for the design. According to the user guide \cite{xilCLK104}, the parameters for the loop filter are as shown in \autoref{tab:lmx2594_filter}.
+
+\begin{table}[tbh]
+	\caption[NB6L295 Characteristics]{Specifications of the NB6L295 delay chip \cite{NB6L295}}
+	\label{tab:lmx2594_filter}
+	\centering
+	\begin{tabularx}{\textwidth}{Xl}
+		\toprule
+		\textbf{Parameter} & \textbf{Value} \\
+		\bottomrule
+		 VCO Gain & \SI{239}{\mega \hertz \per \volt} \\
+		 Loop Bandwidth	 & \SI{32.7}{\kilo \hertz} \\
+		 Phase Margin	 & 69 deg \\
+		 Effective Charge Pump Gain	 & \SI{3}{\milli \ampere} \\
+		 Phase Detector Frequency & \SI{24.576}{\mega \hertz}\\
+		 VCXO Frequency	& Designed for \SI{15}{\giga \hertz}\\ [0.3cm]
+		 \textbf{Loop filter components} & \\
+		 $C_{1,LF}$ &  \SI{2200}{\pico \farad}\\
+		 $C_{2,LF}$ &  \SI{180}{\nano \farad}\\
+		 $C_{3,LF}$ &  \SI{1800}{\pico \farad}\\
+		 $R_{2}$ &  \SI{160}{\ohm}\\
+		 $R_{3,LF}$ &  \SI{180}{\ohm}\\
+		 \bottomrule
+	\end{tabularx}
+\end{table}
+
+%todo deg
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pll.png}
-	\caption{Placeholder}
-	\label{fig:pll}
+	\includegraphics[width = \textwidth]{chap/04-work/img/lmx2594}
+	\caption{Schematics of the LMX2594}
+	\label{fig:lmx2594}
 \end{figure}
 
+TODO: Explain with help of timing diagram, why 
+\begin{figure}[tbh]
+	\centering
+	\tikzexternaldisable
+	\begin{tikztimingtable}
+		TH1 & 1L 8H N(A1) 8H 16L \\
+		TH2 & 2L 16H 15L \\
+		TH3 & 3L 16H 14L \\
+		TH4 & 4L 5H N(B1) 11H 13L \\
+		\\
+		TH5 & 5L 16H 12L \\
+		TH6 & 6L 16H 11L \\
+		TH7 & 7L 16H 10L \\
+		TH8 & 8L 16H 9L \\
+		\\
+		TH9 & 9L 16H 8L \\
+		TH10 & 10L 16H 7L \\
+		TH11 & 11L 16H 6L \\
+		TH12 & 12L 16H 5L \\
+		\\
+		TH13 & 13L 16H 4L \\
+		TH14 & 14L 16H 3L \\
+		TH15 & 15L 16H 2L \\
+		TH16 & 16L 16H 1L \\
+		\extracode
+		\tablerules
+		\begin{pgfonlayer}{background}
+			\draw [help lines, dashed] (A1) -- (B1);
+		\end{pgfonlayer}
+	\end{tikztimingtable}
+	\tikzexternalenable
+	\caption[Track-And-Hold Timing diagram]{\gls{tha} Timing diagram. Shows the clocking of the \gls{tha}, high level = HOLD, low level = TRACK. Dashed line represents the sampling of the \gls{adc}.}
+	\label{fig:THA}
+\end{figure}
+%todo what does the dashed line show?
+
+
+\subsection{Digital-To-Analog-Converter Balun Channel}
+For test purposes, two \gls{dac} channels from the read-out card are routed on the sampling board. In this way, test signals can be generated right on the read-out card, without the need for an external signal generator. 
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/dac_channel}
+	\caption{DAC-channel with balun. Signal travels from right to left.}
+	\label{fig:dac_channel}
+\end{figure}
 
 
 \subsection{Power Supply}
-For the Track-And-Hold amplifiers a new power supply unit -- the ADP1741 (Analog Devices) -- should be used. It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. The power consumption/maximum current for the respective components on the THERESA board is listed in \autoref{tab:kapturecomp}. 
+On the \gls{kapture} sampling board, the ADP1708 from \textit{Analog Devices} is used to provide a power supply for the \glspl{tha}. 
+For the Track-And-Hold amplifiers a new power supply unit, the ADP1741 from \textit{Analog Devices}, should be used. It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele} The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:kapturecomp}. 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
 	\label{tab:kapturecomp}
 	\begin{minipage}{\textwidth}
 		\centering
-		\begin{tabularx}{\textwidth}{XSSSSS}
+		\begin{tabularx}{\textwidth}{Xlllll}
 			\toprule
-			\textbf{Component} & \textbf{$V_{cc}$ (\SI{}{\volt})} & \textbf{$I_{max}$ (\SI{}{\ampere})} & \textbf{$P_{max}$ (\SI{}{\watt})} & $\#_{parts}$ & \textbf{$I_{tot}$}\footnote{for 16 ADCs} (\SI{}{\ampere})\\
+			\textbf{Component} & $V_{cc}$ (V) & $I_{max}$ (A) & $P_{max}$ (W) & $\#_{parts}$ &  $I_{tot}$\footnote{for 16 \glspl{adc}} (A)  \\
 			\midrule
-			HMC5649 (T/H-Amplifier) 	& 2	  	& 0.221 	 & 0.442 & 16 & 3.536\\
+			HMC5649 \gls{tha} 	& 2	  	& 0.221 	 & 0.442 & 16 & 3.536\\
 			& -5  	& -0.242 & 1.21 &  & 3.872\\
 			HMC856 (Delay) 			& -3.3	& 0.185 & -0.611 & 16 & 2.96\\
-			HMC987LP5E (Fan-Out) 	& 3.3 	& 0.234\footnote{All Outputs and RF-Buffer} & 0.772 & 2 & 0.468\\
-			LMC0480 (PLL) 			& 3.3 	& 0.590\footnote{All CLKs} & 1.947 & 1 & 0.590\\
+			HMC987LP5E (Fan-Out buffer) 	& 3.3 	& 0.234\footnote{All Outputs and RF-Buffer} & 0.772 & 2 & 0.468\\
+			LMC0480 \gls{pll}			& 3.3 	& 0.590\footnote{All CLKs} & 1.947 & 1 & 0.590\\
 			VCXO 					& 3.3 	& 0.03 & 0.198 & 1 & 0.03\\
+			
 			\bottomrule
-		\end{tabularx}
+	\end{tabularx}
 	\end{minipage}
 \end{table}
 
@@ -71,89 +377,127 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 
 
 \section{Layout}
+%Both analog and digital signals require a wideband
+%signal propagation and a low noise of both voltage and
+%time levels. Therefore the PCB is made by ROGER 4003
+%material and the signals are routed by dedicated
+%transmission lines. Well separated analog and digital
+%grounds in conjunction with ad-hoc RF filters located
+%closer at the critical components have been adopted to
+%reduce the influence of the digital circuit on the analog
+%devices. Moreover, the via fences and guard ring
+%techniques have been employed in the PCB layout in
+%order to reduce the cross-talk between adjacent
+%transmission lines, the electromagnetic interference (EMI)
+%and improve the performance at high frequency [6]. A low
+%time jitter is required, which is dependent on deterministic
+%and Gaussian contributions. The deterministic jitter (DJ)
+%depends on the duty cycle distortion, cross-talk, EMI, etc.
+%This component has been drastically reduced by the
+%techniques mentioned before regarding hardware layout
+%techniques, moreover, the residual noise can be measured
+%and corrected in the FPGA.
 
+
+\subsection{\gls{pcb} Structures Overview} \label{ssec:pcb_structs}
+An overview over the basic structures on a \gls{pcb} is given.
+
+\paragraph{Traces}
+A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
+
+
+\paragraph{Planes}
+\textit{Plane} denotes an uninterrupted area of metal, which covers the whole \gls{pcb} layer. If this area only covers only part of the layer, it is called a \textit{planelet}. These areas provide power distribution across the \gls{pcb} and present an important transmission medium for the return current\footnote{Any current, which is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
+
+\paragraph{Vias}
+A via is metal-plated hole, which is used to route a trace in vertical direction, i.e. from the \gls{pcb} outer layer to the inner layers. They carry signals and power. Three types of vias are \cite{vias}:
+\begin{itemize}
+	\item Blind via: A blind via connects the surface layers with at most three layers below.
+	\item Buried via: A buried via only connects internal layers.
+	\item Through via: A through via goes from one \gls{pcb} surface to another and is used to connect any layer. 
+\end{itemize}
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/vias}
+	\caption[Via types]{Visualization of via types \cite{vias}}
+	\label{fig:vias}
+\end{figure}
+%todo bild
+
+In this design only blind and through vias are used.
+
+\subsection{\gls{pcb} Substrate}
+TODO
+Megtron6 Laminate R-5775 Prepreg R-5670
+
+$\epsilon_r = 3.61$ at 
 \subsection{Floor Planning}
+TODO
 \subsection{Transmission lines}
-\paragraph{RF/Microwave Design Basics}
+TODO 
 
-\paragraph{Surface Coplanar Waveguide with Ground}  
-\begin{figure}[!htbp]
-	\centering
-	\begin{tikzpicture}
-		\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
-		\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
-		\filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
-		\filldraw[color=black, fill=black] (3,3) rectangle ++(1,.2) node[pos=.5](cond1){};
-		\filldraw[color=black, fill=black] (5,3) rectangle ++(1,.2) node[pos=.5](cond2){};
-		\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
-		\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=east](){\(h\)};
-		\draw[>=triangle 45, <->] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
-		\draw[>=triangle 45, <->] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
-		\draw[>=triangle 45, <->] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
-		
-		\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-		\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
-		
-		\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,4);
-		\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,4);
-		\draw[dashed] (0.1,1) -- (-1,1);
-		\draw[dashed] (0.2,3) -- (-1,3);
-		\draw[dashed] (8,3.2) -- (10,3.2);
-		\draw[dashed] (8,3) -- (10,3);
-		
-	\end{tikzpicture}
-	\caption{Edge-Coupled Coplanar Waveguide}
-	\label{fig:eccw_geometry}
-\end{figure}
+Transmission lines carry high-frequency signals, therefore the geometry of them is important, as this affects the impedance. For single-ended the waveguide characteristic impedance should be \SI{50}{\ohm}, for differential signals \SI{100}{\ohm}. For slow signals not that crucial, but for sensitive, high-speed signals, e.g. clocking signals, proper calculation is very important to ensure signal integrity and reduce reflection and damping. 
 
-
-
-
-
-\begin{figure}[!htbp]
-	\centering
-	\begin{tikzpicture}
-		
-		\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5](gnd){};
-		\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
-		\filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5](GND1){};
-		\filldraw[color=black, fill=black] (3.5,3) rectangle ++(2,.2) node[pos=.5](cond1){};
-		\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5](GND2){};
-		\draw[>=triangle 45, <->] (3.5,3.4) -- ++(2,0) node[pos=.5,anchor=south](){\(a\)};
-		\draw[>=triangle 45, <->] (2,3.8) -- ++(5,0) node[pos=.5,anchor=south](){\(b\)};
-		
-		\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
-		\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-		\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
-		
-		\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,4);
-		\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,4);
-		\draw[dashed] (0.1,1) -- (-1,1);
-		\draw[dashed] (0.2,3) -- (-1,3);
-		
-		\draw[dashed] (7,3.2) -- (10,3.2);
-		\draw[dashed] (8,3) -- (10,3);
-		
-	\end{tikzpicture}
-	\caption{Coplanar Waveguide with Ground}
-	\label{fig:microstrip_geometry}
-\end{figure}
-
-
+For \glspl{pcb} usually coplanar waveguides are used for signal propagation. The characteristic impedance depends on the dielectric, the trace width, separation between traces and separation between the signal traces and the ground planes/traces. Formulas to calculate the characteristic impedance are quite lengthy and not easy to solve. Luckily, tools\footnote{which are quite expensive though, if a high variety of geometries is necessary} exist to quickly calculate the geometric values needed for appropriate impedance. For the design, the Si9000e \gls{pcb} field solver from \textit{Polar} (see \autoref{fig:polaris})is used to calculate the necessary trace widths, separations, etc.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/polaris}
+	\includegraphics[width = \textwidth]{chap/04-work/img/polaris}
 	\caption{Polaris Solver}
 	\label{fig:polaris}
 \end{figure}
 
-\begin{figure}[tbh]
+Three geometries of waveguides are used in this design which are described in the following. Furthermore, geometric dimensions calculated with the Si9000e tool are presented. In principle, the geometries can be taken from the design of the sampling card of \gls{kapture} system. As the dielectric constant of the substrate is slightly different (\gls{kapture}: 3.52, here: 3.61), the impedance has to be recalculated to check whether the characteristic value impedance still lies in the 10\% tolerance.
+\paragraph{Surface Coplanar Waveguide with Ground}
+The surface coplanar waveguide has the geometry shown in \autoref{fig:microstrip_geometry}. The single trace of the thickness $t$ and width $a$ lies between two ground planes on a dielectric of thickness $h$ and the effective dielectric constant $\epsilon_r$. Another ground plane is located at the bottom of the dielectric. Separation between trace and ground plane is calculated as $(b-a)/2 := d$. 
+
+\begin{figure}[!htbp]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/megtron_diff_bottom_d1_vs_s1.tikz}
-	\caption{Test Graph}
-	\label{fig:megtron}
+	\includegraphics[width = \textwidth]{chap/04-work/img/cw}
+	\caption{Coplanar Waveguide with Ground}
+	\label{fig:microstrip_geometry}
 \end{figure}
+
+Trace width is assumed to be $a = \SI{180}{\micro \meter}$. In the tool, an upper and a lower trace width can be specified, therefore taking into account manufacturing processes. As the exact upper trace width is not known, both are assumed to be  \SI{180}{\micro \meter}.   Trace-To-Ground Separation, or "Ground Strip Separation", is defined by the manufacturing technology of the \gls{pcb} process: $d = \SI{250}{\micro \meter}$ With $h = \SI{98.9}{\micro \meter}$, $\epsilon_r = 3.61$ (at \SI{10}{\giga \hertz}) this results in a characteristic impedance of \SI{52.90}{\ohm}. This lies well in the tolerance area.
+
+Over the frequency range, the value of the effective dielectric constant changes from 3.71 (at \SI{1}{\giga \hertz}) to 3.61 (at \SI{10}{\giga \hertz}). As the tool provides the possibility to calculate the impedance versus a changing parameter, the influence of a changing dielectric was calculated. As can be seen in \autoref{fig:surf_z0_vs_dk}, with higher effective dielectric constant, the characteristic impedance decreases (see \autoref{fig:surf_z0_vs_dk}).
+
+The only parameters, which are not defined by the manufacturing process and therefore can be altered, are the ground strip separation and the trace width. When altering the trace width, the tool automatically assumes an upper trace width, which is \SI{25}{\micro \meter}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width = \textwidth, height = 0.3\linewidth]{chap/04-work/img/surf_z0_vs_dk.tikz}  
+%	\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
+%	\label{fig:surf_z0_vs_dk}
+%\end{figure}
+
+\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_d1.tikz}
+		\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
+		\label{fig:surf_z0_vs_d1}
+\end{figure}
+
+
+ \paragraph{Differential Pairs on Surface}
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/eccw}
+	\caption{Edge-Coupled Coplanar Waveguide}
+	\label{fig:eccw_geometry}
+\end{figure}
+
+\paragraph{Differential Pairs between Layers}
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/docw}
+	\caption{Differential Offset Coplanar Waveguide}
+	\label{fig:docw}
+\end{figure}
+
+
+
+
 
 
 \section{Production}
