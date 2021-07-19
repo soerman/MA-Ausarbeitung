@@ -1,14 +1,29 @@
+TODO: rewrite
+\begin{itemize}
+	\item mention TS-ADC paper from the 90s (technique is already known since then, a lot of development )
+	\item briefly explain the evolution over the past 20/30 years
+	\item transition to usage of TS in physics
+\end{itemize}
+
 Observing non-repetitive and statistically rare signals that occur on short timescales requires fast real-time measurements that exceed the speed, precision and record length of conventional digitizers. Photonic time stretch is a data acquisition method that overcomes the speed limitations of electronic digitizers and enables continuous ultrafast single-shot spectroscopy, imaging, reflectometry, terahertz and other measurements at refresh rates reaching billions of frames per second with non-stop recording spanning trillions of consecutive frames. The technology has opened a new frontier in measurement science unveiling transient phenomena in nonlinear dynamics such as optical rogue waves and soliton molecules, and in relativistic electron bunching. It has also created a new class of instruments that have been integrated with artificial intelligence for sensing and biomedical diagnostics. We review the fundamental principles and applications of this emerging field for continuous phase and amplitude characterization at extremely high repetition rates via time-stretch spectral interferometry.
 
-A new generation of instruments based on photonic time stretch is opening the path to measuring and understanding the behaviour of non-stationary and rare phenomena in ultrafast systems, and harvesting their potential for practical applications such as metrology, machine vision and biomedicine. While these instruments rely on optics for the transformation of a signal's timescale, they are able to operate with either electrical, optical, or terahertz inputs.
+A new generation of instruments based on photonic time stretch is opening the path to measuring and understanding the behaviour of non-stationary and rare phenomena in ultrafast systems, and harvesting their potential for practical applications such as metrology, machine vision and biomedicine. While these instruments rely on optics for the transformation of a signal's timescale, they are able to operate with either electrical, optical, or terahertz inputs. \cite{szwaj}
 
 
 
 
-\section{Time-Stretching techniques in physics}
+\section{Time-Stretching Techniques in Physics}
+\begin{itemize}
+	\item Relativistic electron beam diagnostics
+	\item Characterization of noise and fluctuations in nonlinear optics
+	\item Laser dynamics
+\end{itemize}
 
 
 \section{Motivation}
+
+From the student job proposal:
+
 Terahertz science and laser applications need to analyse the characteristics of ultrafast events. Commercially available real-time equipment is limited in bandwidth (240 GS/s, LeCroy LabMaster 10-100Zi) and cannot be used to characterize these events in the pico-and femtosecond regime. In this thesis you will evaluate a real-time measurement technique based on the photonic time-stretch analog-to-digital converter (TS-ADC) for the measurement of ultrafast signals with a sampling-rate which exceeds TS/s. The principle is to use a photonic front-end that effectively “slows down” the analog signal in time before it is digitized by fast ADCs.
 
 
@@ -21,6 +36,8 @@ Terahertz science and laser applications need to analyse the characteristics of 
 %todo to tikz
 
 \subsection{THz Science and Coherent Synchrotron Radiation}
+\textbf{TODO:} Explain physical expressions
+
 \Gls{sr} is produced in synchrotron radiation facilities (like electron storage rings) by accelerating relativistic electrons.
 Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using an undulator\footnote{Undulators are used to make the electrons oscillate by generating a periodic magnetic field}. 
 
@@ -40,6 +57,7 @@ Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, o
 \end{figure}
 %todo where's the booster?
 \paragraph{Karlsruhe Research Accelerator}
+\textbf{TODO:} Brief overview over \gls{kara}
 \begin{itemize}[noitemsep]
 	\item Located at the Karlsruhe Institute of Technology (KIT)
 	\item Up to 184 electron bunches can be filled into the storage ring with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches
@@ -79,16 +97,16 @@ The range of \gls{sr} reaches from hard X-rays down to the infrared region of th
 
 Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
 %todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
-\begin{figure}[H]
+\begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
 	\caption{Electromagnetic spectrum} %todo of what?
 	\label{fig:spectrum}
 \end{figure}
-%todo legend -> 7 columns instead of one. or just label the ranges with 'big braces' directly
+%todo 7 column not working for some reason, 
 %todo replace with measured I(\lambda)/I_0 plot?
 
-\subsubsection{Micro-Bunching Instabilities}
+\subsubsection*{Micro-Bunching Instabilities}
 Increasing demands in current and future accelerators call for higher brilliance of the emitted radiation.
 %todo define brilliance, flux, emittance
 This is achieved by increased photon flux and reduction of the transverse emittance.
@@ -105,7 +123,7 @@ A thorough understanding of these dynamics is necessary to control the emission 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/csr2.png}
-	\caption{Placeholder \cite{rota2018}}
+	\caption{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
 	\label{fig:csr}
 \end{figure}
 %todo to tikz
@@ -119,6 +137,57 @@ A thorough understanding of these dynamics is necessary to control the emission 
 
 
 \subsection{Longitudinal Bunch Profile Diagnostics}
+
+\subsubsection*{Scanning-Type Electro-Optic Sampling}
+The 
+%todo what is that, one sentence
+A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect\footnote{"The Pockels effect denotes the occurrence of
+	and change in existing birefringence in an electric field linearly, which is proportional to the electric
+	field strength. \cite{pockels}} the THz pulse causes a time dependent birefringence in the crystal.
+%todo avoid direct quote
+This modulates the polarization of the laser pulse.
+To sample the pulse, the delay between the laser and the THz pulse is varied.
+To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation.
+A general scheme of the system is shown in \autoref{fig:scan_eo}.
+For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
+	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
+	\label{fig:scan_eo}
+\end{figure}
+
+\subsubsection*{Spectrally Resolved Electro-Optic Detection}
+In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique. %todo EOS==EO?
+The short laser pulse is first stretched to a duration similar to the Thz pulse in a dispersive material (stretcher).
+In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
+Together with the THz, the laser pulse propagates in a \gls{eo} crystal.
+Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum.
+The polarization state of the pulse is converted into an amplitude/intensity modulation.
+To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
+A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
+	\caption{Scheme of Spactrally Encoded Electro-Optical Detection System \cite{roussel2014}}
+	\label{fig:spectral_eo}
+\end{figure}
+
+The temporal resolution of this method is limited due to the finite chirp rate
+\begin{equation}
+	\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
+\end{equation}
+
+The resolution $T_{\text{min}}$ is determined as
+\begin{equation}
+	T_{\text{min}} = \sqrt{T_0 T_c}
+\end{equation}
+with the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$.
+
+
+\textbf{TODO}: refer also to KALYPSO
+
 
 \subsection{Potential Usage: ANR-DFG ULTRASYNC project?}
 From Serge's email:

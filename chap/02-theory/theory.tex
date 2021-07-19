@@ -15,51 +15,7 @@
 Several \gls{eo} techniques exist, to measure THz radiation with a sub-picosecond resolution.
 In this section, the techniques used in storage rings and the time-stretch technique are presented. 
 
-\subsection{Scanning-Type Electro-Optic Sampling}
-%todo what is that, one sentence
-A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect\footnote{"The Pockels effect is the name given to the occurrence of
-birefringence and to the change in existing birefringence phenomena in an electric field linearly proportional to the electric
-field strength." \cite{pockels}} the THz pulse causes a time dependent birefringence in the crystal.
-%todo avoid direct quote
-This modulates the polarization of the laser pulse.
-To sample the pulse, the delay between the laser and the THz pulse is varied.
-To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation.
-A general scheme of the system is shown in \autoref{fig:scan_eo}.
-For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
-	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
-	\label{fig:scan_eo}
-\end{figure}
 
-\subsection{Spectrally Resolved Electro-Optic Detection}
-In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique. %todo EOS==EO?
-The short laser pulse is first stretched to a duration similar to the Thz pulse in a dispersive material (stretcher).
-In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
-Together with the THz, the laser pulse propagates in a \gls{eo} crystal.
-Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum.
-The polarization state of the pulse is converted into an amplitude/intensity modulation.
-To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
-A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
-
-\begin{figure}[tbh]
- 	\centering
- 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
- 	\caption{Scheme of Spactrally Encoded Electro-Optical Detection System \cite{roussel2014}}
- 	\label{fig:spectral_eo}
-\end{figure}
-
-The temporal resolution of this method is limited due to the finite chirp rate
-\begin{equation}
-\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
-\end{equation}
-
-The resolution $T_{\text{min}}$ is determined as
-\begin{equation}
-T_{\text{min}} = \sqrt{T_0 T_c}
-\end{equation}
-with the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$.
 
 \subsection{Photonic Time-Stretch Technique}
 The working principle of the optic time-stretch technique can be described in two steps (see \autoref{fig:eo_ts}).

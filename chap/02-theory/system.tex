@@ -36,12 +36,13 @@ The factor, by which the pulse is slowed down, is calculated as
 
 \paragraph{Detector/Diode}
 A photodetector converts the incoming optical signal into an electrical signal, known as O/E convertor.
-The detection and subtraction between the two stretched signals is performed using a amplified balanced photodetector (photoreceiver) from Discovery Semiconductors, with 20 GHz bandwidth and 2800 V/W gain (specified at 1500 nm). The two differential outputs of the detector are sent on a Lecroy LabMaster 10i oscilloscope with 36 GHz bandwidth, 80 GS/s sample rate on each channel and a memory of 256 Mega samples.
+\textbf{TODO:} Some brief theory about photodetectors, need to find good paper/source.
 
 \paragraph{Balanced Detection}
-TODO
+TODO: Briefly explanation why and what
 \paragraph{Sensitivity Increase}
-TODO
+TODO: just mentioning that there are some techniques
+
 \subsection{Analog-To-Digital Converter}
 \Glspl{adc} are used to translate analog voltages into digital signals, which can be processed by information processing, computing, data transmission and control systems. The translation can be seen as encoding a continuous-time analog input (voltage) into a series of discrete, $N$-bit words. This process, which is also called \textit{sampling}, can be expressed as
 \begin{equation}
@@ -59,8 +60,7 @@ with $V_{\text{In}}$ being the input voltage, $V_{\text{FS}}$ the full-scale vol
 \subsubsection*{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
-The \textit{Nyquist criteria} states, that in order to accurately represent a band-limited, continuous signal %todo what is B?
-%todo rewrite the condition, maybe like 
+The \textit{Nyquist criteria} states, that in order to accurately represent a continuous signal $y(t)$ with bandwidth $B$
 \begin{equation}
 	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation}
@@ -72,6 +72,7 @@ with $f_a$ being the highest frequency contained in the signal. \cite{walt,puent
 %todo why not relate f_a to B?
 
 Violation of this rule leads to \textit{aliasing}.
+\textbf{TODO:} Brief explanation about aliasing (using also picture)
 %todo explain aliasing
 
 
@@ -106,15 +107,14 @@ The \gls{adc} sampling time needs to be timed in such way, that the analog-to-di
 	\centering
 	\tikzexternaldisable
 	\includegraphics[width=\linewidth]{chap/02-theory/img/sha_timing}  
-	\caption{Example for appropriate sampling timing when using Sample-And-Hold-Amplifier}
+	\caption[Sample-And-Hold Sampling Timing Diagram]{Example for appropriate sampling timing when using Sample-And-Hold-Amplifier}
 	\label{fig:sha_timing}
 	\tikzexternalenable
 \end{figure}
 %todo why not save this as .tikz file and include it as a normal figure with caption?
 
 In addition to the \gls{sha}, there is also the \gls{tha}.
-Instead of a sample period, the \gls{tha} has a track period, where the output of the amplifier tracks the input signal (see also \autoref{fig:tha}).
-When switching to hold mode, the signal at this instant is held. This is opposed to the \gls{sha}, where the output during sample mode is actually not defined and is set to the value of the input signal, only when switching into hold mode. In the track mode interval of the output waveform (positive differential clock voltage), the device behaves as a unity-gain amplifier that replicates the input signal at the output stage, subject to the input bandwidth and the output amplifier bandwidth limitations. At the positive to negative clock transition of the device, it samples the input signal with a very narrow sampling time aperture and holds the output relatively constant during the negative clock interval at a value that is representative of the signal at the instant of sampling. \cite{Reeder2019}
+Instead of a sample period, the \gls{tha} has a track period during the positive interval of the clock, where the output of the amplifier tracks the input signal (see also \autoref{fig:tha}), i.e. behaves like a unity-gain amplifiers. When switching to hold mode (negative clock interval), the signal at this instant is held with a small sampling time aperture. In the track mode interval of the output waveform (positive differential clock voltage), the device behaves as a unity-gain amplifier that replicates the input signal at the output stage, subject to the input bandwidth and the output amplifier bandwidth limitations. At the positive to negative clock transition of the device, it samples the input signal with a very narrow sampling time aperture and holds the output relatively constant during the negative clock interval at a value that is representative of the signal at the instant of sampling. \cite{Reeder2019}
 %todo explanation a bit confusing. use another timing diagram?
 
 \begin{figure}[tbh]
@@ -307,13 +307,17 @@ The \textit{transient response} denotes the settling time of an \gls{adc} until 
 In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate, than the respective sample rate of each individual \gls{adc}. The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adc_interleaving}), each sampling at $f_c = f_s/M$ individually. This means, the \glspl{adc} are clocked in such a way, that they start their respective conversion cycle shortly one after another. At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a time delay $\Delta t_i$ the second starts converting the signal $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first converter. \cite{mangrob}
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/adc_inter}
+	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/adc_inter}
 	\caption[Time Interleaving]{Placeholder: An array of $M$ time interleaved $N$-bit \glspl{adc} with example of clocking scheme for the case of $M$ = 4 \cite{mangrob}}
 	\label{fig:adc_interleaving}
 \end{figure}
 %todo to tikz
-\paragraph{Challenges}
-Spurs appear in the spectrum. There are several reasons for this.
+
+\textbf{TODO:} Formula about phase relationships between the ADC-sampling clocks (+picture)
+
+%todo Formula about phase relationships between the ADC-sampling clocks (+picture)
+\paragraph{Interleaving Spurs}
+One issue of the interleaving technique, is that it creates additional spurs, i.e. frequency components, in the spectrum. There are several reasons for this.
 
 First reason is the \textit{offset mismatch} between den \glspl{adc}. Each \gls{adc} has an DC offset value. Considering as example an interleaving structure with two \glspl{adc} and a constant input voltage: when the samples are acquired back and forth between the two \glspl{adc}, the resulting output will switch back and forth between two levels due to the different offset levels. This output switches at the frequency $f_s/2$ and therefore introduces an additional frequency component in the spectrum (see \autoref{fig:offset_mm}). The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
 

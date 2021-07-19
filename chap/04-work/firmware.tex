@@ -1,19 +1,9 @@
 \section{Firmware}
+Calculate approx. data throughput if using all ADCs at maximum frequency possible.
 \subsection{RF Data Converter}
 \subsection{SoC}
 \subsection{RDMA over Converged Ethernet (RoCE)}
 
 \subsection{System Integration}
-\paragraph{Interleaving}
-The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
-However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile.
 
-Clock to THA: \SI{500}{\mega \hertz}
-
-Total Hold time: \SI{1}{\nano \second}
-
-$\rightarrow$ Step size for delay:
-\begin{equation}
-\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
-\end{equation}
 

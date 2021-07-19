@@ -250,11 +250,6 @@ A \SI{100}{\nano \farad} capacitor is put in parallel for power supply decouplin
 
 
 \subsection{Clocking}
-TODO:
-\begin{itemize}
-	\item Brief theory about PLL -> VCO, Loop Filter, Charge pump, etc.
-	\item Maybe some simulation with the PLLatinum Tool (used for calculation of the noise, jitter, etc. over the frequency)
-\end{itemize}
 Clocking distribution is designed as shown in \autoref{fig:clocking}. The LMK0480x Low-Noise Clock Jitter Cleaner \gls{pll} from \textit{Texas Instruments} cleans the incoming reference clock coming from the system (e.g. from \gls{kara}) for high temporal accuracy \cite{caselle2013}. It is used with an external \gls{vcxo} from \textit{ABRACON}. The LMK0480x has only 12 outputs, not enough for the 16 \glspl{tha} and additional clocking for \gls{fpga}, \gls{adc} and \gls{dac}, especially considering that the outputs are divided into six groups à two outputs. Outputs in one group have the same configuration (frequency, phase, ...), which means that effectively only six different outputs are available. A low noise clock distribution fanout buffer, the HMC987LP5E from \textit{Analog Devices} is therefore used for distributing the clock signal to the delay chips. As one fanout buffer has eight outputs, two chips are needed to cover all channels. One output of the \gls{pll} is propagated to the \gls{fmc}+ connector as reference clock for the \gls{fpga}. Up until this part, this architecture is not different from the one on the \gls{kapture} sampling board. 
 
 \begin{figure}[tbh]
@@ -265,10 +260,24 @@ Clocking distribution is designed as shown in \autoref{fig:clocking}. The LMK048
 \end{figure}
 %todo clean picture
 
-The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). A second \gls{pll} is therefore needed. The read-out card is provided with an \gls{rf} Clock add-on card, which is necessary to generate the high-frequency clocks for the converters. The schematic is provided by the manufacturer and is used as reference for the design. According to the user guide \cite{xilCLK104}, the parameters for the loop filter are as shown in \autoref{tab:lmx2594_filter}.
+The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). A second \gls{pll} is therefore needed. The read-out card is provided with an \gls{rf} Clock add-on card, which is necessary to generate the high-frequency clocks for the converters. The LMX2594 from \textit{Texas Instruments} provides clocking signal up to \SI{15}{\giga \hertz} and is a fitting candidate. For loop filter calculation, the TI PLLAtinum Sim Tool is used. The parameters for the filter are as shown in \autoref{tab:lmx2594_filter}.
+
+\textbf{TODO} 
+\begin{itemize}
+	\item Needs some more explanation and maybe at least a little bit theory (e.g. block diagram of general PLL and what loop filter is)
+	\item Maybe some simulation diagram with the PLLatinum Tool (used for calculation of the noise, jitter, etc. over the frequency)
+\end{itemize}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll_block}
+	\caption[PLL block diagram]{General block diagram of a \gls{pll}}
+	\label{fig:pll_block}
+\end{figure}
+
 
 \begin{table}[tbh]
-	\caption[NB6L295 Characteristics]{Specifications of the NB6L295 delay chip \cite{NB6L295}}
+	\caption[LMX2594 Filter characteristics]{Filter characteristics}
 	\label{tab:lmx2594_filter}
 	\centering
 	\begin{tabularx}{\textwidth}{Xl}
@@ -280,7 +289,7 @@ The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enou
 		 Phase Margin	 & 69 deg \\
 		 Effective Charge Pump Gain	 & \SI{3}{\milli \ampere} \\
 		 Phase Detector Frequency & \SI{24.576}{\mega \hertz}\\
-		 VCXO Frequency	& Designed for \SI{15}{\giga \hertz}\\ [0.3cm]
+		 VCXO Frequency	& Designed for \SI{15}{\giga \hertz} (works for all)\\ [0.3cm]
 		 \textbf{Loop filter components} & \\
 		 $C_{1,LF}$ &  \SI{2200}{\pico \farad}\\
 		 $C_{2,LF}$ &  \SI{180}{\nano \farad}\\
@@ -300,7 +309,21 @@ The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enou
 	\label{fig:lmx2594}
 \end{figure}
 
-TODO: Explain with help of timing diagram, why 
+\textbf{TODO}: Explain with help of timing diagram, why ADCs need to be at different PLLs -> outputs not individually programmable. phase difference between clocks needs to be 180° -> like two times interleaving
+
+The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
+However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile. Normally, only one reference clock can be provided. Analyzing the schematic of the zcu216 board revealed however, that there are pins leading to the FPGA banks (224 to 227), labeled as clocks for the individual tiles. Two of the clocks are not connected (224 and 227). 225 is provided via SMA cable, the other comes from the LPAM clock connector.  
+
+Clock to THA: \SI{500}{\mega \hertz}
+
+Total Hold time: \SI{1}{\nano \second}
+
+$\rightarrow$ Step size for delay:
+\begin{equation}
+	\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
+\end{equation}
+
+Aperture delay, jitter, need to be taken into account to determine the max. sampling frequency.
 \begin{figure}[tbh]
 	\centering
 	\tikzexternaldisable
@@ -310,25 +333,26 @@ TODO: Explain with help of timing diagram, why
 		TH3 & 3L 16H 14L \\
 		TH4 & 4L 5H N(B1) 11H 13L \\
 		\\
-		TH5 & 5L 16H 12L \\
+		TH5 & 5L 8H N(A2) 8H 12L \\
 		TH6 & 6L 16H 11L \\
 		TH7 & 7L 16H 10L \\
-		TH8 & 8L 16H 9L \\
+		TH8 & 8L 5H N(B2) 11H 9L \\
 		\\
-		TH9 & 9L 16H 8L \\
+		TH9 & 9L 8H N(A3) 8H 8L \\
 		TH10 & 10L 16H 7L \\
 		TH11 & 11L 16H 6L \\
-		TH12 & 12L 16H 5L \\
+		TH12 & 12L 5H N(B3) 11H 5L \\
 		\\
-		TH13 & 13L 16H 4L \\
+		TH13 & 13L 8H N(A4) 8H 4L \\
 		TH14 & 14L 16H 3L \\
 		TH15 & 15L 16H 2L \\
-		TH16 & 16L 16H 1L \\
+		TH16 & 16L 5H N(B4) 11H 1L \\
 		\extracode
 		\tablerules
-		\begin{pgfonlayer}{background}
-			\draw [help lines, dashed] (A1) -- (B1);
-		\end{pgfonlayer}
+		\draw [dashed] (A1) --node[midway, anchor = west]{ADC1} (B1) ;
+		\draw [dashed] (A2) --node[midway, anchor = west]{ADC2} (B2) ;
+		\draw [dashed] (A3) --node[midway, anchor = west]{ADC1} (B3) ;
+		\draw [dashed] (A4) --node[midway, anchor = west]{ADC2} (B4) ;
 	\end{tikztimingtable}
 	\tikzexternalenable
 	\caption[Track-And-Hold Timing diagram]{\gls{tha} Timing diagram. Shows the clocking of the \gls{tha}, high level = HOLD, low level = TRACK. Dashed line represents the sampling of the \gls{adc}.}
@@ -350,7 +374,9 @@ For test purposes, two \gls{dac} channels from the read-out card are routed on t
 
 \subsection{Power Supply}
 On the \gls{kapture} sampling board, the ADP1708 from \textit{Analog Devices} is used to provide a power supply for the \glspl{tha}. 
-For the Track-And-Hold amplifiers a new power supply unit, the ADP1741 from \textit{Analog Devices}, should be used. It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele} The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:kapturecomp}. 
+For the Track-And-Hold amplifiers on the new board, another power supply unit, the ADP1741 from \textit{Analog Devices}, should be used. This power supply can handle more maximum current, therefore less power supplies are needed. This is important considering the higher number of components. 
+
+It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele} The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:kapturecomp}. 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
 	\label{tab:kapturecomp}
@@ -399,7 +425,7 @@ The maximal current which the ADP1741 can provide @\SI{2}{\volt} is \SI{2}{\ampe
 %and corrected in the FPGA.
 
 
-\subsection{\gls{pcb} Structures Overview} \label{ssec:pcb_structs}
+\subsection{PCB Structures Overview} \label{ssec:pcb_structs}
 An overview over the basic structures on a \gls{pcb} is given.
 
 \paragraph{Traces}
@@ -422,6 +448,12 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}
+
+\textbf{TODO:} 
+	\begin{itemize}
+		\item Via fences
+		\item Pads
+	\end{itemize}
 %todo bild
 
 In this design only blind and through vias are used.
@@ -430,11 +462,10 @@ In this design only blind and through vias are used.
 TODO
 Megtron6 Laminate R-5775 Prepreg R-5670
 
-$\epsilon_r = 3.61$ at 
+$\epsilon_r = 3.61$ at \SI{10}{\giga \hertz}, $\epsilon_r = 3.71$ at \SI{1}{\giga \hertz}
 \subsection{Floor Planning}
 TODO
 \subsection{Transmission lines}
-TODO 
 
 Transmission lines carry high-frequency signals, therefore the geometry of them is important, as this affects the impedance. For single-ended the waveguide characteristic impedance should be \SI{50}{\ohm}, for differential signals \SI{100}{\ohm}. For slow signals not that crucial, but for sensitive, high-speed signals, e.g. clocking signals, proper calculation is very important to ensure signal integrity and reduce reflection and damping. 
 
@@ -460,23 +491,26 @@ The surface coplanar waveguide has the geometry shown in \autoref{fig:microstrip
 
 Trace width is assumed to be $a = \SI{180}{\micro \meter}$. In the tool, an upper and a lower trace width can be specified, therefore taking into account manufacturing processes. As the exact upper trace width is not known, both are assumed to be  \SI{180}{\micro \meter}.   Trace-To-Ground Separation, or "Ground Strip Separation", is defined by the manufacturing technology of the \gls{pcb} process: $d = \SI{250}{\micro \meter}$ With $h = \SI{98.9}{\micro \meter}$, $\epsilon_r = 3.61$ (at \SI{10}{\giga \hertz}) this results in a characteristic impedance of \SI{52.90}{\ohm}. This lies well in the tolerance area.
 
+To study the effect of changing parameters, some calculations were done with the tool (it provides possibility to plot Zo vs. parameter or parameter vs. parameter with fixed Zo).
 Over the frequency range, the value of the effective dielectric constant changes from 3.71 (at \SI{1}{\giga \hertz}) to 3.61 (at \SI{10}{\giga \hertz}). As the tool provides the possibility to calculate the impedance versus a changing parameter, the influence of a changing dielectric was calculated. As can be seen in \autoref{fig:surf_z0_vs_dk}, with higher effective dielectric constant, the characteristic impedance decreases (see \autoref{fig:surf_z0_vs_dk}).
 
-The only parameters, which are not defined by the manufacturing process and therefore can be altered, are the ground strip separation and the trace width. When altering the trace width, the tool automatically assumes an upper trace width, which is \SI{25}{\micro \meter}
+The only parameters, which are not defined by the manufacturing process and therefore can be altered, are the ground strip separation and the trace width. When altering the trace width, the tool automatically assumes an upper trace width, which is \SI{25}{\micro \meter} smaller than the lower trace width. Therefore plot can provide qualitative behavior, but not exact for the design at hand.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width = \textwidth, height = 0.3\linewidth]{chap/04-work/img/surf_z0_vs_dk.tikz}  
-%	\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
-%	\label{fig:surf_z0_vs_dk}
-%\end{figure}
+\textbf{TODO}: fix plot. too big
 
 \begin{figure}
-		\centering
-		\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_d1.tikz}
-		\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
-		\label{fig:surf_z0_vs_d1}
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_dk.tikz}  
+	\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
+	\label{fig:surf_z0_vs_dk}
 \end{figure}
+
+%\begin{figure}
+%		\centering
+%		\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_d1.tikz}
+%		\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
+%		\label{fig:surf_z0_vs_d1}
+%\end{figure}
 
 
  \paragraph{Differential Pairs on Surface}
