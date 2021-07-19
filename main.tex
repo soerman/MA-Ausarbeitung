@@ -16,7 +16,10 @@
 
 %misc
 \usepackage{siunitx}
+\sisetup{range-phrase=--} %used for \SIrange{1}{2}{\volt}
 \DeclareSIUnit{\sample}{S}
+\usepackage{nicefrac}
+\usepackage{amsmath}
 
 \usepackage{trfsigns}
 \usepackage{enumitem}
@@ -121,7 +124,7 @@
    			\input{./chap/04-work/new_sys}
    	\chapter{Design Of The Front-End Sampling Card}
    			\input{./chap/04-work/theresa}
-   	\chapter{Selecting and Analyzing the Back-End Readout Card}
+   	\chapter{Analyzing the Back-End Readout Card}
    			\input{./chap/04-work/readOutCard}	
 	\chapter{Results}	
 			\input{./chap/05-results/results}
