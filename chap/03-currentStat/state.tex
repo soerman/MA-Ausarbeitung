@@ -22,19 +22,19 @@ The incoming radiation is fed into a detector, which converts the incident photo
 	\label{fig:thz_chain}
 \end{figure}
 
-\subsection{Analog front-end}
+\subsection{Analog Front-End}
 Due to the high bandwidth nature of the detector signal, the analog front-end of the system has to be wideband as well to be able to sample the signal with picosecond resolution. 
 
 The used \gls{lna} is based on a commercial GaAs \gls{mmic} which operates from DC to \SI{50}{\giga \hertz}. It is needed to compensate the insertion loss\footnote{\textit{Insertion loss} is the loss of signal power which occurs, when a signal passes through a component.} due to the following power splitter. %todo maybe more info, ask michele
 
 Classical power-splitters are not intrinsically wideband (\cite{caselle2014}). For that reason, an wideband power-splitter was developed at \gls{ipe} which fulfills the bandwidth requirements. The designed power-splitter works up to \SI{100}{\giga \hertz} with an insertion loss of \SI{8}{\decibel} and a return loss\footnote{\textit{Return loss} is the loss of signal power due to reflection by a discontinuity in the transmission line.} of about \SI{20}{\decibel} at \SI{50}{\giga \hertz}.\cite{caselle2014}
 
-\subsection{Sampling board}
+\subsection{Sampling Board}
 The general structure of the board with the power splitter is shown in \autoref{fig:kapture}. 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kapture.tikz}
-	\caption[General architecture of KAPTURE sampling card]{General architecture of the \gls{kapture} front-end sampling card (cf. \cite[p.2]{caselleKAP})}
+	\caption{General architecture of the KAPTURE front-end sampling card (cf. \cite[p.2]{caselleKAP})}
 	\label{fig:kapture}
 \end{figure}
 
