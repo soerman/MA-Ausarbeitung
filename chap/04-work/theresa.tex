@@ -335,13 +335,24 @@ Up until this part, this architecture is not different from the one on the \gls{
 \end{figure}
 %todo clean picture
 
-The maximum output frequency of the LMK0480 is \SI{1536}{\MHz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga\sample\per\second}).
-A second \gls{pll} is therefore needed. The read-out card is provided with an \gls{rf} Clock add-on card, which is necessary to generate the high-frequency clocks for the converters.
-The schematic is provided by the manufacturer and is used as reference for the design.
-According to the user guide \cite{xilCLK104}, the parameters for the loop filter are as shown in \autoref{tab:lmx2594_filter}.
+The maximum output frequency of the LMK0480 is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). A second \gls{pll} is therefore needed. The read-out card is provided with an \gls{rf} Clock add-on card, which is necessary to generate the high-frequency clocks for the converters. The LMX2594 from \textit{Texas Instruments} provides clocking signal up to \SI{15}{\giga \hertz} and is a fitting candidate. For loop filter calculation, the TI PLLAtinum Sim Tool is used. The parameters for the filter are as shown in \autoref{tab:lmx2594_filter}.
+
+\textbf{TODO} 
+\begin{itemize}
+	\item Needs some more explanation and maybe at least a little bit theory (e.g. block diagram of general PLL and what loop filter is)
+	\item Maybe some simulation diagram with the PLLatinum Tool (used for calculation of the noise, jitter, etc. over the frequency)
+\end{itemize}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll_block}
+	\caption[PLL block diagram]{General block diagram of a \gls{pll}}
+	\label{fig:pll_block}
+\end{figure}
+
 
 \begin{table}[tbh]
-	\caption[NB6L295 Characteristics]{Specifications of the NB6L295 delay chip \cite{NB6L295}}
+	\caption[LMX2594 Filter characteristics]{Filter characteristics}
 	\label{tab:lmx2594_filter}
 	\centering
 	\begin{tabularx}{\textwidth}{Xl}
@@ -372,7 +383,21 @@ According to the user guide \cite{xilCLK104}, the parameters for the loop filter
 	\label{fig:lmx2594}
 \end{figure}
 
-TODO: Explain with help of timing diagram, why 
+\textbf{TODO}: Explain with help of timing diagram, why ADCs need to be at different PLLs -> outputs not individually programmable. phase difference between clocks needs to be 180° -> like two times interleaving
+
+The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
+However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile. Normally, only one reference clock can be provided. Analyzing the schematic of the zcu216 board revealed however, that there are pins leading to the FPGA banks (224 to 227), labeled as clocks for the individual tiles. Two of the clocks are not connected (224 and 227). 225 is provided via SMA cable, the other comes from the LPAM clock connector.  
+
+Clock to THA: \SI{500}{\mega \hertz}
+
+Total Hold time: \SI{1}{\nano \second}
+
+$\rightarrow$ Step size for delay:
+\begin{equation}
+	\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
+\end{equation}
+
+Aperture delay, jitter, need to be taken into account to determine the max. sampling frequency.
 \begin{figure}[tbh]
 	\centering
 	\tikzexternaldisable
@@ -382,25 +407,26 @@ TODO: Explain with help of timing diagram, why
 		TH3 & 3L 16H 14L \\
 		TH4 & 4L 5H N(B1) 11H 13L \\
 		\\
-		TH5 & 5L 16H 12L \\
+		TH5 & 5L 8H N(A2) 8H 12L \\
 		TH6 & 6L 16H 11L \\
 		TH7 & 7L 16H 10L \\
-		TH8 & 8L 16H 9L \\
+		TH8 & 8L 5H N(B2) 11H 9L \\
 		\\
-		TH9 & 9L 16H 8L \\
+		TH9 & 9L 8H N(A3) 8H 8L \\
 		TH10 & 10L 16H 7L \\
 		TH11 & 11L 16H 6L \\
-		TH12 & 12L 16H 5L \\
+		TH12 & 12L 5H N(B3) 11H 5L \\
 		\\
-		TH13 & 13L 16H 4L \\
+		TH13 & 13L 8H N(A4) 8H 4L \\
 		TH14 & 14L 16H 3L \\
 		TH15 & 15L 16H 2L \\
-		TH16 & 16L 16H 1L \\
+		TH16 & 16L 5H N(B4) 11H 1L \\
 		\extracode
 		\tablerules
-		\begin{pgfonlayer}{background}
-			\draw [help lines, dashed] (A1) -- (B1);
-		\end{pgfonlayer}
+		\draw [dashed] (A1) --node[midway, anchor = west]{ADC1} (B1) ;
+		\draw [dashed] (A2) --node[midway, anchor = west]{ADC2} (B2) ;
+		\draw [dashed] (A3) --node[midway, anchor = west]{ADC1} (B3) ;
+		\draw [dashed] (A4) --node[midway, anchor = west]{ADC2} (B4) ;
 	\end{tikztimingtable}
 	\tikzexternalenable
 	\caption[Track-And-Hold Timing diagram]{\gls{tha} Timing diagram. Shows the clocking of the \gls{tha}, high level = HOLD, low level = TRACK. Dashed line represents the sampling of the \gls{adc}.}
@@ -427,6 +453,7 @@ For the Track-And-Hold amplifiers a new power supply unit, the ADP1741 from \tex
 As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele}
 The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:kapturecomp}. 
 
+It is necessary to think about the amount of power supply chips needed. As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele} The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:kapturecomp}. 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
 	\label{tab:kapturecomp}
@@ -474,7 +501,7 @@ This means, with one \gls{tha} amplifier requiring a maximal current of \SI{0.22
 %and corrected in the FPGA.
 
 
-\subsection{\gls{pcb} Structures Overview} \label{ssec:pcb_structs}
+\subsection{PCB Structures Overview} \label{ssec:pcb_structs}
 An overview over the basic structures on a \gls{pcb} is given.
 
 \paragraph{Traces}
@@ -497,6 +524,11 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}
+\textbf{TODO:} 
+	\begin{itemize}
+		\item Via fences
+		\item Pads
+	\end{itemize}
 %todo bild
 
 In this design only blind and through vias are used.
@@ -505,7 +537,7 @@ In this design only blind and through vias are used.
 TODO
 Megtron6 Laminate R-5775 Prepreg R-5670
 
-$\epsilon_r = 3.61$ at 
+$\epsilon_r = 3.61$ at \SI{10}{\giga \hertz}, $\epsilon_r = 3.71$ at \SI{1}{\giga \hertz}
 \subsection{Floor Planning}
 TODO
 \subsection{Transmission lines}
@@ -567,10 +599,10 @@ When altering the trace width, the tool automatically assumes an upper trace wid
 %\end{figure}
 
 \begin{figure}
-		\centering
-		\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_d1.tikz}
-		\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
-		\label{fig:surf_z0_vs_d1}
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/surf_z0_vs_dk.tikz}  
+	\caption{Characteristic impedance $Z_o$ vs effective dielectric constant $\epsilon_r$ of a surface coplanar waveguide with ground}
+	\label{fig:surf_z0_vs_dk}
 \end{figure}
 
 

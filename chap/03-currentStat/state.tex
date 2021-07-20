@@ -1,5 +1,6 @@
 This section describes commercially available real-time oscilloscopes, as well as the \gls{kapture} system, which is in use at \gls{kara} for \gls{thz} diagnostics. Understanding the architecture of the latter will help for the development of the new system, as the basic concept of \gls{kapture} is reused there.
 \section{Real-Time Oscilloscope}
+TODO: Overview over the current commercially available oscilloscopes.
 \begin{itemize}
 	\item KeySight Infiniium MXR-Series Real-Time Oscilloscopes
 	\item Rohde\&Schwarz DPO70000SX
@@ -52,24 +53,18 @@ A simplified representation of the local sampling of the signal is shown in \aut
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kapture_sys}
-	\caption{Photo of KAPTURE with highlighted main components. \cite[p.~61]{brosi}}
+	\caption[Photo of KAPTURE system]{Photo of KAPTURE with highlighted main components. \cite[p.~61]{brosi}}
 	\label{fig:kapturesys}
 \end{figure}
 %todo  re-label
 
-\subsection{FPGA-GPU Architecture}
-
+\subsection{PC/Data-Acquisition System}
 In order to keep a continuous data acquisition the necessary bandwidth is 
 \begin{equation}
 	12 \text{bits} \cdot 4 \, \text{samples} \cdot \SI{500}{\mega \hertz} = 24 \text{Gb/s}
 \end{equation}
-To ensure high data throughput, the readout board is based on a bus master DMA architecture which is connected to \gls{pcie} end-point logic. This ensure a throughput of up to 2 GByte/s. \cite{caselleKAP}
+To ensure high data throughput, the readout board is based on a bus master \gls{dma} architecture which is connected to \gls{pcie} end-point logic. This ensures a throughput of up to 2 GByte/s. To store the data temporary before it is sent to the \gls{daq} system, a large \gls{ddr}3 memory device is used, as seen in \autoref{fig:kapture}. \cite{caselleKAP}
 
-\subsection{KAPTURE-2}
+TODO: briefly explain newer DAQ system with GPU architecture
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kap1_vs_kap2}
-	\caption{Comparison between KAPTURE and KAPTURE-2\cite{caselleKAP}}
-	\label{fig:kap1vskap2}
-\end{figure}
+Briefly mention KAPTURE-2 also? 
