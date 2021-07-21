@@ -16,9 +16,6 @@ the RF frequency of Synchrotron SOLEIL and 104 times the electron revolution fre
 The detection and subtraction between the two stretched signals is performed using a amplified balanced photodetector (photoreceiver) from Discovery Semiconductors, with 20 GHz bandwidth and 2800 V/W gain (specified at 1500 nm).
 
 \section{Front-End Card}
-\textbf{TODO}
-
-\section{Front-End Card}
 \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
 \begin{figure}[H]
 	\centering
@@ -27,9 +24,59 @@ The detection and subtraction between the two stretched signals is performed usi
 	\label{fig:theresa_scheme}
 \end{figure}
 
+\subsection{Time Interleaving}\label{sssec:time-interleaving}
+%TODO explain that we plan to use time interleaving in order to increase the sampling rate
+In order to increase the sampling rate, the so called 
+
+In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate, than the respective sample rate of each individual \gls{adc}. The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adc_interleaving}), each sampling at $f_c = f_s/M$ individually. This means, the \glspl{adc} are clocked in such a way, that they start their respective conversion cycle shortly one after another. At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a time delay $\Delta t_i$ the second starts converting the signal $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first converter. \cite{mangrob}
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/adc_inter}
+	\caption[Time Interleaving]{Placeholder: An array of $M$ time interleaved $N$-bit \glspl{adc} with example of clocking scheme for the case of $M$ = 4 \cite{mangrob}}
+	\label{fig:adc_interleaving}
+\end{figure}
+%todo to tikz
+\paragraph{Challenges}
+Spurs appear in the spectrum. There are several reasons for this.
+
+First reason is the \textit{offset mismatch} between den \glspl{adc}. Each \gls{adc} has an DC offset value. Considering as example an interleaving structure with two \glspl{adc} and a constant input voltage: when the samples are acquired back and forth between the two \glspl{adc}, the resulting output will switch back and forth between two levels due to the different offset levels. This output switches at the frequency $f_s/2$ and therefore introduces an additional frequency component in the spectrum (see \autoref{fig:offset_mm}). The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/offset_mm}
+	\caption{Placeholder: Offset-Mismatch in Interleaving \cite{Harris2019}}
+	\label{fig:offset_mm}
+\end{figure}
+
+Besides of the offset also the gain of the converters can be mismatched. This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $f_s/2 \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/gain_mm}
+	\caption{Placeholder: Gain-Mismatch in Interleaving \cite{Harris2019}}
+	\label{fig:gain_mm}
+\end{figure}
+
+In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. The group delay in analog circuitry can vary between the converters. Furthermore, the clock skew has on the one hand an aperture uncertainty component at each of the \glspl{adc} and on the other hand a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} This mismatch also produces a spur at $f_s/2 \pm f_{\text{in}}$ (see \autoref{fig:timing_mm}).
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/timing_mm}
+	\caption{Placeholder: Timing-Mismatch in Interleaving \cite{Harris2019}}
+	\label{fig:timing_mm}
+\end{figure}
+
+The last possible mismatch is the \textit{bandwidth mismatch}, which contains both gain and phase/frequency component (see \autoref{fig:bandwidth_mm}). Due to bandwidth mismatch, different gain values at different frequencies can be seen. An additional timing component causes different delays for signals at different frequencies through each \gls{adc}. Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $f_s/2 \pm f_{\text{in}}$.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/bandwidth_mm}
+	\caption{Placeholder: Timing-Mismatch in Interleaving \cite{Harris2019}}
+	\label{fig:bandwidth_mm}
+\end{figure}
+
+
 \section{Readout Card}
 \textbf{TODO}
-\section{Selection Of The Card}\label{sec:selection}
+\subsection{Selection Of The Card}\label{sec:selection}
 When selecting the Readout Card, following criteria need to be considered:
 \begin{itemize}
 	\item Integrated \glspl{adc}

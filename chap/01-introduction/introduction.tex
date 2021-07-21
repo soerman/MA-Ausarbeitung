@@ -74,10 +74,10 @@ Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, o
 		Beam energy                         & \SI{2.5}{\giga \electronvolt} \\
 		Circumference                       & \SI{110}{\meter}              \\
 		Revolution Frequency (one electron) & \SI{2.7}{\mega \hertz}        \\
-		             \multicolumn{2}{c}{Minimum bunch spacing}              \\
+		             \multicolumn{2}{c}{\textbf{Minimum bunch spacing}}              \\
 		\quad multi-bunch                   & \SI{2}{\nano \second}         \\
 		\quad single-bunch                  & \SI{368}{\nano \second}       \\
-		                 \multicolumn{2}{c}{Bunch length}                   \\
+		                 \multicolumn{2}{c}{\textbf{Bunch length}}                   \\
 		\quad normal operation              & \SI{45}{\pico \second}        \\
 		\quad short bunch                   & \SI{2}{\pico \second}         \\ \bottomrule
 	\end{tabular}
@@ -209,78 +209,15 @@ Target would be ca. 15 mA for 1 bunch (and feedback control presently works to a
 Design of a system to be used with photonics time-stretch technique. Fast, continuous sampling of signals, integratable in already existing high data-throughput architectures.
 
 
-
-
-
-
-%\begin{itemize}
-%	\item Microbunching instabilites $\rightarrow$ THz radiation $\rightarrow$ Potential source of brilliant radiation
-%	\item Need to be studied to be able to control it
-%	\item Time-resolution critical, as instabilities have high bandwidth
-%	\item Commercial oscilloscopes don't have enough internal memory
-%	\item already developed system KAPTURE/KAPTURE-2 to solve this problem
-%	\item however: four/eight points not enough to see the microbunching instabilities
-%	\item Concept: combine time-stretch with FPGA $\rightarrow$ THERESA (\textbf{T}era\textbf{He}rtz \textbf{Re}adout \textbf{Sa}mpling)
-%	\item EO technique to stretch the signal in time, so requirements on the bandwidth of converters can be relaxed
-%	\item more converters, to have more points
-%	\item New generation FPGA/SoC for fast readout and high data throughput
-%\end{itemize}
 %
-%Available commercial DAQ system or real-time oscilloscopes for high bandwidth (e.g. above
-%40 GHz) are very expensive and, due to limited internal memory and missing fast readout interfaces, are not suitable for long term bunch-to-bunch CSR measurements. To circumvent these limitations a DAQ architecture for fast and continuous sampling of the individual ultra-short THz pulses has been developed.
-
-
-
-
-
-
-
-
-
-%
-%
-%
-%
-%The past decade has seen the rapid development of CSR studies in many storage
-%rings. Despite the large amount of experimental observations, e.g. the recordings
-%of coherent THz bursts, lack of direct observation of the electron bunch and its
-%microstructures is a main issue to the test and development of the theoretical models.
-%Even though in chapter 5 we presented first real-time measurements of CSR
-%pulses using a YBCO superconductor-based detector at UVSOR-III, a majority
-%of storage rings emits coherent synchrotron radiation at higher frequencies than
-%the state-of-the-art oscilloscope bandwidth (currently 65 GHz), e.g. 300 GHz
-%at SOLEIL [8],250 GHz at ANKA [2],500 GHz at ELETTRA [5].
-%
-%Spontaneous formation of small-scale microstructures can have a deleterious effect on electron bunch stability and emission properties, and they are at the same time a tremendous source of coherent radiation in the terahertz domain3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, provided the instability can be mastered. This is the reason why understanding and controlling the interplay between Coherent Synchrotron Radiation (CSR) and the microbunching instability has nowadays become a central open question in the development of synchrotron radiation facilities.
-%
-%To answer this question, it is essential to develop ultrafast photonic devices for electron bunch shape characterization. The challenges for the photonics community is high, given the need for ultrashort (picosecond or femtosecond) temporal resolution, single-shot operation, at high repetition rates (MHz and more), and given the particularly challenging environment near relativistic electron bunches. Recent advances consequently pushed photonics systems beyond the state of the art. Ultrafast electric-field measurement techniques using femtosecond laser pulses (electro-optic sampling24) have allowed single-shot bunch shape measurements (plural)25, and these techniques have then been extensively investigated and improved this last decade
-%
-%
-%The ULTRASYNC (Exploration et contrôle ULTRArapide de la dynamique des paquets d'électrons dans les sources de lumière SYNChrotron, ANG-DFG) aims to study and control coherent synchrotron radiation (CSR) and microbunching instability. The goal is to obtain a high power and stable coherent emission (KARA and SOLEIL) by feedback control. At SOLEIL, this was already succesfully achieved, still there is a significant limit to the range, where this concept works. One possible way would be to calculate the necessary feedback from a whole THz CSR pulse shape, which would require to record an electro-optical signal (time-stretch). This leads to a possible approach by combining time-stretch and FPGA. 
-%
-%For the moment, the only experimental test has been made using a relatively simple feedback:
-%- a bolometer signal as the feedback loop input
-%- a low-cost FPGA (redpitaya) that sends the feedback on the accelerating voltage
-%There are limitations in the maximal bunch charge in the accelerator. So an open question is whether measuring each THz pulse using EO sampling + time-stretch may help to solve this open problem. In clear:
-%- EO sampling + time-stretch as in Eléonore's thesis
-%-> association with the new FPGA-based system
-%-> finding adequate feedback that is programmed in the FPGA
-%may solve the problem, and allow the control to succeed at the highest currents in SOLEIL. 
-%Target would be ~15 mA for 1 bunch (and feedback control presently works to a little more than ~10 mA).
-%
-%At 1 micron wavelength, the maximum stretch is limited due to fiber glass properties (at this wavelength). The maximum length achieved are 2-4 ns (SOLEIL and KARA). For this reason, a fast ADC is critical, to get a good ENOB/number of sampling points. A relevant figure of merit (that characterizes the effective number of points) is -- we think: FOM=electronic bandwidth x stretch time. There is some bottleneck concerning time-stretch at this wavelength, and one way to solve the issue is to try pushing the bandwidth of ADCs.
-%
-%At 1550 nm wavelength, it is possible to stretch the signal up to tens of nanoseconds. Therefore, a relatively cheap ADC would already be sufficient and allow an effective number of samples at around 100. Applications still need to be investigated.
-%
-%As potential applications for the new system would be applications for accelerators in the 1 micron wavelength (best concerning EO sampling SNR and bandwidth).
-%
-\section{General Architecture of a Photonic Time-Stretch Data Acquisition System}
+\section{Architecture of a Photonic Time-Stretch Data Acquisition System}
 In this section, a general architecture of a Photonic Time-Stretch \gls{daq} is described.
 Such a system consists of a photonic front-end, which covers the time-stretching method and conversion of photons into electrical values. %todo system= front-end? or front-end + ...?
 In the following, the general theory of the time-stretching technique is given together with some photo-detector fundamentals. 
 
 %todo rewrite from ...
-Furthermore, such a system contains an \gls{adc} which converts the analog values into digital signals that can be processed by a computing unit. A short overview of the basic \gls{adc}-theory is given, as well as of the most prominent figures of merit. Knowledge and understanding of these is necessary to define and/or evaluate the overall performance of the converter. 
+Furthermore, such a system contains an \gls{adc} which converts the analog values into digital signals that can be processed by a computing unit. 
+A short overview of the basic \gls{adc}-theory is given, as well as of the most prominent figures of merit. Knowledge and understanding of these is necessary to define and/or evaluate the overall performance of the converter. 
 
 Last but not least a \gls{daq} needs an appropriate computing system for collection, processing and visualization of the acquired data. As this part is use-case specific, there doesn't exist a general "theory" which can be described.
 %todo to here
@@ -622,48 +559,3 @@ The \textit{transient response} denotes the settling time of an \gls{adc} until 
 
 
 
-\subsubsection*{Time Interleaving}\label{sssec:time-interleaving}
-In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate, than the respective sample rate of each individual \gls{adc}. The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adc_interleaving}), each sampling at $f_c = f_s/M$ individually. This means, the \glspl{adc} are clocked in such a way, that they start their respective conversion cycle shortly one after another. At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a time delay $\Delta t_i$ the second starts converting the signal $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first converter. \cite{mangrob}
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/adc_inter}
-	\caption[Time Interleaving]{Placeholder: An array of $M$ time interleaved $N$-bit \glspl{adc} with example of clocking scheme for the case of $M$ = 4 \cite{mangrob}}
-	\label{fig:adc_interleaving}
-\end{figure}
-%todo to tikz
-\paragraph{Challenges}
-Spurs appear in the spectrum. There are several reasons for this.
-
-First reason is the \textit{offset mismatch} between den \glspl{adc}. Each \gls{adc} has an DC offset value. Considering as example an interleaving structure with two \glspl{adc} and a constant input voltage: when the samples are acquired back and forth between the two \glspl{adc}, the resulting output will switch back and forth between two levels due to the different offset levels. This output switches at the frequency $f_s/2$ and therefore introduces an additional frequency component in the spectrum (see \autoref{fig:offset_mm}). The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/offset_mm}
-	\caption{Placeholder: Offset-Mismatch in Interleaving \cite{Harris2019}}
-	\label{fig:offset_mm}
-\end{figure}
-
-Besides of the offset also the gain of the converters can be mismatched. This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $f_s/2 \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/gain_mm}
-	\caption{Placeholder: Gain-Mismatch in Interleaving \cite{Harris2019}}
-	\label{fig:gain_mm}
-\end{figure}
-
-In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. The group delay in analog circuitry can vary between the converters. Furthermore, the clock skew has on the one hand an aperture uncertainty component at each of the \glspl{adc} and on the other hand a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} This mismatch also produces a spur at $f_s/2 \pm f_{\text{in}}$ (see \autoref{fig:timing_mm}).
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/timing_mm}
-	\caption{Placeholder: Timing-Mismatch in Interleaving \cite{Harris2019}}
-	\label{fig:timing_mm}
-\end{figure}
-
-The last possible mismatch is the \textit{bandwidth mismatch}, which contains both gain and phase/frequency component (see \autoref{fig:bandwidth_mm}). Due to bandwidth mismatch, different gain values at different frequencies can be seen. An additional timing component causes different delays for signals at different frequencies through each \gls{adc}. Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $f_s/2 \pm f_{\text{in}}$.
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/bandwidth_mm}
-	\caption{Placeholder: Timing-Mismatch in Interleaving \cite{Harris2019}}
-	\label{fig:bandwidth_mm}
-\end{figure}
