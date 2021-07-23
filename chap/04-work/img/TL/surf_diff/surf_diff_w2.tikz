@@ -1,0 +1,32 @@
+﻿% This file was created by tikzplotlib v0.9.8.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+legend cell align={left},
+legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Upper Trace Width (\SI{}{\micro \meter})},
+xmin=123.5, xmax=156.5,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ylabel={Characteristic Impedance $Z_\text{diff}$ (\SI{}{\ohm})},
+ymin=99.2, ymax=102.94,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+125 102.77
+130 102.32
+135 101.82
+140 101.28
+145 100.69
+150 100.06
+155 99.37
+};
+\end{axis}
+
+\end{tikzpicture}

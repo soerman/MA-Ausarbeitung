@@ -1,0 +1,53 @@
+﻿% This file was created by tikzplotlib v0.9.8.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+legend cell align={left},
+legend style={
+  fill opacity=0.8,
+  draw opacity=1,
+  text opacity=1,
+  at={(0.03,0.97)},
+  anchor=north west,
+  draw=white!80!black
+},
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Trace Separation (\SI{}{\micro \meter})},
+xmin=90, xmax=310,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ylabel={Characteristic Impedance $Z_\text{diff}$ (\SI{}{\ohm})},
+ymin=85.062145, ymax=94.329755,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+100 85.4834
+110 86.8302
+120 87.9614
+130 88.9158
+140 89.7196
+150 90.3994
+160 90.9751
+170 91.4634
+180 91.8778
+190 92.2324
+200 92.5322
+210 92.7871
+220 93.0057
+230 93.1903
+240 93.3474
+250 93.4812
+260 93.5985
+270 93.6957
+280 93.7783
+290 93.8487
+300 93.9085
+};
+\end{axis}
+
+\end{tikzpicture}

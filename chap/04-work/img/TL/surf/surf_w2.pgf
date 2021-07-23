@@ -1,0 +1,32 @@
+% This file was created by tikzplotlib v0.9.8.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+legend cell align={left},
+legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Upper Trace Width (\SI{}{\micro \meter})},
+xmin=181.5, xmax=214.5,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ylabel={$Z_o$ (\SI{}{\ohm})},
+ymin=47.21, ymax=49.85,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+183 49.73
+188 49.36
+193 48.97
+198 48.58
+203 48.17
+208 47.75
+213 47.33
+};
+\end{axis}
+
+\end{tikzpicture}

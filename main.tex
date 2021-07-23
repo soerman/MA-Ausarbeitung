@@ -21,6 +21,8 @@
 \usepackage{nicefrac}
 \usepackage{amsmath}
 \usepackage[normalem]{ulem}
+\usepackage[figuresright]{rotating}
+\usepackage{lscape}
 
 \usepackage{trfsigns}
 \usepackage{enumitem}
@@ -28,10 +30,12 @@
 \newcommand{\eqdev}{\mathrel{\widehat{=}}}
 
 %tikz & pgfplots
+\usepackage{wrapfig}
 \usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz,tikz-timing}
 \usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing, positioning}
 \tikzexternalize[optimize=false,prefix=tikz/]
-\usetikztiminglibrary{arrows}
+\usetikztiminglibrary{clockarrows, nicetabs}
+
 
 \usepgfplotslibrary{units,fillbetween,colormaps} 
 \pgfplotsset{compat=newest}
@@ -118,17 +122,17 @@
     % Contents
     \MainMatter
     \chapter{Introduction}
-    		\input{./chap/01-introduction/introduction}
+    	%	\input{./chap/01-introduction/introduction}
    	\chapter{State Of The Art Read-Out-Systems}
-   			\input{./chap/03-currentStat/state}
+   %			\input{./chap/03-currentStat/state}
    	\chapter{Architecture Of The New Read-Out-System}
    			\input{./chap/04-work/new_sys}
    	\chapter{Design Of The Front-End Sampling Card}
    			\input{./chap/04-work/theresa}
    	\chapter{Analyzing the Back-End Readout Card}
-   			\input{./chap/04-work/readOutCard}	
+   	%		\input{./chap/04-work/readOutCard}	
 	\chapter{Results}	
-			\input{./chap/05-results/results}
+	%		\input{./chap/05-results/results}
     \chapter{Conclusion and Outlook}
    			\input{./chap/06-conclusion/conclusion}		
 	\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}

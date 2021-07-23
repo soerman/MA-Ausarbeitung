@@ -26,8 +26,9 @@ The detection and subtraction between the two stretched signals is performed usi
 
 \subsection{Time Interleaving}\label{sssec:time-interleaving}
 %TODO explain that we plan to use time interleaving in order to increase the sampling rate
-In order to increase the sampling rate, the so called 
+In order to increase the sampling rate, the so called time-interleaving technique is used. In this section, first basic theory about this technique is given. Then, the implementation in the new system is described.
 
+\subsubsection{Therory}
 In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate, than the respective sample rate of each individual \gls{adc}. The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adc_interleaving}), each sampling at $f_c = f_s/M$ individually. This means, the \glspl{adc} are clocked in such a way, that they start their respective conversion cycle shortly one after another. At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a time delay $\Delta t_i$ the second starts converting the signal $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first converter. \cite{mangrob}
 \begin{figure}[tbh]
 	\centering
@@ -49,6 +50,7 @@ First reason is the \textit{offset mismatch} between den \glspl{adc}. Each \gls{
 \end{figure}
 
 Besides of the offset also the gain of the converters can be mismatched. This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $f_s/2 \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
+
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/gain_mm}
@@ -73,6 +75,36 @@ The last possible mismatch is the \textit{bandwidth mismatch}, which contains bo
 	\label{fig:bandwidth_mm}
 \end{figure}
 
+\subsubsection{Implementation}\label{ssec:interl_impl}
+The delay step size must be small enough, such that the \gls{adc} interleaving technique \autoref{sssec:time-interleaving} can be implemented.
+The \glspl{adc} on the read-out card sample at a maximal sample rate of \SI{2.5}{\giga \sample \per \second}, meaning during the time
+\begin{equation}
+	t_s = \frac{1}{\SI{2.5}{\giga \sample \per \second}} = \SI{400}{\pico \second}
+\end{equation}
+all 16 \glspl{adc} have to be clocked one time.
+This means, a delay step can not be greater than $\nicefrac{\SI{400}{\pico\second}}{16} = \SI{25}{\pico\second}$.
+
+Clock to THA: \SI{500}{\mega \hertz}
+
+Total Hold time: \SI{1}{\nano \second}
+
+$\rightarrow$ Step size for delay:
+\begin{equation}
+	\frac{\SI{1}{\nano \second}}{16 \, \text{channels}} = \SI{62.5}{\pico \second}
+\end{equation}
+
+Aperture delay, jitter, need to be taken into account to determine the max. sampling frequency.
+\begin{sidewaysfigure}[tbh]
+	\centering
+	\tikzexternaldisable
+	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/interl_timing}
+	\tikzexternalenable
+	\caption[Track-And-Hold Timing diagram]{\gls{tha} Timing diagram. Shows the clocking of the \gls{tha} (HIGH = hold mode, LOW = track mode). Dashed line represents the sampling of the \gls{adc}.}
+	\label{fig:THA}
+\end{sidewaysfigure}
+
+The necessary step size for the delay chips, when using 16 ADC@\SI{2}{\giga \sample \per \second} in time-interleaving mode, is: $\frac{\SI{2}{\giga \sample \per \second}}{16} = \SI{31}{\pico \second}$
+However, providing individual clocks to the ADCs is not possible on the ZCU216 card. ADCs are grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. Sampling clock is adjusted at each tile individually, however this clocking signal is the same for all of the four converters in the tile. Normally, only one reference clock can be provided. Analyzing the schematic of the ZCU216 board revealed however, that there are pins leading to the FPGA banks (224 to 227), labeled as clocks for the individual tiles. Two of the clocks are not connected (224 and 227). 225 is provided via SMA cable, the other comes from the LPAM clock connector. 
 
 \section{Readout Card}
 \textbf{TODO}
