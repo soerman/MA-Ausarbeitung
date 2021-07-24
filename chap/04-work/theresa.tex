@@ -67,7 +67,7 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 \tikzexternalenable
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/esl_esr}
+	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/esl_esr}
 	\caption[Impedance response of a real capacitor]{Qualitative impedance response of a real capacitance \cite{Dang2020}}
 	\label{fig:esl_esr}
 \end{figure}
@@ -543,23 +543,37 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 
 In this design only blind and through vias are used.
 
-\subsection{\gls{pcb} Substrate Selection and }
-TODO
-Megtron6 Laminate R-5775 Prepreg R-5670
+\subsection{\gls{pcb} Substrate Selection and Stackup}
+Proper substrate material has to be selected in according to the use-case.
+The MEGTRON 6 from \textit{Panasonic} is designed for high-speed/high frequency applications. 
+Characteristics of this material are:
+\begin{itemize}
+\item Low dielectric constant: $\epsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
+\item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
+\item Low transmission loss
+\item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius}
+\end{itemize}
 
-$\epsilon_r = 3.61$ at \SI{10}{\giga \hertz}, $\epsilon_r = 3.71$ at \SI{1}{\giga \hertz}
+Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed, for this design 16.
 
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/stackup}
+	\caption[Metal Layer Stackup]{Metal Layer stackup showing 16 layers.} 
+	\label{fig:polaris}
+\end{figure}
+
+%https://industrial.panasonic.com/content/data/EM/PDF/ipcdatasheet\_R-5775.pdf
 \subsection{Transmission lines}
-TODO 
-
+%TODO
 Transmission lines carry high-frequency signals, therefore the geometry of them is important, as this affects the impedance.
 For single-ended the waveguide characteristic impedance should be \SI{50}{\ohm}, for differential signals \SI{100}{\ohm}.
-For slow signals not that crucial, but for sensitive, high-speed signals, e.g. clocking signals, proper calculation is very important to ensure signal integrity and reduce reflection and damping. 
+For slow signals not that crucial, but for sensitive, high-speed signals, e.g. clock signals, proper calculation is very important to ensure signal integrity and reduce reflection and damping. 
 
 For \glspl{pcb} usually coplanar waveguides are used for signal propagation.
-The characteristic impedance depends on the dielectric, the trace width, separation between traces and separation between the signal traces and the ground planes/traces.
+The characteristic impedance depends from the dielectric, the trace width, separation between traces and separation between the signal traces and the ground planes/traces.
 Formulas to calculate the characteristic impedance are quite lengthy and not easy to solve.
-Luckily, tools\footnote{which are quite expensive though, if a high variety of geometries is necessary} exist to quickly calculate the geometric values needed for appropriate impedance. %todo no lucky
+Therefore, tools exist to quickly calculate the geometric values needed for appropriate impedance.
 For the design, the Si9000e \gls{pcb} field solver from \textit{Polar} (see \autoref{fig:polaris}) is used to calculate the necessary trace widths, separations, etc.
 
 \begin{figure}[tbh]
@@ -571,7 +585,8 @@ For the design, the Si9000e \gls{pcb} field solver from \textit{Polar} (see \aut
 
 Three geometries of waveguides are used in this design which are described in the following.
 Furthermore, geometric dimensions calculated with the Si9000e tool are presented.
-In principle, the geometries can be taken from the design of the sampling card of \gls{kapture} system.
+
+In principle, the geometries can be taken from the design of the sampling card of \gls{kapture} system, as these were specifically designed for 
 As the dielectric constant of the substrate is slightly different (\gls{kapture}: 3.52, here: 3.61), the impedance has to be recalculated to check whether the characteristic value impedance still lies in the \SI{10}{\percent} tolerance.
 
 \paragraph{Surface Coplanar Waveguide with Ground}
@@ -588,7 +603,7 @@ Separation between trace and ground plane is defined as $(b-a)/2 := d$.
 \end{figure}
 
 Trace width is assumed to be $a = \SI{180}{\micro\meter}$.
-In the tool, an upper and a lower trace width can be specified, therefore taking into account manufacturing processes. %todo whoch tool
+In the Si9000e tool, an upper and a lower trace width can be specified, therefore taking into account manufacturing processes.
 As the exact upper trace width is not known, both are assumed to be \SI{180}{\micro\meter}.
 Trace-To-Ground Separation, or "Ground Strip Separation", is defined by the manufacturing technology of the \gls{pcb} process: $d = \SI{250}{\micro\meter}$
 With $h = \SI{98.9}{\micro \meter}$, $\epsilon_r = 3.61$ (at \SI{10}{\GHz}) this results in a characteristic impedance of \SI{52.90}{\ohm}. This lies well in the tolerance area. %todo of...
@@ -597,8 +612,15 @@ Over the frequency range, the value of the effective dielectric constant changes
 As the tool provides the possibility to calculate the impedance versus a changing parameter, the influence of a changing dielectric was calculated. %todo which tool
 As can be seen in \autoref{fig:surf_z0_vs_dk}, with higher effective dielectric constant, the characteristic impedance decreases (see \autoref{fig:surf_z0_vs_dk}).
 
-The only parameters, which are not defined by the manufacturing process and therefore can be altered, are the ground strip separation $d$ and the trace width $a$. %todo always restate the physical symbols defined earlier
-When altering the trace width, the tool automatically assumes an upper trace width, which is \SI{25}{\micro \meter}.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk}
+	\caption[Coplanar waveguide, $Z_o$ vs $\epsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\epsilon_r$}
+	\label{fig:cwv_d1}
+\end{figure}
+
+
+The only parameters, which are not defined by the manufacturing process and therefore can be altered, are the ground strip separation $d$ and the trace width $a$.
 
 
 \begin{figure}[tbh]
@@ -606,33 +628,28 @@ When altering the trace width, the tool automatically assumes an upper trace wid
      \begin{subfigure}[b]{\textwidth}
          \centering
          \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_d1}
-         \caption{d1}
+         \caption{$Z_o$ vs. ground strip separation $d$}
          \label{fig:surf_d1}
      \end{subfigure}
      
      \begin{subfigure}[b]{\textwidth}
          \centering
          \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_w1}
-         \caption{w1}
+         \caption{$Z_o$ vs. lower trace thickness}
          \label{fig:surf_w1}
      \end{subfigure}
      
      \begin{subfigure}[b]{\textwidth}
          \centering
          \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_w2}
-         \caption{w2}
+         \caption{$Z_o$ vs. upper trace width (assuming lower trace width $\SI{220}{\micro \meter}$) }
          \label{fig:surf_w2}
      \end{subfigure}
         \caption[Characteristic impedance of surface coplanar waveguide]{Characteristic impedance of surface coplanar waveguide versus different parameters}
         \label{fig:surf}
 \end{figure}
 
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk}
-	\caption[Coplanar waveguide, $Z_o$ vs $\epsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\epsilon_r$}
-	\label{fig:cwv_d1}
-\end{figure}
+
 
 \paragraph{Differential Pairs on Surface}
 Some signals are propagated as differential pair traces on the \gls{pcb} surface.
@@ -644,6 +661,42 @@ The formulas to calculate the characteristic impedance of this waveguide type is
 	\caption{Edge-Coupled Coplanar Waveguide}
 	\label{fig:eccw_geometry}
 \end{figure}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_dk}
+	\caption]{$Z_o$ vs. dielectric constant $\epsilon_r$}
+	\label{fig:cwv_d1}
+\end{figure}
+
+
+\begin{figure}[tbh]
+     \centering
+     \begin{subfigure}[b]{\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w1}
+         \caption{$Z_o$ vs. lower trace width}
+         \label{fig:surf_d1}
+     \end{subfigure}
+     
+     \begin{subfigure}[b]{\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w2}
+         \caption{$Z_o$ vs. upper trace thickness}
+         \label{fig:surf_w1}
+     \end{subfigure}
+     
+     \begin{subfigure}[b]{\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_s1}
+         \caption{$Z_o$ vs. trace separation }
+         \label{fig:surf_w2}
+     \end{subfigure}
+     \caption[Characteristic impedance of surface coplanar waveguide]{Characteristic impedance of surface coplanar waveguide versus different parameters}
+        \label{fig:surf}
+\end{figure}
+
+
 
 \paragraph{Differential Pairs between Layers}
 The analog signals from the \glspl{tha}, as well as the clock signals, are propagated through differential pair traces on the inner layers of the \gls{pcb}. 
@@ -658,3 +711,19 @@ This forms an offset coplanar waveguide as seen in \autoref{fig:docw_d1}.
 
 
 \subsection{Component Placement and Routing}
+
+\paragraph{Component placement}
+\begin{itemize}
+\item connectors need to be placed exactly to match the connectors on the board. The connectors therefore define the geometry of the board in a large way.
+\item Analog and digital part of the board are separated: topside is digital, bottomside is analog
+\item For shielding purposes, layers are alternating: SIG-GND-SIG-GND-SIG-... This is important for differential pairs, as they should GND right below/above, because this serves as a return path (and as shielding from noise e.g. from digital signals)
+\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching signal may introduce noise on the power plane -> no stable voltage
+\item decoupling capacitors are placed in such way, that big capacitor is connected to the power plane of the external ps/voltage regulator. The filtered power level is propagated to an innerlayer. The smaller bypass capacitor is connected to this layer by a via and to the power supply pin of the respective chip. The capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
+\item \glspl{tha} have been placed on the edge for better reaching
+\item stitching vias are used to shield the sensitive \glspl{ic} as much as possible from EMI
+\item delay chips have been arranged evenly so no further delay is introduced 
+\item fanout buffer have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal
+\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to PLL.
+\item LMX are placed close to the LMK and as close as possible to the corresponding LPAM connector.
+\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.
+\end{itemize}
