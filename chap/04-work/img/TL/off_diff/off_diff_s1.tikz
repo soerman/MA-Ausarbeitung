@@ -1,4 +1,4 @@
-﻿% This file was created by tikzplotlib v0.9.8.
+% This file was created by tikzplotlib v0.9.8.
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
@@ -20,11 +20,11 @@ xlabel={Trace Separation (\SI{}{\micro \meter})},
 xmin=90, xmax=310,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ylabel={Characteristic Impedance $Z_\text{diff}$ (\SI{}{\ohm})},
+ylabel={$Z_\text{diff}$ (\SI{}{\ohm})},
 ymin=85.062145, ymax=94.329755,
 ytick style={color=black}
 ]
-\addplot [semithick, color0]
+\addplot [thick, color0, mark=*]
 table {%
 100 85.4834
 110 86.8302

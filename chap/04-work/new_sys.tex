@@ -27,7 +27,7 @@ The detection and subtraction between the two stretched signals is performed usi
 %TODO explain that we plan to use time interleaving in order to increase the sampling rate
 In order to increase the sampling rate, the so called time-interleaving technique is used. In this section, first basic theory about this technique is given. Then, the implementation in the new system is described.
 
-\subsubsection{Therory}
+\subsubsection{Theory}
 In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate, than the respective sample rate of each individual \gls{adc}. The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adc_interleaving}), each sampling at $f_c = f_s/M$ individually. This means, the \glspl{adc} are clocked in such a way, that they start their respective conversion cycle shortly one after another. At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a time delay $\Delta t_i$ the second starts converting the signal $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first converter. \cite{mangrob}
 \begin{figure}[tbh]
 	\centering

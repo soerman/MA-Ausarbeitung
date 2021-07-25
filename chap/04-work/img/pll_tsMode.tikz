@@ -2,7 +2,7 @@
 		\draw[step=1.0,white,thin] (-8,-1) grid (3.5,5);
 		\tikzset{multiblock/.style={ shape=rectangle,draw,fill=white,tape bend top=none, double copy shadow}}
 
-		\node (pll) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=4cm,label=LMK0480x] {};
+		\node (pll) at (-3.5,2.2) [draw,thick,minimum width=1cm,minimum height=4cm,label=LMK04808B] {};
 		\node (vcxo) at (-6,0.9) [draw,thick,minimum width=2cm,minimum height=1cm] {VCXO};
 		
 		\node (fpga) at (-1,3.5) [draw,minimum width=2cm,minimum height=1cm] {FPGA};

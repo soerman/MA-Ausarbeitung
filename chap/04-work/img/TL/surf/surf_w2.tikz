@@ -4,20 +4,19 @@
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
 
 \begin{axis}[
-legend cell align={left},
-legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
 tick align=outside,
 tick pos=left,
 x grid style={white!69.0196078431373!black},
 xlabel={Upper Trace Width (\SI{}{\micro \meter})},
 xmin=181.5, xmax=214.5,
 xtick style={color=black},
+xtick distance=5,
 y grid style={white!69.0196078431373!black},
 ylabel={$Z_o$ (\SI{}{\ohm})},
 ymin=47.21, ymax=49.85,
 ytick style={color=black}
 ]
-\addplot [semithick, color0]
+\addplot [thick, color0, mark=*]
 table {%
 183 49.73
 188 49.36

@@ -1,4 +1,4 @@
-﻿% This file was created by tikzplotlib v0.9.8.
+% This file was created by tikzplotlib v0.9.8.
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
@@ -13,23 +13,23 @@ xlabel={Dielectric Constant $\epsilon_r$},
 xmin=3.605, xmax=3.715,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ylabel={Characteristic Impedance $Z_o$(\SI{}{\ohm})},
-ymin=48.80169, ymax=49.42891,
+ylabel={$Z_o$(\SI{}{\ohm})},
+ymin=46.77 , ymax=47.35,
 ytick style={color=black}
 ]
-\addplot [semithick, color0]
+\addplot [thick, color0, mark=*]
 table {%
-3.61 49.4004
-3.62 49.3425
-3.63 49.2848
-3.64 49.2272
-3.65 49.1699
-3.66 49.1128
-3.67 49.0559
-3.68 48.9992
-3.69 48.9426
-3.7 48.8863
-3.71 48.8302
+3.61 47.327
+3.62 47.2714
+3.63 47.2161
+3.64 47.1609
+3.65 47.1059
+3.66 47.0511
+3.67 46.9965
+3.68 46.9421
+3.69 46.8879
+3.7 46.8339
+3.71 46.7801
 };
 \end{axis}
 

@@ -19,6 +19,7 @@
 	\draw[>=triangle 45, <->] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
 	\draw[>=triangle 45, <->] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
 	\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+	\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
 	
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,6);
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,6);

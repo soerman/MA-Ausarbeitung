@@ -24,7 +24,7 @@ ylabel={$Z_o$ (\SI{}{\ohm})},
 ymin=48.557625, ymax=49.527275,
 ytick style={color=black}
 ]
-\addplot [semithick, color0]
+\addplot [thick, color0, mark=*]
 table {%
 200 48.6017
 210 48.7124

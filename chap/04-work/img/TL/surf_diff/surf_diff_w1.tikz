@@ -1,44 +1,44 @@
-﻿% This file was created by tikzplotlib v0.9.8.
+% This file was created by tikzplotlib v0.9.8.
 \begin{tikzpicture}
-
-\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
-
-\begin{axis}[
-legend cell align={left},
-legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
-tick align=outside,
-tick pos=left,
-x grid style={white!69.0196078431373!black},
-xlabel={Lower Trace Width (\SI{}{\micro \meter})},
-xmin=83.5, xmax=182.5,
-xtick style={color=black},
-y grid style={white!69.0196078431373!black},
-ylabel={Characteristic Impedance $Z_\text{diff}$ (\SI{}{\ohm})},
-ymin=93.45723, ymax=131.98517,
-ytick style={color=black}
-]
-\addplot [semithick, color0]
-table {%
-88 130.2339
-93 127.4891
-98 124.8803
-103 122.4008
-108 120.031
-113 117.7664
-118 115.5991
-123 113.5224
-128 111.5297
-133 109.6155
-138 107.7747
-143 106.0022
-148 104.2943
-153 102.6471
-158 101.0571
-163 99.521
-168 98.0361
-173 96.5994
-178 95.2085
-};
-\end{axis}
-
+	
+	\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+	
+	\begin{axis}[
+		legend cell align={left},
+		legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
+		tick align=outside,
+		tick pos=left,
+		x grid style={white!69.0196078431373!black},
+		xlabel={Lower Trace Width (\SI{}{\micro \meter})},
+		xmin=75.5, xmax=174.5,
+		xtick style={color=black},
+		y grid style={white!69.0196078431373!black},
+		ylabel={$Z_\text{diff}$ (\SI{}{\ohm})},
+		ymin=93.231075, ymax=132.558825,
+		ytick style={color=black}
+		]
+		\addplot [semithick, color0, mark=*]
+		table {%
+			80 130.7712
+			85 127.9234
+			90 125.2263
+			95 122.6657
+			100 120.2345
+			105 117.9127
+			110 115.6955
+			115 113.5751
+			120 111.5441
+			125 109.5963
+			130 107.7258
+			135 105.9275
+			140 104.1967
+			145 102.5291
+			150 100.921
+			155 99.369
+			160 97.8699
+			165 96.4207
+			170 95.0187
+		};
+	\end{axis}
+	
 \end{tikzpicture}

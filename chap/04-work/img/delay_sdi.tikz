@@ -1,0 +1,85 @@
+  \tikzset{myblock/.style = {rectangle, draw, minimum width=3cm, minimum height = 3cm}}
+	 %, minimum width=3cm, minimum height = 3cm
+\begin{tikzpicture}%[scale=0.6, every node/.style={scale=0.6}]
+	    \node (c1)[myblock]{\Large Chip 1};
+	\begin{scope}[shift={(4,0)}]
+		\node (c2)[myblock] {\Large  Chip 2};
+	\end{scope}
+	\begin{scope}[shift={(8,0)}]
+		\node (c3)[myblock]{\Large  Chip 3};
+	\end{scope}
+	\begin{scope}[shift={(12,0)}]
+		\node (c4)[myblock]{\Large  Chip 4};
+	\end{scope}
+	\begin{scope}[shift={(16,0)}]
+		\node (c5)[myblock]{\Large  Chip 5};
+	\end{scope}
+	\begin{scope}[shift={(20,0)}]
+		\node (c6)[myblock]{\Large  Chip 6};
+	\end{scope}
+	\begin{scope}[shift={(24,0)}]
+		\node (c7)[myblock]{\Large  Chip 7};
+	\end{scope}
+	\begin{scope}[shift={(28,0)}]
+		\node (c8)[myblock]{\Large  Chip 8};
+	\end{scope}
+
+	\draw[-latex] (-3,3) node[left] {\Huge SLOAD} -| coordinate (1)  ($(c1.north west)!0.2!(c1.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (2)  ($(c2.north west)!0.2!(c2.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (3)  ($(c3.north west)!0.2!(c3.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (4)  ($(c4.north west)!0.2!(c4.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (5)  ($(c5.north west)!0.2!(c5.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (6)  ($(c6.north west)!0.2!(c6.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (7)  ($(c7.north west)!0.2!(c7.north east)$) ;
+	\draw[-latex] (-3,3) -| coordinate (8)  ($(c8.north west)!0.2!(c8.north east)$) ;
+
+	\draw[-latex] (-3,4) node[left] {\Huge SCLK} -|  coordinate (9) ($(c1.north west)!0.4!(c1.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (10) ($(c2.north west)!0.4!(c2.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (11) ($(c3.north west)!0.4!(c3.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (12) ($(c4.north west)!0.4!(c4.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (13) ($(c5.north west)!0.4!(c5.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (14) ($(c6.north west)!0.4!(c6.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (15) ($(c7.north west)!0.4!(c7.north east)$) ;
+	\draw[-latex] (-3,4) -| coordinate (16) ($(c8.north west)!0.4!(c8.north east)$) ;
+
+	\draw[-latex] (-3,5) node[left] {\Huge SDIN} -| coordinate (17) ($(c1.north west)!0.6!(c1.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (18) ($(c2.north west)!0.6!(c2.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (19) ($(c3.north west)!0.6!(c3.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (20) ($(c4.north west)!0.6!(c4.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (21) ($(c5.north west)!0.6!(c5.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (22) ($(c6.north west)!0.6!(c6.north east)$) ;
+	\draw[-latex] (-3,5) -| coordinate (23) ($(c7.north west)!0.6!(c7.north east)$) ;
+	\draw[-latex] (-3,5) -| ($(c8.north west)!0.6!(c8.north east)$) ;
+
+	\draw[latex-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,4) node[above] {\Huge EN1}; 
+	\draw[latex-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,4) node[above] {\Huge EN2}; 
+	\draw[latex-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,4) node[above] {\Huge EN3}; 
+	\draw[latex-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,4) node[above] {\Huge EN4}; 
+	\draw[latex-]  ($(c5.north west)!0.8!(c5.north east)$) --  ++(0,4) node[above] {\Huge EN5}; 
+	\draw[latex-]  ($(c6.north west)!0.8!(c6.north east)$) --  ++(0,4) node[above] {\Huge EN6}; 
+	\draw[latex-]  ($(c7.north west)!0.8!(c7.north east)$) --  ++(0,4) node[above] {\Huge EN7}; 
+	\draw[latex-]  ($(c8.north west)!0.8!(c8.north east)$) --  ++(0,4) node[above] {\Huge EN8}; 
+
+
+	\filldraw[black] (1) circle (2pt); 
+	\filldraw[black] (2) circle (2pt); 
+	\filldraw[black] (3) circle (2pt); 
+	\filldraw[black] (4) circle (2pt); 
+	\filldraw[black] (5) circle (2pt); 
+	\filldraw[black] (6) circle (2pt); 
+	\filldraw[black] (7) circle (2pt); 
+	\filldraw[black] (9) circle (2pt); 
+	\filldraw[black] (10) circle (2pt); 
+	\filldraw[black] (11) circle (2pt); 
+	\filldraw[black] (12) circle (2pt); 
+	\filldraw[black] (13) circle (2pt); 
+	\filldraw[black] (14) circle (2pt); 
+	\filldraw[black] (15) circle (2pt); 
+	\filldraw[black] (17) circle (2pt); 
+	\filldraw[black] (18) circle (2pt); 
+	\filldraw[black] (19) circle (2pt); 
+	\filldraw[black] (20) circle (2pt); 
+	\filldraw[black] (21) circle (2pt); 
+	\filldraw[black] (22) circle (2pt); 
+	\filldraw[black] (23) circle (2pt);
+\end{tikzpicture}
