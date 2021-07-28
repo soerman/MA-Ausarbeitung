@@ -6,7 +6,7 @@
     c/arrow pos = 0.7,
     c/arrow tip = stealth'
     ]
-		CLK  \SI{500}{\mega \hertz}     & [C] 16C N(C1) 16C N(C3) 16C G \\
+		CLK  \SI{1}{\GHz}     & [C] 16C N(C1) 16C N(C3) 16C G \\
 		\\
 		THA1 Clocking &  [C] 8H N(A1) 8H 8L N(A5) 8L 8H N(A9) 8H G\\
 		THA2 Clocking & 1L 16H 16L 15H \\

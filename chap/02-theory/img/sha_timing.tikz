@@ -8,6 +8,7 @@
 	timing/metachar={{K}[2]{#1l !{++(0,+.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,-.5\yunit)} #1l}},
 	timing/metachar={{J}[2]{#1h !{++(0,-.5\yunit)} N[rectangle,scale=.6]{\shortstack{#2}} !{++(0,+.5\yunit)} #1h}},
 	]
+	
 	SHA & 1H 8K{HOLD} 8J{SAMPLE} 8K{HOLD} 3H\\
 	Sampling & 5S A 15S A                    \\
 \end{tikztimingtable}

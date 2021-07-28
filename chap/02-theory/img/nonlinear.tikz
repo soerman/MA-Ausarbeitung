@@ -1,0 +1,69 @@
+\begin{tikzpicture}
+	% axes
+	\draw[latex-latex, thick] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
+	% x- labels
+	\draw	(0,0) node[anchor=north ] {0}
+	(0.125,0) node[anchor=north ] {1/8}
+	(0.250,0) node[anchor=north ] {1/4}
+	(0.375,0) node[anchor=north ] {3/8}
+	(0.5,0) node[anchor=north ] {1/2}
+	(0.625,0) node[anchor=north ] {5/8}
+	(0.750,0) node[anchor=north ] {3/4}
+	(0.875,0) node[anchor=north ] {7/8}
+	(1,0) node[anchor=north, yshift = -2mm] {FS};
+	
+	%y-labels		
+	\draw	(0,0) node[anchor=east] {000}
+	(0, 0.125) node[anchor=east] {001}
+	(0, 0.250) node[anchor=east] {010}
+	(0, 0.375) node[anchor= east] {011}
+	(0, 0.5) node[anchor= east] {100}
+	(0, 0.625) node[anchor= east] {101}
+	(0, 0.750) node[anchor= east] {110}
+	(0, 0.875) node[anchor= east] {111};
+	
+	%lines
+	\draw[dashed] (0,0) -- (0.875*1.1,0.875*1.1);
+	\draw[dotted, thick] (0.125/2,0) -- (1.1-0.125/2,0.875*1.1);
+%stairs
+\draw [thick]
+(0, 0) 
+-- (0.125/2, 0) 
+-- (0.125/2, 0.125) 
+
+-- (0.24, 0.125)
+-- (0.24, 0.25)
+
+-- (0.4, 0.25)
+-- (0.4, 0.375)
+
+-- (0.59, 0.375)
+-- (0.59, 0.625) 
+
+-- (0.72, 0.625)
+-- (0.72, 0.750)
+
+-- (0.83, 0.750)
+-- (0.83, 0.875) 
+-- +(0.145,0)
+;
+
+%points	
+	\draw (0,0) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (0.0625,0.125) node[circle, fill = black, inner sep=0pt,  minimum size = 4pt] {};
+	\draw (0.32,0.25) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (0.495,0.375) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	%\draw (0.59,0.5) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (0.655,0.625) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (0.775,0.75) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (7/8+0.05,0.75+0.125) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	
+\node[align=center] at (0.5,0.1) {Wide code widths\\positive DNL};
+\node[align=center] at (0.6,0.9) {Narrow code widths\\negative DNL};
+\node[align=center] at (0.8,0.5) {Missing code};
+
+\draw[densely dotted] (0.51,0.375) -- (0.51,0.65);
+\draw[densely dotted] (0.38,0.375) -- (0.38,0.65);
+\draw[<->] (0.51,0.62) -- node[align=center,anchor=south,yshift=5] {Maximum\\$\text{INL} = 1\;\text{LSB}$} (0.38,0.62);
+	
+\end{tikzpicture}

@@ -4,19 +4,19 @@ In this thesis, the software used to cover both of these steps is PADS xDx Desig
 
 \section{Schematics}
 Without knowing which components are needed and how they are interconnected, it is impossible to manufacture any board, no matter how high or low the level of complexity is.
-The main purpose of a schematic is thus to provide a documentation about the necessary components and in which way they should be connected to another.
+The schematic is a graphical documentation of an electrical circuit, showing the needed components and their interconnections using standardized symbols. 
 Furthermore, a schematic provides a starting point for automatic placement and routing, i.e. where the components are placed and how they are connected on the physical \gls{pcb}, which is done with the layout design tool.
-During the creation of the schematics, the following points have to be taken into consideration:
+During the creation of the schematics, the following points have to be considered:
 
 \begin{itemize}
 	\item Deciding which components are needed and what the performance requirements are. Especially for high-speed components carefully considering specifications like signal rise and fall times, jitter, skew, etc. is crucial to achieve the overall expected performance.
-	\item Keeping in mind how many pins are available for peripheral connection, control signals, etc. Many components have an interface for programming (e.g. \gls{spi}) which requires several pins. Especially for boards with a lot of components this can quickly become an issue.
+	\item Keeping in mind how many pins are available for high- and low-speed peripheral connections, control signals, etc. Many components have an interface for programming (e.g. \gls{spi}) which requires several pins that need to be connected to the controlling unit. Especially for boards with a lot of components this can quickly become an issue.
 	\item Checking the signaling interfaces of the components. Additional circuitry might be needed for interfacing between two different components. Some signaling interfaces, like \gls{lvds}, require a specific voltage level, which might result in the need of voltage level translators.
 	\item Keep in mind the different common mode voltages at input/output pins of different components and placing decoupling capacitors if needed.
-	\item Consider placing additional filtering for power supplies, as well as recommended filters from manufacturers of the components. 
+	\item Consider placing additional filtering for power supplies in order to reduce noise and \gls{pcb}, as well as recommended filters from manufacturers of the components. 
 	\item Choose suitable type and amount of power supplies/voltage regulators.
-	\item Packaging/Size of the components. Obviously the size matters, as space on the board is limited. But the package also introduces additional capacitance/inductance, which can be a problem for precise filtering circuits. 
-	\item Power dissipation of the components. Especially voltage regulators might need coolers. This might not pose any problems for components which are located on the top side of the board. However, components on the bottom side might create an issue, if the designed \gls{pcb} should be mounted on another board.
+	\item Keep in mind the packaging/Size of the components. The size of the component is important, as space on the board is limited. The package introduces additional capacitive/inductive parasitics, which can be a problem for precise filtering circuits. 
+	\item Consider the power dissipation of the components. Components like for example voltage regulators might need coolers or heat sinks. These additional elements might not pose any problems for components which are located on the top side of the board. However, components on the bottom side might create a space issue, if the designed \gls{pcb} should be mounted on another board.
 	\item For mixed-signal boards, i.e. boards containing digital and analog signal paths, analog and digital ground should be separated. For \glspl{ic} like \glspl{tha} or \glspl{adc}, where both analog and digital signals are present, connecting the grounds via appropriate components needs to be considered.
 	\item Check if the components are still available and if they can be delivered in the given project time.
 \end{itemize}  
@@ -26,23 +26,24 @@ Decoupling techniques and separation of analog and digital ground are explained 
 %todo irgendeine überleitung hinschreiben
  
 \paragraph{Decoupling techniques}
-Probably the most important part in schematics design is proper decoupling of power supplies, as \glspl{ic} require a stable voltage on the power supply pin for optimal performance.
-Any ripple\footnote{\textit{Ripple} is the \gls{ac}-voltage superimposed on an otherwise \gls{dc}-voltage.} or noise can substantially degrade the performance of the \glspl{ic}, i.e. by decreasing the noise margin.
+Probably the most important part in schematics design is proper decoupling of power supplies, as \glspl{ic} require a stable voltage on the power supply pins for optimal performance.
+Any ripple\footnote{\textit{Ripple} is additional \gls{ac}-voltage (of small amplitude) superimposed on a the general voltage level.} or noise can substantially degrade the performance of the \glspl{ic}, i.e. by decreasing the noise margin.
 \textit{Noise margin} defines the difference between the useful signal and noise. 
 A sufficient noise margin is necessary to guarantee that the output signal will still be correctly interpreted, even if some noise is added to the signal.
+Variation on the power supply produces also a variation on the signal and can therefore lead to a smaller difference between signal and noise.
 
 Usually, manufacturers give information about proper power supply decoupling circuits for their component in the data sheet.
-If this is not the case, there are basic rules of thumb which can be followed to ensure good decoupling. \cite{decouple}
+If this is not the case, there are basic rules of thumb which can be followed to ensure proper decoupling. \cite{decouple}
 
 Basically, two types of voltage variations on the power supply pin can be distinguished: low frequency and high frequency variation.
 Low frequency variation occurs for example due to devices (or parts of them) being enabled/disabled or in the event of data traffic or data processing.
-The current draw during these occurrences can not be compensated immediately by the voltage regulator providing the supply voltage, which leads to drops in the voltage levels.
+The current draw during these occurrences can not be compensated immediately by the voltage regulator providing the supply voltage, which leads to drops in the voltage level.
 Time frames of this variation vary in the range of milliseconds up to days.
 High frequency variation results from switching events in the device, occurring in the range of the clock frequency and the corresponding harmonics up to about \SI{5}{\giga \hertz}.
 Spikes due to \gls{emi} are also a source of high frequency variation and need to be compensated for. \cite{xilDecouple} 
 
 Ideally, one capacitor, which acts as a low-pass filter, should be enough to mitigate these variations.
-A real capacitor however has parasitics and thus can in general not be modeled by a ``pure'' capacitive behavior, especially for high-frequency applications. %todo define parasitics
+A real capacitor however has parasitics and thus can in general not be modeled by a ``pure'' capacitive behavior. This reduces the filtering performace  %todo define parasitics
 Additional resistances and inductance need to be considered \cite{decouple}:
 \begin{itemize}
 	\item A parallel resistance $R_P$, which shunts the nominal capacitance ($C$), representing insulation resistance or leakage.
@@ -74,13 +75,12 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 \end{figure}
 
 
-To deal with the low frequency variation, a large capacitor (typical values: \SIrange{10}{100}{\micro\farad}) is placed next to the component, not more than \SI{5}{\centi \metre} ($\approx$ 2 inch.) away.
+To deal with the low frequency variation, a large capacitor (typical values: \SIrange{10}{100}{\micro\farad}) is placed next to the component, not more than \SI{5}{\centi \metre} away.
 The role of this capacitor is to be a charge supply for the instantaneous needs of the device, i.e. keeping a constant voltage level until the slower control loop of the voltage regulator can compensate for the changed current draw. \cite{decouple}
 This capacitor is also called \textit{decoupling capacitor}.
 
 Another, small capacitor (typical values: \SIrange{0.01}{0.1}{\micro \farad}) is placed as close as possible to the power pins of the component.
 This capacitor should bypass (therefore also called \textit{bypass capacitor}) the high frequency variation on the power supply line. \cite{decouple}
-
 
 To cover a larger frequency range, multiple capacitors can be used.
 
@@ -174,7 +174,7 @@ The clock coming from \gls{kara} is provided through \gls{rf} SMA connectors dir
 \subsection{Sampling-Channel}
 The sampling channel consists of the \gls{tha}, which is driven by a delay chip. 
 
-\subsubsection{Track-And-Hold-Amplifier}
+\subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
 The component was chosen due to its high bandwidth (\SI{4}{\GHz}) and low jitter(range of hundreds of femtoseconds). \cite{caselle2013} 
 Therefore it is also a good candidate for the new system.
@@ -244,7 +244,7 @@ Two back-to-back diodes \autoref{fig:gnd_agnd}) are placed in parallel in order 
 	\label{fig:gnd_agnd}
 \end{figure}
 
-\subsubsection{Delay Chip}
+\subsubsection*{Delay Chip}
 The delay chips are used to create a delay in the clocking signals which go to the \gls{tha} chip. For the selection of the delay chip, the most important characteristic, apart from jitter, is the delay step size and delay range. 
 
 As indicated in \autoref{ssec:interl_impl}, the step-size of the delay chip must not exceed \SI{25}{\pico \second} to use the technique with \glspl{adc} sampling at \SI{2.5}{\giga \hertz}.
@@ -428,7 +428,7 @@ The reference clock signal is provided by outputs from different output groups o
 	\label{fig:clocking}
 \end{figure}
 
-\subsubsection{PLLs}
+\subsubsection*{PLLs}
 For proper functioning/best performance, a properly designed loop filter (see \autoref{fig:pll_block}) for both \glspl{pll} is needed. 
 The output of the loop filter is the voltage for controlling the \gls{vco}, the output of which is a frequency, $f_\text{VCO}$, proportional to that voltage.
 $f_\text{VCO}$ is divided by the \textit{N Divider} to the frequency $f_n$ and then compared to the phase detector frequency $f_\text{PD}$ in the phase detector. 
@@ -539,7 +539,7 @@ Both \glspl{pll} are connected to the digital \SI{3.3}{\volt} coming from the \g
 For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide a very clean voltage level.
 The output pins are pulled-up via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
 
-\subsubsection{Fanout Buffer}
+\subsubsection*{Fanout Buffer}
 The fanout buffer takes as input the clock signal from the \gls{pll} and distributes it to the \glspl{tha} chips.
 In this design, the HMC987LP5E from \textit{Analog Devices} is chosen due to its low jitter and low skew performance. 
 The schematics of the chip is shown in \autoref{fig:fanout}.
@@ -623,7 +623,7 @@ An \gls{emi} filter needs to be placed in order to keep noise of the power suppl
 For the sensitive components like \gls{tha}, voltage regulators are needed, to guarantee a stable voltage level.
 
 
-\subsubsection{Voltage Regulator for Track-and-Hold-Amplifiers}
+\subsubsection*{Voltage Regulator for Track-and-Hold-Amplifiers}
 The \glspl{tha} need a constant voltage level for optimal operation. 
 Linear voltage regulators are capable to maintain a stable output voltage and are therefore to be used with the \glspl{tha}.
 
@@ -669,7 +669,7 @@ As input voltage, the \SI{3.3}{\volt} from the external power supply is provided
 
 Capacitors and resistors are placed as recommended in the datasheet\cite{adp1741}(see \autoref{fig:adp1741}).
 
-\subsubsection{Voltage Regulator for Delay Chips}
+\subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
 The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can be again calculated as:
 \begin{align*}
@@ -729,7 +729,7 @@ During this process, the following points need to be considered:
 
 For better understanding, first a general overview over \gls{pcb} structures is given. 
 Then the steps mentioned above are described.
-\subsection{PCB Structures Overview} \label{ssec:pcb_structs}
+\subsection*{PCB Structures Overview} \label{ssec:pcb_structs}
 In this section an overview over the basic structures on a \gls{pcb} is given for better understanding.
 
 \paragraph{Traces}
@@ -754,12 +754,12 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 
 In this design only blind and through vias are used due to manufacturing limitations.
 
-\subsection{\gls{pcb} Substrate Selection and Stackup}\label{ssec:substrate}
+\subsection{PCB Substrate Selection and Metal Layer Stackup}\label{ssec:substrate}
 Proper substrate material has to be selected in according to the use-case.
 The MEGTRON 6 from \textit{Panasonic} is designed for high-speed/high frequency applications. 
 Characteristics of this material are:
 \begin{itemize}
-\item Low dielectric constant: $\epsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
+\item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
 \item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
 \item Low transmission loss
 \item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius}
@@ -776,7 +776,7 @@ For this design a number of 16 layers is chosen.
 \end{figure}
 
 %https://industrial.panasonic.com/content/data/EM/PDF/ipcdatasheet\_R-5775.pdf
-\subsection{Calculating the Geometrical Parameters of Transmission Lines}
+\subsection{Transmission Lines}
 Transmission lines guide electromagnetic waves from one point to another. 
 They have a characteristic impedance which is determined by parameters like width of the trace, separation from ground plane, etc.  
 Not matching correctly can lead to reflections and damping.
@@ -800,7 +800,7 @@ These were carefully designed for optimal signal transmission.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate used for the new design. 
 Therefore, the impedance has to be recalculated to check whether it is still acceptable. 
 A deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
-The change in impedance/parameters is assumed to be negligible, as the difference in dielectric constans between the two boards is not large (\gls{kapture}: $\epsilon_r$ =  3.52, new board: $\epsilon_r$ =  3.61)
+The change in impedance/parameters is assumed to be negligible, as the difference in dielectric constans between the two boards is not large (\gls{kapture}: $\varepsilon_r$ =  3.52, new board: $\varepsilon_r$ =  3.61)
 
 Three types of waveguides are used in this design:
 \begin{itemize}
@@ -812,7 +812,7 @@ These waveguide types are presented and the geometric dimensions calculated with
 
 \paragraph{Surface Coplanar Waveguide with Ground}
 The surface coplanar waveguide has the geometry shown in \autoref{fig:microstrip_geometry}.
-The single trace of thickness $t$ and width $a$ lies between two ground planes on a dielectric of thickness $h$ and the effective dielectric constant $\epsilon_r$.
+The single trace of thickness $t$ and width $a$ lies between two ground planes on a dielectric of thickness $h$ and the effective dielectric constant $\varepsilon_r$.
 Another ground plane is located at the bottom of the dielectric.
 Separation between trace and ground plane is defined as $(b-a)/2 := d$. 
 
@@ -839,16 +839,16 @@ For Megtron6 it is
 With all these parameters, the value for the characteristic impedance is calculated to $Z_o = \SI{47.33}{\ohm}$.
 This lies well in the 10\% tolerance range of \SIrange{45}{55}{\ohm}. 
 
-According to the datasheet of the Megtron6, the dielectric constant $\epsilon_r$ changes over frequency (see \autoref{ssec:substrate}).
-As the dielectric constant $\epsilon_r$ of the Megtron6 substrate varies between 3.61 and 3.71 depending on the frequency, the effect of the changing $\epsilon_r$ should also be studied. 
+According to the datasheet of the Megtron6, the dielectric constant $\varepsilon_r$ changes over frequency (see \autoref{ssec:substrate}).
+As the dielectric constant $\varepsilon_r$ of the Megtron6 substrate varies between 3.61 and 3.71 depending on the frequency, the effect of the changing $\varepsilon_r$ should also be studied. 
 The Si9000e tool provides the possibility to simulate the characteristic impedance versus a changing parameter.
-In \autoref{fig:surf_dk} the characteristic impedance $Z_o$ is plotted against $\epsilon_r$.
+In \autoref{fig:surf_dk} the characteristic impedance $Z_o$ is plotted against $\varepsilon_r$.
 It can be seen that with higher effective dielectric constant the characteristic impedance decreases.
 The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, which is still inside the 10\% tolerance range.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk}
-	\caption[Coplanar waveguide, $Z_o$ vs $\epsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\epsilon_r$ assuming $a = \SI{213}{\micro \meter}$}
+	\caption[CWG, $Z_o$ vs $\varepsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\varepsilon_r$ assuming $a = \SI{213}{\micro \meter}$}
 	\label{fig:surf_dk}
 \end{figure}
 
@@ -858,11 +858,11 @@ This result however does not take into account the real upper tracewidth.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_w1}
-	\caption{$Z_o$ vs. lower trace thickness, assuming $\epsilon_r = 3.61$}
+	\caption[CWG, $Z_o$ vs. $a$]{$Z_o$ vs. lower trace thickness $a$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_w1}
 \end{figure}
 
-For an estimation of the effect of the upper trace width on the impedance, a constant lower trace width of \SI{213}{\micro \meter} and $\epsilon_r = 3.61$ is assumed, while varying the upper trace width from \SIrange{183}{213}{\micro \meter}.
+For an estimation of the effect of the upper trace width on the impedance, a constant lower trace width of \SI{213}{\micro \meter} and $\varepsilon_r = 3.61$ is assumed, while varying the upper trace width from \SIrange{183}{213}{\micro \meter}.
 The result is shown in \autoref{fig:surf_w2}.
 With decreasing width the characteristic impedance approaches \SI{50}{\ohm}, meaning the matching can potentially become better due to manufacturing.
 \begin{figure}[tbh]
@@ -891,7 +891,7 @@ For the other parameters first the following values are assumed:
 	\item Trace separation $s = \SI{150}{\micro \meter}$
 	\item Trace-to-ground separation $d = \SI{600}{\micro \meter}$
 \end{itemize}
-For these parameters and an $\epsilon_r = 3.61$ an impedance of \SI{92.35}{\ohm} is calculated with the Si9000e tool.
+For these parameters and an $\varepsilon_r = 3.61$ an impedance of \SI{92.35}{\ohm} is calculated with the Si9000e tool.
 This is still inside the tolerance band, but can potentially be improved.
 
 In \autoref{fig:surf_diff_w1} a the characteristic impedance $Z_\text{diff}$ is plotted against the trace width\footnote{Assuming lower and upper trace width are equal.}. 
@@ -900,34 +900,34 @@ The impedance $Z_\text{diff}$ lies around \SI{100}{\ohm} for a trace width $w \a
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w1}
-	\caption{$Z_\text{diff}$ vs. lower trace width $w$, assuming $\epsilon_r = 3.61$}
+	\caption[DCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w1}
 \end{figure}
 Setting the width to \SI{155}{\micro \meter} indeed gives an impedance of $Z_\text{diff} = \SI{99.37}{\ohm}$.
-The influence of the changing dielectric constant $\epsilon_r$ is studied in this case as well (see \autoref{fig:surf_diff_dk}). 
-At the maximal value of $\epsilon_r = 3.71$, the impedance lies around \SI{98.4}{\ohm} corresponding to a change of \SI{0.88}{\percent} compared to the value at $\epsilon_r = 3.61$. 
+The influence of the changing dielectric constant $\varepsilon_r$ is studied in this case as well (see \autoref{fig:surf_diff_dk}). 
+At the maximal value of $\varepsilon_r = 3.71$, the impedance lies around \SI{98.4}{\ohm} corresponding to a change of \SI{0.88}{\percent} compared to the value at $\varepsilon_r = 3.61$. 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_dk}
-	\caption{$Z_\text{diff}$ vs. dielectric constant $\epsilon_r$}
+	\caption[DCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$}
 	\label{fig:surf_diff_dk}
 \end{figure}
 
 
-Furthermore, assuming $\epsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autopageref{fig:surf_diff_w2}.
+Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autopageref{fig:surf_diff_w2}.
 
 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w2}
-	\caption{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\epsilon_r = 3.61$}
+	\caption[DCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w2}
 \end{figure}
 
 \paragraph{Differential Pairs between Layers}
 The analog signals from the \glspl{tha}, as well as the clock signals, are propagated through differential pair traces on the inner layers of the \gls{pcb}. 
 This forms an offset coplanar waveguide as seen in \autoref{fig:docw_d1}.
-The impedance of this waveguide type depends on the trace width $w$, the trace separation $s$, the trace-to-ground separation $d$, the thickness $t$ of the trace, as well as the thickness of the dielectrics $h_1$ and $h_2$ and their respective dielectric constant $\epsilon_1$ and $\epsilon_2$.
+The impedance of this waveguide type depends on the trace width $w$, the trace separation $s$, the trace-to-ground separation $d$, the thickness $t$ of the trace, as well as the thickness of the dielectrics $h_1$ and $h_2$ and their respective dielectric constant $\varepsilon_1$ and $\varepsilon_2$.
 
 \begin{figure}[tbh]
 	\centering
@@ -942,7 +942,7 @@ The parameters are assumed as
 	\item Trace separation $s = \SI{150}{\micro \meter}$
 	\item Trace-to-ground separation $d = \SI{250}{\micro \meter}$
 \end{itemize}
-Thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\epsilon_1 = \epsilon_2 = \epsilon_r = 3.61$.)
+Thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\varepsilon_1 = \varepsilon_2 = \varepsilon_r = 3.61$.)
 With these parameters the impedance is calculated as $Z_\text{diff} = \SI{90.40}{\ohm}$.
 In \autoref{fig:off_diff_w1} $Z_\text{diff}$ is plotted against the trace width $w$ (assuming upper trace width equal to $w$). It can be seen, that in order to improve the impedance, one should decrease the trace width. 
 Due to the manufacturing technology the minimal trace width possible is \SI{88}{\micro \meter}. 
@@ -951,7 +951,7 @@ Therefore this option is not feasible.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_w1}
-	\caption{$Z_\text{diff}$ vs. lower trace width $w$, assuming upper trace width equals to $w$}
+	\caption[DOWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming upper trace width equals to $w$}
 	\label{fig:off_diff_w1}
 \end{figure}
 
@@ -963,18 +963,18 @@ Taking this into consideration, as well as the space on the board, the parameter
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_s1}
-	\caption{$Z_\text{diff}$ vs. trace separation $s$, assuming trace width $w = \SI{88}{\micro \meter}$}
+	\caption[DOWG, $Z_\text{diff}$ vs. $s$]{$Z_\text{diff}$ vs. trace separation $s$, assuming trace width $w = \SI{88}{\micro \meter}$}
 	\label{fig:off_diff_s1}
 \end{figure}
 
-The influence of the dielectric constant $\epsilon_r$ is shown in \autoref{fig:off_diff_dk}. 
-$Z_\text{diff}$ decreases with higher value of $\epsilon_r$ and even get below \SI{90}{\ohm}, exceeding the \SI{10}{\percent} tolerance.
+The influence of the dielectric constant $\varepsilon_r$ is shown in \autoref{fig:off_diff_dk}. 
+$Z_\text{diff}$ decreases with higher value of $\varepsilon_r$ and even get below \SI{90}{\ohm}, exceeding the \SI{10}{\percent} tolerance.
 However, the upper trace width has also to be taken into account, which is in any case smaller than the lower trace width due to the etching process during manufacturing.
 As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than calculated by assuming both width equal. Therefor the impedance can still be regarded as falling into the tolerance band.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_dk}
-	\caption{$Z_\text{diff}$ vs. dielectric constant $\epsilon_r$, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\epsilon_r = 3.61$}
+	\caption[DOWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_dk}
 \end{figure}
 
@@ -982,33 +982,55 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_w2}
-	\caption{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and$\epsilon_r = 3.61$}
+	\caption[DOWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_w2}
 \end{figure}
 
 
 
 \subsection{Component Placement and Routing}
-
+During component placement and routing, several rules need to be followed in order to guarantee proper signal propagation and signal integrity.
 \paragraph{Component placement}
 \begin{itemize}
-\item connectors need to be placed exactly to match the connectors on the board. The connectors therefore define the geometry of the board in a large way.
-\item Analog and digital part of the board are separated: topside is digital, bottomside is analog
-\item For shielding purposes, layers are alternating: SIG-GND-SIG-GND-SIG-... This is important for differential pairs, as they should GND right below/above, because this serves as a return path (and as shielding from noise e.g. from digital signals)
-\item Components, especially sensitive ones, have to be placed in dedicated ``island''.
-\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching signal may introduce noise on the power plane -> no stable voltage
-\item decoupling capacitors are placed in such way, that big capacitor is connected to the power plane of the external ps/voltage regulator. The filtered power level is propagated to an innerlayer. The smaller bypass capacitor is connected to this layer by a via and to the power supply pin of the respective chip. The capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
-\item \glspl{tha} have been placed on the edge for better reaching
-\item stitching vias are used to shield the sensitive \glspl{ic} as much as possible from EMI
-\item delay chips have been arranged evenly so no further delay is introduced 
-\item fanout buffer have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal
-\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to PLL.
-\item LMX are placed close to the LMK and as close as possible to the corresponding LPAM connector.
-\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.
+	\item The board geometry, or board outline, need to match the readout card, i.e. the connectors need to be placed exactly to match their counterpart on the board
+	\item Analog and digital components need to be separated. In order to accomplish this, the board is divided into two parts: the top eight layers are assigned to carry digital signals and ground. The other half of the layers is dedicated to analog components.
+	\item Layers carrying signals are ``sandwiched'' between two ground layers. This is important for differential pairs, as they should GND right below/above, because this serves as a return path. Furthermore, the ground layers serve as shielding from noise.
+	\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching events may introduce noise on the power plane. 
+	\item Components, especially sensitive ones, have to be placed in dedicated ``islands'' .
+	\item High-frequency components need to be placed first. This is done on order to minimize the routing length of the \gls{rf} traces.
+	\item Stitching vias are used to shield the sensitive \glspl{ic} as much as possible from \gls{emi} (see \autoref{fig:stitch} for an example).
+	\item Decoupling capacitors are placed in such way, that the large capacitor is connected to the power plane of the external power supply or voltage regulator. The filtered voltage level after the capacitor is propagated to a power plane located on an inner layer. The smaller bypass capacitor is connected to this layer by a via and then to the power supply pin of the respective chip. The small capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
+	\item \glspl{tha} have been placed on the edge.
+	\item Delay chips have been arranged evenly so no further delay is introduced due to misplaced components.
+	\item Fanout buffers have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal.
+	\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to \glspl{pll}.
+	\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.	
 \end{itemize}
 
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/tha_pcb}
+	\caption[Stitching vias]{Example for stitching vias at the \gls{tha}. An area is filled up with (blind) vias connected to analog or digital ground. This way, they protect the trace or component from external (and internal) noise.}
+	\label{fig:stitch}
+\end{figure}
 
-During routing, take care of the high frequency, sensitive signals first. This guarantees on the one hand the shortest possible connection for these signals. On the other hand this defines the routing for the slower, less critical signals. In order to minimize cross-talk, these signals need to be routed around the high-frequency lines and must not cross these (in the layer directly above or below).
+
+\paragraph{Routing}
+
+During routing, take care of the high frequency, sensitive signals first. 
+This guarantees on the one hand the shortest possible connection for these signals. 
+On the other hand this defines the routing for the slower, less critical signals. 
+In order to minimize cross-talk, these signals need to be routed around the high-frequency lines and must not cross these (in the layer directly above or below).
+
+Some pins form a ``group'', e.g. clock signals from the fanout to the delay chips. 
+Trace length of the same group need to be matched as close as possible to reduce any skew between signals. 
+
+
+\begin{itemize}
+	\item Keep routes confined to the section they are assigned to, i.e. digital traces have to be in digital.
+	\item Connectors need to be placed exactly to match the connectors on the board. The connectors therefore define the geometry of the board in a large way.
+\end{itemize}
+
 
 
 \begin{figure}[tbh]

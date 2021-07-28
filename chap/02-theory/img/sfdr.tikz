@@ -1,0 +1,61 @@
+\definecolor{kitgreen}{rgb}{0,0.588235294117647,0.509803921568627}
+\definecolor{kitblue}{rgb}{0.274509803921569,0.392156862745098,0.666666666666667}
+\usetikzlibrary{arrows.meta}
+\pgfplotsset{compat=1.11}
+
+\begin{tikzpicture}
+\begin{axis}[%
+ycomb,
+axis lines=left, xtick=\empty, ytick=\empty,
+xmin=0,
+xmax=21,
+ymin=0,
+ymax=1.2,
+ylabel={Power (\si{\dB})},
+ylabel style={yshift=0.6cm},
+xlabel={Frequency (\si{\hertz})},
+xlabel style={yshift=0.25cm},
+extra x ticks={20},
+extra x tick labels={$\frac{f_s}{2}$},
+axis background/.style={fill=white},
+axis line style={-latex},
+clip=false,
+]
+
+\draw[<->] (8,0.31) -- node[align=center,anchor=center,fill=white] {SFDR (dBc)} (8,0.80);
+\draw[<->] (16,0.31) -- node[align=center,anchor=center,fill=white,pos=0.358] {SFDR (dBFS)} (16,1);
+
+\draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,1}) node[align=center,anchor=west,fill=white] {Full scale (FS)} --  ({rel axis cs:0,0}|- {axis cs:0,1});
+\draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,0.8}) node[align=center,anchor=west,fill=white] {Input signal level (carrier)} -- ({rel axis cs:0,0}|-{axis cs:0,0.8});
+\draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,0.31}) node[align=center,anchor=west,fill=white] {Worst spur level}-- ({rel axis cs:0,0}|-{axis cs:0,0.31});
+\addplot+ [semithick,color=black,mark=*,mark options={fill=white}]
+  table[row sep=crcr]{%
+1 0.194\\
+2 0.18\\
+4 0.215\\
+5 0.192\\
+6 0.189\\
+8 0.214\\
+9 0.221\\
+10 0.176\\
+11 0.223\\
+12 0.178\\
+13 0.199\\
+14 0.222\\
+15 0.179\\
+16 0.229\\
+17 0.184\\
+18 0.19\\
+19 0.175\\
+20 0.224\\
+};
+\addplot+ [thick,color=kitgreen,mark=*,mark options={fill=white}]
+  table[row sep=crcr]{%
+3 0.8\\
+};
+\addplot+ [thick,color=kitblue,mark=*,mark options={fill=white}]
+  table[row sep=crcr]{%
+7 0.31\\
+};
+\end{axis}
+\end{tikzpicture}

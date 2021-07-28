@@ -34,7 +34,8 @@
 \usepackage{tikz,tikzscale,pgfplots,pgfplotstable,circuitikz,tikz-timing}
 \usetikzlibrary{arrows,shapes,shadows,external,decorations.pathmorphing, positioning}
 \tikzexternalize[optimize=false,prefix=tikz/]
-\usetikztiminglibrary{clockarrows, nicetabs}
+\usetikztiminglibrary{arrows, clockarrows, nicetabs}
+\pgfplotsset{compat=1.11}
 
 
 \usepgfplotslibrary{units,fillbetween,colormaps} 
@@ -123,20 +124,19 @@
     \printglossary
     \endgroup
     \cleardoublepage
+    \glsresetall
 
     % Contents
     \MainMatter
     \chapter{Introduction}
-    	%	\input{./chap/01-introduction/introduction}
-   	\chapter{State Of The Art Read-Out-Systems}
-   %			\input{./chap/03-currentStat/state}
-   	\chapter{Architecture Of The New Read-Out-System}
+    		\input{./chap/01-introduction/introduction}
+   	\chapter{Architecture Of The New Readout-System - THERESA}
    			\input{./chap/04-work/new_sys}
    	\chapter{Design Of The Front-End Sampling Card}
    			\input{./chap/04-work/theresa}
-   	\chapter{Analyzing the Back-End Readout Card}
-   	%		\input{./chap/04-work/readOutCard}	
-	\chapter{Results}	
+   	\chapter{Back-End Readout Card and System Integration}
+   			\input{./chap/04-work/readOutCard}	
+%	\chapter{Conclusion and Outlook}	
 	%		\input{./chap/05-results/results}
     \chapter{Conclusion and Outlook}
    			\input{./chap/06-conclusion/conclusion}		
