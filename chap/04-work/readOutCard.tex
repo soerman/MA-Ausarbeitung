@@ -35,6 +35,14 @@ prohibitively high-pin-count external connections needed for discrete parallel i
 \subsection{RF Data Converter}
 \subsection{SoC}
 \subsection{RDMA over Converged Ethernet (RoCE)}
+As its name shows, RoCE is a network protocol defined in the InfiniBand Trade Association (IBTA) standard, allowing RDMA over converged Ethernet network. Shortly, it can be regarded as the application of RDMA technology in hyper-converged data centers, cloud, storage, and virtualized environments. It possesses all the benefits of RDMA technology and the familiarity of Ethernet.
+
+Types of RoCE
+Generally, there are two RoCE versions: RoCE v1 and RoCE v2. It depends on the network adapter or card used.
+
+RoCE v1: The RoCE v1 protocol is an Ethernet link layer protocol allowing two hosts in the same Ethernet broadcast domain (VLAN) to communicate. It uses Ethertype 0x8915, which limits the frame length as 1500 bytes for a standard Ethernet frame and 9000 bytes for an Ethernet jumbo frame.
+
+RoCE v2: The RoCE v2 protocol overcomes the limitation of version 1 being bounded to a single broadcast domain (VLAN). By changing the packet encapsulation to include IP and UDP headers, RoCE v2 can now be used across both L2 and L3 networks. This enables Layer 3 routing, which brings RDMA to network with multiple subnets for great scalability. Therefore, RoCE v2 is also regarded as Routable RoCE (RRoCE). Owing to the arrival of RoCE v2, the IP multicast is now also possible.
 \subsection{System Integration}
 
 
