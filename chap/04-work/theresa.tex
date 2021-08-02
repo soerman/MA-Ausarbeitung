@@ -172,16 +172,18 @@ Clocking for the \glspl{adc} and the \glspl{dac} is provided through a $6\times2
 The clock coming from \gls{kara} is provided through \gls{rf} SMA connectors directly to the \gls{pll}.
 
 \subsection{Sampling-Channel}
-The sampling channel consists of the \gls{tha}, which is driven by a delay chip. 
+The most important circuit part of the sampling board is the sampling channel. 
+On the board, 16 of such sampling channels are present integrating a wideband \gls{tha} and delay chip.
+The sampling time of the \gls{tha}, derived from the clock coming from the main \gls{pll} on the board, can be delayed individually by programming the delay time of each delay chip respectively (via \gls{fpga}). 
 
 \subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
-The component was chosen due to its high bandwidth (\SI{4}{\GHz}) and low jitter(range of hundreds of femtoseconds). \cite{caselle2013} 
-Therefore it is also a good candidate for the new system.
+The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds) \cite{caselle2013} . 
+Therefore it is also a good candidate for the new \gls{theresa} sampling board.
 
 
-According to the data sheet \cite{hmc5640}, the component shows the characteristics listed in \autoref{tab:hmc5640}.
-These input specifications are important for later connection with the delay chip.
+The main features of the \gls{tha} are listed in \autoref{tab:hmc5640}.
+These input specifications are important for the later interface with the \gls{adc} with the delay chip.
 Switching characteristics are important for estimation of the maximal sample frequency possible and overall performance of the system.
 \begin{table}[tbh]
 	\caption[HMC5640 Characteristics]{Specifications of the HMC5640 \gls{tha}}
@@ -211,13 +213,15 @@ Switching characteristics are important for estimation of the maximal sample fre
 	\end{minipage}
 \end{table}
 
-As the analog input to the \gls{tha} is single-ended, a \SI{50}{\ohm} termination on the unused input pin has been added, as recommended in the data sheet.\cite{hmc5640}
+The input coming from the power splitter is single-ended.
+However, the analog input of the \gls{tha} is differential, therefore a \SI{50}{\ohm} termination on the unused input pin has been added, as recommended in the data sheet \cite{hmc5640}.
 
 The differential outputs are connected to the corresponding RFMC \gls{lpam} 8x50 connector pins.
-
-At the power pins, decoupling capacitors and a ferrite bead  were placed. The \gls{tha} is a crucial component, as it samples the detector signal, therefore any possible noise should be reduced to a minimum.
-
 The schematics of the \gls{tha} is shown in \autoref{fig:hmc5640}.
+
+At the power pins, decoupling capacitors and a ferrite bead  were placed. The \gls{tha} is a crucial component, as it samples the sensor signal , therefore any possible noise should be reduced to a minimum.
+
+
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/hmc5640}
@@ -225,14 +229,14 @@ The schematics of the \gls{tha} is shown in \autoref{fig:hmc5640}.
 	\label{fig:hmc5640}
 \end{figure}
 \paragraph{Separating Analog and Digital Ground}
-\textbf{TODO:} more explanation?
-
 Digital ground is more noisy than analog ground due to switching of the digital components. 
-Analog components are more susceptible to noise (due to e.g. lower amplitudes) than digital components (as they operate with discrete voltage/thresholds representing ``high'' and ``low'' states) and need a clean ground.
-In a mixed-signal (having both analog and digital signals) \glspl{pcb} analog and digital ground should be therefore well separated.
-For some mixed-signal components, such as \glspl{tha}, where separate analog and digital ground pins are provided, it is however recommended to connect both grounds directly at the component.
+Analog components are more sensitive to noise (due to e.g. lower amplitudes) than digital components\footnote{Digital components work with voltage thresholds, rather than concrete voltage levels.} and need a clean ground.
+In a mixed-signal (having both analog and digital signals) \gls{pcb} analog and digital ground should be therefore well separated.
+For some mixed-signal components, such as \glspl{tha}, where separate analog and digital ground pins are provided.
+However, it is recommended to connect both grounds directly at the component.
 For the \glspl{tha} in this design, this is done by connecting the ground pins via ferrite bead at each \gls{tha} (see \autoref{fig:gnd_agnd}). 
 The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise.
+For every \gls{tha} one ferrite bead is needed, making in total 16 beads
 
 Current through the bead creates a voltage which could potentially lead to electrical breakdown. 
 Two back-to-back diodes \autoref{fig:gnd_agnd}) are placed in parallel in order to limit this voltage to \SIrange{0.6}{0.7}{\volt} (diodes become conducting in this voltage range).
@@ -245,23 +249,23 @@ Two back-to-back diodes \autoref{fig:gnd_agnd}) are placed in parallel in order 
 \end{figure}
 
 \subsubsection*{Delay Chip}
-The delay chips are used to create a delay in the clocking signals which go to the \gls{tha} chip. For the selection of the delay chip, the most important characteristic, apart from jitter, is the delay step size and delay range. 
+The delay chips are used to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
-As indicated in \autoref{ssec:interl_impl}, the step-size of the delay chip must not exceed \SI{25}{\pico \second} to use the technique with \glspl{adc} sampling at \SI{2.5}{\giga \hertz}.
+To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
-With the HMC856 programmable delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
+With the HMC856 delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
 This is much less than  \SI{25}{\pico \second} and thus the chip could be potentially used for the intended purpose.
-However, one drawback is the maximal delay range of \SI{100}{\pico\second}.
-Considering a signal, which is stretched over several nanoseconds, this range limits the possibility to freely chose the overall timing resolution.
-Another problem is the programming interface of the chip, which consists of five differential \gls{cml} inputs.
+However, one drawback is the limited delay range of \SI{100}{\pico\second}.
+Considering a signal, which is stretched over several nanoseconds, this range limits the possibility to sample large time-stretched optical pulses.
+Another challenge, coming from the available number of I/Os, is the programming interface of the chip, which consists of five differential \gls{cml} inputs.
 This means, one chip already takes up 10 pins only for control signals.
 For in total 16 necessary delay chips, this results in 160 pins used only for control of the delay chips.
 This uses up all pins of the \gls{fmc}+ connector (see \autoref{sec:connectors}) available for user-defined purpose. 
 
 A better candidate is the dual channel programmable delay chip NB6L295 from \textit{ON Semiconductor}. 
-This chip provides two separately programmable delay channels. This has the benefit of reducing the total chip count by half, as now two \glspl{tha} can be connected to one delay chip.
-
-The minimal delay step size of \SI{11}{\pico\second} lies under the maximal allowed \SI{25}{\pico \second}. Therefore the chip is suitable for the targeted interleaving method, covering a total delay range from \SI{3.2}{\nano\second} to \SI{8.8}{\nano\second} per delay channel.
+This chip provides two separately programmable delay channels. 
+This reduces the necessary chip count by half and therefore reduces the overall complexity of the \gls{pcb}.
+The minimal delay step size of \SI{11}{\pico\second} lies under the maximal allowed \SI{25}{\pico \second}. Therefore the chip is suitable for the targeted interleaving method, covering a total delay range up to \SI{8.8}{\nano\second} per delay channel.
 
 The chip is programmed via \gls{sdi}, which only requires 4 pins (enable pin, data pin, clock pin, load pin). %TODO maybe explain the pins more, don't know
 Thus, the total number of digital control pins used by the delay chips is $4\cdot8 = 32$, which is a significant reduction compared to the 160 control pins needed by the HMC856 chips. 
@@ -988,54 +992,86 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 
 
 \subsection{Component Placement and Routing}
-During component placement and routing, several rules need to be followed in order to guarantee proper signal propagation and signal integrity.
-\paragraph{Component placement}
-\begin{itemize}
-	\item The board geometry, or board outline, need to match the readout card, i.e. the connectors need to be placed exactly to match their counterpart on the board
-	\item Analog and digital components need to be separated. In order to accomplish this, the board is divided into two parts: the top eight layers are assigned to carry digital signals and ground. The other half of the layers is dedicated to analog components.
-	\item Layers carrying signals are ``sandwiched'' between two ground layers. This is important for differential pairs, as they should GND right below/above, because this serves as a return path. Furthermore, the ground layers serve as shielding from noise.
-	\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching events may introduce noise on the power plane. 
-	\item Components, especially sensitive ones, have to be placed in dedicated ``islands'' .
-	\item High-frequency components need to be placed first. This is done on order to minimize the routing length of the \gls{rf} traces.
-	\item Stitching vias are used to shield the sensitive \glspl{ic} as much as possible from \gls{emi} (see \autoref{fig:stitch} for an example).
-	\item Decoupling capacitors are placed in such way, that the large capacitor is connected to the power plane of the external power supply or voltage regulator. The filtered voltage level after the capacitor is propagated to a power plane located on an inner layer. The smaller bypass capacitor is connected to this layer by a via and then to the power supply pin of the respective chip. The small capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
-	\item \glspl{tha} have been placed on the edge.
-	\item Delay chips have been arranged evenly so no further delay is introduced due to misplaced components.
-	\item Fanout buffers have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal.
-	\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to \glspl{pll}.
-	\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.	
-\end{itemize}
+For the placement and routing of the components many steps need to be considered.
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/tha_pcb}
-	\caption[Stitching vias]{Example for stitching vias at the \gls{tha}. An area is filled up with (blind) vias connected to analog or digital ground. This way, they protect the trace or component from external (and internal) noise.}
-	\label{fig:stitch}
-\end{figure}
+At the beginning, the separation of the analog and digital grounds has to be taken care of. 
+Due to the complexity of the board, the respective grounds need to cover the whole plane. 
+Therefore, in order to guarantee a full separation without any interference between the two parts, the \gls{pcb} was split into two parts.
+The topside part is dedicated to the digital components and the routing of digital signal. 
+These layers cover the clocking distribution as well as the slow control signal paths leading from the \gls{fpga} to the respective components.
+The bottomside part of the \gls{pcb} is dedicated to the analog components and integrates the analog signal paths coming from the \glspl{tha}.
+Closely linked to the structuring of the overall \gls{pcb} is the number of stacked-up metal layers used.
+In order to integrate all necessary signals and power planes, 16 layers in total are used.
+The topside 8 layers are therefore used for the digital part, the other 8 for the analog.
+For shielding purposes and to guarantee a small as possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two griund layers.
+Some signals need to be routed from top layer to bottem and vice versa by through vias. 
+In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground) plane has to be ensured.
+At some point, the analog and digital grounds need to be connected together. 
+As mentioned in the section about the schematic capture, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds. 
+\gls{rf} filtering at the \gls{tha} is placed in the same manner, in order to mitigate any noise which could interfere with the sensitive analog signal.
 
-
-\paragraph{Routing}
-
-During routing, take care of the high frequency, sensitive signals first. 
-This guarantees on the one hand the shortest possible connection for these signals. 
-On the other hand this defines the routing for the slower, less critical signals. 
-In order to minimize cross-talk, these signals need to be routed around the high-frequency lines and must not cross these (in the layer directly above or below).
-
-Some pins form a ``group'', e.g. clock signals from the fanout to the delay chips. 
-Trace length of the same group need to be matched as close as possible to reduce any skew between signals. 
-
-
-\begin{itemize}
-	\item Keep routes confined to the section they are assigned to, i.e. digital traces have to be in digital.
-	\item Connectors need to be placed exactly to match the connectors on the board. The connectors therefore define the geometry of the board in a large way.
-\end{itemize}
-
-
-
+Sensitive, i.e. analog components, should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
+Also the transmission lines carrying sensitive analog signals should be routed first, in order to define the structure of the overall board. 
+These transmission lines should by all means be separated from digital signal paths as much as possible in order to reduce cross-talk between the lines. 
+Routing the transmission lines should be done with time skew control in mind. 
+This is especially necessary for the outputs leading from \glspl{tha} to the RFMC connector. 
+Due to the asymmetric position of the connector, when connecting via direct line, signal paths from the respective \glspl{tha} have a different length depending on the \gls{tha} position. 
+This would introduce a significant time skew between the lines.
+Therefore, to account for this problem, signal paths coming from the closest \glspl{tha} need to be made longer.
+This is achieved by routing the the traces in patterns called ``accordions'', which allow for prolonging the trace length in a compact way.
+An example for such accordions is shown in \autoref{fig:accordion}.
+To achieve high signal integrity, ``via-fences'' are placed next to the traces carrying analog signals. 
+These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation, in order to shield, or isolate, the traces from surrounding components and from other traces. 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/accordion}
 	\caption[Trace accordions]{Example for trace accordions which are used to enlarge the trace length when little space is available}
 	\label{fig:accordion}
 \end{figure}
+
+Slow control signal paths are routed afterwards, avoiding crossing the area of the analog signal paths.
+
+Component placement:
+\begin{itemize}
+	\item Track-and-Hold -> stitching vias for shielding
+	\item Delay Chips 
+	\item Clock distribution
+	\item Power distribution 
+\end{itemize}
+
+
+
+ \begin{figure}[tbh]
+ 	\centering
+ 	\includegraphics[width = \textwidth]{chap/04-work/img/tha_pcb}
+ 	\caption[Stitching vias]{Example for stitching vias at the \gls{tha}. An area is filled up with (blind) vias connected to analog or digital ground. This way, they protect the trace or component from external (and internal) noise.}
+ 	\label{fig:stitch}
+ \end{figure}
+
+%
+%Filtering components need to be considered as well.
+%To minimize \gls{emi} on the power supply rails, coming from the component noise on the \gls{fpga}, appropriate filters needs to be placed at the power supplies.
+%In order to guarantee stable voltage levels at the power supply pins decoupling/bypassing capacitors need to be placed next to the components. 
+%These components need to be placed as close as possible to the power supply pins of the respective components, in order to minimize trace length and therefore parasitic inductance.
+%During component placement and routing, several rules need to be followed in order to guarantee proper signal propagation and signal integrity.
+%\paragraph{Component placement}
+%\begin{itemize}
+%	\item The board geometry, or board outline, need to match the readout card, i.e. the connectors need to be placed exactly to match their counterpart on the board
+%	\item Analog and digital components need to be separated. In order to accomplish this, the board is divided into two parts: the top eight layers are assigned to carry digital signals and ground. The other half of the layers is dedicated to analog components.
+%	\item Layers carrying signals are ``sandwiched'' between two ground layers. This is important for differential pairs, as they should GND right below/above, because this serves as a return path. Furthermore, the ground layers serve as shielding from noise.
+%	\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching events may introduce noise on the power plane. 
+%	\item Components, especially sensitive ones, have to be placed in dedicated ``islands'' .
+%	\item High-frequency components need to be placed first. This is done on order to minimize the routing length of the \gls{rf} traces.
+%	\item Stitching vias are used to shield the sensitive \glspl{ic} as much as possible from \gls{emi} (see \autoref{fig:stitch} for an example).
+%	\item Decoupling capacitors are placed in such way, that the large capacitor is connected to the power plane of the external power supply or voltage regulator. The filtered voltage level after the capacitor is propagated to a power plane located on an inner layer. The smaller bypass capacitor is connected to this layer by a via and then to the power supply pin of the respective chip. The small capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
+%	\item \glspl{tha} have been placed on the edge.
+%	\item Delay chips have been arranged evenly so no further delay is introduced due to misplaced components.
+%	\item Fanout buffers have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal.
+%	\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to \glspl{pll}.
+%	\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.	
+%\end{itemize}
+
+
+
+
 

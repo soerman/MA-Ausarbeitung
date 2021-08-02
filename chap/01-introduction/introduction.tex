@@ -184,11 +184,11 @@ Methods for analyzing the longitudinal profile of electron bunches are based on 
 Two most prominent methods are briefly described.
 \subsubsection*{Scanning-Type Electro-Optic Sampling}
 The scanning-type electro-optic sampling (EOS) samples one point at the time of the \gls{thz} pulse, emitted e.g. from an electron bunch, at each acquisition, hence the naming of this method.
-%todo what is that, one sentence
-A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect. The \gls{thz} pulse causes a time dependent birefringence in the crystal.
+
+A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect the \gls{thz} pulse causes a time dependent birefringence in the crystal.
 This modulates the polarization of the laser pulse.
 
-To sample the pulse, the delay between the laser and the THz pulse is varied.
+To sample the pulse, the delay between the laser and the \gls{thz} pulse is varied.
 To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. quarter-wave plates (QWP) and Wollaston prism (WP) (as shown in \autoref{fig:scan_eo}).
 A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
@@ -246,7 +246,7 @@ Therefore, an open question is whether measuring each \gls{thz} pulse using the 
 	\item Association with the new \gls{fpga}-based system, i.e. \gls{theresa}
 	\item Finding adequate feedback, programmed in the FPGA
 \end{itemize}
-would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}). 
+would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}) \cite{bielwaski}. 
 
 \subsection*{Design Requirements for THERESA}
 The requirements of the \gls{thz} science define the requirements on the newly developed system. 
