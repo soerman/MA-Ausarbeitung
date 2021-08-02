@@ -439,7 +439,7 @@ The loop filter is therefore the key component to
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll_block}
+	\includegraphics[width = \textwidth]{chap/04-work/img/pllBlock.tikz}
 	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
 	\label{fig:pll_block}
 \end{figure}
@@ -471,32 +471,31 @@ The filters are implemented as second order filters, note that PLL2 has already 
 	\centering
 	\begin{tabularx}{\textwidth}{Xl}
 		\toprule
-		\textbf{Parameter}                                 & \textbf{Value}           \\ \midrule
-		\textbf{PLL1 parameters}                           &                          \\
-		VCO Gain                                           & \SI{0.15}{\MHz\per\volt} \\
-		Loop Bandwidth                                     & \SI{0.2578}{\kHz}        \\
-		Phase Margin                                       & \ang{70}                 \\
-		Effective Charge Pump Gain                         & \SI{0.4}{\milli\ampere}  \\
-		Phase Detector Frequency                           & \SI{25}{\MHz}            \\
-		VCO Frequency                                      & \SI{200}{\MHz}           \\
+		\textbf{Parameter}                                                        & \textbf{Value}           \\ \midrule
+		                            \multicolumn{2}{c}{\textbf{PLL1 parameters}}                             \\
+		VCO Gain                                                                  & \SI{0.15}{\MHz\per\volt} \\
+		Loop Bandwidth                                                            & \SI{0.2578}{\kHz}        \\
+		Phase Margin                                                              & \ang{70}                 \\
+		Effective Charge Pump Gain                                                & \SI{0.4}{\milli\ampere}  \\
+		Phase Detector Frequency                                                  & \SI{25}{\MHz}            \\
+		VCO Frequency                                                             & \SI{200}{\MHz}           \\
+		                    \multicolumn{2}{c}{\textbf{Loop filter components for PLL1}}                     \\
+		$C_{1}$                                                                   & \SI{39}{\nano\farad}     \\
+		$C_{2}$                                                                   & \SI{1800}{\nano\farad}   \\
+		$R_{2}$                                                                   & \SI{2.2}{\kilo\ohm}      \\
 		[0.3cm]
-		\textbf{Loop filter components for PLL1} &                          \\
-		$C_{1}$                                            & \SI{39}{\nano\farad}     \\
-		$C_{2}$                                            & \SI{1800}{\nano\farad}   \\
-		$R_{2}$                                            & \SI{2.2}{\kilo\ohm}      \\
+	    \multicolumn{2}{c}{\textbf{PLL2 parameters}}                   \\
+		VCO Gain                                                                  & \SI{30}{\MHz\per\volt}   \\
+		Loop Bandwidth                                                            & \SI{390.9624}{\kHz}      \\
+		Phase Margin                                                              & \ang{70}                 \\
+		Effective Charge Pump Gain                                                & \SI{1.6}{\milli\ampere}  \\
+		Phase Detector Frequency                                                  & \SI{50}{\MHz}            \\
+		VCO Frequency                                                             & \SI{3000}{\MHz}          \\
 		[0.3cm]
-		\textbf{PLL2 parameters}                 & \textbf{Value}           \\
-		VCO Gain                                           & \SI{30}{\MHz\per\volt}   \\
-		Loop Bandwidth                                     & \SI{390.9624}{\kHz}      \\
-		Phase Margin                                       & \ang{70}                 \\
-		Effective Charge Pump Gain                         & \SI{1.6}{\milli\ampere}  \\
-		Phase Detector Frequency                           & \SI{50}{\MHz}            \\
-		VCO Frequency                                      & \SI{3000}{\MHz}          \\
-		[0.3cm]
-		\textbf{Loop filter components for PLL2} &                          \\
-		$C_{1}$                                            & \SI{22}{\pico\farad}     \\
-		$C_{2}$                                            & \SI{2.2}{\nano\farad}    \\
-		$R_{2}$                                            & \SI{3.3}{\kilo\ohm}      \\ \bottomrule
+	    \multicolumn{2}{c}{\textbf{Loop filter components for PLL2}}   \\
+		$C_{1}$                                                                   & \SI{22}{\pico\farad}     \\
+		$C_{2}$                                                                   & \SI{2.2}{\nano\farad}    \\
+		$R_{2}$                                                                   & \SI{3.3}{\kilo\ohm}      \\ \bottomrule
 	\end{tabularx}
 \end{table}
 

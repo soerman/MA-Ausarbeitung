@@ -1,0 +1,44 @@
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
+\tikzset{amp/.style = {regular polygon, regular polygon sides=3,inner sep=0.1mm,outer sep=0,
+		draw, fill=white,
+		shape border rotate=-90}}
+\begin{tikzpicture}
+	\node[draw,rectangle,minimum width=1.5cm,minimum height=1cm,align=center,label={[align=center]below:Terahertz\\detector},label={[]above:}] (d) at (0.5,0) {};
+	\draw (0.5,-0.35) to [/tikz/circuitikz/bipoles/length=1cm,full photodiode] (0.5,0.35);
+	\node[draw,amp,minimum height=0cm,align=center,label={[align=center,yshift=-0.4cm]below:Wideband\\low noise\\amplifier},label={[]above:}] (lna) at (3,0) {LNA};
+	\node[draw,rectangle,minimum width=1cm,minimum height=3cm,align=center,label={[align=center]below:Wideband\\power\\splitter},label={[]above:}] (ps) at (6,0) {$1:4$};
+	\node[draw,rectangle,minimum width=1cm,minimum height=3cm,align=center,label={[align=center]below:Pulse\\sampling\\board},label={[]above:}] (psb) at (8,0) {\rotatebox{90}{T/H - ADC}};
+	\node[draw,rectangle,minimum width=4cm,minimum height=3cm,align=center,label={[align=center]below:High throughput\\read-out board},label={[]above:}] (rb) at (11.5,0) {};
+	\node[draw,fill=darkgray,rectangle,minimum width=1.5cm,minimum height=1.5cm,align=center,label={[align=center]below:},label={[]above:DMA/PCIe},text=white] (fpga) at (11.5,0) {FPGA};
+	\node[draw,rectangle,minimum width=2cm,minimum height=1cm,align=center,label={[align=center]above:Memory}] (ddr) at (11.5,3) {DDR3};
+	
+	\draw[-{Latex[length=3mm]},decorate,decoration={coil,aspect=0},red!80!black,text=black] (d)+(-2.5,0) -- node[pos=0.5,anchor=south,align=center,yshift=0.2cm] {Coherent\\THz\\radiation} (d);
+	\draw[-{Latex[length=3mm]}] (d) -- (lna);
+	\draw[-{Latex[length=3mm]}] (lna) -- (ps);
+	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,0.25)$) --($(psb.west)+(0,0.25)$);
+	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,-0.25)$) --($(psb.west)+(0,-0.25)$);
+	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,0.75)$) --($(psb.west)+(0,0.75)$);
+	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,-0.75)$) --($(psb.west)+(0,-0.75)$);
+	
+	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,0.25)$) --($(rb.west)+(0,0.25)$);
+	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,-0.25)$) --($(rb.west)+(0,-0.25)$);
+	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,0.75)$) --($(rb.west)+(0,0.75)$);
+	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,-0.75)$) --($(rb.west)+(0,-0.75)$);
+	\draw[-{Latex[length=3mm]}] ($(rb.west)+(0,-1.25)$) --($(psb.east)+(0,-1.25)$);
+	
+	\draw[-{Latex[length=3mm]}] (rb.east) -- node[pos=0.5,anchor=south,align=center,yshift=0.2] {PC/DAQ} +(2,0);
+	
+	\draw[-{Latex[length=3mm]}] ($(ddr.south)+(0.5,0)$) -- +(0,-1);
+	\draw[{Latex[length=3mm]}-] ($(ddr.south)+(-0.5,0)$) -- +(0,-1);
+	
+	\draw [decorate,decoration={brace,amplitude=10pt}] (6.8,-3) -- (2.2,-3) node [black,midway,yshift=-0.8cm] {Analog blocks};
+	
+	% \draw[-{Latex[length=3mm]}] (osc) -- node[pos=0.5,anchor=south] {$f_\text{osc}$} (r);
+	% \draw[-{Latex[length=3mm]}] (r) -- node[pos=0.5,anchor=south] {$f_\text{pd}$} ($(kpd.west)+(0,-0.5)$);
+	% \draw[-{Latex[length=3mm]}] ($(kpd.east)+(0,-0.5)$) --  (z);
+	% \draw[-{Latex[length=3mm]}] (z) -- (vco);
+	% \draw[-{Latex[length=3mm]}] (vco) -- node[pos=0.75,anchor=south] {$f_\text{vco}$} +(2,0);
+	% \draw[-{Latex[length=3mm]}] (vco.east)+(0.5,0) node[fill,circle,inner sep=0,minimum size=0.2cm] {} |-  (n);
+	% \draw[-{Latex[length=3mm]}] (n) -| node[pos=0.8,anchor=east] {$f_\text{N}$} ($(kpd.west)+(-0.5,+0.5)$) --($(kpd.west)+(0,+0.5)$) ;
+\end{tikzpicture}

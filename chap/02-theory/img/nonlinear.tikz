@@ -50,9 +50,9 @@
 
 %points	
 	\draw (0,0) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
-	\draw (0.0625,0.125) node[circle, fill = black, inner sep=0pt,  minimum size = 4pt] {};
+	\draw (0.15125,0.125) node[circle, fill = black, inner sep=0pt,  minimum size = 4pt] {};
 	\draw (0.32,0.25) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
-	\draw (0.495,0.375) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
+	\draw (0.51,0.375) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
 	%\draw (0.59,0.5) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
 	\draw (0.655,0.625) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};
 	\draw (0.775,0.75) node[circle, fill = black, inner sep=0pt, minimum size = 4pt] {};

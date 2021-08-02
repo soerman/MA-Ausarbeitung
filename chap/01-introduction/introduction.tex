@@ -1,39 +1,51 @@
-In many scientific applications and experiments the observation of non-repetitive, statistically rare occurrences is desired to gather valuable information about the system producing these events.
-As these events occur on a time range of femtoseconds, real-time measurement systems with fine temporal resolution and long record lengths are necessary.
-This imposes high technological challenges on \glspl{adc} and \glspl{daq} in general.
+In many scientific applications and experiments the observation of non-repetitive, statistically rare and very fast occurrences is desired.
+As these effects might especially occur on a time range of femtoseconds, real-time measurement systems with fine temporal resolution and long record lengths are necessary.
+This imposes high technological challenges on the \glspl{adc} and \glspl{daq} in general.
 
 One bottleneck in acquisition of ultra-fast events is the limited performance of the \glspl{adc}. 
 The limitation posed by the converters is the trade-off between the dynamic range (\gls{enob}) and sampling rate of the converters.
 As the sample rate increases, comparator ambiguity and sampling errors due to clock jitter become the major limitation factors on the overall performance. \cite{Mahjoubfar2017}
 
-A first demonstration of a concept to overcome these limitations was done in 1999 by F. Coppinger, A. S. Bhushan and B. Jalali. The idea is to stretch the signal in time before digitizing it in the converter and in this way relaxing the demands on the \glspl{adc} performance. 
-This time-stretch accomplished by using chirped optical pulses and dispersion in optical fibers. The concept is therefore called ``photonic time-stretch'' and was successfully tested in combination with an \gls{adc}. \cite{ts_adc}
+A first demonstration of a concept to overcome these limitations was presented in 1999 by F. Coppinger, A. S. Bhushan and B. Jalali. 
+The idea is to stretch the analog signal in time before digitizing it in the converter and in this way relax the demands on the \glspl{adc} performance. 
+This time-stretching is accomplished by using chirped optical pulses and dispersion in optical fibers. The concept is therefore called ``photonic time-stretch'' and was successfully tested in combination with a moderate-speed \gls{adc} \cite{ts_adc}.
 
-Since then, the time-stretch method was continuously studied and improved and has found potential usage in many application fields.
-For example in biomedical diagnostics, a first demonstration of an artificial intelligence facilitated high-speed phase microscope has been done. It uses the time-stretch quantitative phase imaging (TS-QPI), a technique based on the time-stretch concept which enables simultaneous measurement of phase and spatial intensity profiles. This allows label-free classification of cells essential to cancer diagnostics and drug development. 
+Since then, the time-stretch method was continuously improved and has found usage in many application fields.
+For example in biomedical diagnostics, a first demonstration of an artificial intelligence facilitated high-speed phase microscope has been done. 
+It uses the time-stretch quantitative phase imaging (TS-QPI), a technique based on the time-stretch concept which enables simultaneous measurement of phase and spatial intensity profiles. This allows label-free classification of cells for cancer diagnostics and drug development. 
 
-The time-stretch concept is also very interesting for particle accelerator applications.
-Relativistic electron bunches interact with their own radiation which leads to spatial microstructures inside of the bunches, also called micro-bunching instabilities. They are a source of intense pulses of \gls{thz} radiation (\gls{csr}) and therefore an important field of study. A first demonstration of direct observation of these instabilities was done at the synchrotron facility SOLEIL\footnote{Source optimisée de lumière d’énergie intermédiaire du LURE} using the time-stretch method together with a real-time oscilloscope. \cite{Roussel2015} 
+The time-stretch concept is also very interesting for applications in particle accelerators.
+Relativistic electron bunches interact with their own radiation which leads to spatial microstructures inside of the bunches, also called micro-bunching instabilities. They are a source of intense pulses of \gls{thz} radiation (\gls{csr}) and therefore an important field of study. 
+A first demonstration of direct observation of these instabilities was performed at the synchrotron facility SOLEIL\footnote{Source optimisée de lumière d’énergie intermédiaire du LURE} using a time-stretched signal together with a real-time oscilloscope \cite{Roussel2015}.
 
-While the integration of the time-stretch method in different applications has given the possibility to measure events in femtosecond resolution, one major limitation still exists. Commercially available real-time measurement equipment is limited in memory space, i.e. it is not possible to measure data continuously over a large range of time. This creates a problem in applications where a long observation time is important, e.g. in accelerator application where the turn-by-turn analysis of the electron bunches is desired.
+The usage of the time-stretch method in different applications has demonstrated the advantages to measure events in femtosecond resolution.
+Still, commercially available real-time measurement equipment is limited in memory space. 
+The acquisition time of such oscilloscopes at maximal sampling rate lies in the range of milliseconds at best.
+It is therefore not possible to measure data continuously over a large range of time. 
+This creates a problem in applications where a longer observation time (up to hours) is required, e.g. in accelerator applications where the turn-by-turn analysis of the electron bunches is desired in order to study the evolution of the bunch profiles.
 
-This challenge creates a stimulus for the design of novel ultra-fast acquisition systems based on the photonic time-stretch \gls{adc} principle. Paired with next generation, \gls{fpga}-based systems with integrated high-performance \glspl{adc}, this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
-A photonic time-stretch \gls{daq} consists of a photonic part, which covers the time-stretching method and conversion of photons into electrical values with a photo-detector. Furthermore, such a system has an \gls{adc} (or multiple \glspl{adc}) which converts the analog values into digital signals that can be processed by a computing unit. This unit should have a sufficient memory depth and be capable of high data-throughput.
+This challenge was the motivation to design novel ultra-fast acquisition systems based on the photonic time-stretch \gls{adc} concept. 
+Together with the next generation of \gls{fpga}-based systems with integrated high-performance \glspl{adc}, this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
+A photonic time-stretch \gls{daq} consists of a photonic part, which covers the time-stretching method and conversion of photons into electrical values with a photo-detector. 
+Furthermore, such a system has one or multiple \glspl{adc} that convert the analog values into digital signals.
+The digital signals then are processed in a computing unit and when necessary broadcast to other units, if the system is integrated in a cluster of measurement systems.
+ 
 
+\section{Objective}
 In this thesis, a first demonstrator of a \gls{daq}-system based on the time-stretch concept is developed.
-
-This system should enable high-speed measurement of ultrafast event with a resolution in the range of femtoseconds.
-The input signal should be continuously sampled by high-speed \glspl{adc} with a temporal resolution which can be defined by the user.
-In order to guarantee a large memory depth and high data-throughput, the system should be based on a new generation of \gls{soc} paired with an \gls{fpga}. 
-The \gls{soc} should have high-speed peripherals in order to guarantee high-speed data-throughput. 
+This system, which is called \gls{theresa} system, should enable high-speed measurements of ultrafast events with a resolution in the range of femtoseconds.
+In order to achieve such high resolution, the time-stretch technique should be used in order to stretch the input signal in the range of pico- to nanoseconds.
+The input signal should be continuously sampled by high-speed \glspl{adc} with a temporal resolution which can be flexibly defined by the user.
+To sample the signal, the \glspl{adc} need to have a sampling rate in the order of several GHz.
+As the \glspl{adc} also need a high resolution, i.e. > 10 bits, this leads to the next challenge: Sampling at several GHz with high resolution implies a large amount of data, touching the in the range of Terabits per second.
+In order to guarantee such a high data-throughput, the system should be based on a new generation of \gls{soc} together with a \gls{fpga}. 
+The \gls{soc} should have high-speed peripherals in order to guarantee the continuous high-speed data-throughput. 
 The use with \gls{fpga} should enable flexible adjustment of the system for the user-defined application. 
 
-Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks and be easily integrable into the system of the user application.
-The \gls{daq} should provide the flexibility to be also used without the time-stretch method.
+Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks (e.g. based on \gls{pcie} or GPU clusters) and be easily integrable into the system of the user application.
+However, stand-alone application should also be possible.
+Furthermore, the \gls{daq} should be designed in such way that enables usage also without the time-stretch method.
 One use case of the system (see \autoref{fig:motivation}) is to replace commercial oscilloscopes which are currently used for measurements.
-
-Potential use of the \gls{daq} system in the industry should also be considered.
-
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width=\textwidth]{chap/02-theory/img/motivation}
@@ -43,17 +55,206 @@ Potential use of the \gls{daq} system in the industry should also be considered.
 %todo to tikz
 
 
-The following section covers the general architecture and basic theory of a photonic time-stretch \gls{daq}.
+As the main aspired use case of the newly developed time-stretch \gls{daq} lies in accelerator applications, especially in \gls{thz} science e.g. at the \gls{kara}, an introduction into this topic is given in the following section. 
+After that the general architecture and basic theory of a photonic time-stretch \gls{daq} is explained.
 First, the basic working principle of the time-stretch concept is explained.
 Then, a short overview of the basic \gls{adc}-theory is given, together with the most prominent figures of merit. 
 Knowledge and understanding of \gls{adc}-characteristics is necessary to define and/or evaluate the overall performance of the converter. 
 
-As the main aspired use case of the newly developed time-stretch \gls{daq} lies in accelerator applications, especially in \gls{thz} science e.g. at the \gls{kara}, a brief introduction into this topic is given at the end.
+The overall thesis is structured in the following way: 
+Chapter 2 covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially the \gls{kapture} which is in operation at the \gls{kara}.
+Chapter 3 describes the design steps of the front-end sampling card of \gls{theresa} in detail.
+Chapter 4  covers the description of the back-end readout card, as well as the design of the appropriate software.
+At last, results are concluded and an outlook for the newly developed system is given.
+
+
 
 \glsresetall
 
+\section{Requirements in THz Science}
+Recent years have seen an increasing interest in \gls{thz} radiation, ranging from \SI{3}{\tera \hertz} up to \SI{30}{\tera \hertz}, as it allows non-destructive analysis of organic material. 
+This is possible because unlike e.g. X-Rays, \gls{thz} radiation is not ionizing.
+It is therefore of great interest to use \gls{thz} radiation in such fields like biology, medicine or material science.
+However, until recently the usage of \gls{thz} radiation was very limited, as generation of such radiation has proven to be difficult.
+
+Electron storage rings, also called synchrotrons, are a potential source of \gls{thz}-radiation. 
+The emission of \gls{thz} radiation is closely linked to instabilities of the particles which are accelerated in the synchrotron. 
+These instabilities occur in the range of femtoseconds and cause bursts of \gls{thz} radiation.
+The periodicity of these bursts depends on multiple parameters of the synchrotron and therefore imposes a challenge on controlling the emission of \gls{thz} radiation.
+Studying the dynamics of these instabilities is an important step towards the applicability of synchrotrons as source of \gls{thz} radiation \cite{rota2018}.
+
+
+
+\subsection*{Coherent Synchrotron Radiation}
+In synchrotron radiation facilities \gls{sr} is produced by accelerating relativistic electrons.
+Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using undulators. The latter are used to make the electrons oscillate by generating a periodic magnetic field.  
+\autoref{fig:storageRing} shows the general scheme of an electron storage ring.
+
+Electrons, which are grouped to ``electron bunches'', are generated with an electron gun and accelerated to relativistic speeds\footnote{almost speed of light} by a \gls{linac}.
+After being brought up to their nominal energy\footnote{in a booster}, the bunches are injected into the storage ring.
+In the ring, the path of the electron bunches is altered by bending magnets, guiding them on a circular trajectory.
+Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
+This is done by accelerating them with an electric field inside a \gls{rf} cavity.
+Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014,rota2018}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/synchrotron}
+	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
+	\label{fig:storageRing}
+\end{figure}
+%todo where's the booster?
+
+The range of \gls{sr} reaches from hard X-rays down to the infrared region of the electromagnetic spectrum (see \autoref{fig:spectrum}). \gls{sr} shows properties like high intensity, high collimation, polarisation and generation in pulses of well-defined.
+Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
+%todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
+	\caption{Electromagnetic spectrum} %todo of what?
+	\label{fig:spectrum}
+\end{figure}
+
+
+\paragraph{Karlsruhe Research Accelerator}
+At the synchrotron light source \gls{kara}, the possibility to utilize the synchrotron as a source of \gls{thz} is actively researched. 
+The photonic time-stretch \gls{daq}, which is developed in this thesis, should also be integrated into the beam diagnostics system at \gls{kara}. 
+Therefore, a short overview of some parameters of this facility is given.
+
+\gls{kara} is located at the \gls{kit} and is operated by the Institute of Beam Physics and Technology (IBPT). 
+The storage ring can be filled up with up to 184 electron bunches with a distance of \SI{2}{\nano\second} ($\eqdev$\SI{500}{\mega\hertz}) between two adjacent bunches.
+The main accelerator parameters are listed in \autoref{tab:kara}. 
+
+\begin{table}[tbh]
+	\caption{Some KARA parameters \cite{rota2018}}
+	\label{tab:kara}
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Parameter}                  & \textbf{Value}                \\ \midrule
+		Beam energy                         & \SI{2.5}{\giga \electronvolt} \\
+		Circumference                       & \SI{110}{\meter}              \\
+		Revolution Frequency (one electron) & \SI{2.7}{\mega \hertz}        \\
+		\multicolumn{2}{c}{\textbf{Minimum bunch spacing}}              \\
+		\quad multi-bunch                   & \SI{2}{\nano \second}         \\
+		\quad single-bunch                  & \SI{368}{\nano \second}       \\
+		\multicolumn{2}{c}{\textbf{Bunch length}}                   \\
+		\quad normal operation              & \SI{45}{\pico \second}        \\
+		\quad short bunch                   & \SI{2}{\pico \second}         \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+One scientific focus at \gls{kara} lies in the study of so-called  ``michro-bunching instabilities'' which are described in the following.
+
+\subsubsection*{Micro-Bunching Instabilities}
+Increasing demands in current and future accelerators applications call for higher brilliance of the emitted radiation.
+%todo define brilliance, flux, emittance
+This is achieved by shortening the electron bunches. 
+As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr} the spectrum of which spans from \SI{100}{\GHz} up to THz.
+The emission
+Due to this \gls{csr} the bunches interact with their own radiation (see \autoref{fig:microBunch}).
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/02-theory/img/csr2.png}
+	\caption[Incoherent SR and CSR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
+	\label{fig:csr}
+\end{figure}
+%todo to tikz
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/microbunching}
+	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
+	\label{fig:microBunch}
+\end{figure}
+This introduces complex dynamics, as the electrons interact with their own radiation.
+This results in the so called micro-bunching instability, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
+These instabilities occur in bursts and are hard to control, as they depend from a number of system parameters.
+This imposes on one side a great limitation to the stable operation of the overall system at high current density/short bunch length mode.
+On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
+Such applications however require a stable power of the radiation. 
+Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} for user-applications. 
+A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
+In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
+
+
+
+\subsection*{Electro-Optic Techniques for Longitudinal Bunch Profile Diagnostics}
+Methods for analyzing the longitudinal profile of electron bunches are based on a similar, if not the same, electro-optical concept as the time-stretch method. 
+Two most prominent methods are briefly described.
+\subsubsection*{Scanning-Type Electro-Optic Sampling}
+The scanning-type electro-optic sampling (EOS) samples one point at the time of the \gls{thz} pulse, emitted e.g. from an electron bunch, at each acquisition, hence the naming of this method.
+%todo what is that, one sentence
+A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect. The \gls{thz} pulse causes a time dependent birefringence in the crystal.
+This modulates the polarization of the laser pulse.
+
+To sample the pulse, the delay between the laser and the THz pulse is varied.
+To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. quarter-wave plates (QWP) and Wollaston prism (WP) (as shown in \autoref{fig:scan_eo}).
+A general scheme of the system is shown in \autoref{fig:scan_eo}.
+For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
+	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
+	\label{fig:scan_eo}
+\end{figure}
+
+\subsubsection*{Spectrally Resolved Electro-Optic Detection}
+In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique.
+The short laser pulse is first stretched to a duration similar to the \gls{thz} pulse in a dispersive material (stretcher).
+In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
+Together with the \gls{thz} pulse, the laser pulse propagates in a \gls{eo} crystal.
+Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum.
+The polarization state of the pulse is converted into an amplitude/intensity modulation.
+This is done with a series of quarter-wave plate (QWP), half-wave plate (HWP) and a polarizer (P) (as shown in \autoref{fig:spectral_eo}).
+To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
+A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
+	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
+	\label{fig:spectral_eo}
+\end{figure}
+
+The temporal resolution of this method is limited due to the finite chirp rate
+\begin{equation}
+	\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
+\end{equation}
+
+The resolution $T_{\text{min}}$ is determined as
+\begin{equation}
+	T_{\text{min}} = \sqrt{T_0 T_c}
+\end{equation}
+with the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$.
+
+
+\subsection*{Control of Micro-Bunching Instabilities}
+The ULTRASYNC\footnote{Exploration et contrôle ULTRArapide de la dynamique des paquets d'électrons dans les sources de lumière SYNChrotron} project, funded by ANR-DFG\footnote{Agence Nationale de la Recherche (ANR), Deutsche Forschungsgemeinschaft (DFG)}, has as objective the ultrafast study and control of electron bunches in synchrotron light sources.
+
+There is the question of control (i.e., suppression) of the bursts of \gls{thz} radiation occuring during the micro-bunching instability. 
+The goal is to obtain a high power and stable coherent emission. 
+The current experimental setup uses a relatively simple feedback loop:
+\begin{itemize}
+	\item A bolometer which produces the input signal for the feedback loop.
+	\item A low-cost FPGA (Red Pitaya) that controls the the accelerating voltage of the synchrotron based on the input
+\end{itemize}
+However, there are limitations in the controllable bunch charge in the accelerator this feedback loop can handle (around \SI{10}{\milli \ampere}). 
+Therefore, an open question is whether measuring each \gls{thz} pulse using the setup
+\begin{itemize}
+	\item Electro-Optical sampling and time-stretching
+	\item Association with the new \gls{fpga}-based system, i.e. \gls{theresa}
+	\item Finding adequate feedback, programmed in the FPGA
+\end{itemize}
+would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}). 
+
+\subsection*{Design Requirements for THERESA}
+The requirements of the \gls{thz} science define the requirements on the newly developed system. 
+It should be able to acquire fast events over a long period of time, allowing to study the evolution of the electron bunch dynamics. 
+Therefore, a high temporal resolution is required, as well as high memory depth and/or high-speed connection in order to send the data to a data processing and storage system.  
+
 \section{Photonic Time-Stretch Method}
-The working principle of the optic time-stretch technique can be described in three steps (see \autoref{fig:eo_ts}).
+The working principle of the optical time-stretch technique can be described in three steps (see \autoref{fig:eo_ts}).
 
 First, a short laser pulse (duration typically hundreds of femtoseconds) propagates in a dispersive medium, e.g. an optical fiber of length $L_1$ (see \autoref{fig:eo_ts}).
 With the optical bandwidth of the laser pulse $\Delta \lambda$ and the dispersion parameter $D_1$ of the fiber this results in a chirped laser pulse of the duration
@@ -80,8 +281,8 @@ With \autoref{eq:ts} the stretching factor for this set-up is $M \approx 200$. T
 	\caption{Working principle of the electro-optical time-stretch technique \cite{roussel2014}}
 	\label{fig:eo_ts}
 \end{figure}
-%todo at least re-add labels in the figure with tikz, or they are too small
 
+\paragraph{Photodetector}
 In order to convert the time-stretched optical signal into an electrical value a photodetector, or photodiode, is needed.
 A basic photodiode is a diode, which is operated in reverse bias, meaning the p-side is connected to the negative terminal and the n-side to the positive terminal of the power supply.
 This enlarges the depletion region of the p/n-junction (the depletion region contains only a very small amount of free charge carriers). 
@@ -141,6 +342,7 @@ As conclusion, the upper frequency limitation is not determined by the \gls{adc}
 	\caption[SHA timing example]{Example for appropriate sampling timing when using Sample-And-Hold-Amplifier. The sample points of the \gls{adc} should be inside the period, where the \gls{sha} holds the input value.}
 	\label{fig:sha_timing}
 \end{figure}
+\paragraph{Track-And-Hold Amplifier}
 Apart from the \glspl{sha} there also exists the so called \gls{tha}.
 Though the names are often used interchangeably, there exists one fundamental difference between a \gls{sha} and a \gls{tha}.
 Strictly speaking, the output of a \gls{sha} is not defined during the sample period. 
@@ -161,11 +363,11 @@ This process is quicker, when the output voltage is already in the range of the 
 	\label{fig:tha}
 \end{figure}
 
-\subsection*{Characteristics of Analog-To-Digital-Converters} 
+\subsection{Characteristics of Analog-To-Digital-Converters}\label{ssec:adc_charac}
 For an ideal converter, the number of bits and the sampling rate would be sufficient to fully characterize its performance.
 Real \glspl{adc} however differ from the ideal behavior by introducing static and dynamic imperfections.
 Different applications have different requirements, which leads to a number of specifications.
-These can be divided into the following categories \cite{Lundberg}:
+These can be divided into the categories according to \cite{Lundberg}:
 \begin{itemize}[noitemsep]
 	\item Quantization Noise
 	\item Static parameters
@@ -176,7 +378,7 @@ This section provides an overview of these figures of merit.
 Which of them are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
 
 \paragraph{Quantization Noise}\label{par:quant_noise}
-Even in an ideal $N$-bit converter there will be errors during the quantization, which behave like noise.
+Even an ideal $N$-bit converter has be errors because of the quantization process, which behave like noise.
 The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide and centered around a code center (see \autoref{fig:idealADC}) \cite{Lundberg}.
 The input voltage is assigned to the word of the nearest code center.
 This means that there will always be a difference between the corresponding voltage of the respective digital code $x_q(t)$ and the actual analog input voltage  $x(t)$.
@@ -207,7 +409,7 @@ The function \autoref{eq:qe_saw} is plotted in \autoref{fig:qe_m}.
 	\label{fig:eq}
 \end{figure}
 
-The power of this quantization noise can be calculated as the mean-square $e_{\text{rms}}^2$of $e(t)$ \cite{walt}:
+The power of this quantization noise can be calculated as the mean-square $e_{\text{rms}}^2$ of $e(t)$ \cite{walt}:
 \begin{equation}
 	P_{QN} = e_{\text{rms}}^{2} = \overline{e^{2}(t)} = \frac{s}{q}\int_{-q/2s}^{+q/2s} (st)^{2} dt = \frac{s^3}{q} \left[ \frac{t^3}{3}\right]_{-\frac{q}{2s}}^{+\frac{q}{2s}} = \frac{q^2}{12}
 \end{equation}
@@ -274,7 +476,7 @@ In order to obtain the offset error $b$, the linear equation
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/adc_offset_gain.tikz}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc_offset_gain.tikz}
 	\caption[Effects of Offset and Fain error in ADC]{Offset and Gain Error in the \gls{adc} characteristic transfer function. The offset error is indicated with the red arrow. The gain error expresses itself via different slope of the real \gls{adc} (dotted) compared to the ideal \gls{adc} (dashed)}
 	\label{fig:offsetErr}
 \end{figure}
@@ -310,7 +512,7 @@ For a real \gls{adc} this is not the case and the \gls{dnl} and \gls{inl} are ca
 
 \paragraph{Frequency-Domain Dynamic Parameters}
 Any real \gls{adc} is subject to noise distortion. 
-\textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. Examples are quantization noise or random fluctuations due to thermal noise. \textit{Distortion} is the term for alteration of the shape of the original signal. As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{nd} %todo not sure if that's the correct definition. definetely cite so here.
+\textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. Examples are quantization noise or random fluctuations due to thermal noise. \textit{Distortion} is the term for alteration of the shape of the original signal. As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{nd}
 
 In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
@@ -320,26 +522,51 @@ In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which i
 \end{itemize}
 
 For quantification of noise and distortion, frequency-domain metrics are used. 
-Therefore the in the following paragraph described figures of merit are also called frequency-domain dynamic parameters. 
+Therefore the figures of merit described in the following paragraph are also called frequency-domain dynamic parameters. 
 These parameters are measured with the help of the \gls{fft} meaning any modern oscilloscope can be used to quickly assess the frequency-domain dynamic performance for a given input at the \gls{adc}.
 As some parameters, such as SFDR (Spurious-Free Dynamic Range), are only defined for one carrier input frequency, several measurements at different input frequencies need to be made in order to fully characterize the \gls{adc}.
 
 In the following, an overview of the metrics for quantification of the noise and distortion of an \gls{adc} is given. 
 
+
+\paragraph{Signal-to-Noise Ratio}
+The \gls{snr} is defined as the ratio of the input signal power to the power of the noise signal. 
+It is expressed in dB and can be calculated using the \gls{rms} value of the signal and noise amplitudes\cite{xilinx_adc}:
+\begin{align}
+	\text{SNR} &= \frac{\text{Power}_\text{Signal}}{\text{Power}_\text{Noise}}\\
+	&= \left( \frac{\text{Amplitude}_\text{Signal,rms}}{\text{Amplitude}_\text{Noise,rms}} \right)^2\\
+	&= 20 \log \left( \frac{V_\text{in,rms}}{V_\text{Q,rms}}\right) 
+\end{align}
+Usually, the \gls{snr} degrades at higher frequencies due to sampling jitter \cite{xilinx_adc}.
+
 \paragraph{Signal-to-Noise-and-Distortion Ratio}
-\textit{\gls{sinad}} (also called SNDR or S/N+D) denotes the ratio between the \gls{rms} of the signal amplitude to the mean value of the Root-Sum-Square (RSS) of all other spectral components, including harmonics, but excluding  DC (\SI{0}{\hertz}). \gls{sinad} is a good indication over the general dynamic performance of the \gls{adc}, as it includes all contributions from noise and distortion.
+\textit{\gls{sinad}} (also called SNDR or S/N+D) denotes the ratio between the \gls{rms} of the signal amplitude to the mean value of the Root-Sum-Square (RSS) of all other spectral components, including harmonics, but excluding  DC (\SI{0}{\hertz}). 
+\gls{sinad} is a good indication over the general dynamic performance of the \gls{adc}, as it includes all contributions from noise and distortion.
+The higher the \gls{sinad} the stronger the input power is differentiated from noise and spurious components. 
+
+\gls{sinad} can be calculated from the average power of the input signal $P_\text{signal}$, noise $P_\text{noise}$ and $P_\text{distortion}$:
+\begin{equation}
+	\text{SINAD} = 10 \log \left( \frac{P_\text{signal}}{P_\text{noise} + P_\text{Distortion}} \right)
+\end{equation}
+It is commonly expressed in dB, \gls{dbc} or \gls{dbfs}.
 
 \paragraph{Effective-Number-Of-Bits}
 The \textit{\gls{enob}} expresses the \gls{sinad} in terms of bits. It can be calculated as
 \begin{equation}
 	\text{ENOB} = \frac{\text{SINAD}-\SI{1.76}{\decibel}}{\SI{6.02}{\decibel}/\text{bit}}. \quad \cite{walt2009}
 \end{equation}
-This is derived from solving the equation of the "ideal \gls{snr}" \autoref{eq:idealSNR} for the number of bits $N$ and substituting \gls{snr} with \gls{sinad}. This however means, that this parameter assumes a full-scale input signal. Expressing the \gls{enob} for a smaller signal amplitude requires measuring the \gls{sinad} at this level and a correction factor. \cite{walt}
+This is derived from solving the equation of the "ideal \gls{snr}" (\autoref{eq:idealSNR}) for the number of bits $N$ and substituting \gls{snr} with \gls{sinad}. This however means, that this parameter assumes a full-scale input signal. Expressing the \gls{enob} for a smaller signal amplitude requires measuring the \gls{sinad} at this level and a correction factor. \cite{walt}
 
 \paragraph{Spurious-Free Dynamic Range}
-\textit{\gls{sfdr}} indicates the dynamic range of the converter, which can be used, before there is interference or distortion from spurious components with the fundamental signal. \cite{Lundberg} The \gls{sfdr} is calculated as the \gls{rms} value of the fundamental signal to the \gls{rms} value of the worst spurious signal, i.e. the highest spur in the spectrum. It is measured over the whole Nyquist-Bandwidth (DC (\SI{0}{\hertz}) to $f_s/2$, $f_s$ being the \gls{adc} sampling rate). The spur may or may not be a harmonic of the fundamental signal. \cite{walt2009} \cite{Lundberg}
+\gls{sfdr} indicates the dynamic range of the converter, which can be used, before there is interference or distortion from spurious components with the fundamental signal \cite{Lundberg}. The \gls{sfdr} is calculated as the \gls{rms} value of the fundamental signal to the \gls{rms} value of the worst spurious signal, i.e. the highest spur in the spectrum. It is measured over the whole Nyquist bandwidth (DC (\SI{0}{\hertz}) to $f_s/2$, $f_s$ being the \gls{adc} sampling rate). The spur may or may not be a harmonic of the fundamental signal. \cite{walt2009} \cite{Lundberg}
 
 The \gls{sfdr} is an important characteristic in the sense, that it indicates the smallest signal which can still be distinguished from a strong interfering signal. \cite{walt2009} 
+
+The \gls{sfdr} in dBc can be calculated as
+\begin{equation}
+	\text{SFDR}_\text{dBc} = 20 \log \left( \frac{\text{Fundamental Amplitude (RMS)}}{\text{Largest Spur Amplitude (RMS)}} \right). \cite{xilinx_adc}
+\end{equation}
+
 
 \autoref{fig:sfdr} illustrates the \gls{sfdr} in terms of \gls{dbfs} and \gls{dbc}.
 
@@ -396,7 +623,7 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/ap_jit}
-	\caption{Placeholder: Effects of aperture jitter and SJNR \cite{Lundberg}}
+	\caption[Aperture jitter and SJNR]{Effects of aperture jitter and SJNR. Left: In time domain, Right: SJNR for different aperture jitter \cite{Lundberg}}
 	\label{fig:ap_jit}
 \end{figure}
 %todo to tikz
@@ -451,198 +678,14 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}
 	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria (see \autoref{fig:alias_f}). \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
 	\label{fig:aliasing}
 \end{figure}
-%todo to tikz
-%todo explain nyquist-bandwidth
 %todo low-pass filter to get B/2<f_s? maybe
 
+\subsection*{Design requirements for THERESA}
+The signals to be detected by the photodetector are expected to be very small. 
+According to \cite{bielwaski}, peak-to-peak amplitudes are in the range of \SIrange{10}{20}{\percent} of the laser pulse shape.
+For a resolution of this small signal of at least 10 \gls{adc} bins, this would require an \gls{enob} of at least 7 bits. 
+Small amplitudes of the signal also imply that the noise and distortion of the data converters should be very low, therefore the \gls{sinad} should be high (at least 60dB according to the ideal ADC SNR equation).  
 
-
-\section{THz Science}
-Recent years have seen an increasing interest in \gls{thz} radiation (ranging from \SI{3}{\tera \hertz} up to \SI{30}{\tera \hertz}), as it allows non-destructive analysis of organic material. 
-This is possible because unlike e.g. X-Rays, \gls{thz} radiation is not ionizing.
-It is therefore of great interest to use \gls{thz} radiation in such fields like biology, medicine or material science.
-However, until recently the usage of \gls{thz} radiation was very limited, as generation of such radiation has proven to be difficult.
-
-Electron storage rings, also called synchrotrons, are studied as a potential source of \gls{thz}-radiation. 
-The emission of \gls{thz} radiation is closely linked to instabilities of the particles which are accelerated in the synchrotron. 
-These instabilities occur in the range of femtoseconds and cause bursts of \gls{thz} radiation.
-The periodicity of these bursts depends on multiple parameters of the synchrotron and therefore imposes a challenge on controlling the emission of \gls{thz} radiation.
-Studying the dynamics of these instabilities is an important step towards the applicability of synchrotrons as source of \gls{thz} radiation. \cite{rota2018}
-
-
-
-\subsection*{Coherent Synchrotron Radiation}
-In synchrotron radiation facilities (like electron storage rings) \gls{sr} is produced by accelerating relativistic electrons.
-Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using undulators. The latter are used to make the electrons oscillate by generating a periodic magnetic field.  
-\autoref{fig:storageRing} shows the general scheme of an electron storage ring.
-
-Electrons, which are grouped to ``electron bunches'', are generated with an electron gun and accelerated to relativistic speeds\footnote{almost speed of light} by a \gls{linac}.
-After being brought up to their nominal energy\footnote{in a booster}, the bunches are injected into the storage ring.
-In the ring, the path of the electron bunches is altered by bending magnets, guiding them on a circular trajectory.
-Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
-This is done by accelerating them with an electric field inside a \gls{rf} cavity.
-Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014} \cite{rota2018}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/synchrotron}
-	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
-	\label{fig:storageRing}
-\end{figure}
-%todo where's the booster?
-
-The range of \gls{sr} reaches from hard X-rays down to the infrared region of the electromagnetic spectrum (see \autoref{fig:spectrum}). In contrast to other sources, it has properties like:
-%todo which sources, convert list to text?
-\begin{itemize}[noitemsep]
-	\item high intensity 
-	\item high collimation
-	\item polarisation
-	\item well-defined timing of pulses
-\end{itemize}
-
-Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
-%todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
-	\caption{Electromagnetic spectrum} %todo of what?
-	\label{fig:spectrum}
-\end{figure}
-
-
-\paragraph{Karlsruhe Research Accelerator}
-At the synchrotron light source \gls{kara}, the possibility to utilize the synchrotron as a source of \gls{thz} is actively researched. The photonic time-stretch \gls{daq}, which is developed in this thesis, should also be integrated into the beam diagnostics system at \gls{kara}. Therefore, a short overview of some parameters of this facility is given.
-
-\begin{itemize}[noitemsep]
-	\item Located at the Karlsruhe Institute of Technology (KIT)
-	\item Up to 184 electron bunches can be filled into the storage ring with a distance of \SI{2}{\nano\second} (\SI{500}{\mega\hertz}) between two adjacent bunches
-	\item Operated by the Institute of Beam Physics and Technology (IBPT)
-	\item Microtron, Booster Synchrotron, and Storage Ring
-\end{itemize}
-
-\begin{table}[tbh]
-	\caption{Some KARA parameters \cite{rota2018}}
-	\label{tab:kara}
-	\centering
-	\begin{tabular}{ll}
-		\toprule
-		\textbf{Parameter}                  & \textbf{Value}                \\ \midrule
-		Beam energy                         & \SI{2.5}{\giga \electronvolt} \\
-		Circumference                       & \SI{110}{\meter}              \\
-		Revolution Frequency (one electron) & \SI{2.7}{\mega \hertz}        \\
-		\multicolumn{2}{c}{\textbf{Minimum bunch spacing}}              \\
-		\quad multi-bunch                   & \SI{2}{\nano \second}         \\
-		\quad single-bunch                  & \SI{368}{\nano \second}       \\
-		\multicolumn{2}{c}{\textbf{Bunch length}}                   \\
-		\quad normal operation              & \SI{45}{\pico \second}        \\
-		\quad short bunch                   & \SI{2}{\pico \second}         \\ \bottomrule
-	\end{tabular}
-\end{table}
-
-
-
-\subsubsection*{Micro-Bunching Instabilities}
-Increasing demands in current and future accelerators applications call for higher brilliance of the emitted radiation.
-%todo define brilliance, flux, emittance
-This is achieved by shortening the electron bunches are shortened. This results in emission of \gls{csr}, shown in \autoref{fig:csr}, at frequencies up to the THz range.
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/csr2.png}
-	\caption[Incoherent SR and CSR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
-	\label{fig:csr}
-\end{figure}
-%todo to tikz
-
-%todo how does coherence relate to the terms mentioned earlier?
-Due to this \gls{csr} the bunches interact with their own radiation (see \autoref{fig:microBunch}).
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/microbunching}
-	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
-	\label{fig:microBunch}
-\end{figure}
-This introduces complex dynamics, as the electrons interact with their own radiation.
-This manifests into the so called micro-bunching instability, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
-These instabilities occur in bursts and are hard to control, as they depend from a number of system parameters.
-This imposes on one side a great limitation to the stable operation of the overall system at high current density/short bunch length mode.
-On the other side, these instabilities themselves emit brilliant \gls{thz} radiation. 
-Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} for user-applications. 
-A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
-In order to make such investigations possible, appropriate beam diagnostic systems are required. 
-
-
-
-\subsection*{Longitudinal Bunch Profile Diagnostics}
-Methods for analyzing the longitudinal profile of electron bunches are based on a similar, if not the same, concept as the time-stretch method. 
-Two most prominent methods are briefly described.
-\subsubsection*{Scanning-Type Electro-Optic Sampling}
-The scanning-type electro-optic sampling (EOS) samples one point of the \gls{thz} pulse, emitted e.g. from an electron bunch, at the time at each acquisition, hence the naming of this method.
-%todo what is that, one sentence
-A short laser pulse (duration typically hundreds of femtoseconds) co-propagates with a THz pulse from \gls{csr} (range of picoseconds) in an \gls{eo} crystal. Due to the Pockels effect. The \gls{thz} pulse causes a time dependent birefringence in the crystal.
-This modulates the polarization of the laser pulse.
-
-To sample the pulse, the delay between the laser and the THz pulse is varied.
-To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. quarter-wave plates (QWP) and Wollaston prism (WP) (as shown in \autoref{fig:scan_eo}).
-A general scheme of the system is shown in \autoref{fig:scan_eo}.
-For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
-	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
-	\label{fig:scan_eo}
-\end{figure}
-
-\subsubsection*{Spectrally Resolved Electro-Optic Detection}
-In contrast to the EOS, single-acquisition is possible with the spectrally resolved electro-optic detection technique.
-The short laser pulse is first stretched to a duration similar to the \gls{thz} pulse in a dispersive material (stretcher).
-In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
-Together with the \gls{thz} pulse, the laser pulse propagates in a \gls{eo} crystal.
-Again, the induced birefringence modulates the laser pulse, not only in time, but also in the optical spectrum.
-The polarization state of the pulse is converted into an amplitude/intensity modulation.
-This is done with a series of quarter-wave plate (QWP), half-wave plate (HWP) and a polarizer (P) (as shown in \autoref{fig:spectral_eo}).
-To retrieve the THz pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
-A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
-
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
-	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
-	\label{fig:spectral_eo}
-\end{figure}
-
-The temporal resolution of this method is limited due to the finite chirp rate
-\begin{equation}
-	\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
-\end{equation}
-
-The resolution $T_{\text{min}}$ is determined as
-\begin{equation}
-	T_{\text{min}} = \sqrt{T_0 T_c}
-\end{equation}
-with the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$.
-
-
-\subsection*{Potential Usage: ANR-DFG ULTRASYNC project?}
-From Serge's email:
-
-For accelerator applications, we have also a project (ANR-DFG ULTRASYNC project) with KARA and SOLEIL.
-There is the question of control (i.e., suppression) of the bursts occuring during the microbunching instability. The objective is to obtain a high power and stable coherent emission (at SOLEIL and KARA). For the moment, the only experimental test has been made using a relatively simple feedback:
-\begin{itemize}
-	\item a bolometer signal as the feedback loop input
-	\item a low-cost FPGA (redpitaya) that sends the feedback on the accelerating voltage
-\end{itemize}
-
-There are limitations in the maximal bunch charge in the accelerator. So an open question is whether measuring each THz pulse using EO sampling + time-stretch may help to solve this open problem. In clear:
-
-\begin{itemize}
-	\item EO sampling + time-stretch as in Eléonore's thesis
-	\item association with the new FPGA-based system
-	\item finding adequate feedback that is programmed in the FPGA
-\end{itemize}
-may solve the problem, and allow the control to succeed at the highest currents in SOLEIL. 
-Target would be ca. 15 mA for 1 bunch (and feedback control presently works to a little more than ca. 10 mA).
 
 
 

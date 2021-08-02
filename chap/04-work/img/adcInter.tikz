@@ -1,0 +1,27 @@
+%needs \usepackage{nicefrac} and circuitikz (compile with "new" texlive version, there was a bug in circuitikz where not all rotary switch anchors were drawn)
+
+% see https://tex.stackexchange.com/questions/222424/circuitikz-dac-and-adc-shapes
+\newcommand{\myADC}[3] % #1 = name, #2=color
+{
+\draw[fill=#2] (#1)  +(-16.5pt,0pt) --+(-6pt,6pt) --+(16.5pt,6pt) --+(16.5pt,-6pt) --+(-6pt,-6pt) --cycle;
+\draw[] (#1) node[yshift=-1,xshift=3]{\tiny #3};
+}
+
+\usetikzlibrary{calc}
+\begin{tikzpicture}
+\draw (1,0) node[anchor=east] {$V_\text{in}$} to[short,o-] (2,0) node[rotary switch ->=3 in 40 wiper 20,anchor=in] (A) {};
+\draw (9,0) node[anchor=west] {$D_\text{out}$} to[short,o-] node[xshift=0.3cm,pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (8,0) node[rotary switch <-=3 in 40 wiper -20,anchor=in,rotate=180] (B) {};
+\draw (A.aout 1)  -- (4,2) node[anchor=south] {$\nicefrac{f_s}{M}$} to[generic,color=white,name=ADC1] (6,2);
+\myADC{ADC1}{blue!20}{$\text{ADC}_1$}
+\draw (6,2) --  node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 3);
+\draw (A.aout 2)  -- (4,1) node[anchor=south] {$\nicefrac{f_s}{M}$} to[generic,color=white,name=ADC1] (6,1);
+\myADC{ADC1}{blue!20}{$\text{ADC}_2$}
+\draw (6,1) -- node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 2);
+\draw (A.aout 3)  -- (4,-1) node[anchor=south] {$\nicefrac{f_s}{M}$} to[generic,color=white,name=ADC1] (6,-1);
+\myADC{ADC1}{blue!20}{$\text{ADC}_M$}
+\draw (6,-1) -- node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 1);
+\node[] at (5,0) {\large \vdots};
+
+\node[rectangle,draw,minimum height=5cm,minimum width=7cm] at (5,0.5) {};
+ \draw[-Latex] (1,2) node[anchor=east] {$f_s$} to[short,o-] (1.5,2);
+\end{tikzpicture}

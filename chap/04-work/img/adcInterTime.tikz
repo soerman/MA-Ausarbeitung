@@ -1,0 +1,7 @@
+\begin{tikztimingtable}
+	$f_s$  &    12{2C} G \\ % ends with edge
+	ADC1  & 2L 8H 8L 6H \\
+	ADC2  & 6L 8H 8L 2H\\
+	ADC3 & 2H 8L 8H 6L \\
+	ADC4 & 6H 8L 8H 2L \\
+\end{tikztimingtable}
