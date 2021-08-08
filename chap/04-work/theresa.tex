@@ -134,6 +134,20 @@ An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 \end{figure}
 
 \paragraph{Analog Signals}
+The 1.85 mm connector is a pin and socket type connector that uses an air dielectric filled interface that assures mode free operation up to 65 GHz. It is also known as the Type V connector. Some manufacturers have demonstrated performance up to 67 GHz. The design has been introduced as an open standard under the IEEE 287 Precision Connector Standards Committee.
+
+
+Due to its high operating frequency range, the 1.85 mm series is considered a mm-Wave RF connector and finds its use in precision instrumentation and other laboratory applications. The 1.85 mm series has compatible interfacing with the 2.4 mm RF connector.
+
+
+The 50-GHz 2.4-mm connector and the 65-GHz 1.85-mm connector interfaces were introduced by Agilent Technologies. Launch of the firm’s coaxial 50-GHz VNA required the development of the 2.4-GHz connector interface in support of millimeter-wave frequencies.
+
+The 1.85-mm V connector was introduced in support of a coaxial 60-GHz VNA by Anritsu/Wiltron Co. Improvements in V connector bead design made it possible for coaxial VNA frequency coverage to rise first to 65 GHz, then to 67 GHz, and then to 70 GHz. A 110-GHz 1-mm connector was introduced by Agilent, followed by a 110-GHz W connector from Anritsu with the introduction of their 110-GHz coaxial VNA. In development of a 70-kHz-to-145-GHz coaxial VNA system, Anritsu has presented a 0.8-mm coaxial connector.
+
+
+
+
+
 The signal from the detector is provided to the \glspl{tha} through \gls{sma}\footnote{Coaxial \gls{rf} connector} \gls{rf} connectors from \textit{molex}, which are mounted at the edge of the board.
 \autoref{fig:sma} shows a 3D model of this connector type. 
 
@@ -236,10 +250,10 @@ For some mixed-signal components, such as \glspl{tha}, where separate analog and
 However, it is recommended to connect both grounds directly at the component.
 For the \glspl{tha} in this design, this is done by connecting the ground pins via ferrite bead at each \gls{tha} (see \autoref{fig:gnd_agnd}). 
 The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise.
-For every \gls{tha} one ferrite bead is needed, making in total 16 beads
+For every \gls{tha} one ferrite bead is needed, making in total 16 beads (see \autoref{fig:gnd_agnd}).
 
-Current through the bead creates a voltage which could potentially lead to electrical breakdown. 
-Two back-to-back diodes \autoref{fig:gnd_agnd}) are placed in parallel in order to limit this voltage to \SIrange{0.6}{0.7}{\volt} (diodes become conducting in this voltage range).
+Protection against a possible high voltage level between analog and digital grounds is implemented by two back-to-back diodes \autoref{fig:gnd_agnd}).
+The diodes should limit this voltage around \SI{0.6}{\volt}.
 
 \begin{figure}[tbh]
 	\centering
@@ -249,7 +263,7 @@ Two back-to-back diodes \autoref{fig:gnd_agnd}) are placed in parallel in order 
 \end{figure}
 
 \subsubsection*{Delay Chip}
-The delay chips are used to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
+The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
 To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
@@ -267,10 +281,10 @@ This chip provides two separately programmable delay channels.
 This reduces the necessary chip count by half and therefore reduces the overall complexity of the \gls{pcb}.
 The minimal delay step size of \SI{11}{\pico\second} lies under the maximal allowed \SI{25}{\pico \second}. Therefore the chip is suitable for the targeted interleaving method, covering a total delay range up to \SI{8.8}{\nano\second} per delay channel.
 
-The chip is programmed via \gls{sdi}, which only requires 4 pins (enable pin, data pin, clock pin, load pin). %TODO maybe explain the pins more, don't know
+The chip is programmed via \gls{sdi}, which only requires 4 pins (enable pin, data pin, clock pin, load pin). 
 Thus, the total number of digital control pins used by the delay chips is $4\cdot8 = 32$, which is a significant reduction compared to the 160 control pins needed by the HMC856 chips. 
 This number can be even more reduced, by propagating the same data, clock and load pins to the chips and providing the enable signal on individual lines to the respective chip (see \autoref{fig:delay_sdi}). 
-In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) are needed in total for programming all delay chips. 
+In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) are necessary in total for programming all delay chips. 
 
 \begin{figure}[tbh]
 	\centering
@@ -292,17 +306,17 @@ The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 
 
 \paragraph{Inputs}
-The inputs of the delay chip are driven by the preceding \gls{pll}, the outputs of which are \gls{lvpecl} drivers.
+The inputs of the delay chip are driven by the preceding low time-skew, low-jitter and high-performance clock distribution , the outputs of which are \gls{lvpecl} drivers.
 According to the data sheet, when driving the inputs with a \gls{lvpecl} driver, the VTx and $\overline{\text{VTx}}$ pins of the delay chip need to be connected to $V_\text{cc} - \SI{2}{\volt}$ (see \autoref{fig:delay_lvpecl}).
 In case of $V_\text{cc}$ = \SI{2.5}{\volt}, this results in a voltage level of VTx = $\overline{\text{VTx}}$ = \SI{0.5}{\volt}.
 
-To avoid using an additional voltage regulator, this voltage level is achieved by using a resistive voltage divider connected to $V_\text{cc}$. 
+This voltage level is achieved by using a resistive voltage divider connected to $V_\text{cc}$. 
 A voltage divider with the resistors $R_1$ and $R_2$ (see \autoref{fig:v_divider}) produces a voltage $V_\text{out}$ which is a fraction of the input voltage $V_\text{in}$.
 $V_\text{out}$ is calculated as
 \begin{equation}\label{eq:vdiv}
-	V_\text{out} = \frac{R_2}{R_1 + R_2} V_\text{in}
+	V_\text{out} = \frac{R_2}{R_1 + R_2} V_\text{in}.
 \end{equation}
-\begin{figure}[tbh]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.3\textwidth]{chap/04-work/img/voltage_divider.pdf}
 	\caption{Schematic of a resistive voltage divider}
@@ -315,7 +329,7 @@ According to \autoref{eq:vdiv} this results in a voltage of
 \end{equation}
 at the VTx and $\overline{\text{VTx}}$ pins.
 Resistor values are chosen high to minimize current flow.
-A \SI{100}{\nano\farad} capacitor is put in parallel for $V_\text{cc}$ decoupling.
+A \SI{100}{\nano\farad} capacitor is put in parallel to stabilize $V_\text{cc}$.
 
 \begin{figure}[tbh]
 	\centering
@@ -334,11 +348,13 @@ A \SI{100}{\nano\farad} capacitor is put in parallel for $V_\text{cc}$ decouplin
 			\toprule
 			\textbf{Parameter} & \textbf{Min} & \textbf{Typ.} & \textbf{Max} & \textbf{Unit}\\
 			\midrule
-			\textbf{Outputs} &&&& \\
+			\multicolumn{5}{c}{\textbf{Outputs}}  \\
 			Output HIGH Voltage & $V_{cc} - 1075$ & $V_{cc} - 950$ & $V_{cc} - 825$ & mV\\
 			Output LOW Voltage & $V_{cc} - 1825$ & $V_{cc} - 1725$ & $V_{cc} - 1625$ & mV\\
+			Output HIGH Voltage ($V_{cc}=\SI{3.3}{\volt}$) & $2225$ & $2350$ & $2475$ & mV\\
+			Output LOW Voltage ($V_{cc}=\SI{3.3}{\volt}$) & $1475$ & $1575$ & $1675$ & mV\\
 			Common mode voltage & -0.1 & 0 & 0.1 & V\\[0.3cm]
-			\textbf{AC Characteristics} &&&&\\
+			\multicolumn{5}{c}{\textbf{AC Characteristics}}  \\
 			Random Clock Jitter \gls{rms}&  & 3 & 10 & ps\\
 			Output Rise/Fall Times (@\SI{50}{\mega \hertz}) & 85 & 120 & 170 & ps\\
 			Serial Clock Input Frequency (50\% Duty Cycle\footnote{Percentage of the ratio of pulse width and total period of the waveform.}) &  &  & 20 & MHz\\
@@ -347,23 +363,22 @@ A \SI{100}{\nano\farad} capacitor is put in parallel for $V_\text{cc}$ decouplin
 		\end{tabularx}
 	\end{minipage}
 \end{table}
-
-According to the data sheet \cite{NB6L295}, the digital control pins need an input HIGH voltage of at least \SI{2}{\volt}.
-Directly connecting to the \gls{fmc}+ connector pins is therefore not possible, as the maximal level on these pins can be \SI{1.8}{\volt}.
-The SN74AVC32T245 bus transceiver from \textit{Texas Instruments} is able to shift signals from one voltage level to another.
-In this design, the bus transceiver is configured to propagate signals from the ``A'' ports (coming from the \gls{fmc}+ connector) to the ``B'' ports (going to the delay chips), shifting the signals from the \SI{1.8}{\volt} of the \gls{fmc}+ connector ($V_\text{ADJ}$) to \SI{2.5}{\volt} (see \autoref{fig:level_trans}).
+According to the data sheet \cite{NB6L295}, the digital control pins need a minimum input HIGH voltage of \SI{2}{\volt}.
+Directly connecting to the \gls{fmc}+ connector pins is therefore not possible, as the maximal level provided by the readout card is smaller than \SI{2}{\volt}.
+The SN74AVC32T245 bus transceiver from \textit{Texas Instruments} (see \autoref{fig:level_trans}) which allows for level shifting from \SI{3.3}{\volt} at the device input to \SI{1.8}{\volt} at the device output.
+In this design, the bus transceiver is configured to propagate signals from the ``A'' ports (coming from the \gls{fmc}+ connector) to the ``B'' ports (going to the delay chips), shifting the signals from the $V_\text{ADJ}$ (\SI{1.8}{\volt}) of the \gls{fmc}+ connector to \SI{2.5}{\volt} (see \autoref{fig:level_trans}).
 Furthermore, resistors are place at the pins to reduce possible voltage overshootings which result from reflections on the line. 
 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/level_trans}
-	\caption[SN74AVC32T245 bus transceiver]{Picture to be replaced. Schematic of the SN74AVC32T245 bus transceiver}
+	\caption[SN74AVC32T245 bus transceiver]{Schematic of the SN74AVC32T245 bus transceiver}
 	\label{fig:level_trans}
 \end{figure}
 
 \paragraph{Outputs}
 The output of the delay chip is using a \gls{lvpecl} signaling interface, which is based on an open-emitter topology (see \autoref{fig:lvpecl}).
-This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} resistors.
+This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} resistors (recommended in the data sheet).
 
 \begin{figure}[tbh]
 	\centering
@@ -400,31 +415,6 @@ This is higher than the maximal input common mode voltage of the \gls{tha}.
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
 
-The LMK04808B low-noise clock jitter cleaner with dual-loop \glspl{pll} from \textit{Texas Instruments} cleans the incoming reference clock provided from the system (e.g. from \gls{kara}) for high temporal accuracy \cite{caselle2013}.
-It is used with an external \gls{vcxo} from \textit{ABRACON}. 
-
-The LMK04808B contains two \glspl{pll} (therefore called ``dual-loop''). 
-The first \gls{pll} is used to clean the jitter from the reference clock. 
-The second is then used to create a higher frequency clocking signal out of the cleaned clock. 
-
-The LMK04808B has only 12 outputs which is not enough for the 16 \glspl{tha} and additional clock signals needed for \gls{fpga}, \glspl{adc} and \gls{dac}. Furthermore, the outputs are divided into six groups à two outputs. 
-Outputs in one group have the same configuration (frequency, phase, \ldots), which means that effectively only six different outputs are available.
-
-Therefore, a low noise clock distribution fan-out buffer, the HMC987LP5E from \textit{Analog Devices}, is used for distributing the clock signal to the delay chips.
-As one fan-out buffer has eight outputs, two chips are needed to cover all 16 channels. These chips get the output clock signal from two pins of the LMK04808B.
-To ensure exactly identical clocking signals, both of the pins are chosen to be in one output group.
-
-One output of the \gls{pll} is propagated to the \gls{fmc}+ connector as reference clock for the \gls{fpga}.
-Up until this part, this clocking distribution architecture is not different from the one on the \gls{kapture} sampling board.
-
-The maximum output frequency of the LMK04808B is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). 
-A second \gls{pll} is therefore needed. 
-As \autoref{fig:clocking} shows, the LMK04808B also provides a clocking signal to other \glspl{pll}, the LMX2594 from \textit{Texas Instruments}.
-This \gls{pll} is able of clocking signal frequencies up to \SI{15}{\giga \hertz}.
-
-Due to the \gls{adc} clocking limitations on the read-out card explained in \autoref{ssec:interl_impl}, two of the \glspl{pll} are needed. 
-The reference clock signal is provided by outputs from different output groups of the LMK04808B. This way, the phase of each reference clock can be programmed individually, which allows to implement the \gls{adc} clocking technique described in \autoref{ssec:interl_impl}.
-
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/pll_tsMode}
@@ -432,14 +422,44 @@ The reference clock signal is provided by outputs from different output groups o
 	\label{fig:clocking}
 \end{figure}
 
+
+The LMK04808B low-noise clock jitter cleaner with dual-loop \glspl{pll} from \textit{Texas Instruments} cleans the incoming reference clock provided from the system (e.g. from \gls{kara}) for high temporal precision \cite{caselle2013}.
+It is used with an external \gls{vcxo} from \textit{ABRACON}. 
+
+The LMK04808B contains two \glspl{pll} (therefore called ``dual-loop''). 
+The first \gls{pll} is used to clean the jitter from the reference clock. 
+The second is then used to generate and distribute the cleaned clock signals to the outputs of the components.
+
+Time skew between the \gls{pll} outputs lies in the range of \SI{30}{\pico \second} \cite{lmk04808b}. 
+In order to guarantee low time skew (range of few picoseconds), two fanout buffers are used to distribute the cleaned clock signal to the components on the board.
+The fanout buffers used are the HMC987LP5E from \textit{Analog Devices}.
+Time skew of these components between channels typically lies in the range of \SI{1.5}{\pico \second}, 20 times smaller than the time skew of the \gls{pll}.
+As one fan-out buffer has eight outputs, two chips are needed to cover all 16 sampling channels. 
+Each fanout receives the clock reference from one output of the LMK0480B. 
+To ensure exactly identical clocking signals between the two fanouts they are connected to two outputs of the same output group.
+
+The LMK04808B has only 12 outputs which are divided into six groups à two outputs.
+Outputs in one group have the same configuration (frequency, phase, \ldots), which means that effectively only six different outputs are available. 
+This is not enough for the 16 \glspl{tha} and additional clock signals needed for \gls{fpga}, \glspl{adc} and \gls{dac}. 
+
+One output of the \gls{pll} is propagated to the \gls{fmc}+ connector as reference clock for the \gls{fpga}.
+
+The maximum output frequency of the LMK04808B is \SI{1536}{\mega \hertz}, not enough to clock the \glspl{adc} at maximum sampling rate (\SI{2.5}{\giga \sample \per \second}). 
+A second kind of \gls{pll} is therefore needed to provide programmable reference clocks to the \glspl{adc} and \glspl{dac}.
+As \autoref{fig:clocking} shows, the LMK04808B also provides a clocking signal to other \glspl{pll}, the LMX2594 from \textit{Texas Instruments}.
+This \gls{pll} is able of clocking signal frequencies up to \SI{15}{\giga \hertz}.
+
+Due to the \gls{adc} clocking limitations on the read-out card explained in \autoref{ssec:interl_impl}, two of the \glspl{pll} are needed. 
+The reference clock signal is provided by outputs from different output groups of the LMK04808B. This way, the phase of each reference clock can be programmed individually, which allows to implement the \gls{adc} clocking technique described in \autoref{ssec:interl_impl}.
+
+
 \subsubsection*{PLLs}
-For proper functioning/best performance, a properly designed loop filter (see \autoref{fig:pll_block}) for both \glspl{pll} is needed. 
-The output of the loop filter is the voltage for controlling the \gls{vco}, the output of which is a frequency, $f_\text{VCO}$, proportional to that voltage.
-$f_\text{VCO}$ is divided by the \textit{N Divider} to the frequency $f_n$ and then compared to the phase detector frequency $f_\text{PD}$ in the phase detector. 
-$f_\text{PD}$ results from dividing the reference frequency $f_\text{OSC}$ with an \textit{R divider}. 
-The phase detector produces current correction pulses (with magnitude $K_\text{PD}$) with a duty cycle proportional to the phase error between $f_\text{PD}$ and $f_n$. 
-These pulses pass through the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
-The loop filter is therefore the key component to 
+A \gls{pll} is a control loop, used to synchronize an output oscillator signal with a reference signal.
+The principle lies in comparing the phases between the two inputs. 
+When there is a varying phase difference, it means that the signals are at different frequencies.
+As soon as the phase difference stays constant, it means that both of the frequencies are the same or one is a multiple of the other. 
+In this state the \gls{pll} is called to be ``locked''.
+The general architecture of a \gls{pll} is shown in \autoref{fig:pll_block}.
 
 \begin{figure}[tbh]
 	\centering
@@ -447,6 +467,15 @@ The loop filter is therefore the key component to
 	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
 	\label{fig:pll_block}
 \end{figure}
+
+For proper noise performance, a properly designed loop filter for both \glspl{pll} is needed. 
+The output of the loop filter is the voltage for controlling the \gls{vco}.
+The \gls{vco} output of is a frequency $f_\text{VCO}$ proportional to the applied voltage.
+$f_\text{VCO}$ is divided by the \textit{N Divider} to the frequency $f_n$ and then compared to the phase detector frequency $f_\text{PD}$ in the phase detector. 
+$f_\text{PD}$ results from dividing the reference frequency $f_\text{OSC}$ with an \textit{R divider}. 
+The phase detector produces current correction pulses (with magnitude $K_\text{PD}$) with a duty cycle proportional to the phase error between $f_\text{PD}$ and $f_n$. 
+These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
+The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, ...) and therefore has to be designed carefully.
 
 To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). For the names of the filter components refer to \autoref{fig:loop_filter}.
 
@@ -466,7 +495,9 @@ To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum S
 	\label{fig:loop_filter}
 \end{figure}
 
-The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2), for both the loop filter has to be calculated separately. The parameters/values are shown in \autoref{tab:lmk04808B_filter}.
+The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2).
+For both the loop filter has to be calculated separately. 
+The parameters/values are shown in \autoref{tab:lmk04808B_filter}.
 The filters are implemented as second order filters, note that PLL2 has already a partially integrated loop filter.
 
 \begin{table}[tbh]
@@ -503,10 +534,11 @@ The filters are implemented as second order filters, note that PLL2 has already 
 	\end{tabularx}
 \end{table}
 
-The loop filter for the LMX2594 is designed in the same way, the values are shown in \autoref{tab:lmx2594_filter}.
+The loop filter for the LMX2594 is designed in the using the same \textit{Texas Instruments} software. 
+The calculated values are shown in \autoref{tab:lmx2594_filter}.
 The filter is implemented as a third order passive filter.
-In order to provide the flexibility to enlarge the filter order (for performance adjustment), some of the components are considered in the schematics, but are either not placed or put to zero. 
-In this way, a placeholder on the board is created.
+The schematic and layout of the filter have been implemented in a way to enable flexible change of the filter, i.e. changing the order or component values.
+This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
 The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 \begin{table}[tbh]
 	\caption[LMX2594 loop filter characteristics]{Loop filter characteristics of the LMX3594}
@@ -522,7 +554,7 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 		Phase Detector Frequency                   & \SI{24.576}{\MHz}          \\
 		VCXO Frequency                             & Designed for \SI{15}{\GHz} \\
 		[0.3cm]
-		 \textbf{Loop filter components} &                            \\
+		\multicolumn{2}{c}{\textbf{Loop filter components}}   \\                        
 		$C_{1}$                          & \SI{2200}{\pico\farad}     \\
 		$C_{2}$                          & \SI{180}{\nano\farad}      \\
 		$C_{3}$                          & \SI{1800}{\pico\farad}     \\
@@ -538,9 +570,10 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\label{fig:lmx2594}
 \end{figure}
 
-Both \glspl{pll} are connected to the digital \SI{3.3}{\volt} coming from the \gls{fmc}+ connector.
-For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide a very clean voltage level.
-The output pins are pulled-up via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
+Both \glspl{pll} are supplied by the digital \SI{3.3}{\volt} coming from the \gls{fmc}+ connector.
+For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide effective filtering of the voltage level.
+The output pins are pulled-up and filtered via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
+For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 
 \subsubsection*{Fanout Buffer}
 The fanout buffer takes as input the clock signal from the \gls{pll} and distributes it to the \glspl{tha} chips.
@@ -561,8 +594,8 @@ They can be enabled or disabled either via \gls{spi} (setting pin \texttt{PMODE\
 In parallel pin control the \gls{spi} pins \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} are reinterpreted as a 3-bit control bus.
 In this mode, the pins are either pulled up to $V_\text{CC}$ or tied to ground to represent a logic '1' or '0'.
 For the design, the parallel pin control mode is chosen, therefore the \texttt{PMODE\_SEL} pin is pulled up to $V_\text{CC}$ ($\eqdev$ logic '1').
-In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that it can be tied to ground ($\eqdev$ logic '0', enabling \gls{spi} mode).
-For the eventual use \gls{spi} mode, the \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are connected to the \gls{fmc}+ connector.
+In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that the pin can be connected to ground ($\eqdev$ logic '0', enabling \gls{spi} mode).
+The \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are therefore connected to the \gls{fmc}+ connector.
 To enable all outputs, the \gls{spi} pins need to be set to '111' according to the datasheet, i.e. pulled-up to $V_\text{CC}$. 
 Here, jumpers are foreseen as well, to allow enabling/disabling in later usage.
 
@@ -996,26 +1029,30 @@ For the placement and routing of the components many steps need to be considered
 
 At the beginning, the separation of the analog and digital grounds has to be taken care of. 
 Due to the complexity of the board, the respective grounds need to cover the whole plane. 
-Therefore, in order to guarantee a full separation without any interference between the two parts, the \gls{pcb} was split into two parts.
+Therefore, in order to guarantee a full separation without any interference between the two parts, the \gls{pcb} is split into two parts.
 The topside part is dedicated to the digital components and the routing of digital signal. 
 These layers cover the clocking distribution as well as the slow control signal paths leading from the \gls{fpga} to the respective components.
 The bottomside part of the \gls{pcb} is dedicated to the analog components and integrates the analog signal paths coming from the \glspl{tha}.
+
 Closely linked to the structuring of the overall \gls{pcb} is the number of stacked-up metal layers used.
 In order to integrate all necessary signals and power planes, 16 layers in total are used.
 The topside 8 layers are therefore used for the digital part, the other 8 for the analog.
-For shielding purposes and to guarantee a small as possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two griund layers.
+For shielding purposes and to guarantee a small as possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two ground layers.
+
 Some signals need to be routed from top layer to bottem and vice versa by through vias. 
 In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground) plane has to be ensured.
+
 At some point, the analog and digital grounds need to be connected together. 
 As mentioned in the section about the schematic capture, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds. 
 \gls{rf} filtering at the \gls{tha} is placed in the same manner, in order to mitigate any noise which could interfere with the sensitive analog signal.
 
 Sensitive, i.e. analog components, should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
-Also the transmission lines carrying sensitive analog signals should be routed first, in order to define the structure of the overall board. 
-These transmission lines should by all means be separated from digital signal paths as much as possible in order to reduce cross-talk between the lines. 
+Also the transmission lines carrying sensitive analog signals should be routed first, in order to define the further routing of other signal paths, e.g. slow control signals. 
+These transmission lines should be separated from digital signal paths as much as possible in order to reduce cross-talk between the lines. 
+
 Routing the transmission lines should be done with time skew control in mind. 
 This is especially necessary for the outputs leading from \glspl{tha} to the RFMC connector. 
-Due to the asymmetric position of the connector, when connecting via direct line, signal paths from the respective \glspl{tha} have a different length depending on the \gls{tha} position. 
+Due to the asymmetric position of the connector on the board, if the \gls{tha} component outpus would be connected direclty to the connector, the signal paths would vary significantly between components.
 This would introduce a significant time skew between the lines.
 Therefore, to account for this problem, signal paths coming from the closest \glspl{tha} need to be made longer.
 This is achieved by routing the the traces in patterns called ``accordions'', which allow for prolonging the trace length in a compact way.

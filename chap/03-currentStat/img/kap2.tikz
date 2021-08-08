@@ -2,7 +2,7 @@
 \definecolor{kitblue}{rgb}{0.274509803921569,0.392156862745098,0.666666666666667}
 \usetikzlibrary{arrows.meta}
 \pgfplotsset{compat=1.11}
-\sisetup{range-phrase=--}
+\sisetup{range-phrase=-}
 
 \begin{tikzpicture}
 \begin{axis}[%

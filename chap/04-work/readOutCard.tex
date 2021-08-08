@@ -41,7 +41,7 @@ This setup allows to
 \end{figure}
 
 \paragraph{Evaluation Tool}
-In order to provide a quick evaluation of data converter performance an evaluation framework from Xilinx is used (see \autoref{fig:evalTool}). 
+In order to provide a quick evaluation of data converter performance an evaluation framework from Xilinx can be deployed on the card (see \autoref{fig:evalTool}). 
 It enables control of the ZCU216 \glspl{ip} and the associated designs from a host PC. 
 With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed.  
 For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors.
@@ -74,8 +74,16 @@ This means it should provide the necessary interfaces to configure the data conv
 Furthermore, the high-speed data-throughput interface should be implemented.
 \subsection{Programmable Logic - Hardware design}
 For synthesis and analysis of the \gls{hdl} design for the \gls{pl}, the Xilinx Vivado \gls{ide} is used.
+
 \subsubsection*{RF Data Converter IP Core}
-In order to configure the data converters, the HDl design should be based around the Xilinx RF Data Converter IP Core. 
+In order to configure the data converters, the \gls{hdl} design should be based around the Xilinx RF Data Converter IP Core. 
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/rf_data_converter}
+	\caption{Simple example design with the RF Data Converter}
+	\label{fig:rf_dc_ex}
+\end{figure}
 
 \subsubsection*{Slow Control}
 Components on the sampling board are controlled via a slow control interface. 
@@ -95,15 +103,14 @@ The \gls{hdl} implementation for this interface is listed in the appendix.
 In a similar way, the interface for other components is to be implemented.
 
 \subsubsection*{RDMA over Converged Ethernet (RoCE)}
-As its name shows, RoCE is a network protocol defined in the InfiniBand Trade Association (IBTA) standard, allowing RDMA over converged Ethernet network. Shortly, it can be regarded as the application of RDMA technology in hyper-converged data centers, cloud, storage, and virtualized environments. 
+Remote Direct Memory Access (RDMA) is a direct memory access from the memory of one computer into that of another without involving either one's operating system. This permits high-throughput, low-latency networking, which is especially useful in massively parallel computer clusters.
+
+RoCE is a network protocol defined in the InfiniBand Trade Association (IBTA) standard, allowing RDMA over converged Ethernet network. Shortly, it can be regarded as the application of RDMA technology in hyper-converged data centers, cloud, storage, and virtualized environments. 
 It possesses all the benefits of RDMA technology and the familiarity of Ethernet.
 
-Types of RoCE
-Generally, there are two RoCE versions: RoCE v1 and RoCE v2. It depends on the network adapter or card used.
+The ERNIC (Xilinx Embedded RDMA enabled NIC) IP provides an Initiator and Target  implementation of RDMA over Converged Ethernet (RoCE v2) enabled NIC functionality. This IP is specifically designed for embedded applications that require reliable transmission over Ethernet networks.
 
-RoCE v1: The RoCE v1 protocol is an Ethernet link layer protocol allowing two hosts in the same Ethernet broadcast domain (VLAN) to communicate. It uses Ethertype 0x8915, which limits the frame length as 1500 bytes for a standard Ethernet frame and 9000 bytes for an Ethernet jumbo frame.
 
-RoCE v2: The RoCE v2 protocol overcomes the limitation of version 1 being bounded to a single broadcast domain (VLAN). By changing the packet encapsulation to include IP and UDP headers, RoCE v2 can now be used across both L2 and L3 networks. This enables Layer 3 routing, which brings RDMA to network with multiple subnets for great scalability. Therefore, RoCE v2 is also regarded as Routable RoCE (RRoCE). Owing to the arrival of RoCE v2, the IP multicast is now also possible.
 
 \subsection{Processing Unit - Software Design}
 In order for the user to be able to control the whole system, some kind of application has to be implemented for control of the hardware design.

@@ -1,0 +1,23 @@
+\newcommand{\myADC}[3] % #1 = name, #2=color
+{
+	\draw[fill=#2] (#1)  +(-16.5pt,0pt) --+(-6pt,6pt) --+(16.5pt,6pt) --+(16.5pt,-6pt) --+(-6pt,-6pt) --cycle;
+	\draw[] (#1) node[yshift=-1,xshift=3]{\small #3};
+}
+\newcommand{\myDAC}[3] % #1=name, #2=color
+{
+	\draw[fill=#2] (#1)  +(16.5pt,0pt) --+(6pt,6pt) --+(-16.5pt,6pt) --+(-16.5pt,-6pt) --+(6pt,-6pt) --cycle;
+	\draw[] (#1)node[yshift=-1, xshift = -3]{\small #3};
+}
+\usetikzlibrary{calc}
+
+\begin{tikzpicture}
+	\draw (1,0) node[anchor=east] {\small $x(t)$} to[generic,color=white,name=ADC1] (4,0);
+	\myADC{ADC1}{blue!20}{ADC}
+	\draw(4,0)  to[generic,color=white,name=DAC1] (5,0);
+	\myDAC{DAC1}{blue!20}{DAC}
+	\draw (5.05,0) -- (6,0);
+	\node (a)  [draw,fill=white,circle, inner sep=-0.4pt] at (6,-1.15) {+}  ;
+	\draw [-latex] (6,0) -- (a.north) node[anchor = west, midway] {\small $x_q(t)$}  ;
+	\draw [-latex] (1.5,0) |- (a.west) node[anchor = south east, yshift = -1mm] {-}; 
+	\draw [-latex] (a.east) -- (7,-1.15) node[anchor = north, midway] {\small $e_q(t)$}  ;
+\end{tikzpicture}
