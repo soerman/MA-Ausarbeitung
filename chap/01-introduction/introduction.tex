@@ -100,7 +100,7 @@ After being brought up to their nominal energy\footnote{in a booster}, the bunch
 In the ring, the path of the electron bunches is altered by dipole magnets, guiding them on a circular trajectory.
 Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
 This is done by accelerating them with an electric field inside a \gls{rf} cavity.
-Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014,rota2018}
+Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments \cite{roussel2014,rota2018}.
 
 \begin{figure}[tbh]
 	\centering
@@ -381,7 +381,7 @@ These can be divided into the categories according to \cite{Lundberg}:
 This section provides an overview of these figures of merit.
 Which of them are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
 
-\paragraph{Quantization Noise}\label{par:quant_noise}
+\subsubsection{Quantization Noise}\label{par:quant_noise}
 Even an ideal $N$-bit converter has errors resulting from the quantization process which behave like noise.
 The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide and centered around a code center (see \autoref{fig:idealADC}) \cite{Lundberg}.
 The input voltage is assigned to the word of the nearest code center.
@@ -439,7 +439,7 @@ In decibel, the \gls{snr} is calculated as:
 
 
 
-\paragraph{Static parameters}
+\subsubsection{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
 \textit{Accuracy} is the total error with which an \gls{adc} can convert a known voltage, which includes the effects of:
@@ -517,7 +517,7 @@ For a real \gls{adc} this is not the case and the \gls{dnl} and \gls{inl} are ca
 \end{align}
 \cite{inlDnl}
 
-\paragraph{Frequency-Domain Dynamic Parameters}
+\subsubsection{Frequency-Domain Dynamic Parameters}
 Any real \gls{adc} is subject to noise distortion. 
 \textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. 
 Examples are quantization noise or random fluctuations due to thermal noise. 
@@ -642,7 +642,7 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 The \textit{transient response} denotes the settling time of an \gls{adc} until full accuracy ($\pm$ 1/2 \gls{lsb}).
 
 
-\subsubsection*{Sampling Theory}
+\subsubsection{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
 The \textit{Nyquist criteria} states, that in order to accurately reconstruct a band-limited, continuous signal %todo what is B?

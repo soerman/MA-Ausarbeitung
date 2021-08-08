@@ -99,18 +99,23 @@ For digital control signals (i.e. \gls{spi}, enable signals, \ldots) and clockin
 
 \gls{fmc} is a standard defined by \gls{vita} to provide a standard mezzanine card\footnote{A \gls{pcb} which is plugged on a plug-in board. \cite{mezzanine}} form factor, connectors, and modular interface to a \gls{fpga} located on a base board (carrier card). \cite{Seelam2009}
 The \gls{fmc}+ standard extends the pin count and throughput of the present high-speed interfaces. 
+An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/fmcp.pdf}
+	\caption[Rendering of FMC+ connector]{Part drawing of FMC+ connector \cite{fmcpic}}
+	\label{fig:fmcp}
+\end{figure}
 
-This connector provides 560 pins arranged in a $14\times40$ array, 80 of which are additional high-speed interfaces, located on either side of the connector (therefore this connector type is also called \gls{hspce} connector, as opposed to the HSPC connector which doesn't have additional rows).
+The \gls{fmc}+ connector provides 560 pins arranged in a $14\times40$ array, 80 of which are additional high-speed interfaces, located on either side of the connector (therefore this connector type is also called \gls{hspce} connector, as opposed to the HSPC connector which doesn't have additional rows).
 For user-defined purpose 160 pins are available. 
 They can be used as single-ended or differential pins.
 Clocking capable pins can be used to propagate clock signals from the mezzanine to the carrier board. 
 
 Furthermore, the connector provides pins for power supply from carrier board to mezzanine card. \cite{fmc} The voltage levels provided are listed in \autoref{tab:fmc_ps}.
 
-
-
 \begin{table}[tbh]
-	\caption[FMC+ Voltages]{Voltage levels for power supply provided by the \gls{fmc}+}
+	\caption[FMC+ Voltages]{Voltage levels provided by the \gls{fmc}+}
 	\label{tab:fmc_ps}
 		\centering
 		\begin{tabularx}{\textwidth}{Xcc}
@@ -124,38 +129,33 @@ Furthermore, the connector provides pins for power supply from carrier board to 
 		\end{tabularx}
 \end{table}
 
-An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/fmcp.pdf}
-	\caption[Rendering of FMC+ connector]{Part drawing of FMC+ connector \cite{fmcpic}}
-	\label{fig:fmcp}
-\end{figure}
 
 \paragraph{Analog Signals}
-The 1.85 mm connector is a pin and socket type connector that uses an air dielectric filled interface that assures mode free operation up to 65 GHz. It is also known as the Type V connector. Some manufacturers have demonstrated performance up to 67 GHz. The design has been introduced as an open standard under the IEEE 287 Precision Connector Standards Committee.
+The analog signals coming from the power splitter are propagated to the \glspl{tha} through \SI{1.85}{\mm} high-frequency connectors. 
+These connectors use an air dielectric filled interface which enables operation up to \SI{65}{\GHz}. 
+This type of connector is also called ``V connector''; due to its frequency range it is considered as a mm-wave \gls{rf} connector.
+It is therefore used in precision instrumentation and other laboratory applications.
+The design has been introduced as an open standard under the \gls{ieee} 287 Precision Connector Standards Committee.
 
-
-Due to its high operating frequency range, the 1.85 mm series is considered a mm-Wave RF connector and finds its use in precision instrumentation and other laboratory applications. The 1.85 mm series has compatible interfacing with the 2.4 mm RF connector.
-
-
-The 50-GHz 2.4-mm connector and the 65-GHz 1.85-mm connector interfaces were introduced by Agilent Technologies. Launch of the firm’s coaxial 50-GHz VNA required the development of the 2.4-GHz connector interface in support of millimeter-wave frequencies.
-
-The 1.85-mm V connector was introduced in support of a coaxial 60-GHz VNA by Anritsu/Wiltron Co. Improvements in V connector bead design made it possible for coaxial VNA frequency coverage to rise first to 65 GHz, then to 67 GHz, and then to 70 GHz. A 110-GHz 1-mm connector was introduced by Agilent, followed by a 110-GHz W connector from Anritsu with the introduction of their 110-GHz coaxial VNA. In development of a 70-kHz-to-145-GHz coaxial VNA system, Anritsu has presented a 0.8-mm coaxial connector.
-
-
-
-
-
-The signal from the detector is provided to the \glspl{tha} through \gls{sma}\footnote{Coaxial \gls{rf} connector} \gls{rf} connectors from \textit{molex}, which are mounted at the edge of the board.
-\autoref{fig:sma} shows a 3D model of this connector type. 
-
+\autoref{v_conn} shows a V connector in male and female type.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/04-work/img/sma}
-	\caption[Edge-Mount RF SMA connector]{3D model of the edge-mount \gls{rf} \gls{sma} connector from \textit{molex} \cite{molex}}
-	\label{fig:sma}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chap/04-work/img/v_m}  
+		\caption{V connector, male type}
+		\label{fig:v_m}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=0.8\textwidth]{chap/04-work/img/v_f}  
+		\caption{V connector, female type}
+		\label{fig:v_f}
+	\end{subfigure}
+	\caption{Male and female type V connector}
+	\label{fig:v_conn}
 \end{figure}
 
 On the read-out board two RFMC 2.0 (\gls{rf} Mezzanine Card) interface connectors are provided.
@@ -215,10 +215,10 @@ Switching characteristics are important for estimation of the maximal sample fre
 			DC Differential High Voltage (Track Mode) & 20 & 40 & 2000 & mV\\
 			DC Differential Low Voltage (Hold Mode) & -2000 & -40 & -20 & mV\\
 			Common mode voltage & -0.5 & 0 & 0.5 & V\\[0.3cm]
-			\textbf{Analog Outputs} &&&&\\
+			\multicolumn{5}{c}{\textbf{Analog Outputs}}\\
 			Differential \gls{fs} Range &  & 1 && Vpp\\
 			Common mode voltage & & 0 & & V\\[0.3cm]
-			\textbf{Track-to-Hold/Hold-to-Track Switching} &&&&\\
+			\multicolumn{5}{c}{\textbf{Track-to-Hold/Hold-to-Track Switching}} \\
 			Aperture Delay & & -6 &  & ps\\
 			Random Aperture Jitter (\gls{fs}, \SI{1}{\giga \hertz}) & & < 70 & & fs\\
 			Settling time\footnote{\textit{Settling time} is the interval between the internal track-hold transition and the time when the output signal is settled within the specified value.} (to \SI{1}{\milli \volt}) &	&  116 & & ps \\
@@ -583,10 +583,10 @@ The schematics of the chip is shown in \autoref{fig:fanout}.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/fanout}
-	\caption{Schematic of the fanout.}
+	\caption{Schematic of the fanout}
 	\label{fig:fanout}
 \end{figure}
-Decoupling capacitors are placed at all power supply pins in order to guarantee a clean and stable voltage level.
+Decoupling capacitors are placed at every power supply pin in order to guarantee a clean and stable voltage level.
 
 The outputs of the fanout buffer use \gls{lvpecl} signaling interfaces and therefore need to be connected to ground via resistor.
 They can be enabled or disabled either via \gls{spi} (setting pin \texttt{PMODE\_SEL} to '0') or by using parallel pin control (setting pin \texttt{PMODE\_SEL} to '1'). 
@@ -602,7 +602,8 @@ Here, jumpers are foreseen as well, to allow enabling/disabling in later usage.
 \subsection{Digital-To-Analog-Converter Channels}
 For test purposes, two \gls{dac} channels from the read-out card are routed on the sampling board.
 In this way, test signals can be generated right on the read-out card, without the need for an external signal generator. 
-The differential inputs from the \glspl{dac} are transformed into single ended outputs with dedicated baluns\footnote{\textbf{bal}anced to \textbf{un}balanced}. the BD3150N50100AHFa and the BD4859N50100AHF from \textit{Anaren}. These are used for the signal frequency range \SIrange{3.1}{5.0}{\GHz} and \SIrange{4.8}{5.9}{\GHz} respectively.
+The differential inputs from the \glspl{dac} are transformed into single ended outputs with dedicated baluns\footnote{\textbf{bal}anced to \textbf{un}balanced}. the BD3150N50100AHFa and the BD4859N50100AHF from \textit{Anaren}. 
+These are used for the signal frequency range \SIrange{3.1}{5.0}{\GHz} and \SIrange{4.8}{5.9}{\GHz} respectively.
 
 The single-ended output is connected to a miniature \gls{rf} connector from \textit{Hirose Electric}.
 
@@ -616,9 +617,10 @@ The schematic of a \gls{dac} channel is shown in \autoref{fig:dac_channel}.
 
 
 \subsection{Power Supply}
-Stable power supply is the key for best performance of the components. Especially high-performance \Glspl{ic}, such as \glspl{tha}, highly rely on a stable voltage level for correct functionality. 
+Low-ripple power supply is an important point key for low noise performance of the board. Especially high-performance \Glspl{ic}, such as \glspl{tha}, highly rely on a low-ripple voltage level for correct functionality. 
 Therefore, proper power supply design is an important step which needs to be handled with care.
-This step includes choosing the right type and amount of voltage regulators, as well as providing appropriate filtering. 
+This step includes the selection the right type voltage regulators, as well as providing appropriate filtering. 
+Furthermore, in order 
 
 \autoref{tab:theresacomp} lists the power supply requirements of all the components used on the board.
 
@@ -629,9 +631,8 @@ This step includes choosing the right type and amount of voltage regulators, as 
 		\centering
 		\begin{tabularx}{\textwidth}{Xlllll}
 			\toprule
-			\textbf{Component}         & $V_\text{cc}$ (V) & $I_\text{max}$ (A)                        & $P_\text{max}$ (W) & $\#_\text{parts}$ & $I_\text{tot, max}$\footnote{for 16 \glspl{adc}} (A) \\ \midrule
+			\textbf{Component}         & $V_\text{cc}$ (V) & $I_\text{max}$ (A)                        & $P_\text{max}$ (W) & $\#_\text{components}$ & $I_\text{tot, max}$\footnote{for 16 \glspl{adc}} (A) \\ \midrule
 			HMC5649 (\gls{tha})        & 2                 & 0.221                                     & 0.442              & 16                & 3.536                                                \\
-			                           & -5                & -0.242                                    & 1.21               &                   & 3.872                                                \\
 			NB6L295 (Delay chip)       & 2.5               & 0.170                                     & 0.425              & 8                 & 1.36                                                 \\
 			HMC987LP5E (Fanout buffer) & 3.3               & 0.234\footnote{All Outputs and RF-Buffer} & 0.772              & 2                 & 0.468                                                \\
 			LMK04808B (\gls{pll})      & 3.3               & 0.590\footnote{All CLKs}                  & 1.947              & 1                 & 0.590                                                \\
@@ -660,22 +661,18 @@ For the sensitive components like \gls{tha}, voltage regulators are needed, to g
 
 
 \subsubsection*{Voltage Regulator for Track-and-Hold-Amplifiers}
-The \glspl{tha} need a constant voltage level for optimal operation. 
+The \glspl{tha} need a low-ripple voltage level for optimal operation. 
 Linear voltage regulators are capable to maintain a stable output voltage and are therefore to be used with the \glspl{tha}.
 
 On the \gls{kapture} sampling board, the \gls{ldo} ADP1708 from \textit{Analog Devices} is used to provide a power supply for the \glspl{tha}. 
 A \gls{ldo} is able to operate at a low potential difference between the input and output voltage. This low potential difference has also the benefit of low power dissipation, which also reduces the    
 This power supply can provide at maximum \SI{1}{\ampere} to the load. 
-In order to minimize the amount of components needed on the board, i.e. to save space, a component which can provide higher currents should be used. 
+In order to minimize the amount of components needed on the board and to save space, a different \gls{ldo} which provides higher currents should be used. 
 This way, one single voltage regulator can be used for more components.
 
-For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} is used. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
+For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} has been selected. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
 
-It is now necessary to think about the amount of voltage regulators needed.
-As a rule of thumb, the power supply should provide twice the maximum power needed by the components it drives. \cite{michele}
-The power consumption/maximum current for the respective components on the sampling board is listed in \autoref{tab:theresacomp}. 
-
-It is necessary to think about the amount of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
+It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
 
 The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\ampere}.
 With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 
@@ -722,9 +719,9 @@ In order to set the output voltage of the regulator to \SI{2.5}{\volt}, the resi
 The \SI{2.5}{\volt} are also used as input for the bus transceiver which acts as a level translator. 
 The current draw from this component lies in the range of \SI{}{\micro \ampere} and can thus be neglected.
 
-As input voltage these regulators receive the \SI{3.3}{\volt} from the \gls{fmc}+ connector.
+As input voltage these regulators receive the digital \SI{3.3}{\volt} from the \gls{fmc}+ connector.
 The ground pins are connected to the digital ground of the \gls{pcb}.
-This is important, as the 
+This is important, as the regulator for the digital components should be separated from the analog part of the \gls{pcb}. 
 
 \paragraph{Power Dissipation of the Voltage Regulators}
 According to the data sheet of the ADP1741 \cite{adp1741}, the power dissipation $P_D$ of the regulator can be calculated with the input and output voltage $V_\text{IN}$ and $V_\text{OUT}$, load current $I_\text{LOAD}$ and ground current $I_\text{GND}$\footnote{difference between input and output current}:
@@ -749,6 +746,11 @@ The power dissipation $P_\text{D, Delay}$ of one voltage regulator for the delay
 	P_\text{D, Delay} = (\SI{3.3}{\volt} - \SI{2.5}{\volt}) \cdot (4 \cdot \SI{0.17}{\ampere}) = \SI{0.544}{\watt}.
 \end{equation}
 
+In order to dissipate the heat, an exposed pad is provided under the component.
+This pad can be connected through vias to a (ground) plane located on the inner layers, in this way allowing to dissipate the heat through the \gls{pcb}.
+Furthermore, a matrix of vias is placed underneath the component area in order to improve the heat flow.
+This should be enough to handle the calculated power dissipation.
+Heat sinks could be added later during operation, if the deployed method
 
 \section{Layout}
 After completing the schematic capture, the following step is the \gls{pcb} layout design.
@@ -766,7 +768,7 @@ During this process, the following points need to be considered:
 For better understanding, first a general overview over \gls{pcb} structures is given. 
 Then the steps mentioned above are described.
 \subsection*{PCB Structures Overview} \label{ssec:pcb_structs}
-In this section an overview over the basic structures on a \gls{pcb} is given for better understanding.
+In this section an overview over the basic structures on a \gls{pcb} is given.
 
 \paragraph{Traces}
 A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
@@ -779,7 +781,7 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 \begin{itemize}
 	\item Blind via: A blind via connects the surface layers with at most three layers below.
 	\item Buried via: A buried via only connects internal layers.
-	\item Through via: A through via goes from one \gls{pcb} surface to another and is used to connect any layer. 
+	\item Through-via: A through-via goes from one \gls{pcb} surface to another and is used to connect any layer. 
 \end{itemize}
 \begin{figure}[tbh]
 	\centering
@@ -1039,11 +1041,12 @@ In order to integrate all necessary signals and power planes, 16 layers in total
 The topside 8 layers are therefore used for the digital part, the other 8 for the analog.
 For shielding purposes and to guarantee a small as possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two ground layers.
 
-Some signals need to be routed from top layer to bottem and vice versa by through vias. 
+Some signals need to be routed from top layer to bottom and vice versa by through vias. 
 In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground) plane has to be ensured.
 
 At some point, the analog and digital grounds need to be connected together. 
-As mentioned in the section about the schematic capture, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds. 
+As mentioned in the section about the schematic capture, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds.
+This way, any noise coming from the digital ground is compensated for. 
 \gls{rf} filtering at the \gls{tha} is placed in the same manner, in order to mitigate any noise which could interfere with the sensitive analog signal.
 
 Sensitive, i.e. analog components, should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
@@ -1052,19 +1055,21 @@ These transmission lines should be separated from digital signal paths as much a
 
 Routing the transmission lines should be done with time skew control in mind. 
 This is especially necessary for the outputs leading from \glspl{tha} to the RFMC connector. 
-Due to the asymmetric position of the connector on the board, if the \gls{tha} component outpus would be connected direclty to the connector, the signal paths would vary significantly between components.
+Due to the asymmetric position of the connector on the board, if the \gls{tha} component outputs would be connected directly to the connector, the signal paths would vary significantly between components.
 This would introduce a significant time skew between the lines.
 Therefore, to account for this problem, signal paths coming from the closest \glspl{tha} need to be made longer.
 This is achieved by routing the the traces in patterns called ``accordions'', which allow for prolonging the trace length in a compact way.
 An example for such accordions is shown in \autoref{fig:accordion}.
-To achieve high signal integrity, ``via-fences'' are placed next to the traces carrying analog signals. 
-These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation, in order to shield, or isolate, the traces from surrounding components and from other traces. 
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/accordion}
 	\caption[Trace accordions]{Example for trace accordions which are used to enlarge the trace length when little space is available}
 	\label{fig:accordion}
 \end{figure}
+
+To achieve high signal integrity, ``via-fences'' are placed next to the traces carrying analog signals. 
+These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation, in order to shield, or isolate, the traces from surrounding components and from other traces. 
+
 
 Slow control signal paths are routed afterwards, avoiding crossing the area of the analog signal paths.
 
@@ -1081,7 +1086,7 @@ Component placement:
  \begin{figure}[tbh]
  	\centering
  	\includegraphics[width = \textwidth]{chap/04-work/img/tha_pcb}
- 	\caption[Stitching vias]{Example for stitching vias at the \gls{tha}. An area is filled up with (blind) vias connected to analog or digital ground. This way, they protect the trace or component from external (and internal) noise.}
+ 	\caption[Stitching vias]{Low noise design shown with the example of a THA}
  	\label{fig:stitch}
  \end{figure}
 
