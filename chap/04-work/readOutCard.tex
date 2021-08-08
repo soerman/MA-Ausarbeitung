@@ -72,6 +72,16 @@ Similar to the evaluation tool, the firmware for the readout system should conta
 The hardware design part should implement the interface to the sampling board. 
 This means it should provide the necessary interfaces to configure the data converters on the readout card, as well as slow control to the delay chips and \glspl{pll} on the sampling board (i.e. through \gls{sdi} and \gls{spi}). 
 Furthermore, the high-speed data-throughput interface should be implemented.
+
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/firmware.tikz}
+	\caption{GUI of the RF Data Converter Evaluation Tool}
+	\label{fig:firmware}
+\end{figure}
+
+
 \subsection{Programmable Logic - Hardware design}
 For synthesis and analysis of the \gls{hdl} design for the \gls{pl}, the Xilinx Vivado \gls{ide} is used.
 
