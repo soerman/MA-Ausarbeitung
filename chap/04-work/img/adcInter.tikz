@@ -22,6 +22,6 @@
 \draw (6,-1) -- node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 1);
 \node[] at (5,0) {\large \vdots};
 
-\node[rectangle,draw,minimum height=5cm,minimum width=7cm] at (5,0.5) {};
- \draw[-Latex] (1,2) node[anchor=east] {$f_s$} to[short,o-] (1.5,2);
+\node[rectangle,draw,minimum height=5cm,minimum width=7cm] (border) at (5,0.5) {};
+ \draw[-Latex] (1,2) node[anchor=east] {$f_s$} to[short,o-]  (\tikztostart -| border.west);
 \end{tikzpicture}
