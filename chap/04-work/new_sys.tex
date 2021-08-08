@@ -51,7 +51,7 @@ The \gls{fpga} sets the sampling time for each individual sampling channel and r
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-currentStat/img/thzChain.tikz}
-	\caption[THz measurement with KAPTURE]{\gls{thz} radiation measurement setup with \gls{kapture}(cf. \cite{caselle2014})}
+	\caption[THz measurement with KAPTURE]{\gls{thz} radiation measurement setup with \gls{kapture} (v1) (redrawn from\cite{caselle2014})}
 	\label{fig:thz_chain}
 \end{figure}
 
@@ -67,8 +67,8 @@ A photo of the power splitter is shown in \autoref{fig:power_splitter}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.6\textwidth]{chap/03-currentStat/img/power_splitter}
-	\caption{Photo of the power splitter developed at IPE for KAPTURE}
+	\includegraphics[width = 0.6\textwidth]{chap/03-currentStat/img/power_split}
+	\caption{Photo of the power splitter developed at IPE}
 	\label{fig:power_splitter}
 \end{figure}
 
@@ -81,7 +81,7 @@ The archtiecture of the front-end board with the power splitter is shown in \aut
 	\label{fig:kapture}
 \end{figure}
 
-Four identical signals from the power-splitter are fed into four channels, consisting of a respective \gls{tha} unit and a 12-bit \gls{adc} sampling at \SI{500}{\mega\sample\per\second}. 
+The power splitter splits the incoming signal into four identical signals, which are then fed into four parallel channels, consisting of a respective \gls{tha} unit and a 12-bit \gls{adc} sampling at \SI{500}{\mega\sample\per\second}. 
 The sampling time of each unit can be adjusted individually with a delay chip with a resolution of \SI{3}{\pico \second} (maximal delay range: \SI{100}{\pico \second}). 
 The delay chips are programmed with the \gls{fpga} on the readout card.
 The clock signal is provided by \gls{kara}, which is cleared from jitter by a \gls{pll}. 
@@ -111,7 +111,7 @@ To store the data temporary before it is sent to the \gls{daq} system, a large \
 
 \subsection{KAPTURE-2}
 The first version of \gls{kapture} has a limitation concerning the number of sampling points per pulse and does not allow to sample the baseline of the detector.
-Analyzing the baseline however is very important, as it shows a slight change and affects the pulse amplitude of the bunch. 
+Analyzing the baseline however is very important, as it is changing slightly and affects the pulse amplitude of the bunch. 
 Due to this distortion, calculating the correlation between bunches was limited. 
 For this reason, a second version of \gls{kapture} was designed in order to overcome these limitations. 
 The \gls{pll} on the sampling board allows for synchronization between two or more \glspl{pll} located on different boards.
@@ -126,14 +126,14 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chap/03-currentStat/img/kap1.tikz}  
+		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/kap1.tikz}  
 		\caption{Sampling concept in KAPTURE v1}
 		\label{fig:kap1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=\textwidth]{chap/03-currentStat/img/kap2.tikz}  
+		\includegraphics[height=0.8\textwidth]{chap/03-currentStat/img/kap2.tikz}  
 		\caption{Sampling concept in KAPTURE v2}
 		\label{fig:kap2}
 	\end{subfigure}
@@ -173,7 +173,7 @@ The main clock is provided by a main \gls{pll}, which cleans the incoming refere
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/theresa_scheme.tikz}
-	\caption[General architecture of THERESA]{General architecture of THERESA with power splitter and \glspl{adc}. For presentation purposes only four of the sixteen channels are shown.}
+	\caption[General architecture of the THERESA sampling card]{General architecture of the THERESA sampling card with power splitter and \glspl{adc}. For presentation purposes only four of the sixteen channels are shown.}
 	\label{fig:theresa_scheme}
 \end{figure}
 
@@ -185,7 +185,7 @@ In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in suc
 The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adcInter}), each operating at a sampling rate of $f_c = f_s/M$ individually. 
 The sampling times of the \glspl{adc} are shifted in phase as shown in \autoref{fig:adcInterTime} with the example of 4 time-interleaved \glspl{adc}.  
 At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a defined time delay $\Delta t_i$ the second \gls{adc} samples and converts $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. 
-After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc}. \cite{mangrob}
+After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc} \cite{mangrob}.
 An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTime}.
 
 \begin{figure}[tbh]
@@ -196,11 +196,11 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 		\caption{An array of $M$ time interleaved $N$-bit \glspl{adc} \cite{mangrob}}
 		\label{fig:adcInter}
 	\end{subfigure}
-	\vspace*{10mm}
+	\\[3ex]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\tikzexternaldisable
-		\includegraphics[width=\textwidth]{chap/04-work/img/adcInterTime.tikz}  
+		\includegraphics[width=0.8\textwidth]{chap/04-work/img/adcInterTime.tikz}  
 		\caption{Clocking Scheme for interleaving 4 \glspl{adc}}
 		\tikzexternalenable
 		\label{fig:adcInterTime}
@@ -270,7 +270,7 @@ The \glspl{adc} on the read-out card sample at a maximal sample rate of \SI{2.5}
 \end{equation}
 all 16 \glspl{adc} have to sample the signal one time.
 This means, a delay step can not be greater than $\nicefrac{\SI{400}{\pico\second}}{16} = \SI{25}{\pico\second}$.
-With this method, the maximal achievable sampling rate of the card is $16 \cdot 16 $ = \SI{40}{\GHz}. 
+With this method, the maximal achievable sampling rate of the card is $16 \cdot \SI{2.5}{\giga \sample \per \second}  = \SI{40}{\giga \sample \per \second}$. 
 
 On the selected readout card, sampling clock signals are not propagated individually to the respective \glspl{adc}.
 The converters are grouped grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. 

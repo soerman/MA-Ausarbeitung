@@ -55,7 +55,7 @@
 	
 	\draw[-Latex]  (pll.east) - | (fanout.south);
 	
-	\draw[-Latex] (-6,-5) node[anchor=south] {KARA Clock} -- (pll);
+	\draw[-Latex] (-6,-5) node[anchor=south] {Ref. Clock} -- (pll);
 	
 	\draw[-Latex] (fpga.east) to (8.5,2.2) node[anchor=south] {To GPU-DAQ} ;
 	

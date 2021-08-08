@@ -34,16 +34,19 @@ The digital signals are then processed in a computing unit and broadcast to othe
 \section{Objective}
 In this thesis, a first demonstrator of a \gls{daq}-system based on the time-stretch concept has been developed.
 This system, called \gls{theresa} system, enables high-speed measurements of ultrafast events with a time resolution in the range of femtoseconds.
+
 In order to achieve such high resolution, the time-stretch technique will be used in order to stretch the input signal in the range of pico- to nanoseconds.
 The input signal will be continuously sampled by high-speed \glspl{adc} with a temporal resolution which can be flexibly defined by the user.
 To sample the signal, the \glspl{adc} need to have a sampling rate in the order of several GHz.
-The amplitude of the signals to be measured is very small a an appropriate resolution of the \glspl{adc} has to be considered in order to guarantee an \gls{enob} of at least 10 bits \cite{bielwaski}.
-As the \glspl{adc} also need a high resolution, i.e. > 10 bits, this leads to the next challenge: Sampling at several GHz with high resolution which implies a large amount of data in the range of Terabits per second.
-In order to guarantee such a high data-throughput, the system will be based on a new generation of \gls{soc} together with a \gls{fpga}. 
-The \gls{soc} will have high-speed peripherals in order to guarantee the continuous high-speed data-throughput. 
-Combination with an FPGA should allow for flexible system tuning for a user-defined application.
+The amplitude of the signals to be measured is very small and an appropriate resolution of the \glspl{adc} has to be considered in order to guarantee an \gls{enob} of at least 10 bits \cite{bielwaski}.
 
-Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks (e.g. based on \gls{pcie} or GPU clusters) and can be easily integrated into the system for the user application.
+This leads to the next challenge: Sampling at several GHz with high resolution which implies a large amount of data in the range of Terabits per second.
+In order to enable such a high data-throughput, the system will be based on a new generation of \gls{soc}, integrating \gls{fpga} and a processing unit together with the high-speed \glspl{adc}. 
+The \gls{soc} will have high-speed peripherals in order to guarantee the continuous high-speed data-throughput. 
+Combination with the FPGA should allow for flexible system tuning for a user-defined application.
+The user will be able to control and configure the system via an application or operating system running on the processing unit.
+
+Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks (e.g. based on \gls{pcie}) and can be easily integrated into the system for the user application (e.g. through optical fibers to a distributed instrumentation system).
 However, stand-alone application should also be possible.
 Furthermore, the \gls{daq} should be designed in such way that enables usage independent from the time-stretch method.
 
@@ -177,7 +180,24 @@ Therefore, a control of these instability bursts could potentially make them a s
 A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source \cite{rota2018,brosi}.
 In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
 
+\subsection*{Control of Micro-Bunching Instabilities}
+The ULTRASYNC\footnote{Exploration et contrôle ULTRArapide de la dynamique des paquets d'électrons dans les sources de lumière SYNChrotron} project, funded by ANR-DFG\footnote{Agence Nationale de la Recherche (ANR), Deutsche Forschungsgemeinschaft (DFG)}, has an objective of ultrafast study and control of electron bunches in synchrotron light sources.
 
+There is the question of control (i.e., suppression) of the bursts of \gls{thz} radiation occuring during the micro-bunching instability. 
+The goal is to obtain a high power and stable coherent emission. 
+The current experimental setup uses a relatively simple feedback loop:
+\begin{itemize}
+	\item A bolometer/Schottky barrier diode detector which produces the input signal for the feedback loop.
+	\item A low-cost FPGA (Red Pitaya) that controls the the accelerating voltage of the synchrotron based on the input
+\end{itemize}
+However, there are limitations in the controllable bunch charge in the accelerator this feedback loop can handle (around \SI{10}{\milli \ampere}). 
+Therefore, an open question is whether measuring each \gls{thz} pulse using the setup
+\begin{itemize}
+	\item Electro-Optical sampling and time-stretching
+	\item Association with the new \gls{fpga}-based system, i.e. \gls{theresa} system
+	\item Finding adequate feedback, programmed in the FPGA
+\end{itemize}
+would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}) \cite{bielwaski}.
 
 \subsection{Electro-Optic Techniques for Longitudinal Bunch Profile Diagnostics}
 Methods for analyzing the longitudinal profile of electron bunches are based on a similar, if not the same, electro-optical concept as the time-stretch method. 
@@ -199,26 +219,6 @@ For this technique a stable emission of the THz pulses is crucial, as they are n
 	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
 	\label{fig:scan_eo}
 \end{figure}
-
-
-\subsection*{Control of Micro-Bunching Instabilities}
-The ULTRASYNC\footnote{Exploration et contrôle ULTRArapide de la dynamique des paquets d'électrons dans les sources de lumière SYNChrotron} project, funded by ANR-DFG\footnote{Agence Nationale de la Recherche (ANR), Deutsche Forschungsgemeinschaft (DFG)}, has an objective of ultrafast study and control of electron bunches in synchrotron light sources.
-
-There is the question of control (i.e., suppression) of the bursts of \gls{thz} radiation occuring during the micro-bunching instability. 
-The goal is to obtain a high power and stable coherent emission. 
-The current experimental setup uses a relatively simple feedback loop:
-\begin{itemize}
-	\item A bolometer/Schottky barrier diode detector which produces the input signal for the feedback loop.
-	\item A low-cost FPGA (Red Pitaya) that controls the the accelerating voltage of the synchrotron based on the input
-\end{itemize}
-However, there are limitations in the controllable bunch charge in the accelerator this feedback loop can handle (around \SI{10}{\milli \ampere}). 
-Therefore, an open question is whether measuring each \gls{thz} pulse using the setup
-\begin{itemize}
-	\item Electro-Optical sampling and time-stretching
-	\item Association with the new \gls{fpga}-based system, i.e. \gls{theresa}
-	\item Finding adequate feedback, programmed in the FPGA
-\end{itemize}
-would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}) \cite{bielwaski}.
 
 
 \subsubsection*{Spectrally Resolved Electro-Optic Detection}
@@ -326,7 +326,7 @@ As one can see, each digital $N$-bit word corresponds to a range of input voltag
 \paragraph{Sample-And-Hold-Amplifier}
 \Glspl{adc} need a certain amount of time to sample the input signal.
 If the level of the analog signal changes by more than one \gls{lsb} during this period, this can result in large errors in the output signal.
-Therefore, so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time.
+Therefore so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time.
 
 A general block diagram of a \gls{sha} is shown in \autoref{fig:tha}. 
 It consists of an input and output buffer, a switch controlled by the sampling clock and a capacitor.
@@ -351,13 +351,13 @@ Apart from the \glspl{sha} there also exists the so called \gls{tha}.
 Though the names are often used interchangeably, there exists one fundamental difference between a \gls{sha} and a \gls{tha}.
 Strictly speaking, the output of a \gls{sha} is not defined during the sample period. 
 Only when switching to the hold mode, the output is assigned to a defined value: the voltage level at the input in that moment.
-Contrary to that, the \gls{tha} acts as a unity gain amplifier during the sample period, meaning the output is just a replication the input. 
+Contrary to that, the \gls{tha} acts as a unity gain amplifier during the sample period, meaning the output is just a replication of the input. 
 The \gls{tha} ``tracks'' the input signal (see also \autoref{fig:sha_timing}).
 Therefore, instead of speaking of a ``sample'' period, the term used here is the ``track'' period.
 When switching to hold mode, the instantaneous input level is held over the course of the hold period.
 This principle allows to improve the sampling rate, as the settling time of an \gls{tha} is in general smaller than one of a \gls{sha}.
 Settling time denotes the amount of time needed for the output voltage to be at a stable level, after the transition from track/sample to hold mode.
-This process is quicker, when the output voltage is already in the range of the sampled input at the moment, instead of when the capacitor first has to be charged up to the input voltage. \cite{Reeder2017}
+This process is quicker, when the output voltage is already in the range of the sampled input at the moment, instead of when the hold capacitor first has to be charged to the input voltage. \cite{Reeder2017}
 
 
 \begin{figure}[tbh]
@@ -382,7 +382,7 @@ This section provides an overview of these figures of merit.
 Which of them are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
 
 \paragraph{Quantization Noise}\label{par:quant_noise}
-Even an ideal $N$-bit converter has errors resulting from the quantization process, which behave like noise.
+Even an ideal $N$-bit converter has errors resulting from the quantization process which behave like noise.
 The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide and centered around a code center (see \autoref{fig:idealADC}) \cite{Lundberg}.
 The input voltage is assigned to the word of the nearest code center.
 This means that there will always be a difference between the corresponding voltage of the respective digital code $x_q(t)$ and the actual analog input voltage  $x(t)$.
@@ -399,9 +399,10 @@ A setup in order to measure this quantization error is shown in \autoref{fig:qe_
 \end{figure}
 
 The output of the \gls{adc}, the N-bit code corresponding to the voltage level of the input signal $x(t)$, is fed to a \gls{dac}, which converts this code into a corresponding voltage level $x_q(t)$. 
-The difference between $x(t)$ and $x_q(t)$ is then the quantization error $e_q(t)$.
+The difference between $x(t)$ and $x_q(t)$ is the quantization error $e_q(t)$.
 
-In order to analyze the quantization noise and the resulting theoretical (maximum) \gls{snr} of the ideal \gls{adc}, assume a ramp with the slope $s$ as an input signal. In the time domain, the quantization error $e_q(t)$ can then be approximated with a sawtooth signal: 
+In order to analyze the quantization noise and the resulting theoretical (maximum) \gls{snr} of the ideal \gls{adc}, assume a ramp with the slope $s$ as an input signal. 
+Then, the quantization error $e_q(t)$ can be approximated with a sawtooth signal in the time domain \cite{walt}: 
 \begin{equation}\label{eq:qe_saw}
 	e_q(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
 \end{equation}
@@ -426,11 +427,11 @@ With the effective value of the signal amplitude
 \begin{equation}
 	u_{\text{eff}} = \frac{u_s}{\sqrt{2}} = \frac{2^{N-1}q}{\sqrt{2}}
 \end{equation}
-\gls{snr}
+the \gls{snr} can be calculated as 
 \begin{equation}
 	\text{SNR} = \frac{P_{\text{signal}}}{P_{\text{noise}}} = \frac{u_{\text{eff}}^{2}}{e_{\text{rms}}^{2}} = \frac{2^{2N-2}q^2/2}{q^2/12} = 2^{2N} \cdot 1.5.
 \end{equation}
-In decibel:
+In decibel, the \gls{snr} is calculated as:
 \begin{equation}\label{eq:idealSNR}
 	\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
 \end{equation}
@@ -518,7 +519,10 @@ For a real \gls{adc} this is not the case and the \gls{dnl} and \gls{inl} are ca
 
 \paragraph{Frequency-Domain Dynamic Parameters}
 Any real \gls{adc} is subject to noise distortion. 
-\textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. Examples are quantization noise or random fluctuations due to thermal noise. \textit{Distortion} is the term for alteration of the shape of the original signal. As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{nd}
+\textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. 
+Examples are quantization noise or random fluctuations due to thermal noise. 
+\textit{Distortion} is the term for alteration of the shape of the original signal. 
+As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{nd}
 
 In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
@@ -528,7 +532,7 @@ In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which i
 \end{itemize}
 
 For quantification of noise and distortion, frequency-domain metrics are used. 
-Therefore the figures of merit described in the following paragraph are also called frequency-domain dynamic parameters. 
+Therefore the figures of merit described in the following paragraphs are also called frequency-domain dynamic parameters. 
 These parameters are measured with the help of the \gls{fft} meaning any modern oscilloscope can be used to quickly assess the frequency-domain dynamic performance for a given input at the \gls{adc}.
 As some parameters, such as SFDR (Spurious-Free Dynamic Range), are only defined for one carrier input frequency, several measurements at different input frequencies need to be made in order to fully characterize the \gls{adc}.
 
