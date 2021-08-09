@@ -62,14 +62,14 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 \tikzexternaldisable
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = .7\textwidth]{chap/04-work/img/real_cap.tikz}
+	\includegraphics[width = .7\textwidth]{chap/04-theresa/img/real_cap.tikz}
 	\caption[Capacitor equivalent circuit]{Equivalent circuit of a real capacitance (redrawn from \cite{decouple})}
 	\label{fig:real_cap}
 \end{figure}
 \tikzexternalenable
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/esl_esr}
+	\includegraphics[width = 0.8\textwidth]{chap/04-theresa/img/esl_esr}
 	\caption[Impedance response of a real capacitor]{Qualitative impedance response of a real capacitance \cite{Dang2020}}
 	\label{fig:esl_esr}
 \end{figure}
@@ -102,7 +102,7 @@ The \gls{fmc}+ standard extends the pin count and throughput of the present high
 An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/connectors/fmcp.pdf}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/connectors/fmcp.pdf}
 	\caption[Rendering of FMC+ connector]{Part drawing of FMC+ connector \cite{fmcpic}}
 	\label{fig:fmcp}
 \end{figure}
@@ -141,14 +141,14 @@ The design has been introduced as an open standard under the \gls{ieee} 287 Prec
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/04-work/img/connectors/v_m}  
+		\includegraphics[width=0.8\textwidth]{chap/04-theresa/img/connectors/v_m}  
 		\caption{V connector, male type}
 		\label{fig:v_m}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=0.8\textwidth]{chap/04-work/img/connectors/v_f}  
+		\includegraphics[height=0.8\textwidth]{chap/04-theresa/img/connectors/v_f}  
 		\caption{V connector, female type}
 		\label{fig:v_f}
 	\end{subfigure}
@@ -164,7 +164,7 @@ On the sampling board, the male counterpart of the connectors, \gls{lpam}, is us
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/connectors/lpam_50_top.pdf}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/connectors/lpam_50_top.pdf}
 	\caption[LPAM $8\times50$ connector]{Part drawing of a LPAM $8\times50$ connector}
 	\label{fig:lpam1}
 \end{figure}
@@ -176,7 +176,7 @@ The reference clock for the \gls{fpga} is propagated through the \gls{fmc}+ conn
 Clocking for the \glspl{adc} and the \glspl{dac} is provided through a $6\times20$ \gls{lpam} connector (see \autoref{fig:lpam2}).
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/connectors/lpam_20.pdf}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/connectors/lpam_20.pdf}
 	\caption[LPAM $6\times20$ connector]{Part drawing of LPAM $6\times20$ connector}
 	\label{fig:lpam2}
 \end{figure}
@@ -191,7 +191,7 @@ The sampling time of the \gls{tha}, derived from the clock coming from the main 
 \subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
 The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds) \cite{caselle2013} . 
-Therefore it is also a good candidate for the new \gls{theresa} sampling board.
+Therefore it is also a good candidate for the new \gls{----theresa} sampling board.
 
 
 The main features of the \gls{tha} are listed in \autoref{tab:hmc5640}.
@@ -236,7 +236,7 @@ At the power pins, decoupling capacitors and a ferrite bead  were placed. The \g
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/hmc5640}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/hmc5640}
 	\caption[HMC5640 THA schematic]{HMC5640 \gls{tha} schematic}
 	\label{fig:hmc5640}
 \end{figure}
@@ -255,7 +255,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/04-work/img/schematic/gnd_agnd}
+	\includegraphics[width = 0.5\textwidth]{chap/04-theresa/img/schematic/gnd_agnd}
 	\caption{Connection of the analog and digital grounds at the THAs}
 	\label{fig:gnd_agnd}
 \end{figure}
@@ -263,7 +263,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 \subsubsection*{Delay Chip}
 The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
-To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
+To optimize the performance of \gls{----theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
 With the HMC856 delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
 This is much less than  \SI{25}{\pico \second} and thus the chip could be potentially used for the intended purpose.
@@ -286,8 +286,8 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 
 \begin{figure}[tbh]
 	\centering
-	%\includegraphics[scale=0.5]{chap/04-work/img/delay_sdi}
-	\resizebox{1\textwidth}{!}{\input{chap/04-work/img/delay_sdi.tikz}}
+	%\includegraphics[scale=0.5]{chap/04-theresa/img/delay_sdi}
+	\resizebox{1\textwidth}{!}{\input{chap/04-theresa/img/delay_sdi.tikz}}
 	\caption[Delay chip SDI connections]{Diagram of the SDI control pins for the NB6L295 delay chip. The data (SDIN), clock (SCLK) and load (SLOAD) pins are shared by all chips. Only the enable (ENx) signals are routed individually.}
 	\label{fig:delay_sdi}
 \end{figure}
@@ -295,7 +295,7 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/delay_chip}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/delay_chip}
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
@@ -313,7 +313,7 @@ $V_\text{out}$ is calculated as
 \end{equation}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.3\textwidth]{chap/04-work/img/voltage_divider.pdf}
+	\includegraphics[width = 0.3\textwidth]{chap/04-theresa/img/voltage_divider.pdf}
 	\caption{Schematic of a resistive voltage divider}
 	\label{fig:v_divider}
 \end{figure}
@@ -328,7 +328,7 @@ A \SI{100}{\nano\farad} capacitor is put in parallel to stabilize $V_\text{cc}$.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/delay_lvpecl}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/delay_lvpecl}
 	\caption[NB6L295 Delay Chip Schematic]{LVPECL recommendations for NB6L295 \cite{NB6L295}}
 	\label{fig:delay_lvpecl}
 \end{figure}
@@ -366,7 +366,7 @@ Furthermore, resistors are place at the pins to reduce possible voltage overshoo
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/level_trans}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/level_trans}
 	\caption[SN74AVC32T245 bus transceiver]{Schematic of the SN74AVC32T245 bus transceiver}
 	\label{fig:level_trans}
 \end{figure}
@@ -377,7 +377,7 @@ This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} res
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/lvpecl}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/lvpecl}
 	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
 	\label{fig:lvpecl}
 \end{figure}
@@ -412,7 +412,7 @@ The clock distribution is designed as shown in \autoref{fig:clocking}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll/clocking_arch}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/clocking_arch}
 	\caption{Overview of the clocking paths on the sampling board}
 	\label{fig:clocking}
 \end{figure}
@@ -458,7 +458,7 @@ The general architecture of a \gls{pll} is shown in \autoref{fig:pll_block}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll/pllBlock.tikz}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pllBlock.tikz}
 	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
 	\label{fig:pll_block}
 \end{figure}
@@ -483,7 +483,7 @@ The output of the filter is the voltage $V_\text{tune}$ which is the input to th
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll/pll.PNG}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pll.PNG}
 	\caption[PLL block diagram]{Screenshot of the TI PLLatinum Sim tool for loop filter design and \gls{pll} performance simulation}
 	\label{fig:ti_pll}
 \end{figure}
@@ -492,7 +492,7 @@ The output of the filter is the voltage $V_\text{tune}$ which is the input to th
 \begin{figure}[tbh]
 	\centering
 	\tikzexternaldisable
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll/loop_filter.tikz}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/loop_filter.tikz}
 	\caption[PLL loop filter components]{Passive fourth order loop filter for PLL}
 	\tikzexternalenable
 	\label{fig:loop_filter}
@@ -571,7 +571,7 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/lmx2594}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/lmx2594}
 	\caption{Schematics of the LMX2594}
 	\label{fig:lmx2594}
 \end{figure}
@@ -588,7 +588,7 @@ The schematics of the chip is shown in \autoref{fig:fanout}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/fanout}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/fanout}
 	\caption{Schematic of the fanout}
 	\label{fig:fanout}
 \end{figure}
@@ -617,7 +617,7 @@ The programmable analog waveform, generated by the \gls{dac} (operating up to \S
 The schematic of a \gls{dac} channel is shown in \autoref{fig:dac_channel}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/dac_channel}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/dac_channel}
 	\caption{DAC-channel with balun. Signal propagates from right to left.}
 	\label{fig:dac_channel}
 \end{figure}
@@ -629,11 +629,11 @@ Therefore, proper power supply design is an important step which needs to be han
 This step includes the selection the right type voltage regulators, as well as providing appropriate filtering. 
 Furthermore, in order 
 
-\autoref{tab:theresacomp} lists the power supply requirements of all the components used on the board.
+\autoref{tab:----theresacomp} lists the power supply requirements of all the components used on the board.
 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
-	\label{tab:theresacomp}
+	\label{tab:----theresacomp}
 	\begin{minipage}{\textwidth}
 		\centering
 		\begin{tabularx}{\textwidth}{Xlllll}
@@ -663,7 +663,7 @@ This configuration guarantees that high frequency components on the power supply
 At each power supply one \gls{emi} filter has been placed. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/schematic/emi_filter}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/schematic/emi_filter}
 	\caption{EMI-filter used for power supply}
 	\label{fig:emi_filter}
 \end{figure}
@@ -683,7 +683,7 @@ This way, one single voltage regulator can be used for more components.
 
 For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} has been selected. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
 
-It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
+It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:----theresacomp}. 
 
 The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\ampere}.
 With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 
@@ -704,7 +704,7 @@ In order to achieve the required \SI{2}{\volt}, the values of the resistors are 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/adp1741_d}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/adp1741_d}
 	\caption{Recommended schematic of the ADP1741 voltage regulator \cite{adp1741}}
 	\label{fig:adp1741}
 \end{figure}
@@ -796,7 +796,7 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 \end{itemize}
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pcb/vias.tikz}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/pcb/vias.tikz}
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}
@@ -849,7 +849,7 @@ For this design, the Si9000e tool for modeling \gls{pcb} transmission lines from
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/polaris}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/polaris}
 	\caption[Screenshot of the Polaris Si9000e]{Screenshot of the Polaris Si9000e tool for modeling \gls{pcb} transmission lines, showing calculation of characteristic impedance of a coplanar waveguide}
 	\label{fig:polaris}
 \end{figure}
@@ -876,7 +876,7 @@ Separation between trace and ground plane is defined as $(b-a)/2 := d$.
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/TL/cw.tikz}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/cw.tikz}
 	\caption{Coplanar Waveguide with Ground}
 	\label{fig:microstrip_geometry}
 \end{figure}
@@ -905,7 +905,7 @@ It can be seen that with higher effective dielectric constant the characteristic
 The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, which is still inside the 10\% tolerance range.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk.tikz}
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_dk.tikz}
 	\caption[CWG, $Z_o$ vs $\varepsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\varepsilon_r$ assuming $a = \SI{213}{\micro \meter}$}
 	\label{fig:surf_dk}
 \end{figure}
@@ -915,7 +915,7 @@ This plot shows that for best matching of the impedance a trace thickness of aro
 This result however does not take into account the real upper tracewidth.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_w1}
+	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_w1}
 	\caption[CWG, $Z_o$ vs. $a$]{$Z_o$ vs. lower trace thickness $a$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_w1}
 \end{figure}
@@ -925,7 +925,7 @@ The result is shown in \autoref{fig:surf_w2}.
 With decreasing width the characteristic impedance approaches \SI{50}{\ohm}, meaning the matching can potentially become better due to manufacturing.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_w2}
+	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_w2}
 	\caption{$Z_o$ vs. lower trace thickness}
 	\label{fig:surf_w2}
 \end{figure}
@@ -937,7 +937,7 @@ The characteristic differential impedance $Z_\text{diff}$ of this transmission l
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/TL/eccw.tikz}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/eccw.tikz}
 	\caption{Edge-Coupled Coplanar Waveguide}
 	\label{fig:eccw_geometry}
 \end{figure}
@@ -957,7 +957,7 @@ The impedance $Z_\text{diff}$ lies around \SI{100}{\ohm} for a trace width $w \a
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w1}
+	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w1}
 	\caption[DCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w1}
 \end{figure}
@@ -966,7 +966,7 @@ The influence of the changing dielectric constant $\varepsilon_r$ is studied in 
 At the maximal value of $\varepsilon_r = 3.71$, the impedance lies around \SI{98.4}{\ohm} corresponding to a change of \SI{0.88}{\percent} compared to the value at $\varepsilon_r = 3.61$. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_dk}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_dk}
 	\caption[DCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$}
 	\label{fig:surf_diff_dk}
 \end{figure}
@@ -977,7 +977,7 @@ Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{15
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/surf_diff/surf_diff_w2}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w2}
 	\caption[DCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w2}
 \end{figure}
@@ -989,7 +989,7 @@ The impedance of this waveguide type depends on the trace width $w$, the trace s
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/TL/docw.tikz}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/docw.tikz}
 	\caption{Offset Differential Coplanar waveguide}
 	\label{fig:docw_d1}
 \end{figure}
@@ -1008,7 +1008,7 @@ Therefore this option is not feasible.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_w1}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_w1}
 	\caption[DOWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming upper trace width equals to $w$}
 	\label{fig:off_diff_w1}
 \end{figure}
@@ -1020,7 +1020,7 @@ For a trace separation of around \SI{300}{\micro \meter} (more than 3 times larg
 Taking this into consideration, as well as the space on the board, the parameters are left as is.  
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_s1}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_s1}
 	\caption[DOWG, $Z_\text{diff}$ vs. $s$]{$Z_\text{diff}$ vs. trace separation $s$, assuming trace width $w = \SI{88}{\micro \meter}$}
 	\label{fig:off_diff_s1}
 \end{figure}
@@ -1031,7 +1031,7 @@ However, the upper trace width has also to be taken into account, which is in an
 As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than calculated by assuming both width equal. Therefor the impedance can still be regarded as falling into the tolerance band.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_dk}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_dk}
 	\caption[DOWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_dk}
 \end{figure}
@@ -1039,7 +1039,7 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-work/img/TL/off_diff/off_diff_w2}
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_w2}
 	\caption[DOWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_w2}
 \end{figure}
@@ -1082,7 +1082,7 @@ This is achieved by routing the the traces in patterns called ``accordions'', wh
 An example for such accordions is shown in \autoref{fig:accordion}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pcb/accordion}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/pcb/accordion}
 	\caption[Trace accordions]{Example for trace accordions which are used to enlarge the trace length when little space is available}
 	\label{fig:accordion}
 \end{figure}
@@ -1103,7 +1103,7 @@ Component placement:
 
  \begin{figure}[tbh]
  	\centering
- 	\includegraphics[width = \textwidth]{chap/04-work/img/pcb/tha_pcb}
+ 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pcb/tha_pcb}
  	\caption[Stitching vias]{Low noise design shown with the example of a THA}
  	\label{fig:stitch}
  \end{figure}
