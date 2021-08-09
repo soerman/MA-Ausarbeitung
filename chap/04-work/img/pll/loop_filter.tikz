@@ -1,0 +1,38 @@
+\begin{circuitikz}
+	
+	% Components size
+	\ctikzset{
+		resistors/scale=0.7,
+		capacitors/scale=0.7,
+		diodes/scale=0.7,
+		inductors/coils=6
+	}
+	
+	%  \draw
+	%(A) -- (0,0)  -- (0,2) to[R, l = $R_P$] (4,2) -- (4,0)
+	%to[C, *-*, l=$C$] (0,0) -- (0,0)  -- (0,-2)
+	%to[R, l=$R_D$] (2,-2)  to[C, l=$C_D$] (4,-2) -- (4,0)
+	%to[R, l=$R_S$] (7,0) to[L, l=$L_S$] (8,0) -- (B);
+	% Circuit Code
+	\draw (1,0) node[ocirc]{} to (2,0)
+	node[circ]{} coordinate(point1)
+	to (4,0) node[circ]{} coordinate(point2)  to[R, l=$R_3$] (7,0) node[circ]{} coordinate(point3) to[R, l=$R_4$] (9,0) node[circ]{} coordinate(point4) to (10,0) node[ocirc]{} ;
+	%  to[inductor,l=$jX_2$] ++(3,0)
+	%to[sV,l=$E_2 \angle{ \delta}$,i<=$i_2$] ++(0,-2.5)node[ground]{};
+	
+	\draw (point1) to[capacitor, l=$C_1$] ++(0,-2.5)
+	node[ground]{};
+	
+	\draw (point2) to[capacitor, l=$C_2$] ++ (0,-1) to[R,l=$R_2$] ++(0,-1.5)
+	node[ground]{};
+	
+	\draw (point3) to[capacitor, l=$C_3$] ++ (0,-2.5)
+	node[ground]{};
+	
+	\draw (point4) to[capacitor, l=$C_4$] ++ (0,-2.5)
+	node[ground]{};
+	% Labels
+	\node[] at (1,0.3){CP$_\text{Out}$};
+	\node[] at (10,0.3){$V_\text{tune}$};
+	
+\end{circuitikz}

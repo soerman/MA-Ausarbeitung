@@ -102,7 +102,7 @@ The \gls{fmc}+ standard extends the pin count and throughput of the present high
 An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/fmcp.pdf}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/connectors/fmcp.pdf}
 	\caption[Rendering of FMC+ connector]{Part drawing of FMC+ connector \cite{fmcpic}}
 	\label{fig:fmcp}
 \end{figure}
@@ -129,8 +129,6 @@ Furthermore, the connector provides pins for power supply from carrier board to 
 		\end{tabularx}
 \end{table}
 
-
-
 \paragraph{Analog Signals}
 The analog signals coming from the power splitter are propagated to the \glspl{tha} through \SI{1.85}{\mm} high-frequency connectors. 
 These connectors use an air dielectric filled interface which enables operation up to \SI{65}{\GHz}. 
@@ -143,14 +141,14 @@ The design has been introduced as an open standard under the \gls{ieee} 287 Prec
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/04-work/img/v_m}  
+		\includegraphics[width=0.8\textwidth]{chap/04-work/img/connectors/v_m}  
 		\caption{V connector, male type}
 		\label{fig:v_m}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=0.8\textwidth]{chap/04-work/img/v_f}  
+		\includegraphics[height=0.8\textwidth]{chap/04-work/img/connectors/v_f}  
 		\caption{V connector, female type}
 		\label{fig:v_f}
 	\end{subfigure}
@@ -166,7 +164,7 @@ On the sampling board, the male counterpart of the connectors, \gls{lpam}, is us
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/lpam_50_top.pdf}
+	\includegraphics[width = \textwidth]{chap/04-work/img/connectors/lpam_50_top.pdf}
 	\caption[LPAM $8\times50$ connector]{Part drawing of a LPAM $8\times50$ connector}
 	\label{fig:lpam1}
 \end{figure}
@@ -178,7 +176,7 @@ The reference clock for the \gls{fpga} is propagated through the \gls{fmc}+ conn
 Clocking for the \glspl{adc} and the \glspl{dac} is provided through a $6\times20$ \gls{lpam} connector (see \autoref{fig:lpam2}).
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/lpam_20.pdf}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/connectors/lpam_20.pdf}
 	\caption[LPAM $6\times20$ connector]{Part drawing of LPAM $6\times20$ connector}
 	\label{fig:lpam2}
 \end{figure}
@@ -208,14 +206,14 @@ Switching characteristics are important for estimation of the maximal sample fre
 			\toprule
 			\textbf{Parameter} & \textbf{Min} & \textbf{Typ.} & \textbf{Max} & \textbf{Unit}\\
 			\midrule
-			\textbf{Analog Inputs} &&&& \\
+			\multicolumn{5}{c}{\textbf{Analog Inputs}}  \\
 			Differential \gls{fs} Range & & 1 & & Vpp\footnote{Volt peak-to-peak}\\
 			Common mode voltage & -0.1 & 0 & 0.1 & V\\[0.3cm]
-			\textbf{Clock Inputs} &&&&\\
+		    \multicolumn{5}{c}{\textbf{Clock Inputs}}  \\
 			DC Differential High Voltage (Track Mode) & 20 & 40 & 2000 & mV\\
 			DC Differential Low Voltage (Hold Mode) & -2000 & -40 & -20 & mV\\
 			Common mode voltage & -0.5 & 0 & 0.5 & V\\[0.3cm]
-			\multicolumn{5}{c}{\textbf{Analog Outputs}}\\
+		    \multicolumn{5}{c}{\textbf{Analog Outputs}}  \\
 			Differential \gls{fs} Range &  & 1 && Vpp\\
 			Common mode voltage & & 0 & & V\\[0.3cm]
 			\multicolumn{5}{c}{\textbf{Track-to-Hold/Hold-to-Track Switching}} \\
@@ -238,7 +236,7 @@ At the power pins, decoupling capacitors and a ferrite bead  were placed. The \g
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/hmc5640}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/hmc5640}
 	\caption[HMC5640 THA schematic]{HMC5640 \gls{tha} schematic}
 	\label{fig:hmc5640}
 \end{figure}
@@ -257,7 +255,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/04-work/img/gnd_agnd}
+	\includegraphics[width = 0.5\textwidth]{chap/04-work/img/schematic/gnd_agnd}
 	\caption{Connection of the analog and digital grounds at the THAs}
 	\label{fig:gnd_agnd}
 \end{figure}
@@ -297,13 +295,10 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/delay_chip}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/delay_chip}
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
-
-
-
 
 \paragraph{Inputs}
 The inputs of the delay chip are driven by the preceding low time-skew, low-jitter and high-performance clock distribution , the outputs of which are \gls{lvpecl} drivers.
@@ -371,7 +366,7 @@ Furthermore, resistors are place at the pins to reduce possible voltage overshoo
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/level_trans}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/level_trans}
 	\caption[SN74AVC32T245 bus transceiver]{Schematic of the SN74AVC32T245 bus transceiver}
 	\label{fig:level_trans}
 \end{figure}
@@ -417,7 +412,7 @@ The clock distribution is designed as shown in \autoref{fig:clocking}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll_tsMode}
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll/clocking_arch}
 	\caption{Overview of the clocking paths on the sampling board}
 	\label{fig:clocking}
 \end{figure}
@@ -463,7 +458,7 @@ The general architecture of a \gls{pll} is shown in \autoref{fig:pll_block}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pllBlock.tikz}
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll/pllBlock.tikz}
 	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
 	\label{fig:pll_block}
 \end{figure}
@@ -477,12 +472,18 @@ The phase detector produces current correction pulses (with magnitude $K_\text{P
 These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
 The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, ...) and therefore has to be designed carefully.
 
-To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). For the names of the filter components refer to \autoref{fig:loop_filter}.
+To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
+This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
+A passive fourth order loop filter is shown in \autoref{fig:loop_filter}.
+In order to implement a lower order filter, some components need to be left out.
+To implement an active filter an additional operational amplifier is necessary.
+The input of the filter is connected to the output of the charge pump from which it receives the current pulses.
+The output of the filter is the voltage $V_\text{tune}$ which is the input to the \gls{vco}.
 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/pll.PNG}
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll/pll.PNG}
 	\caption[PLL block diagram]{Screenshot of the TI PLLatinum Sim tool for loop filter design and \gls{pll} performance simulation}
 	\label{fig:ti_pll}
 \end{figure}
@@ -490,8 +491,10 @@ To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum S
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/loop_filter}
-	\caption[PLL loop filter components]{Picture to be replaced. General n-th order passive loop filter for \gls{pll}. To reduce the order leave components out.}
+	\tikzexternaldisable
+	\includegraphics[width = \textwidth]{chap/04-work/img/pll/loop_filter.tikz}
+	\caption[PLL loop filter components]{Passive fourth order loop filter for PLL}
+	\tikzexternalenable
 	\label{fig:loop_filter}
 \end{figure}
 
@@ -547,7 +550,9 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\begin{tabularx}{\textwidth}{Xl}
 		 \multicolumn{2}{c}{\textbf{PLL parameters}}                             \\
 		\toprule
-		\textbf{Parameter}                         & \textbf{Value}             \\ \bottomrule
+		\textbf{Parameter}                         & \textbf{Value}             \\ 
+		\midrule
+		\multicolumn{2}{c}{\textbf{PLL parameters}}                             \\
 		VCO Gain                                   & \SI{239}{\MHz\per\volt}    \\
 		Loop Bandwidth                             & \SI{32.7}{\kHz}            \\
 		Phase Margin                               & \ang{69}                   \\
@@ -566,7 +571,7 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/lmx2594}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/lmx2594}
 	\caption{Schematics of the LMX2594}
 	\label{fig:lmx2594}
 \end{figure}
@@ -583,7 +588,7 @@ The schematics of the chip is shown in \autoref{fig:fanout}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/fanout}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/fanout}
 	\caption{Schematic of the fanout}
 	\label{fig:fanout}
 \end{figure}
@@ -612,7 +617,7 @@ The programmable analog waveform, generated by the \gls{dac} (operating up to \S
 The schematic of a \gls{dac} channel is shown in \autoref{fig:dac_channel}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/dac_channel}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/dac_channel}
 	\caption{DAC-channel with balun. Signal propagates from right to left.}
 	\label{fig:dac_channel}
 \end{figure}
@@ -645,21 +650,24 @@ Furthermore, in order
 \end{table}
 %todo why two rows for the HMC THA. what are the upper/lower values?
 
-In general, there are three different voltage levels provided by different components:
+In general, there are four different voltage supplies provided by different sources:
 \begin{itemize}
 	\item \SI{1.8}{\volt} for digital components coming from \gls{fmc}+ connector
 	\item \SI{3.3}{\volt} for digital components coming from \gls{fmc}+ connector
 	\item \SI{3.3}{\volt} and \SI{-5}{\volt} for analog devices from external power supplies 
 \end{itemize}
-An \gls{emi} filter needs to be placed in order to keep noise of the power supply and read-out card from the sampling board (see \autoref{fig:emi_filter}).
+An \gls{emi} filter needs to be placed in order to reduce the electromagnetic interference from external sources. 
+The filter used is a passive LC low pass filter, the schematic fo which is shown in \autoref{fig:emi_filter}.
+It consists of a inductor and several shunting capacitors.
+This configuration guarantees that high frequency components on the power supply voltage are reduced and high frequency currents are redirected to ground through the capacitors.
+At each power supply one \gls{emi} filter has been placed. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/emi_filter}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/schematic/emi_filter}
 	\caption{EMI-filter used for power supply}
 	\label{fig:emi_filter}
 \end{figure}
-
-For the sensitive components like \gls{tha}, voltage regulators are needed, to guarantee a stable voltage level.
+For the sensitive components like \gls{tha} voltage regulators have to be used to guarantee low noise operation.
 
 
 \subsubsection*{Voltage Regulator for Track-and-Hold-Amplifiers}
@@ -667,7 +675,8 @@ The \glspl{tha} need a low-ripple voltage level for optimal operation.
 Linear voltage regulators are capable to maintain a stable output voltage and are therefore to be used with the \glspl{tha}.
 
 On the \gls{kapture} sampling board, the \gls{ldo} ADP1708 from \textit{Analog Devices} is used to provide a power supply for the \glspl{tha}. 
-A \gls{ldo} is able to operate at a low potential difference between the input and output voltage. This low potential difference has also the benefit of low power dissipation, which also reduces the    
+A \gls{ldo} is able to operate at a low potential difference between the input and output voltage. 
+This low potential difference has the benefit of low power dissipation, which also reduces the heat produced by the components.  
 This power supply can provide at maximum \SI{1}{\ampere} to the load. 
 In order to minimize the amount of components needed on the board and to save space, a different \gls{ldo} which provides higher currents should be used. 
 This way, one single voltage regulator can be used for more components.
@@ -695,7 +704,7 @@ In order to achieve the required \SI{2}{\volt}, the values of the resistors are 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/adp1741_d}
+	\includegraphics[width = \textwidth]{chap/04-work/img/schematic/adp1741_d}
 	\caption{Recommended schematic of the ADP1741 voltage regulator \cite{adp1741}}
 	\label{fig:adp1741}
 \end{figure}
@@ -723,7 +732,7 @@ The current draw from this component lies in the range of \SI{}{\micro \ampere} 
 
 As input voltage these regulators receive the digital \SI{3.3}{\volt} from the \gls{fmc}+ connector.
 The ground pins are connected to the digital ground of the \gls{pcb}.
-This is important, as the regulator for the digital components should be separated from the analog part of the \gls{pcb}. 
+This is important, in order to keep the analog and digital grounds and components separated.
 
 \paragraph{Power Dissipation of the Voltage Regulators}
 According to the data sheet of the ADP1741 \cite{adp1741}, the power dissipation $P_D$ of the regulator can be calculated with the input and output voltage $V_\text{IN}$ and $V_\text{OUT}$, load current $I_\text{LOAD}$ and ground current $I_\text{GND}$\footnote{difference between input and output current}:
@@ -752,7 +761,7 @@ In order to dissipate the heat, an exposed pad is provided under the component.
 This pad can be connected through vias to a (ground) plane located on the inner layers, in this way allowing to dissipate the heat through the \gls{pcb}.
 Furthermore, a matrix of vias is placed underneath the component area in order to improve the heat flow.
 This should be enough to handle the calculated power dissipation.
-Heat sinks could be added later during operation, if the deployed method
+Heat sinks could be added later during operation, if the deployed method is not sufficient to dissipate the produced heat.
 
 \section{Layout}
 After completing the schematic capture, the following step is the \gls{pcb} layout design.
@@ -776,27 +785,27 @@ In this section an overview over the basic structures on a \gls{pcb} is given.
 A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
 
 \paragraph{Planes}
-\textit{Plane} denotes an uninterrupted area of metal, which covers the whole \gls{pcb} layer. If this area only covers a part of the layer, it is called a \textit{planelet}. These areas provide power distribution across the \gls{pcb} and present an important transmission medium for the return current\footnote{Any current, which is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
+\textit{Plane} denotes an uninterrupted area of metal, which covers the whole \gls{pcb} layer. If this area only covers a part of the layer, it is called a \textit{planelet}. These areas provide power distribution or ground across the \gls{pcb} and present an important transmission medium for the return currents\footnote{Any current that is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
 
 \paragraph{Vias}
 A via is metal-plated hole, which is used to route a trace in vertical direction, i.e. from the \gls{pcb} outer layer to the inner layers. They carry signals and power. Three types of vias are \cite{vias}:
 \begin{itemize}
-	\item Blind via: A blind via connects the surface layers with at most three layers below.
+	\item Blind via: A blind via connects the surface layers with a few layers below.
 	\item Buried via: A buried via only connects internal layers.
 	\item Through-via: A through-via goes from one \gls{pcb} surface to another and is used to connect any layer. 
 \end{itemize}
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/vias}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pcb/vias.tikz}
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}
 
-In this design only blind and through vias are used due to manufacturing limitations.
+In this design only blind and through vias are used.
 
 \subsection{PCB Substrate Selection and Metal Layer Stackup}\label{ssec:substrate}
-Proper substrate material has to be selected in according to the use-case.
-The MEGTRON 6 from \textit{Panasonic} is designed for high-speed/high frequency applications. 
+High-frequency transmission lines require an appropriate and very pure substrate dielectric, which needs to be selected to match the maximum frequency, the acceptable losses, and transmission lines typologies.
+The Megtron6 substrate from \textit{Panasonic} is designed for high-speed/high frequency applications. 
 Characteristics of this material are:
 \begin{itemize}
 \item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
@@ -805,15 +814,25 @@ Characteristics of this material are:
 \item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius}
 \end{itemize}
 
-Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed. 
+Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed in order to integrate the analog and digital signal lines, as well as the necessary power planes.
 For this design a number of 16 layers is chosen.
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/stackup}
-	\caption[Metal Layer Stackup]{Metal Layer stackup showing 16 layers.} 
-	\label{fig:layers}
-\end{figure}
+In order to keep the analog and digital part of the \gls{pcb} separated, the top eight layers are dedicated solely to the digital signal lines and components, the bottom eight to the analog.
+For shielding purposes, every second layer contains a (analog or digital) ground plane covering the whole layer.
+\gls{rf} transmission lines carrying the sensitive analog signals from the detector are therefore routed on the inner layers in order to guarantee shielding from any noise or interference.
+Slow control signals are routed in such way to not destroy the ground above/below the \gls{rf} lines, i.e. avoiding the area around these lines.
+
+Lines, where time skew control needs to be very precise, are routed in inner layers. 
+Due to the dielectric on both sides of the line, the electromagnetic waves propagate with lower speed, than if the signal lines would have been routed on the top layer.
+The speed of the waves $V_P$ can be calculated with the speed of light $c$ and the effective dielectric constant $\varepsilon_\text{r,eff}$ as (see \cite{thierauf}):
+\begin{equation}
+	V_P = \frac{c}{\sqrt{\varepsilon_\text{r,eff}}}
+\end{equation}
+The dielectric constant of air\footnote{1.00059 at room temperature (\SI{25}{\degreeCelsius}) \cite{dielectric}} is approximately 1, meaning the effective dielectric constant for waves propagating on the top layers is smaller, than the one for waves propagating in the inner layers where they are surrounded by the substrate.
+According to the equation above, this also results in a higher propagation speed. 
+Time skew control can be handled more easily for slower waves, meaning for lines where the arrival time of the signals should be matched as precise as possible, propagation in the inner layers is necessary.
+
+Filtered voltage from the power supplies is propagated through vias to the inner layers, from where the levels are distributed to the respective components, either by connected plane or single traces.
 
 %https://industrial.panasonic.com/content/data/EM/PDF/ipcdatasheet\_R-5775.pdf
 \subsection{Transmission Lines}
@@ -840,7 +859,6 @@ These were carefully designed for optimal signal transmission.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate used for the new design. 
 Therefore, the impedance has to be recalculated to check whether it is still acceptable. 
 A deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
-The change in impedance/parameters is assumed to be negligible, as the difference in dielectric constans between the two boards is not large (\gls{kapture}: $\varepsilon_r$ =  3.52, new board: $\varepsilon_r$ =  3.61)
 
 Three types of waveguides are used in this design:
 \begin{itemize}
@@ -848,7 +866,7 @@ Three types of waveguides are used in this design:
 	\item Differential surface coplanar waveguide with ground for output from the delay chips to the \glspl{tha}
 	\item Offset differential coplanar waveguide for clock signals and signals coming from the \glspl{tha}
 \end{itemize}
-These waveguide types are presented and the geometric dimensions calculated with the Si9000e tool are presented.
+These waveguide types and the respective geometric dimensions calculated with the Si9000e tool are presented.
 
 \paragraph{Surface Coplanar Waveguide with Ground}
 The surface coplanar waveguide has the geometry shown in \autoref{fig:microstrip_geometry}.
@@ -858,7 +876,7 @@ Separation between trace and ground plane is defined as $(b-a)/2 := d$.
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/cw}
+	\includegraphics[width = \textwidth]{chap/04-work/img/TL/cw.tikz}
 	\caption{Coplanar Waveguide with Ground}
 	\label{fig:microstrip_geometry}
 \end{figure}
@@ -874,7 +892,7 @@ The thickness $t$ of the trace and the thickness $h$ of the dielectric is define
 For Megtron6 it is 
 \begin{itemize}
 	\item $t = \SI{30}{\micro \meter}$
-	\item $h = \SI{100}{\micro \meter}$
+	\item $h = \SI{100}{\micro \meter}$.
 \end{itemize}
 With all these parameters, the value for the characteristic impedance is calculated to $Z_o = \SI{47.33}{\ohm}$.
 This lies well in the 10\% tolerance range of \SIrange{45}{55}{\ohm}. 
@@ -887,7 +905,7 @@ It can be seen that with higher effective dielectric constant the characteristic
 The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, which is still inside the 10\% tolerance range.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk}
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/04-work/img/TL/surf/surf_dk.tikz}
 	\caption[CWG, $Z_o$ vs $\varepsilon_r$]{Characteristic impedance $Z_o$ of a coplanar waveguide versus dielectric constant $\varepsilon_r$ assuming $a = \SI{213}{\micro \meter}$}
 	\label{fig:surf_dk}
 \end{figure}
@@ -919,7 +937,7 @@ The characteristic differential impedance $Z_\text{diff}$ of this transmission l
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/eccw}
+	\includegraphics[width = \textwidth]{chap/04-work/img/TL/eccw.tikz}
 	\caption{Edge-Coupled Coplanar Waveguide}
 	\label{fig:eccw_geometry}
 \end{figure}
@@ -971,7 +989,7 @@ The impedance of this waveguide type depends on the trace width $w$, the trace s
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/docw.tikz}
+	\includegraphics[width = \textwidth]{chap/04-work/img/TL/docw.tikz}
 	\caption{Offset Differential Coplanar waveguide}
 	\label{fig:docw_d1}
 \end{figure}
@@ -1064,7 +1082,7 @@ This is achieved by routing the the traces in patterns called ``accordions'', wh
 An example for such accordions is shown in \autoref{fig:accordion}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/accordion}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/pcb/accordion}
 	\caption[Trace accordions]{Example for trace accordions which are used to enlarge the trace length when little space is available}
 	\label{fig:accordion}
 \end{figure}
@@ -1083,39 +1101,9 @@ Component placement:
 	\item Power distribution 
 \end{itemize}
 
-
-
  \begin{figure}[tbh]
  	\centering
- 	\includegraphics[width = \textwidth]{chap/04-work/img/tha_pcb}
+ 	\includegraphics[width = \textwidth]{chap/04-work/img/pcb/tha_pcb}
  	\caption[Stitching vias]{Low noise design shown with the example of a THA}
  	\label{fig:stitch}
  \end{figure}
-
-%
-%Filtering components need to be considered as well.
-%To minimize \gls{emi} on the power supply rails, coming from the component noise on the \gls{fpga}, appropriate filters needs to be placed at the power supplies.
-%In order to guarantee stable voltage levels at the power supply pins decoupling/bypassing capacitors need to be placed next to the components. 
-%These components need to be placed as close as possible to the power supply pins of the respective components, in order to minimize trace length and therefore parasitic inductance.
-%During component placement and routing, several rules need to be followed in order to guarantee proper signal propagation and signal integrity.
-%\paragraph{Component placement}
-%\begin{itemize}
-%	\item The board geometry, or board outline, need to match the readout card, i.e. the connectors need to be placed exactly to match their counterpart on the board
-%	\item Analog and digital components need to be separated. In order to accomplish this, the board is divided into two parts: the top eight layers are assigned to carry digital signals and ground. The other half of the layers is dedicated to analog components.
-%	\item Layers carrying signals are ``sandwiched'' between two ground layers. This is important for differential pairs, as they should GND right below/above, because this serves as a return path. Furthermore, the ground layers serve as shielding from noise.
-%	\item Power planes are placed in such a way, that no or only few signal traces are routed above/below, as any switching events may introduce noise on the power plane. 
-%	\item Components, especially sensitive ones, have to be placed in dedicated ``islands'' .
-%	\item High-frequency components need to be placed first. This is done on order to minimize the routing length of the \gls{rf} traces.
-%	\item Stitching vias are used to shield the sensitive \glspl{ic} as much as possible from \gls{emi} (see \autoref{fig:stitch} for an example).
-%	\item Decoupling capacitors are placed in such way, that the large capacitor is connected to the power plane of the external power supply or voltage regulator. The filtered voltage level after the capacitor is propagated to a power plane located on an inner layer. The smaller bypass capacitor is connected to this layer by a via and then to the power supply pin of the respective chip. The small capacitor connects the component to the clean power plane and bypasses high frequency variations. The bypass capacitor is closed as close as possible to the power supply pin.
-%	\item \glspl{tha} have been placed on the edge.
-%	\item Delay chips have been arranged evenly so no further delay is introduced due to misplaced components.
-%	\item Fanout buffers have been placed in the middle of two groups à 8 \glspl{tha} for even distribution of the signal.
-%	\item LMK04808B is placed right in the middle to evenly distribute clocking to the fanout buffers and the other to \glspl{pll}.
-%	\item Voltage regulators are placed symmetrically, this makes it easier to provide power planes in an efficient way.	
-%\end{itemize}
-
-
-
-
-

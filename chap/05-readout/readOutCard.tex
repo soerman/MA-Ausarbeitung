@@ -21,7 +21,7 @@ Other peripheral connections and features are shown in the top view of the board
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/zcu216}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216}
 	\caption{Topview of ZCU216 evaluation board with labeled components}
 	\label{fig:zcu216}
 \end{figure}
@@ -31,12 +31,13 @@ Together with an UltraScale+ programmable logic, the ZU49DR \gls{rfsoc} integrat
 This \gls{ps} contains a 64-bit quad-core ARM\textregistered Cortex\texttrademark-A53, serving as \gls{apu}, and a dual core ARM Cortex-R5F, serving as \gls{rpu}.
 Furthermore, the system integrates \gls{rf} data converters, allowing to use the system for \gls{rf} applications.
 At the moment of writing, this is the industry's only single-chip, adaptable radio platform. \cite{zu49}
+This setup allows to %todo ...
 
 \autoref{fig:rfsoc} shows the general block diagram of the \gls{rfsoc}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/rfsoc_blockdiagram}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/rfsoc_blockdiagram}
 	\caption[Zynq Ultrascale+ RFSoC block diagram]{Zynq Ultrascale+ RFSoC block diagram, showing in detail the different components of the \gls{ps} and \gls{pl}}
 	\label{fig:rfsoc}
 \end{figure}
@@ -47,7 +48,7 @@ In order to provide a quick evaluation of data converter performance an evaluati
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/zcu216evaltool}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216evaltool}
 	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board}
 	\label{fig:evalTool}
 \end{figure}
@@ -71,7 +72,7 @@ The RF DC (Data Converter) Evaluation Tool consists of two parts:
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/evaltool}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/evaltool}
 	\caption{\gls{gui} of the RF Data Converter Evaluation Tool}
 	\label{fig:gui}
 \end{figure}
@@ -85,7 +86,7 @@ Furthermore, the high-speed data-throughput interface should be implemented.
 \autoref{fig:firmware} shows the general schematic of the firmware on the readout card.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/firmware.tikz}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/firmware.tikz}
 	\caption{Schematic of the firmware and processing unit on the readout card}
 	\label{fig:firmware}
 \end{figure}
@@ -114,7 +115,7 @@ In order to configure the data converters, the \gls{hdl} design should be based 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/rf_data_converter}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/rf_data_converter}
 	\caption{Simple example design with the \gls{rf} Data Converter}
 	\label{fig:rf_dc_ex}
 \end{figure}
@@ -131,7 +132,7 @@ The \gls{hdl} implementation for this interface is listed in the appendix. %todo
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/sdi_interface_delay}
+	\includegraphics[width = \textwidth]{chap/05-readout/img/sdi_interface_delay}
 	\caption{\gls{sdi} timing diagram for the NB6L295 delay chip \cite{NB6L295}}
 	\label{fig:delay_diagram}
 \end{figure}

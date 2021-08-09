@@ -9,6 +9,8 @@ Then, the architecture of the \gls{theresa} system itself is described.
 
 \section{State Of The Art Readout-Systems}
 %todo some intro sentence
+In this section first a short overview over commercially available real-time oscilloscopes and their performance is given. 
+Then, the \gls{kapture} system, which is in operation at \gls{kara}, is presented in detail.
 \subsection*{Real-Time Oscilloscopes}
 Real-time oscilloscopes are defined by three key specifications: bandwidth, sample rate, and memory depth.
 Some examples of currently commercially available oscilloscopes are listed in \autoref{tab:real_time_osc}.
@@ -54,7 +56,7 @@ The \gls{fpga} sets the sampling time for each individual sampling channel and r
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-currentStat/img/thzChain.tikz}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kapture/thzChain.tikz}
 	\caption[THz measurement with KAPTURE]{\gls{thz} radiation measurement setup with \gls{kapture} (redrawn from \cite{caselle2014})}
 	\label{fig:thz_chain}
 \end{figure}
@@ -71,7 +73,7 @@ A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.6\textwidth]{chap/03-currentStat/img/power_split}
+	\includegraphics[width = 0.6\textwidth]{chap/03-currentStat/img/kapture/power_split}
 	\caption{Photo of the power-splitter developed at IPE}
 	\label{fig:power_splitter}
 \end{figure}
@@ -80,7 +82,7 @@ A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 The archtiecture of the front-end board with the power-splitter is shown in \autoref{fig:kapture}. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kapture.tikz}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/kapture/kapture.tikz}
 	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} front-end sampling card (cf. \cite[p.2]{caselleKAP})}
 	\label{fig:kapture}
 \end{figure}
@@ -92,14 +94,25 @@ The clock signal is provided by \gls{kara}, which is cleared from jitter by a \g
 This ensures the synchronization of the \glspl{adc} with the \gls{rf} system. 
 The cleaned clock signal is distributed to the delay chips via fan-out buffer \cite{caselleKAP}.
 In this way, the pulse can be ``locally sampled'' by adjusting the different delay with a maximum rate of \SI{330}{\giga\sample\per\second} possible. 
-A simplified representation of the local sampling of the signal is shown in \autoref{fig:detector_signal}.
+A simplified representation of the local sampling of the signal is shown in \autoref{fig:sig_kap1_kap2}.
+The plot shows on the left the sampling of the signal for \gls{kapture} v1 and on the right for \gls{kapture} v2 (described below).
+The sampling points $S_n$ are acquired by setting the respective delay $\Delta t_n$ of the sampling times. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth, height=0.4\textwidth]{chap/03-currentStat/img/detector_signal.tikz}
-	\caption{Signal and sampled points $S_1$ to $S_4$}
-	\label{fig:detector_signal}
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/kapture/signal_kap1.tikz}  
+		\label{fig:sig_kap1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[height=0.8\textwidth]{chap/03-currentStat/img/kapture/signal_kap2.tikz}  
+		\label{fig:sig_kap2}
+	\end{subfigure}
+	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by KAPTURE v1, right by KAPTURE v2}
+	\label{fig:sig_kap1_kap2}
 \end{figure}
-%todo  re-label
 %todo add plot for 8 and 16 samples
 
 \paragraph{GPU-DAQ System}
@@ -132,14 +145,14 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/kap1.tikz}  
+		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/kapture/kap1.tikz}  
 		\caption{Sampling concept in KAPTURE-1}
 		\label{fig:kap1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\textwidth}
 		\centering
-		\includegraphics[height=0.8\textwidth]{chap/03-currentStat/img/kap2.tikz}  
+		\includegraphics[height=0.8\textwidth]{chap/03-currentStat/img/kapture/kap2.tikz}  
 		\caption{Sampling concept in KAPTURE-2}
 		\label{fig:kap2}
 	\end{subfigure}
@@ -153,7 +166,7 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/03-currentStat/img/kapture2.png}
+	\includegraphics[width = 0.7\textwidth]{chap/03-currentStat/img/kapture/kapture2.png}
 	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture}-2 setup}
 	\label{fig:kapturesys}
 \end{figure}
@@ -173,14 +186,14 @@ The photodetector used is an InGaAs photodiode from \textit{Discovery Semiconduc
 The concept of the front-end sampling card is based on and an evolution of the concept used in the \gls{kapture} system. 
 
 The incoming signal is split into 16 identical signals, each leading to the respective sampling channel on the sampling board.
-These sampling channels consist of a high bandwidth (\SI{18}{\GHz}), low noise \gls{tha}. %todo what
+These sampling channels consist of a high bandwidth (\SI{18}{\GHz}), low noise \gls{tha} and an \gls{adc}, which is integrated into the readout card.
 The sampling clock to these \glspl{tha} is provided by respective programmable delay chips.
 In this way, a time interleaving technique (described below) can be implemented by programming the delay chips accordingly. 
 The main clock is provided by a main \gls{pll}, which cleans the reference clock coming from the system in which the sampling system is integrated.
 \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/theresa_scheme.tikz}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/theresa_scheme.tikz}
 	\caption[General architecture of the THERESA sampling card]{General architecture of the THERESA sampling card with power splitter and \glspl{adc}. For presentation purposes only four of the sixteen channels are shown.}
 	\label{fig:theresa_scheme}
 \end{figure}
@@ -200,7 +213,7 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/04-work/img/adcInter.tikz}  
+		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/interleaving/adcInter.tikz}  
 		\caption{An array of $M$ time interleaved $N$-bit \glspl{adc} \cite{mangrob}}
 		\label{fig:adcInter}
 	\end{subfigure}
@@ -208,7 +221,7 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 	\begin{subfigure}{\textwidth}
 		\centering
 		\tikzexternaldisable
-		\includegraphics[width=0.8\textwidth]{chap/04-work/img/adcInterTime.tikz}  
+		\includegraphics[width=0.8\textwidth]{chap/03-currentStat/img/interleaving/adcInterTime.tikz}  
 		\caption{Clocking Scheme for interleaving 4 \glspl{adc}}
 		\tikzexternalenable
 		\label{fig:adcInterTime}
@@ -228,7 +241,7 @@ The magnitude of the spur depends on the offset difference between the \glspl{ad
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/offset_mm}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/interleaving//offset_mm}
 	\caption{Offset-Mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:offset_mm}
 \end{figure}
@@ -238,7 +251,7 @@ This \textit{gain mismatch} has a frequency component to it, which in case of an
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/gain_mm}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/interleaving/gain_mm}
 	\caption{Gain-Mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:gain_mm}
 \end{figure}
@@ -251,7 +264,7 @@ This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\te
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/timing_mm}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/interleaving/timing_mm}
 	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:timing_mm}
 \end{figure}
@@ -263,7 +276,7 @@ Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\ni
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/bandwidth_mm}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/interleaving/bandwidth_mm}
 	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:bandwidth_mm}
 \end{figure}
@@ -306,7 +319,7 @@ In this way, an alternate clocking of the \glspl{adc} is made possible\footnote{
 \begin{sidewaysfigure}[tbh]
 	\centering
 	\tikzexternaldisable
-	\includegraphics[width = 0.8\textwidth]{chap/04-work/img/interl_timing}
+	\includegraphics[width = 0.8\textwidth]{chap/03-currentStat/img/interleaving/interl_timing.tikz}
 	\tikzexternalenable
 	\caption[Track-And-Hold Timing diagram]{\gls{tha} Timing diagram. Shows the clocking of the \gls{tha} (HIGH = hold mode, LOW = track mode). Dashed line represents the sampling of the \gls{adc}.}
 	\label{fig:THA}
@@ -332,7 +345,7 @@ The card is described in detail in \autoref{chap:readout}.
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/footprint}
+	\includegraphics[width = \textwidth]{chap/03-currentStat/img/footprint}
 	\caption[Discrete components vs. IC]{Footprint of discrete components vs. footprint of \gls{ic} integrating the components}
 	\label{fig:footprint}
 \end{figure}

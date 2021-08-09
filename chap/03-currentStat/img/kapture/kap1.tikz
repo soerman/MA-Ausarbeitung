@@ -112,7 +112,7 @@ clip=true,
 0.9075144508670523  0.6702977281011964\\
 };
 
-\draw[Latex-Latex] (0.25,1) -- node[anchor=south] {$T_\text{pulse}=\SI{2}{\ns}$}(0.88,1);
+\draw[Latex-Latex] (0.25,1) -- node[anchor=south] {$T_\text{acq} = T_\text{pulse}=\SI{2}{\ns}$}(0.88,1);
 \draw[-Latex] (0.15,0.45) -- (0.22,0.45);
 \draw[-Latex] (0.36,0.45) node[anchor=west] {\SI{40}{\ps}} -- (0.29,0.45);
 
