@@ -42,7 +42,7 @@
 		\draw[-Latex]  ([yshift=-2.2cm]ps.east) to (th4.west);
 		
 		
-		\draw[-Latex] (-7,2.2) node[anchor=south west] {From Detector} -- (ps);
+		\draw[-Latex] (-7.5,2.2) node[anchor=south west] {From Detector} -- (ps);
 
 		\draw[-Latex] (fanout.west) to (d1.south);
 		\draw[-Latex] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
