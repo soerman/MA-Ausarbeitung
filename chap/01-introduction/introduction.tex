@@ -155,22 +155,43 @@ One scientific focus at \gls{kara} lies in the study of so-called  ``micro-bunch
 Increasing demands in current and future accelerators applications call for higher brilliance of the emitted radiation.
 %todo define brilliance, flux, emittance
 This is achieved by shortening the electron bunches. 
-As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr} the spectrum of which spans from \SI{100}{\GHz} up to THz.
-Due to this \gls{csr} the bunches interact with their own radiation (see \autoref{fig:microBunch}), which introduces complex longitudinal dynamics.
+As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to THz.
+Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/csr2.png}
-	\caption[Incoherent SR and CSR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/SRincoherent.tikz}  
+		\caption{Incoherent SR}
+		\label{fig:srincoherent}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/SRcoherent.tikz}  
+		\caption{Cohenrent SR}
+		\label{fig:srcoherent}
+	\end{subfigure}
+
+	\begin{center}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=1.2\textwidth]{chap/02-theory/img/SRlegend.tikz}  
+			\label{fig:srlegend}
+		\end{subfigure}
+	\end{center}
+	\caption[Incoherent and coherent SR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
 	\label{fig:csr}
 \end{figure}
-%todo to tikz
+
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.5\textwidth]{chap/02-theory/img/microbunching}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/electronInteraction.tikz}
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
-	\label{fig:microBunch}
+	\label{fig:electronInteract}
 \end{figure}
+
 These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
 These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
 This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
@@ -215,7 +236,7 @@ A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the THz pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/scanning_eo}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/scanning_eo}
 	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
 	\label{fig:scan_eo}
 \end{figure}
@@ -234,7 +255,7 @@ A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{rous
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/spectral_eo}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/spectral_eo}
 	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
 	\label{fig:spectral_eo}
 \end{figure}
@@ -393,7 +414,7 @@ This difference is called the \textit{quantization error}. For an equidistant qu
 A setup in order to measure this quantization error is shown in \autoref{fig:qe_m}. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/quant_err_meas.tikz}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/quant_err_meas.tikz}
 	\caption[Measurement setup for quantization error]{Setup for measuring the quantization error of an (ideal) \gls{adc} with input signal $x(t)$}
 	\label{fig:qe_m}
 \end{figure}
@@ -630,13 +651,25 @@ As variations in aperture time occur randomly, these errors behave like a random
 
 The voltage error due to jitter and the \gls{sjnr} for different aperture jitter values are shown in \autoref{fig:ap_jit}.
 
+
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/ap_jit}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chap/02-theory/img/jitterTimeDomain.tikz}  
+		\caption{Effect of aperture jitter}
+		\label{fig:jitter}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=\textwidth]{chap/02-theory/img/SJNRjitter.tikz}  
+		\caption{SJNR for different aperture jitter values}
+		\label{fig:sjnr}
+	\end{subfigure}
 	\caption[Aperture jitter and SJNR]{Effects of aperture jitter and SJNR. Left: In time domain, Right: SJNR for different aperture jitter \cite{Lundberg}}
 	\label{fig:ap_jit}
 \end{figure}
-%todo to tikz
 
 \paragraph{Transient Response}
 The \textit{transient response} denotes the settling time of an \gls{adc} until full accuracy ($\pm$ 1/2 \gls{lsb}).
@@ -645,7 +678,7 @@ The \textit{transient response} denotes the settling time of an \gls{adc} until 
 \subsubsection{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
-The \textit{Nyquist criteria} states, that in order to accurately reconstruct a band-limited, continuous signal %todo what is B?
+The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$
 \begin{equation}
 	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation}
@@ -660,12 +693,12 @@ The range from \SI{0}{\Hz} to $\nicefrac{f_s}{2}$ is also called \textit{Nyquist
 Violation of this rule leads to \textit{aliasing}.
 The effects of aliasing are shown in \autoref{fig:aliasing}.
 
-When a sine wave of the frequency $f_a$ is sampled with the frequency $f_s$, this leads to periodic repetition of the signal spectrum in frequency domain in intervals of $f_s$, or ``images'' (see dashed, red frequency components in \autoref{fig:alias_f}). 
+When a harmonic wave of the frequency $f_a$ is sampled with the frequency $f_s$, this leads to periodic repetition of the signal spectrum in frequency domain in intervals of $f_s$, or ``images'' (see dashed, red frequency components in \autoref{fig:alias_f}). 
 If \autoref{eq:nyquist} is respected, i.e. $f_a$ lies inside the Nyquist bandwidth, there is no overlap with the images created by the sampling process.
 
 Now assuming a signal frequency $f_a \approx f_s$, the sampling process leads to an image falling inside the Nyquist bandwidth.
 The reconstructed signal then lies at the frequency of this image which is much lower than the original frequency.
-The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}
+The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}.
 
 
 %todo explain aliasing

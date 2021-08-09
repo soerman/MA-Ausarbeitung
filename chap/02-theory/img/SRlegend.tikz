@@ -1,0 +1,7 @@
+\begin{tikzpicture}
+\node[circle,fill=blue!70!black,inner sep=0,minimum size=0.15cm, label={[]right:Electron}] {};
+\begin{scope}[xshift=2cm]
+\draw[xscale=0.1,domain=0:4*pi, smooth, variable=\x, red!70!black,samples=100]  plot ({\x}, {0.1*sin(deg(\x)}) node[anchor=west,black] {Emitted Radiation};
+
+\end{scope}
+\end{tikzpicture}

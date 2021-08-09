@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\begin{scope}[]
+\draw[xscale=0.3,domain=0:4*pi, smooth, variable=\x, red!70!black,samples=100]  plot ({\x}, {1*sin(deg(\x)});
+\node[circle,fill=blue!70!black,inner sep=0,minimum size=0.15cm] {};
+\end{scope}
+\begin{scope}[xshift=0.1cm]
+\draw[xscale=0.3,domain=0:4*pi, smooth, variable=\x, red!70!black,samples=100]  plot ({\x}, {1*sin(deg(\x)});
+\node[circle,fill=blue!70!black,inner sep=0,minimum size=0.15cm] {};
+\end{scope}
+\begin{scope}[xshift=0.2cm]
+\draw[xscale=0.3,domain=0:4*pi, smooth, variable=\x, red!70!black,samples=100]  plot ({\x}, {1*sin(deg(\x)});
+\node[circle,fill=blue!70!black,inner sep=0,minimum size=0.15cm] {};
+\end{scope}
+
+\draw[Latex-Latex] (-0.1,-0.2) --(0.3,-0.2);
+\end{tikzpicture}
