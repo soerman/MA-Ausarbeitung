@@ -1,0 +1,46 @@
+\definecolor{kitgreen}{rgb}{0,0.588235294117647,0.509803921568627}
+\definecolor{kitblue}{rgb}{0.274509803921569,0.392156862745098,0.666666666666667}
+\usetikzlibrary{arrows.meta}
+\pgfplotsset{compat=1.11}
+
+\begin{tikzpicture}
+\begin{axis}[%
+axis lines=left,
+xmin=0,
+xmax=110,
+ymin=0,
+ymax=110,
+ylabel={SJNR (\si{\dB})},
+xlabel={Input Frequency (\si{\MHz})},
+axis background/.style={fill=white},
+axis line style={-latex},
+clip=false,
+]
+
+\addplot [thick,color=black]
+  table[row sep=crcr]{%
+1 50\\
+100 20\\
+};
+\addplot [thick,color=black]
+  table[row sep=crcr]{%
+1 65\\
+100 35\\
+};
+\addplot [thick,color=black]
+  table[row sep=crcr]{%
+1 80\\
+100 50\\
+};
+\addplot [thick,color=black]
+  table[row sep=crcr]{%
+1 95\\
+100 65\\
+};
+
+\node at (50,40) {\SI{250}{\ps}};
+\node at (50,55) {\SI{50}{\ps}};
+\node at (50,70) {\SI{10}{\ps}};
+\node at (50,85) {\SI{2}{\ps}};
+\end{axis}
+\end{tikzpicture}

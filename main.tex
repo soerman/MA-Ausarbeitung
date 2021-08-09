@@ -37,6 +37,14 @@
 \usetikztiminglibrary{arrows, clockarrows, nicetabs}
 \pgfplotsset{compat=1.11}
 
+\usetikzlibrary{fadings}
+\tikzfading %strangely gives bad bounding box when inside the tikzpicture
+[
+  name=fade out,
+  inner color=transparent!0,
+  outer color=transparent!100
+]
+
 
 \usepgfplotslibrary{units,fillbetween,colormaps} 
 \pgfplotsset{compat=newest}
@@ -107,6 +115,13 @@
 \makeglossaries
 \input{include/acrolist.tex}
 
+
+
+
+\setcounter{tocdepth}{2}
+
+
+
 \begin{document}
     % Titlepage and ToC
     \FrontMatter
@@ -131,9 +146,9 @@
     \chapter{Introduction}
     		\input{./chap/01-introduction/introduction}
    	\chapter{Architecture Of The New Readout-System - THERESA}
-   			\input{./chap/04-work/new_sys}
+   	%		\input{./chap/04-work/new_sys}
    	\chapter{Design Of The Front-End Sampling Card}
-   			\input{./chap/04-work/theresa}
+   	%		\input{./chap/04-work/theresa}
    	\chapter{Back-End Readout Card and System Integration}\label{chap:readout}
    			\input{./chap/04-work/readOutCard}	
 	\chapter{Conclusion and Outlook}	
