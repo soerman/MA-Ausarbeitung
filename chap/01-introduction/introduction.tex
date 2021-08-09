@@ -31,7 +31,7 @@ This challenge was the motivation to design novel ultra-fast acquisition systems
 Together with the next generation of \gls{fpga}-based systems with integrated high-performance \glspl{adc} this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
 The photonic time-stretch \gls{daq} consists of a photonic part, which consists of the time-stretching section and the conversion of photons into electrical signal with a photo-detector. 
 Furthermore, such a system has one or multiple \glspl{adc} converting the analog values into digital signals.
-The digital signals are then processed in a computing unit and broadcast to other units as needed if the system is integrated into a cluster of measurement systems. %todo whats the purpose of all this if the system is not integrated? what are other units? more kaptures?
+The digital signals are then processed in a computing unit and broadcast to other units as needed if the system is integrated e.g. into a cluster of distributed instrumentation systems. %todo whats the purpose of all this if the system is not integrated? what are other units? more kaptures?
  
 
 \section{Objective}
@@ -53,15 +53,10 @@ Furthermore, the system should be compatible with already existing high-speed \g
 However, stand-alone operation should also be possible.
 Furthermore, the \gls{daq} should be designed in such way that usage independent from the time-stretch method is possible.
 
-
-%
-%The requirements of the \gls{thz} science define the requirements on the newly developed system. 
-%It should be able to acquire fast events over a long period of time, allowing to study the evolution of the electron bunch dynamics. 
-%Therefore, a high temporal resolution is required, as well as high memory depth and/or high-speed connection in order to send the data to a data processing and storage system. 
-
 The overall thesis is structured in the following way: 
-Chapter 2 gives the necessary theoretical background for the new \gls{theresa} system. 
+\autoref{chap:motivation} gives the necessary theoretical background for the new \gls{theresa} system. 
 The subject of \gls{thz} science in particular is touched being the main motivation for the design of the novel time-stretch sampling system.
+<<<<<<< HEAD
 Chapter 3 covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially the \gls{kapture} which is in operation at the \gls{kara}.
 Chapter 4 describes the design steps of the front-end sampling card of \gls{theresa} in detail.
 Chapter 5 covers the description of the back-end readout card, as well as the design of the appropriate firmware.
@@ -737,5 +732,12 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}.
 
 
 
+=======
+\autoref{chap:new_sys} covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially the \gls{kapture} which is in operation at the \gls{kara}.
+\autoref{chap:samplingboard} describes the design steps of the front-end sampling card of \gls{theresa} in detail.
+\autoref{chap:readout} covers the description of the back-end readout card, as well as the design of the appropriate firmware.
+At last, results are concluded and an outlook for the newly developed system is given in \autoref{chap:conclusion}.
+>>>>>>> master
 
 
+\glsresetall
