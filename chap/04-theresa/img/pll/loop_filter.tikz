@@ -1,12 +1,12 @@
 \begin{circuitikz}
 	
 	% Components size
-	\ctikzset{
-		resistors/scale=0.7,
-		capacitors/scale=0.7,
-		diodes/scale=0.7,
-		inductors/coils=6
-	}
+% 	\ctikzset{
+% 		resistors/scale=0.7,
+% 		capacitors/scale=0.7,
+% 		diodes/scale=0.7,
+% 		inductors/coils=6
+% 	}
 	
 	%  \draw
 	%(A) -- (0,0)  -- (0,2) to[R, l = $R_P$] (4,2) -- (4,0)

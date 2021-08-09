@@ -191,7 +191,7 @@ The sampling time of the \gls{tha}, derived from the clock coming from the main 
 \subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
 The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds) \cite{caselle2013} . 
-Therefore it is also a good candidate for the new \gls{----theresa} sampling board.
+Therefore it is also a good candidate for the new \gls{theresa} sampling board.
 
 
 The main features of the \gls{tha} are listed in \autoref{tab:hmc5640}.
@@ -263,7 +263,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 \subsubsection*{Delay Chip}
 The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
-To optimize the performance of \gls{----theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
+To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
 With the HMC856 delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
 This is much less than  \SI{25}{\pico \second} and thus the chip could be potentially used for the intended purpose.
@@ -629,11 +629,11 @@ Therefore, proper power supply design is an important step which needs to be han
 This step includes the selection the right type voltage regulators, as well as providing appropriate filtering. 
 Furthermore, in order 
 
-\autoref{tab:----theresacomp} lists the power supply requirements of all the components used on the board.
+\autoref{tab:theresacomp} lists the power supply requirements of all the components used on the board.
 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
-	\label{tab:----theresacomp}
+	\label{tab:theresacomp}
 	\begin{minipage}{\textwidth}
 		\centering
 		\begin{tabularx}{\textwidth}{Xlllll}
@@ -683,7 +683,7 @@ This way, one single voltage regulator can be used for more components.
 
 For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} has been selected. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
 
-It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:----theresacomp}. 
+It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
 
 The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\ampere}.
 With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 

@@ -103,7 +103,7 @@ Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, o
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/synchrotron.pdf}
+	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/bd/synchrotron.pdf}
 	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
 	\label{fig:storageRing}
 \end{figure}
@@ -113,7 +113,7 @@ Due to this properties, synchrotrons are used for microscopy, spectroscopy, and 
 %todo why are these imporant for the applications listed here. maybe pick one and explain it in more detail and/or an equation
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/spectrum.tikz}
+	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/bd/spectrum.tikz}
 	\caption{Electromagnetic spectrum} %todo of what?
 	\label{fig:spectrum}
 \end{figure}
@@ -159,21 +159,21 @@ Due to this \gls{csr} the bunches interact with their own radiation as shown in 
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/SRincoherent.tikz}  
+		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/bd/SRincoherent.tikz}  
 		\caption{Incoherent SR}
 		\label{fig:srincoherent}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/SRcoherent.tikz}  
+		\includegraphics[height=0.4\textwidth]{chap/02-theory/img/bd/SRcoherent.tikz}  
 		\caption{Cohenrent SR}
 		\label{fig:srcoherent}
 	\end{subfigure}
 	\begin{center}
 		\begin{subfigure}{0.4\textwidth}
 			\centering
-			\includegraphics[width=1.2\textwidth]{chap/02-theory/img/SRlegend.tikz}  
+			\includegraphics[width=1.2\textwidth]{chap/02-theory/img/bd/SRlegend.tikz}  
 			\label{fig:srlegend}
 		\end{subfigure}
 	\end{center}
@@ -184,7 +184,7 @@ Due to this \gls{csr} the bunches interact with their own radiation as shown in 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/electronInteraction.tikz}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/bd/electronInteraction.tikz}
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
 	\label{fig:electronInteract}
 \end{figure}
@@ -231,9 +231,10 @@ To sample the pulse, the delay between the laser and the \gls{thz} pulse is vari
 To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. \glspl{qwp} and \gls{wp} (as shown in \autoref{fig:scan_eo}).
 A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the \gls{thz} pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
+
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/scanning_eo}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/scanning_eo}
 	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
 	\label{fig:scan_eo}
 \end{figure}
@@ -252,7 +253,7 @@ A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{rous
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/spectral_eo}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/spectral_eo}
 	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
 	\label{fig:spectral_eo}
 \end{figure}
@@ -339,7 +340,7 @@ Each digital $N$-bit word corresponds to a range of input voltage values (\texti
 The input voltage is resolved to the code of the nearest code center.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/ideal_adc}
+	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/adc/ideal_adc}
 	\caption[Transfer function of ideal, 3-bit ADC]{Transfer function of an ideal, 3-bit \gls{adc} (redrawn from \cite{Lundberg})}
 	\label{fig:idealADC}
 \end{figure}
@@ -363,7 +364,7 @@ As conclusion, the upper frequency limitation is not determined by the \gls{adc}
 \begin{figure} [H]
 	\centering
 	\tikzexternaldisable
-	\includegraphics[width=\linewidth]{chap/02-theory/img/sha_timing.tikz}  
+	\includegraphics[width=\linewidth]{chap/02-theory/img/adc/sha_timing.tikz}  
 	\tikzexternalenable
 	\caption[SHA timing example]{Example for appropriate sampling timing when using Sample-And-Hold-Amplifier. The sample points of the \gls{adc} should be inside the period, where the \gls{sha} holds the input value.}
 	\label{fig:sha_timing}
@@ -384,7 +385,7 @@ This process is quicker, when the output voltage is already in the range of the 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/tha}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/adc/tha}
 	\caption{Track-And-Hold-Amplifier schematic and principle \cite{walt}}
 	\label{fig:tha}
 \end{figure}
@@ -415,7 +416,7 @@ This difference is called the \textit{quantization error}. For an equidistant qu
 A setup in order to measure this quantization error is shown in \autoref{fig:qe_m}. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/quant_err_meas.tikz}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/quant_err_meas.tikz}
 	\caption[Measurement setup for quantization error]{Setup for measuring the quantization error of an (ideal) \gls{adc} with input signal $x(t)$}
 	\label{fig:qe_m}
 \end{figure}
@@ -431,7 +432,7 @@ Then, the quantization error $e_q(t)$ can be approximated with a sawtooth signal
 The function in \autoref{eq:qe_saw} is plotted in \autoref{fig:eq}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/quantization_error.tikz}
+	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/adc/quantization_error.tikz}
 	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
 	\label{fig:eq}
 \end{figure}
@@ -489,7 +490,7 @@ The \textit{offset error} is defined as the deviation of the actual \gls{adc} tr
 \autoref{fig:offsetErr} visualizes the effects of both offset and gain error. 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc_offset_gain.tikz}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/adc_offset_gain.tikz}
 	\caption[Effects of Offset and Fain error in ADC]{Offset and Gain Error in the \gls{adc} characteristic transfer function. The offset error is indicated with the red arrow. The gain error expresses itself via different slope of the real \gls{adc} (dotted) compared to the ideal \gls{adc} (dashed)}
 	\label{fig:offsetErr}
 \end{figure}
@@ -520,7 +521,7 @@ It results from the integral non-linearities of the front-end, \gls{sha} and als
 The effect of these errors is shown in \autoref{fig:nld}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/nonlinear.tikz}
+	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/nonlinear.tikz}
 	\caption[ADC Nonlinearities]{Transfer function of a real \gls{adc} showing \gls{dnl} and \gls{inl}.\cite{Lundberg}}
 	\label{fig:nld}
 \end{figure}
@@ -607,7 +608,7 @@ The \gls{sfdr} in dBc can be calculated as (see \cite{xilinx_adc})%todo what is 
 
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/sfdr.tikz}
+	\includegraphics[width = \textwidth]{chap/02-theory/img/adc/sfdr.tikz}
 	\caption[SFDR definition]{Visualization of the \gls{sfdr}. It can be indicated either with reference to the carrier frequency in ``dBc'' or with reference to the Full-Scale Input in ``dBFS''. \cite{walt2009}}
 	\label{fig:sfdr}
 \end{figure}
@@ -662,14 +663,14 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chap/02-theory/img/jitterTimeDomain.tikz}  
+		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/jitterTimeDomain.tikz}  
 		\caption{Effect of aperture jitter}
 		\label{fig:jitter}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\textwidth}
 		\centering
-		\includegraphics[height=\textwidth]{chap/02-theory/img/SJNRjitter.tikz}  
+		\includegraphics[height=\textwidth]{chap/02-theory/img/adc/SJNRjitter.tikz}  
 		\caption{SJNR for different aperture jitter values}
 		\label{fig:sjnr}
 	\end{subfigure}
@@ -715,13 +716,13 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}.
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{chap/02-theory/img/alias_f}  
+		\includegraphics[width=\linewidth]{chap/02-theory/img/adc/alias_f}  
 		\caption{Sampling process visualized in frequency domain}
 		\label{fig:alias_f}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{chap/02-theory/img/alias_t}  
+		\includegraphics[width=\linewidth]{chap/02-theory/img/adc/alias_t}  
 		\caption{Effect of aliasing shown in time domain}
 		\label{fig:alias_t}
 	\end{subfigure}
@@ -730,14 +731,10 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}.
 \end{figure}
 %todo low-pass filter to get B/2<f_s? maybe
 
-
-
-=======
 \autoref{chap:new_sys} covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially the \gls{kapture} which is in operation at the \gls{kara}.
 \autoref{chap:samplingboard} describes the design steps of the front-end sampling card of \gls{theresa} in detail.
 \autoref{chap:readout} covers the description of the back-end readout card, as well as the design of the appropriate firmware.
 At last, results are concluded and an outlook for the newly developed system is given in \autoref{chap:conclusion}.
->>>>>>> master
 
 
 \glsresetall
