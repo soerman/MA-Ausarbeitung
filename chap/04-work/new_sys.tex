@@ -13,6 +13,10 @@ Then, the architecture of the \gls{theresa} system itself is described.
 Real-time oscilloscopes are defined by three key specifications: bandwidth, sample rate, and memory depth.
 Some examples of currently commercially available oscilloscopes are listed in \autoref{tab:real_time_osc}.
 The acquisition time is given for the case of maximal sample rate.
+It can be calculated as 
+\begin{equation}
+	\text{Acquisition Time} = \frac{\text{Memory Depth}}{\text{Max. Sample Rate}}
+\end{equation}
 As can be derived from the table, the acquisition time of such oscilloscopes is quite limited, not allowing for continuous sampling of fast input signals. %todo how does the acq time relastes to the memory depth... in the table
 \begin{table}[tbh]
 	\caption[Real Time Oscilloscopes Examples]{Some example real-time oscilloscopes with (max.) key characteristics}
