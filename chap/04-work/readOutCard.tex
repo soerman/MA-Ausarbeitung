@@ -42,6 +42,14 @@ This setup allows to
 
 \paragraph{Evaluation Tool}
 In order to provide a quick evaluation of data converter performance an evaluation framework from Xilinx can be deployed on the card (see \autoref{fig:evalTool}). 
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-work/img/zcu216evaltool}
+	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board}
+	\label{fig:evalTool}
+\end{figure}
+
 It enables control of the ZCU216 \glspl{ip} and the associated designs from a host PC. 
 With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed.  
 For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors.
@@ -53,12 +61,6 @@ The RF DC (Data Converter) Evaluation Tool consists of two parts:
 	On the \gls{ps} a Linux application receives commands from the host PC \gls{gui} over Ethernet. Based on the commands, it performs the according action, e.g. setting the sampling clock or enabling/disabling data converter channels. The \gls{gui} provides a convenient possibility to configure the data converters. Data generation via \glspl{dac} can be started, as well as data capture with the \glspl{adc}. Furthermore, the tool provides methods to quickly characterize the performance of the data converters (see \autoref{fig:gui}) from which the performance of the plugged break-out board can be derived.
 \end{itemize}
 
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/zcu216evaltool}
-	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board}
-	\label{fig:evalTool}
-\end{figure}
 
 \begin{figure}[tbh]
 	\centering
@@ -73,17 +75,32 @@ The hardware design part should implement the interface to the sampling board.
 This means it should provide the necessary interfaces to configure the data converters on the readout card, as well as slow control to the delay chips and \glspl{pll} on the sampling board (i.e. through \gls{sdi} and \gls{spi}). 
 Furthermore, the high-speed data-throughput interface should be implemented.
 
-
+\autoref{fig:firmware} shows the general schematic of the firmware on the readout card.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-work/img/firmware.tikz}
-	\caption{GUI of the RF Data Converter Evaluation Tool}
+	\caption{Schematic of the firmware and processing unit on the readout card}
 	\label{fig:firmware}
 \end{figure}
+
+The sampled data is propagated from the sampling card to the \glspl{adc} inside the \gls{fpga}. 
+This data is written in the \gls{ddr}, from which it is accessible by the data interface, which is responsible for the high-speed data transfer to the following processing node in the \gls{daq} system.
+A built-in test-loop is implemented with an integrated \gls{dac}, in order to produce test signals which are propagated to the sampling board.
+Configuration of the data converters is done via the Xilinx ``RF Data Converter'' which is described below. 
+
+Components on the sampling board, such as the delay chips, are controlled via \gls{spi} interface. 
+This interface is connected to a user bank register, where the user can specify e.g. the desired delay values.
+
+The \gls{ps} communicates with the \gls{pl} via \gls{axi}.
+\gls{axi} is a parallel, synchronous, multi-master, multi-slave communication interface.
+On the \gls{ps} an operating system, e.g. Linux, or a standalone C application, can run implementing functionalities for the user to be able to control the overall system.
+Access to the \gls{ps} is provided by for example via Ethernet or USB.
 
 
 \subsection{Programmable Logic - Hardware design}
 For synthesis and analysis of the \gls{hdl} design for the \gls{pl}, the Xilinx Vivado \gls{ide} is used.
+To configure and control the data converters, the RF Data Converter IP Core from Xilinx is used.
+In order to program the components on the sampling board, appropriate \gls{spi} interfaces are implemented, respecting the recommendations in the data sheet.
 
 \subsubsection*{RF Data Converter IP Core}
 In order to configure the data converters, the \gls{hdl} design should be based around the Xilinx RF Data Converter IP Core. 

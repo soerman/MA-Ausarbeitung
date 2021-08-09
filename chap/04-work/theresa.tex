@@ -95,9 +95,9 @@ The number and type of connectors is primarily defined by the read-out card, on 
 The different connector types serve different purposes, which can be organized into three categories.
 
 \paragraph{Digital Control Signals}
-For digital control signals (i.e. \gls{spi}, enable signals, \ldots) and clocking a VITA 57.4 FMC+ connector from \textit{SAMTEC} is used (see \autoref{fig:fmcp}). 
+For digital control (i.e. \gls{spi}, enable signals, \ldots) and clocking signals a VITA 57.4 FMC+ connector from \textit{SAMTEC} is used (see \autoref{fig:fmcp}). 
 
-\gls{fmc} is a standard defined by \gls{vita} to provide a standard mezzanine card\footnote{A \gls{pcb} which is plugged on a plug-in board. \cite{mezzanine}} form factor, connectors, and modular interface to a \gls{fpga} located on a base board (carrier card). \cite{Seelam2009}
+\gls{fmc} is a standard defined by \gls{vita} to provide a standard mezzanine card\footnote{A \gls{pcb} which is plugged on a plug-in board. \cite{mezzanine}} form factor, connectors and modular interface to a \gls{fpga} located on a base board (carrier card). \cite{Seelam2009}
 The \gls{fmc}+ standard extends the pin count and throughput of the present high-speed interfaces. 
 An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 \begin{figure}[tbh]
@@ -430,11 +430,11 @@ The LMK04808B contains two \glspl{pll} (therefore called ``dual-loop'').
 The first \gls{pll} is used to clean the jitter from the reference clock. 
 The second is then used to generate and distribute the cleaned clock signals to the outputs of the components.
 
-Time skew between the \gls{pll} outputs lies in the range of \SI{30}{\pico \second} \cite{lmk04808b}. 
+Time skew between the \gls{pll} outputs lies in the range of \SI{30}{\pico \second} (\cite{lmk04808b}) which is too high if high temporal accuracy is desired. 
 In order to guarantee low time skew (range of few picoseconds), two fanout buffers are used to distribute the cleaned clock signal to the components on the board.
 The fanout buffers used are the HMC987LP5E from \textit{Analog Devices}.
 Time skew of these components between channels typically lies in the range of \SI{1.5}{\pico \second}, 20 times smaller than the time skew of the \gls{pll}.
-As one fan-out buffer has eight outputs, two chips are needed to cover all 16 sampling channels. 
+As one fanout buffer has eight outputs, two chips are needed to cover all 16 sampling channels. 
 Each fanout receives the clock reference from one output of the LMK0480B. 
 To ensure exactly identical clocking signals between the two fanouts they are connected to two outputs of the same output group.
 
@@ -545,6 +545,7 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\label{tab:lmx2594_filter}
 	\centering
 	\begin{tabularx}{\textwidth}{Xl}
+		 \multicolumn{2}{c}{\textbf{PLL parameters}}                             \\
 		\toprule
 		\textbf{Parameter}                         & \textbf{Value}             \\ \bottomrule
 		VCO Gain                                   & \SI{239}{\MHz\per\volt}    \\
@@ -576,7 +577,7 @@ The output pins are pulled-up and filtered via ferrite bead to \texttt{VCC\_RFBU
 For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 
 \subsubsection*{Fanout Buffer}
-The fanout buffer takes as input the clock signal from the \gls{pll} and distributes it to the \glspl{tha} chips.
+The fanout buffer receives as input the clock signal from the main \gls{pll} and distributes it to the delay chips.
 In this design, the HMC987LP5E from \textit{Analog Devices} is chosen due to its low jitter and low skew performance. 
 The schematics of the chip is shown in \autoref{fig:fanout}.
 
@@ -588,24 +589,25 @@ The schematics of the chip is shown in \autoref{fig:fanout}.
 \end{figure}
 Decoupling capacitors are placed at every power supply pin in order to guarantee a clean and stable voltage level.
 
-The outputs of the fanout buffer use \gls{lvpecl} signaling interfaces and therefore need to be connected to ground via resistor.
-They can be enabled or disabled either via \gls{spi} (setting pin \texttt{PMODE\_SEL} to '0') or by using parallel pin control (setting pin \texttt{PMODE\_SEL} to '1'). 
+The outputs of the fanout buffer is based on \gls{lvpecl} signaling interfaces and therefore need to be connected to ground via resistors.
+Outputs can be enabled or disabled either via \gls{spi} (setting pin \texttt{PMODE\_SEL} to '0') or by using parallel pin control (setting pin \texttt{PMODE\_SEL} to '1'). 
 
 In parallel pin control the \gls{spi} pins \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} are reinterpreted as a 3-bit control bus.
-In this mode, the pins are either pulled up to $V_\text{CC}$ or tied to ground to represent a logic '1' or '0'.
+In this mode, the pins are either pulled up to $V_\text{CC}$ or connected to ground via on-board jumpers to represent a logic '1' or '0'.
 For the design, the parallel pin control mode is chosen, therefore the \texttt{PMODE\_SEL} pin is pulled up to $V_\text{CC}$ ($\eqdev$ logic '1').
-In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that the pin can be connected to ground ($\eqdev$ logic '0', enabling \gls{spi} mode).
-The \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are therefore connected to the \gls{fmc}+ connector.
+In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that it can be connected to ground if necessary ($\eqdev$ logic '0', enabling \gls{spi} mode).
+The \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are connected to the \gls{fmc}+ connector.
 To enable all outputs, the \gls{spi} pins need to be set to '111' according to the datasheet, i.e. pulled-up to $V_\text{CC}$. 
 Here, jumpers are foreseen as well, to allow enabling/disabling in later usage.
 
 \subsection{Digital-To-Analog-Converter Channels}
 For test purposes, two \gls{dac} channels from the read-out card are routed on the sampling board.
-In this way, test signals can be generated right on the read-out card, without the need for an external signal generator. 
+In this way, a programmable analog waveform can be generated by \gls{fpga}, without the need for an external signal generator. 
 The differential inputs from the \glspl{dac} are transformed into single ended outputs with dedicated baluns\footnote{\textbf{bal}anced to \textbf{un}balanced}. the BD3150N50100AHFa and the BD4859N50100AHF from \textit{Anaren}. 
 These are used for the signal frequency range \SIrange{3.1}{5.0}{\GHz} and \SIrange{4.8}{5.9}{\GHz} respectively.
 
 The single-ended output is connected to a miniature \gls{rf} connector from \textit{Hirose Electric}.
+The programmable analog waveform, generated by the \gls{dac} (operating up to \SI{10}{\giga \sample \per \second}), can be applied to the input of the sampling board as a test signal and be employed for testing, characterizing and calibrating each sampling channel individually.
 
 The schematic of a \gls{dac} channel is shown in \autoref{fig:dac_channel}.
 \begin{figure}[tbh]
@@ -1062,7 +1064,7 @@ This is achieved by routing the the traces in patterns called ``accordions'', wh
 An example for such accordions is shown in \autoref{fig:accordion}.
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = \textwidth]{chap/04-work/img/accordion}
+	\includegraphics[width = 0.7\textwidth]{chap/04-work/img/accordion}
 	\caption[Trace accordions]{Example for trace accordions which are used to enlarge the trace length when little space is available}
 	\label{fig:accordion}
 \end{figure}
