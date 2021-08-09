@@ -1,6 +1,6 @@
 \begin{tikzpicture}
 	% axes
-	\draw[latex-latex, thick] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
+	\draw[Latex-Latex, thick] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
 	% x- labels
 	\draw	(0,0) node[anchor=north ] {0}
 	(0.125,0) node[anchor=north ] {1/8}
@@ -23,7 +23,7 @@
 	(0, 0.875) node[anchor= east] {111};
 	
 	%lines
-	\draw[dashed] (0,0) -- (0.875*1.1,0.875*1.1);
+	\draw[dashed,thick] (0,0) -- (0.875*1.1,0.875*1.1);
 	\draw[dotted, thick] (0.125/2,0) -- (1.1-0.125/2,0.875*1.1);
 %stairs
 \draw [thick]

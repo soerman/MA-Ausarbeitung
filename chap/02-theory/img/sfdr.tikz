@@ -18,7 +18,7 @@ xlabel style={yshift=0.25cm},
 extra x ticks={20},
 extra x tick labels={$\frac{f_s}{2}$},
 axis background/.style={fill=white},
-axis line style={-latex},
+axis line style={-Latex},
 clip=false,
 ]
 

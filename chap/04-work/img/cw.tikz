@@ -4,13 +4,13 @@
 	\filldraw[color=black, fill=black] (0,3) rectangle ++(2,.2) node[pos=.5, anchor = south, yshift=2mm ](GND1){GND};
 	\filldraw[color=black, fill=black] (3.5,3) rectangle ++(2,.2) node[pos=.5](cond1){};
 	\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5, anchor = south, yshift=2mm](GND2){GND};
-	\draw[>=triangle 45, <->] (3.5,3.4) -- ++(2,0) node[pos=.5,anchor=south](){\(a\)};
-	\draw[>=triangle 45, <->] (2,3.6) -- ++(1.5,0) node[pos=.5,anchor=south](){\(d\)};
-	\draw[>=triangle 45, <->] (2,4) -- ++(5,0) node[pos=.5,anchor=south](){\(b\)};
+	\draw[<->] (3.5,3.4) -- ++(2,0) node[pos=.5,anchor=south](){\(a\)};
+	\draw[<->] (2,3.6) -- ++(1.5,0) node[pos=.5,anchor=south](){\(d\)};
+	\draw[<->] (2,4) -- ++(5,0) node[pos=.5,anchor=south](){\(b\)};
 	
-	\draw[>=triangle 45, <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
-	\draw[>=triangle 45, ->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-	\draw[>=triangle 45, ->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
+	\draw[<->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=west](){\(h\)};
+	\draw[->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+	\draw[->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
 	
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,4);
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,4);
@@ -19,4 +19,4 @@
 	
 	\draw[dashed] (7,3.2) -- (10,3.2);
 	\draw[dashed] (8,3) -- (10,3);	
-\end{tikzpicture}
+\end{tikzpicture};

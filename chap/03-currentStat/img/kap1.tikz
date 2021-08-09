@@ -13,8 +13,8 @@ ymax=1.2,
 ylabel={Amplitude (\si{\mV})},
 xlabel={Time},
 axis background/.style={fill=white},
-axis line style={-latex},
-clip=false,
+axis line style={-Latex},
+clip=true,
 ]
 
 \addplot [semithick,color=black,smooth]
