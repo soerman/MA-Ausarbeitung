@@ -4,12 +4,11 @@ This imposes high technological challenges on \glspl{daq} and \glspl{adc}.
 
 One bottleneck in the acquisition of ultra-fast events is the limited performance of commercially available \glspl{adc}. 
 The limitation posed by the converters is a trade-off between the dynamic range (\gls{enob}) and sampling rate of the converters.
-As the sampling rate increases, ambiguity of the comparators in the \gls{adc} and sampling errors due to clock jitter become major limiting factors on the overall performance. \cite{Mahjoubfar2017}
-%TODO what is ambiguious?
+As the sampling rate increases, ambiguity of the comparators (output neither '0' nor '1') in the \gls{adc} and sampling errors due to clock jitter become major limiting factors on the overall performance. \cite{Mahjoubfar2017}
 
 A first demonstration of a concept to overcome these limitations was presented in 1999 by \cite{ts_adc}. 
-The idea is to stretch the analog signal in time before digitizing it in the converter and hence relax the demands on the \glspl{adc} performance. 
-This time-stretching is accomplished by using chirped optical pulses and dispersion in optical fibers. %TODO ask if you should state 'chromatic dispersion' or similar
+The idea is to stretch the analog signal in time before digitizing it in the converter and hence relax the demands on the data converter performance. 
+This time-stretching is accomplished by using chirped optical pulses and chromatic dispersion in optical fibers.
 The concept is therefore called ``photonic time-stretch'' and was successfully tested in combination with a moderate-speed \gls{adc} in \cite{ts_adc}.
 
 Since then, the time-stretch method has been continuously improved and has found use in many applications.
@@ -17,17 +16,16 @@ For example, in biomedical diagnostics, a first demonstration of an artificial i
 It uses \gls{tsqpi}, a technique based on the time-stretch concept which enables simultaneous measurement of phase and spatial intensity profiles.
 This allows label-free classification of cells for cancer diagnostics and drug development. \cite{Mahjoubfar2017} 
 
-The time-stretch concept is also very interesting for applications in particle accelerators due to the short timescales involved. %todo maybe omit 'very' and/or replace 'interesting' with some cinnamon
-%todo For example in a storage ring, ...
-Relativistic electron bunches interact with their own radiation which can lead to the formation of spatial microstructures inside the bunches, a phenomenon also called micro-bunching instability.
+The time-stretch concept is also useful for applications in particle accelerators due to the short timescales involved.
+In a storage ring for example, relativistic electron bunches interact with their own radiation which can lead to the formation of spatial microstructures inside the bunches, a phenomenon also called micro-bunching instability.
 This is a source of intense pulses of terahertz radiation (\gls{csr}) and therefore an important field of study. 
 A first demonstration of direct observation of these instabilities was performed at the synchrotron facility \gls{soleil} using a time-stretched signal together with a real-time oscilloscope. \cite{Roussel2015}
 
 The use of the time-stretch method in different applications has demonstrated the advantages to measure events with femtosecond resolution.
-Still, commercially available real-time diagnostics systems are limited in memory space. %todo to what is the 'still' refering? can you state numbers here?
-The acquisition time of such systems at maximum sampling rate lies in the range of milliseconds at best.
+However, commercially available real-time diagnostics systems are limited in memory space (currently maximal memory depth lies in the range of few Gigasamples). 
+This limits the acquisition time of such systems at maximum sampling rate, which lies in the range of a few milliseconds at best.
 It is therefore not possible to measure data continuously over a large period of time. 
-This creates a problem in applications where a longer observation time (up to hours) is required, e.g. in accelerator applications where the turn-by-turn analysis of the electron bunches is desired in order to study the evolution of the bunch profiles. %todo what is turn-by-turn, is it the same as BBB, maybe add in footnote
+This creates a problem in applications where a longer observation time (up to hours) is required, e.g. in accelerator applications where the turn-by-turn analysis\footnote{Turn-by-turn denotes the analysis of a specific bunch for every turn, bunch-by-bunch denotes the analysis between individual bunches} of the electron bunches is desired in order to study the evolution of the bunch profiles. 
 
 This challenge was the motivation to design novel ultra-fast acquisition systems based on the photonic time-stretch \gls{adc}. 
 Together with the next generation of \gls{fpga}-based systems with integrated high-performance \glspl{adc} this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
@@ -37,7 +35,7 @@ The digital signals are then processed in a computing unit and broadcast to othe
  
 
 \section{Objective}
-In this thesis, a first demonstrator of a \gls{daq}-system based on the time-stretch concept has been developed. %todo maybe use present
+In this thesis, a first demonstrator of a \gls{daq}-system based on the time-stretch concept is developed.
 This system, called \gls{theresa} system, enables high-speed measurements of ultrafast events with a time resolution in the range of femtoseconds.
 
 In order to achieve such high resolution, the time-stretch technique will be used in order to stretch the input signal in the range of pico- to nano-seconds.
@@ -45,13 +43,13 @@ The input signal will be continuously sampled by high-speed \glspl{adc} with a t
 To sample the signal, the \glspl{adc} need to have a sampling rate in the order of several \si{\GHz}.
 The amplitudes of the signals to be measured are very small and an appropriate resolution of the \glspl{adc} has to be chosen in order to guarantee an \gls{enob} of at least 10 bits. \cite{bielwaski}
 
-This leads to the next challenge: Sampling at several \si{\GHz} with high resolution, implies a large amount of data in the range of Terabits per second. %todo TB/s is a data rate, not total amount of data
+This leads to the next challenge: Sampling at several \si{\GHz} with high resolution, implies a large amount of data, leading to a data rate in the range of Terabits per second.
 In order to enable such a high data-throughput, the system will be based on a new generation of \gls{soc}, integrating a \gls{fpga} and a processing unit together with the high-speed \glspl{adc}. 
 The \gls{soc} will have high-speed peripherals in order to guarantee the continuous high-speed data-throughput. 
 Combination with the \gls{fpga} should allow for flexible system tuning for a user-defined application.
 The user will be able to control and configure the system via an application or operating system running on the processing unit.
 
-Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks (e.g. based on \gls{pcie}) and can be easily integrated into the system for the user application (e.g. through optical fibers to a distributed instrumentation system). %todo if this is a requirement, use 'should', 'shall' or sth intead of 'can'
+Furthermore, the system should be compatible with already existing high-speed \gls{daq} frameworks (e.g. based on \gls{pcie}) and be easily integrated into the system for the user application (e.g. through optical fibers to a distributed instrumentation system). 
 However, stand-alone operation should also be possible.
 Furthermore, the \gls{daq} should be designed in such way that usage independent from the time-stretch method is possible.
 
@@ -88,7 +86,7 @@ It is therefore of great interest to use \gls{thz} radiation in fields like biol
 However, until recently the usage of \gls{thz} radiation was very limited, as generation of such radiation has proven to be difficult.
 %todo what about the usage of thz for spectroscopy since the thz hv-energy matches some interesting bonds in chemistry/bio.
 
-Electron storage rings, also called synchrotrons, are a potential source of \gls{thz}-radiation. %todo synchtrons != storage rings (but similar) explained in krieger strahlungsquellen book
+Synchrotrons are a potential source of \gls{thz}-radiation. %todo synchtrons != storage rings (but similar) explained in krieger strahlungsquellen book
 The emission of \gls{thz} radiation is closely linked to instabilities of the charged particles which are accelerated in the synchrotron. \cite{mueller2012}
 These instabilities occur in the time range of femtoseconds and cause bursts of \gls{thz} radiation.
 The periodicity of these bursts depends on multiple parameters of the synchrotron and therefore imposes a challenge on controlling the emission of \gls{thz} radiation.
@@ -101,7 +99,7 @@ In synchrotron radiation facilities \gls{sr} is produced by accelerating relativ
 Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using undulators. The latter are used to make the electrons oscillate by generating a periodic magnetic field.  
 \autoref{fig:storageRing} shows the general scheme of an electron storage ring.
 
-Electrons, which are grouped to ``electron bunches'', are generated with an electron gun and accelerated to relativistic speeds\footnote{almost speed of light} by a pre-accelerator (often a \gls{linac} or a booster ring accelerator). %todo or microtron + booster
+Electrons, which are grouped to ``electron bunches'', are generated with an electron gun and accelerated to relativistic speeds\footnote{almost speed of light} by a pre-accelerator (often a \gls{linac}, a booster ring accelerator or a microtron with a booster). %todo or microtron + booster
 After being brought up to their nominal energy\footnote{in a booster}, the bunches are injected into the storage ring.
 In the ring, the path of the electron bunches is altered by dipole magnets, guiding them on a circular trajectory. %todo why in the footnote?
 Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
@@ -114,7 +112,6 @@ Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, o
 	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
 	\label{fig:storageRing}
 \end{figure}
-%todo where's the booster?
 
 The range of \gls{sr} reaches from hard X-rays down to the infrared region of the electromagnetic spectrum (see \autoref{fig:spectrum}). \Gls{sr} shows properties like high intensity, high collimation, polarisation and generation in pulses of well-defined time-duration.
 Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
