@@ -15,3 +15,5 @@ Compile with LuaLatex (`lualatex -synctex=1 -interaction=nonstopmode --shell-esc
 * v vs V vs V(t) einheitlich
 * All caps für logic-level? Dann nicht für manche signale
 * wie wärs mit alle signale, wie EN oder so als \texttt{EN} zu schreiben?
+* doch nochmal an (sub) section hirarchie rütteln? toc könnte ein paar mehr unterpunkt brauchen
+
