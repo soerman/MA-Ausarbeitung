@@ -57,7 +57,7 @@
 	
 	\draw[-Latex] (-7,-5) node[anchor=south west] {Ref. Clock} -- (pll);
 	
-	\draw[-Latex] (fpga.east) to (9.5,2.2) node[anchor=south east] {To GPU-DAQ} ;
+	\draw[-Latex] (fpga.east) to (10.5,2.2) node[anchor=south east] {To GPU-DAQ} ;
 	
 	\node[right,label=below right:{Picosecond Delay Chips}] at (3.5,-1.65) {};
 \end{tikzpicture}
