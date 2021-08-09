@@ -17,4 +17,4 @@ Compile with LuaLatex (`lualatex -synctex=1 -interaction=nonstopmode --shell-esc
 * wie wärs mit alle signale, wie EN oder so als \texttt{EN} zu schreiben?
 * doch nochmal an (sub) section hirarchie rütteln? toc könnte ein paar mehr unterpunkt brauchen
 * bei den figures entweder den enddor oder den colon nach Figure 3.6.: weg
-
+* überall kapture kapture-1 nennen?
