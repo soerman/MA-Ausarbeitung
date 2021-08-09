@@ -1,11 +1,10 @@
 \begin{tikzpicture}
-	\begin{axis}[axis lines = middle, ytick=\empty, xtick=\empty, 	
-					x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
-					 y label style={at={(axis description cs:-0.1,0.5)},rotate=90,anchor=north},
+	\begin{axis}[axis lines = left, ytick=\empty, xtick=\empty, 	
 					xlabel = Time ($\SI{}{\pico \second}$),  ylabel = Amplitude ($\SI{}{\milli \volt}$), 
 					xtick={2.7, 3.4, 4.5, 5.5}, 
-					xticklabels = {\tiny $\Delta t_1$, \tiny $\Delta t_2$, \tiny  $\Delta t_3$, \tiny $\Delta t_4$}, 		
-					enlargelimits=true] 
+					xticklabels = {\tiny $\Delta t_1$, \tiny $\Delta t_2$, \tiny  $\Delta t_3$, \tiny $\Delta t_4$},
+					axis line style={-Latex},
+			] 
 		\addplot [domain = 0:10, mark=none, samples=100]  {1/(1*sqrt(2*pi))*exp(-((x-4)^2)/(2*1^2))};
 		\addplot [draw=none, domain = 2:6, mark=*, samples at = {2.7, 3.4, 4.5, 5.5},smooth] 	
 							expression {1/(1*sqrt(2*pi))*exp(-((x-4)^2)/(2*1^2))} 
