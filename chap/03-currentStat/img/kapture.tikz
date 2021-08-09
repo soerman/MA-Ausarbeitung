@@ -46,7 +46,7 @@
 	\draw[-Latex] (ad3.east) to ([yshift=-0.7cm]fpga.west);
 	\draw[-Latex] (ad4.east) to ([yshift=-2.2cm]fpga.west);
 	
-	\draw[-Latex] (-7,2.2) node[anchor=south west] {From Detector} -- (ps);
+	\draw[-Latex] (-7.5,2.2) node[anchor=south west] {From Detector} -- (ps);
 	
 	\draw[-Latex] (fanout.west) to (d1.south);
 	\draw[-Latex] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
@@ -57,7 +57,7 @@
 	
 	\draw[-Latex] (-7,-5) node[anchor=south west] {Ref. Clock} -- (pll);
 	
-	\draw[-Latex] (fpga.east) to (9.5,2.2) node[anchor=south east] {To GPU-DAQ} ;
+	\draw[-Latex] (fpga.east) to (10.5,2.2) node[anchor=south east] {To GPU-DAQ} ;
 	
 	\node[right,label=below right:{Picosecond Delay Chips}] at (3.5,-1.65) {};
 \end{tikzpicture}

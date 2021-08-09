@@ -33,5 +33,5 @@
 
 \node at (0,1) {Relativistic Electrons};
 \node at (5,0.25) {Synchrotron Radiation};
-\node[align=center] at (1,-2) {Interaction with other Electrons\\(ahead and behind)};
+\node[align=center] at (0.5,-2) {Interaction with other Electrons\\(ahead and behind)};
 \end{tikzpicture}

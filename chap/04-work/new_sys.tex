@@ -72,7 +72,7 @@ A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = 0.6\textwidth]{chap/03-currentStat/img/power_split}
-	\caption{Photo of the power splitter developed at IPE}
+	\caption{Photo of the power-splitter developed at IPE}
 	\label{fig:power_splitter}
 \end{figure}
 
@@ -106,7 +106,7 @@ A simplified representation of the local sampling of the signal is shown in \aut
 The sampling system produces a large amount of data.
 In order to keep a continuous data  acquisition the necessary bandwidth is 
 \begin{equation}
-	12 \text{bits} \cdot 8 \, \text{samples} \cdot \SI{1}{\GHz} = 96 \text{Gb/s}
+	12\;\text{bits} \cdot 8 \; \text{samples} \cdot \SI{1}{\GHz} = 96 \text{Gb/s}
 \end{equation}
 To ensure high data throughput, a high-speed \gls{pcie} readout card was developed (called ``High-Flex'') was developed.
 This card receives the samples and tags them with the respective bunch identification. 
@@ -204,7 +204,7 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 		\caption{An array of $M$ time interleaved $N$-bit \glspl{adc} \cite{mangrob}}
 		\label{fig:adcInter}
 	\end{subfigure}
-	\\[3ex]
+	\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\tikzexternaldisable
@@ -243,7 +243,7 @@ This \textit{gain mismatch} has a frequency component to it, which in case of an
 	\label{fig:gain_mm}
 \end{figure}
 
-In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. 
+In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. %todo to tikz
 The group delay in analog circuitry can vary between the converters. 
 The clock skew has on the one hand an aperture uncertainty component at each of the \glspl{adc}. 
 On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} 
@@ -267,6 +267,7 @@ Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\ni
 	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:bandwidth_mm}
 \end{figure}
+%todo zweimal timing mismatch
 
 Due to the presented mismatchtes, a proper characterization of the \glspl{adc}.
 The characterization is required in order to account for all systematical errors in the \glspl{adc} and to reduce the spurious components in the spectrum.

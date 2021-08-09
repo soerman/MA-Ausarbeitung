@@ -16,4 +16,5 @@ Compile with LuaLatex (`lualatex -synctex=1 -interaction=nonstopmode --shell-esc
 * All caps für logic-level? Dann nicht für manche signale
 * wie wärs mit alle signale, wie EN oder so als \texttt{EN} zu schreiben?
 * doch nochmal an (sub) section hirarchie rütteln? toc könnte ein paar mehr unterpunkt brauchen
+* bei den figures entweder den enddor oder den colon nach Figure 3.6.: weg
 
