@@ -14,3 +14,4 @@ Compile with LuaLatex (`lualatex -synctex=1 -interaction=nonstopmode --shell-esc
 * README aufräumen
 * v vs V vs V(t) einheitlich
 * All caps für logic-level? Dann nicht für manche signale
+* doch nochmal an (sub) section hirarchie rütteln? toc könnte ein paar mehr unterpunkt brauchen
