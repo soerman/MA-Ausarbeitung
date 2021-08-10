@@ -19,16 +19,8 @@
 	\myDAC{DAC1}{white}{DAC}
 	
 	\draw (5.05,0) -- (6,0);
-<<<<<<< HEAD:chap/02-theory/img/quant_err_meas.tikz
 	\node (a)  [draw,fill=white,circle, inner sep=1pt] at (6,-1.15) {$+$}  ;
 	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (6,0) -- (a.north) node[anchor = west, midway] {$x_q(t)$}  ;
 	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (1.5,0) node[fill,draw,circle,minimum size=0.15cm,inner sep=0cm] {}|- (a.west) node[anchor = south east, yshift = -1mm] {-}; 
 	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (a.east) -- (7,-1.15) node[anchor = west] {$e_q(t)$}  ;
 \end{tikzpicture}
-=======
-	\node (a)  [draw,fill=white,circle, inner sep=1pt] at (6,-1.15) {$+$} ;
-	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (6,0) -- (a.north) node[anchor = west, midway] {$x_q(t)$}  ;
-	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (1.5,0) node[fill,draw,circle,minimum size=0.15cm,inner sep=0cm] {}|- (a.west) node[anchor = south east, yshift = 1mm] {-}; 
-	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (a.east) -- (7,-1.15) node[anchor = west] {$e_q(t)$}  ;
-\end{tikzpicture} 
->>>>>>> master:chap/02-theory/img/adc/quant_err_meas.tikz

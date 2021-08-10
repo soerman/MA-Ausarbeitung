@@ -191,7 +191,7 @@ The sampling time of the \gls{tha}, derived from the clock coming from the main 
 \subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
 The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds) \cite{caselle2013} . 
-Therefore it is also a good candidate for the new \gls{----theresa} sampling board.
+Therefore it is also a good candidate for the new \gls{theresa} sampling board.
 
 
 The main features of the \gls{tha} are listed in \autoref{tab:hmc5640}.
@@ -263,7 +263,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 \subsubsection*{Delay Chip}
 The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
-To optimize the performance of \gls{----theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
+To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
 With the HMC856 delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
 This is much less than  \SI{25}{\pico \second} and thus the chip could be potentially used for the intended purpose.
@@ -362,6 +362,7 @@ According to the data sheet \cite{NB6L295}, the digital control pins need a mini
 Directly connecting to the \gls{fmc}+ connector pins is therefore not possible, as the maximal level provided by the readout card is smaller than \SI{2}{\volt}.
 The SN74AVC32T245 bus transceiver from \textit{Texas Instruments} (see \autoref{fig:level_trans}) which allows for level shifting from \SI{3.3}{\volt} at the device input to \SI{1.8}{\volt} at the device output.
 In this design, the bus transceiver is configured to propagate signals from the ``A'' ports (coming from the \gls{fmc}+ connector) to the ``B'' ports (going to the delay chips), shifting the signals from the $V_\text{ADJ}$ (\SI{1.8}{\volt}) of the \gls{fmc}+ connector to \SI{2.5}{\volt} (see \autoref{fig:level_trans}).
+To have a strong 
 Furthermore, resistors are place at the pins to reduce possible voltage overshootings which result from reflections on the line. 
 
 \begin{figure}[tbh]
