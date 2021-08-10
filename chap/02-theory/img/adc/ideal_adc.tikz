@@ -1,8 +1,8 @@
 \begin{tikzpicture}
 	
 	% axes
-	\draw[-latex, thick] (0,0) -- (1.1,0) node[midway, below, yshift = -5mm] {Analog Input};
-	\draw[-latex, thick] (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
+	\draw[-latex] (0,0) -- (1.1,0) node[midway, below, yshift = -5mm] {Analog Input};
+	\draw[-latex] (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
 	% x- labels
 	\draw	(0,0) node[anchor=north ] {0}
 			(0.125,0) node[anchor=north ] {1/8}

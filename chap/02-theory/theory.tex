@@ -262,7 +262,7 @@ With the full-scale voltage of the $V_{\text{FS}}$, the individual output bits $
 %todo what is full scale voltage, lsb, v_q, \epsi?
 This can also be rewritten in terms of the \gls{lsb} or quantum level $V_Q$
 \begin{equation}
-	1 \text{LSB} = \frac{V_\text{FS}}{2^N} = V_Q.
+	1 \; \text{LSB} = \frac{V_\text{FS}}{2^N} = V_Q.
 \end{equation}
 With \autoref{eq:adc_sample} this leads to 
 \begin{equation}
@@ -462,7 +462,7 @@ The effect of these errors is shown in \autoref{fig:nld}.
 
 These non-linearities could be measured with a histogram test.
 A voltage ramp is applied at the input and the number of occurrences of each \gls{adc} output code, $n$(code), is measured.
-With the ramp slope $s$ am ideal \gls{adc} with the sampling frequency $f_s$ would give
+With the ramp slope $s$ of an ideal \gls{adc} with the sampling frequency $f_s$ would give
 \begin{equation}
 	n(\text{code}) = \frac{\text{LSB}}{s} \cdot f_s = n_\text{avg},
 \end{equation}
@@ -501,8 +501,8 @@ The \gls{snr} is defined as the ratio of the input signal power to the power of 
 It is expressed in dB and can be calculated using the \gls{rms} value of the signal and noise amplitudes (see \cite{xilinx_adc}):
 \begin{align}
 	\text{SNR} &= \frac{\text{Power}_\text{Signal}}{\text{Power}_\text{Noise}}\\
-	&= \left( \frac{\text{Amplitude}_\text{Signal,rms}}{\text{Amplitude}_\text{Noise,rms}} \right)^2\\
-	&= 20 \log \left( \frac{V_\text{in,rms}}{V_\text{Q,rms}}\right) 
+	&= \left( \frac{\text{Amplitude}_\text{Signal, rms}}{\text{Amplitude}_\text{Noise, rms}} \right)^2\\
+	&= 20 \log \left( \frac{V_\text{in, rms}}{V_\text{Q, rms}}\right) 
 \end{align}
 Usually, the \gls{snr} degrades at higher frequencies due to sampling jitter. \cite{xilinx_adc}
 
@@ -513,14 +513,14 @@ The higher the \gls{sinad} the stronger the input power is differentiated from n
 
 \gls{sinad} can be calculated from the average power of the input signal $P_\text{signal}$, noise $P_\text{noise}$ and $P_\text{distortion}$:
 \begin{equation}
-	\text{SINAD} = 10 \log \left( \frac{P_\text{signal}}{P_\text{noise} + P_\text{Distortion}} \right)
+	\text{SINAD} = 10 \log \left( \frac{P_\text{signal}}{P_\text{noise} + P_\text{distortion}} \right)
 \end{equation}
 It is commonly expressed in dB, \gls{dbc} or \gls{dbfs}.
 
 \paragraph{Effective-Number-Of-Bits}
 The \gls{enob} expresses the \gls{sinad} in terms of bits. It can be calculated as (see \cite{walt2009})
 \begin{equation}
-	\text{ENOB} = \frac{\text{SINAD}-\SI{1.76}{\decibel}}{\SI{6.02}{\decibel}/\text{bit}}. \quad 
+	\text{ENOB} = \frac{\text{SINAD}-\SI{1.76}{\decibel}}{\SI{6.02}{\decibel \per \bits}}. \quad 
 \end{equation}
 This is derived from solving the equation of the ``ideal \gls{snr}'' (\autoref{eq:idealSNR}) for the number of bits $N$ and substituting \gls{snr} with \gls{sinad}.
 This however means, that this parameter assumes a full-scale input signal. Expressing the \gls{enob} for a smaller signal amplitude requires measuring the \gls{sinad} at this level and a correction factor. \cite{walt}
@@ -622,7 +622,7 @@ An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
 The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$
 \begin{equation}
-	y (t) \, \fourier  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
+	y (t) \, \laplace  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation} %todo one bobble at fourier missing?
 it has to be sampled with a frequency $f_s$ respecting
 \begin{equation} \label{eq:nyquist}

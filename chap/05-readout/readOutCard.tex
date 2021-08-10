@@ -14,7 +14,7 @@ The features which are important for the designed read-out system are listed in 
 	\item I/O expansion options: \gls{fpga} Mezzanine Card (\gls{fmc}+) interfaces, RFMC 2.0 interfaces, and Pmod (peripheral module) connections
 	\item \gls{ddr4} \gls{dimm} -- 4 GB, 64-bit, 2.666 MT/s, attached to the \gls{pl}
 	\item \gls{ddr4} \gls{sodimm} -- 4 GB, 64-bit, 2.400 MT/s, attached to the \gls{ps}
-	\item High-speed I/Os: 2x2 \gls{sfp}/SFP+/zSFP+/SFP28 modules
+	\item High-speed I/Os: $2\times2$ \gls{sfp}/SFP+/zSFP+/SFP28 modules
 	\item Breakout cards for evaluation of the \gls{adc} and \gls{dac} performance, together with a clock add-on card for internal/external reference clocking
 \end{itemize}
 Other peripheral connections and features are shown in the top view of the board in \autoref{fig:zcu216}.
@@ -31,7 +31,6 @@ Together with an UltraScale+ programmable logic, the ZU49DR \gls{rfsoc} integrat
 This \gls{ps} contains a 64-bit quad-core ARM\textregistered Cortex\texttrademark-A53, serving as \gls{apu}, and a dual core ARM Cortex-R5F, serving as \gls{rpu}.
 Furthermore, the system integrates \gls{rf} data converters, allowing to use the system for \gls{rf} applications.
 At the moment of writing, this is the industry's only single-chip, adaptable radio platform. \cite{zu49}
-This setup allows to %todo ...
 
 \autoref{fig:rfsoc} shows the general block diagram of the \gls{rfsoc}.
 

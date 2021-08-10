@@ -293,6 +293,7 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 \end{figure}
 
 The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
+%todo to texttt
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/delay_chip}
@@ -344,15 +345,15 @@ A \SI{100}{\nano\farad} capacitor is put in parallel to stabilize $V_\text{cc}$.
 			\textbf{Parameter} & \textbf{Min} & \textbf{Typ.} & \textbf{Max} & \textbf{Unit}\\
 			\midrule
 			\multicolumn{5}{c}{\textbf{Outputs}}  \\
-			Output HIGH Voltage & $V_{cc} - 1075$ & $V_{cc} - 950$ & $V_{cc} - 825$ & mV\\
-			Output LOW Voltage & $V_{cc} - 1825$ & $V_{cc} - 1725$ & $V_{cc} - 1625$ & mV\\
-			Output HIGH Voltage ($V_{cc}=\SI{3.3}{\volt}$) & $2225$ & $2350$ & $2475$ & mV\\
-			Output LOW Voltage ($V_{cc}=\SI{3.3}{\volt}$) & $1475$ & $1575$ & $1675$ & mV\\
+			Output HIGH Voltage & $V_\text{cc} - 1075$ & $V_{cc} - 950$ & $V_{cc} - 825$ & mV\\
+			Output LOW Voltage & $V_\text{cc} - 1825$ & $V_{cc} - 1725$ & $V_{cc} - 1625$ & mV\\
+			Output HIGH Voltage ($V_\text{cc}=\SI{3.3}{\volt}$) & $2225$ & $2350$ & $2475$ & mV\\
+			Output LOW Voltage ($V_\text{cc}=\SI{3.3}{\volt}$) & $1475$ & $1575$ & $1675$ & mV\\
 			Common mode voltage & -0.1 & 0 & 0.1 & V\\[0.3cm]
 			\multicolumn{5}{c}{\textbf{AC Characteristics}}  \\
 			Random Clock Jitter \gls{rms}&  & 3 & 10 & ps\\
-			Output Rise/Fall Times (@\SI{50}{\mega \hertz}) & 85 & 120 & 170 & ps\\
-			Serial Clock Input Frequency (50\% Duty Cycle\footnote{Percentage of the ratio of pulse width and total period of the waveform.}) &  &  & 20 & MHz\\
+			Output Rise/Fall Times \footnote{(@\SI{50}{\mega \hertz})} & 85 & 120 & 170 & ps\\
+			Serial Clock Input Frequency \footnote{(50\% Duty Cycle,Percentage of the ratio of pulse width and total period of the waveform.}) &  &  & 20 & MHz\\
 			Minimum Pulse width SLOAD  & 1 &  &  & ns\\
 			\bottomrule
 		\end{tabularx}
@@ -410,7 +411,7 @@ This is higher than the maximal input common mode voltage of the \gls{tha}.
 
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
-
+%todo anchor south west
 \begin{figure}[tbh]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/clocking_arch}
@@ -599,11 +600,11 @@ The outputs of the fanout buffer is based on \gls{lvpecl} signaling interfaces a
 Outputs can be enabled or disabled either via \gls{spi} (setting pin \texttt{PMODE\_SEL} to '0') or by using parallel pin control (setting pin \texttt{PMODE\_SEL} to '1'). 
 
 In parallel pin control the \gls{spi} pins \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} are reinterpreted as a 3-bit control bus.
-In this mode, the pins are either pulled up to $V_\text{CC}$ or connected to ground via on-board jumpers to represent a logic '1' or '0'.
-For the design, the parallel pin control mode is chosen, therefore the \texttt{PMODE\_SEL} pin is pulled up to $V_\text{CC}$ ($\eqdev$ logic '1').
+In this mode, the pins are either pulled up to $V_\text{cc}$ or connected to ground via on-board jumpers to represent a logic '1' or '0'.
+For the design, the parallel pin control mode is chosen, therefore the \texttt{PMODE\_SEL} pin is pulled up to $V_\text{cc}$ ($\eqdev$ logic '1').
 In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that it can be connected to ground if necessary ($\eqdev$ logic '0', enabling \gls{spi} mode).
 The \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are connected to the \gls{fmc}+ connector.
-To enable all outputs, the \gls{spi} pins need to be set to '111' according to the datasheet, i.e. pulled-up to $V_\text{CC}$. 
+To enable all outputs, the \gls{spi} pins need to be set to '111' according to the datasheet, i.e. pulled-up to $V_\text{cc}$. 
 Here, jumpers are foreseen as well, to allow enabling/disabling in later usage.
 
 \subsection{Digital-To-Analog-Converter Channels}
@@ -639,7 +640,7 @@ Furthermore, in order
 		\centering
 		\begin{tabularx}{\textwidth}{Xlllll}
 			\toprule
-			\textbf{Component}         & $V_\text{cc}$ (V) & $I_\text{max}$ (A)                        & $P_\text{max}$ (W) & $\#_\text{components}$ & $I_\text{tot, max}$\footnote{for 16 \glspl{adc}} (A) \\ \midrule
+			\textbf{Component}         & $V_\text{cc}$ (V) & $I_\text{max}$ (A)                        & $P_\text{max}$ (W) & $\#_\text{parts}$ & $I_\text{tot, max}$\footnote{for 16 \glspl{adc}} (A) \\ \midrule
 			HMC5649 (\gls{tha})        & 2                 & 0.221                                     & 0.442              & 16                & 3.536                                                \\
 			NB6L295 (Delay chip)       & 2.5               & 0.170                                     & 0.425              & 8                 & 1.36                                                 \\
 			HMC987LP5E (Fanout buffer) & 3.3               & 0.234\footnote{All Outputs and RF-Buffer} & 0.772              & 2                 & 0.468                                                \\
@@ -717,9 +718,10 @@ Capacitors and resistors are placed as recommended in the datasheet\cite{adp1741
 \subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
 The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can be again calculated as:
+%todo nicefrac
 \begin{align*}
 	I_\text{max, LDO} &> 2 \cdot N \cdot I_\text{m, Delay} \\
-	I_\text{max, LDO}/(2 \cdot I_\text{m, Delay}) &> N \\
+	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} &> N \\
 	\SI{2}{\ampere} / (2\cdot \SI{0.170}{\ampere}) &> N \\
 	5.88 &> N \quad \rightarrow N = 5	
 \end{align*}
@@ -782,6 +784,8 @@ Then the steps mentioned above are described.
 \subsection*{PCB Structures Overview} \label{ssec:pcb_structs}
 In this section an overview over the basic structures on a \gls{pcb} is given.
 
+%todo itemize
+
 \paragraph{Traces}
 A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
 
@@ -797,7 +801,7 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 \end{itemize}
 \begin{figure}[tbh]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/pcb/vias.tikz}
+	\includegraphics[width = 0.5\textwidth]{chap/04-theresa/img/pcb/vias.tikz}
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}

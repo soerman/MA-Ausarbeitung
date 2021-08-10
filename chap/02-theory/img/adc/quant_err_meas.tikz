@@ -24,7 +24,3 @@
 	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (1.5,0) node[fill,draw,circle,minimum size=0.15cm,inner sep=0cm] {}|- (a.west) node[anchor = south east, yshift = -1mm] {-}; 
 	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (a.east) -- (7,-1.15) node[anchor = west] {$e_q(t)$}  ;
 \end{tikzpicture}
-<<<<<<< HEAD
-=======
-
->>>>>>> aa9bdf10029891d0c69394e00f331a8992d8617f
