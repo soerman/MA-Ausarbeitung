@@ -630,11 +630,11 @@ Therefore, proper power supply design is an important step which needs to be han
 This step includes the selection the right type voltage regulators, as well as providing appropriate filtering. 
 Furthermore, in order 
 
-\autoref{tab:----theresacomp} lists the power supply requirements of all the components used on the board.
+\autoref{tab:theresacomp} lists the power supply requirements of all the components used on the board.
 
 \begin{table}[tbh]
 	\caption{Power consumption of components on the board}
-	\label{tab:----theresacomp}
+	\label{tab:theresacomp}
 	\begin{minipage}{\textwidth}
 		\centering
 		\begin{tabularx}{\textwidth}{Xlllll}
@@ -684,7 +684,7 @@ This way, one single voltage regulator can be used for more components.
 
 For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} has been selected. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
 
-It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:----theresacomp}. 
+It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
 
 The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\ampere}.
 With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 
