@@ -503,7 +503,8 @@ The output of the filter is the voltage $V_\text{tune}$ which is the input to th
 The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2).
 For both the loop filter has to be calculated separately. 
 The parameters/values are shown in \autoref{tab:lmk04808B_filter}.
-The filters are implemented as second order filters, note that PLL2 has already a partially integrated loop filter.
+Both filters are implemented as second order filters. 
+Note that PLL2 has already a partially integrated loop filter.
 
 \begin{table}[tbh]
 	\caption[LMK04808B loop filter characteristics]{Loop filter characteristics of the LMK04808B}
@@ -539,10 +540,11 @@ The filters are implemented as second order filters, note that PLL2 has already 
 	\end{tabularx}
 \end{table}
 
-The loop filter for the LMX2594 is designed in the using the same \textit{Texas Instruments} software. 
-The calculated values are shown in \autoref{tab:lmx2594_filter}.
+The loop filter for the LMX2594 is designed in the same way as described above with the \textit{PLLatinum Sim} tool. 
+The calculated values for the components to be implemented are shown in \autoref{tab:lmx2594_filter}.
 The filter is implemented as a third order passive filter.
-The schematic and layout of the filter have been implemented in a way to enable flexible change of the filter, i.e. changing the order or component values.
+The schematic and layout of the filter have been implemented in a way to enable alteration of the filter, i.e. changing the order or component values.
+The schematic and layout have been implemented in order to enable flexible change.
 This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
 The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 \begin{table}[tbh]
@@ -843,7 +845,7 @@ Filtered voltage from the power supplies is propagated through vias to the inner
 \subsection{Transmission Lines}
 Transmission lines guide electromagnetic waves from one point to another. 
 They have a characteristic impedance which is determined by parameters like width of the trace, separation from ground plane, etc.  
-Not matching correctly can lead to reflections and damping.
+A mismatch can lead to reflections and damping.
 For single-ended signals the waveguide characteristic impedance should be \SI{50}{\ohm}, for differential pairs \SI{100}{\ohm}.
 The impedance has to be matched especially for sensitive, high-speed signals, e.g. clock signals. 
 Proper calculation of the geometrical parameters is therefore very important to ensure signal integrity and reduce reflection and damping. 
@@ -859,17 +861,17 @@ For this design, the Si9000e tool for modeling \gls{pcb} transmission lines from
 	\label{fig:polaris}
 \end{figure}
 
-As there are a lot of parameters which can be tuned, as a starting point the geometrical parameters from the \gls{kapture} system are applied. 
+As there are a lot of parameters which can be tuned, as a starting point the geometrical parameters of the \gls{kapture} system are applied. 
 These were carefully designed for optimal signal transmission.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate used for the new design. 
-Therefore, the impedance has to be recalculated to check whether it is still acceptable. 
-A deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
+Therefore, the impedance has to be recalculated. 
+For the resulsts, a deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
 
-Three types of waveguides are used in this design:
+Three types of transmission lines have been designed for this layout:
 \begin{itemize}
-	\item Surface coplanar waveguide with ground for analog input to the \glspl{tha} 
-	\item Differential surface coplanar waveguide with ground for output from the delay chips to the \glspl{tha}
-	\item Offset differential coplanar waveguide for clock signals and signals coming from the \glspl{tha}
+	\item Surface coplanar waveguide with ground layer for analog input to the \glspl{tha} 
+	\item Differential surface coplanar waveguide with ground layer for output from the delay chips to the \glspl{tha}
+	\item Symmetrical differential coplanar waveguide for clock signals and signals coming from the \glspl{tha}
 \end{itemize}
 These waveguide types and the respective geometric dimensions calculated with the Si9000e tool are presented.
 
@@ -891,8 +893,8 @@ To have a rough starting point of the dimensions of the parameters, the followin
 	\item $a = \SI{213}{\micro \meter}$
 	\item $d = \SI{250}{\micro \meter}$
 \end{itemize}
-In the Si9000e tool, an upper and a lower trace width can be specified, therefore taking into account the etching process during manufacturing.
-As the exact upper trace width is not known, both widths are assumed to be of the same value if not stated otherwise.
+In the Si9000e tool, an upper and a lower trace width can be specified taking into account the etching process during manufacturing.
+As the exact upper trace width is not known, for the calculation of the characteristic impedance both widths are assumed to be of the same value if not stated otherwise.
 The thickness $t$ of the trace and the thickness $h$ of the dielectric is defined by the used substrate.
 For Megtron6 it is 
 \begin{itemize}
@@ -933,6 +935,14 @@ With decreasing width the characteristic impedance approaches \SI{50}{\ohm}, mea
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_w2}
 	\caption{$Z_o$ vs. lower trace thickness}
 	\label{fig:surf_w2}
+\end{figure}
+
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/loss}
+	\caption{Attenuation over frequency simulated for trace length of \SI{10}{\mm}}
+	\label{fig:surf_loss}
 \end{figure}
 
 
@@ -1005,7 +1015,7 @@ The parameters are assumed as
 	\item Trace separation $s = \SI{150}{\micro \meter}$
 	\item Trace-to-ground separation $d = \SI{250}{\micro \meter}$
 \end{itemize}
-Thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\varepsilon_1 = \varepsilon_2 = \varepsilon_r = 3.61$.)
+The thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\varepsilon_1 = \varepsilon_2 = \varepsilon_r = 3.61$.)
 With these parameters the impedance is calculated as $Z_\text{diff} = \SI{90.40}{\ohm}$.
 In \autoref{fig:off_diff_w1} $Z_\text{diff}$ is plotted against the trace width $w$ (assuming upper trace width equal to $w$). It can be seen, that in order to improve the impedance, one should decrease the trace width. 
 Due to the manufacturing technology the minimal trace width possible is \SI{88}{\micro \meter}. 
@@ -1094,21 +1104,12 @@ An example for such accordions is shown in \autoref{fig:accordion}.
 
 To achieve high signal integrity, ``via-fences'' are placed next to the traces carrying analog signals. 
 These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation, in order to shield, or isolate, the traces from surrounding components and from other traces. 
+Furthermore, these fences act as a guide for the electromagnetic wave 
 
-
-Slow control signal paths are routed afterwards, avoiding crossing the area of the analog signal paths.
-
-Component placement:
-\begin{itemize}
-	\item Track-and-Hold $\rightarrow$ stitching vias for shielding
-	\item Delay chips 
-	\item Clock distribution
-	\item Power distribution 
-\end{itemize}
 
  \begin{figure}[tbh]
  	\centering
  	\includegraphics[width = \textwidth]{chap/04-theresa/img/pcb/tha_pcb}
- 	\caption[Stitching vias]{Low noise design shown with the example of a THA}
+ 	\caption[THA layout]{Layout }
  	\label{fig:stitch}
  \end{figure}

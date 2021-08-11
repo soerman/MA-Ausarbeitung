@@ -3,7 +3,7 @@
 Analysis of events occurring in the range of femtoseconds is desired in many scientific experiments.
 The high temporal resolution needed for measuring such events imposes a great technological challenge for \glspl{daq} and \glspl{adc}.
 In order to relax the requirements on the acquisition systems, the so-called optical time-stretch technique is used to stretch the analog input signal in time.
-By using this method data converters can be operated at relatively moderate sample rates. %todo relatively/moderate -> lower sample rate
+By using this method data converters can be operated at lower sample rate than would be required without it (several \gls{thz} to ). 
 Measuring the signal with commercial \glspl{daq}, such as digital storage oscilloscopes, still poses another challenge.
 Due to the limited acquisition time windows of such systems, continuous measurements at high sampling rate over a long period of time is not possible.
 In applications, where measurements of the long-term evolution of the ultra-fast events with high temporal resolution is necessary, the limited memory size is a large limitation.
@@ -12,6 +12,9 @@ Therefore new concepts of \glspl{daq} based on the photonic time-stretch method 
 In this thesis, a first demonstrator of such a new photonic time-stretch based \gls{daq} system has been developed.
 The system consists of a high bandwidth front-end sampling card, mounted on a back-end readout card integrating a new generation of \gls{rfsoc} for readout and processing of the acquired samples. 
 %todo photonic time stretch erklären
+
+First, the signal under study is stretched using chirped optical pulses and using the chromatic dispersion in optical fibers.
+The signal is measured with a photodetector and sampled by the front-end sampling card.
 The front-end sampling card integrates 16 sampling channels, each containing a \gls{tha}. 
 The sampling time of these \glspl{tha} can be delayed individually.
 In this way the so-called time-interleaving method can be implemented to sample the signal at a higher rate thant that normally possible due to the Nyquist theorem.
@@ -20,14 +23,14 @@ Furthermore, the setup allows for different sampling modes.
 In single-channel mode one detector is connected to one sampling channel, therefore allowing to acquire data from up to 16 detectors at the same time with one sampling point per channel.
 In the multi-channel mode, several channels are connected to one detector via power-splitter, therefore allowing multiple sampling points for one detector. %todo sample time
 
-High-speed \glspl{adc}, integrated in the \gls{rfsoc}, with 14-bit resolution and a sample rate of up to \SI{2.5}{\giga \sample \per \second} allow continuous sampling of the signal with high time resolution. 
-Using the time-interleaving technique for all 16 \glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga \sample \per \second}.  %todo sample rate of overall system
-When used in combination with the time-stretch technique and considering currently achievable time-stretch factors, a time resolution in the range of hundred of femtoseconds is possible. %todo resultat am ende , messungen am kara %abschluss
-
 The \gls{rfsoc} on the back-end readout card integrates a processing unit and a \gls{fpga}. 
 A firmware running on the \gls{fpga} is responsible for programming and controlling the components on the sampling card, as well as collecting the acquired samples and sending it to the following processing system via high-speed connections.
 The processing unit, hosting e.g. an operating system or a standalone application, allows for the user to control and monitor the overall system via common periphery, e.g. Ethernet.
 
 The name given to the system is Theresa, an acronym for ``Terahertz Readout Sampling''.
+The high-speed \glspl{adc}, integrated in the read-out card are capable of a sample rate of up to \SI{2.5}{\giga \sample \per \second}.
+Using the time-interleaving technique for all available glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga \sample \per \second}.  %todo sample rate of overall system
+When used in combination with the time-stretch technique and considering currently achievable time-stretch factors, a time resolution in the range of hundred of femtoseconds is possible. %todo resultat am ende , messungen am kara %abschluss
+
 \chapter*{Zusammenfassung}
 \chapter*{Résumé}
