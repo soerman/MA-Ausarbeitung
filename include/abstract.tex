@@ -11,20 +11,21 @@ In this thesis, a first demonstrator of such a novel photonic time-stretch based
 The development phase includes researching necessary components, designing the front-end sampling cards circuit and \gls{pcb} and writing a firmware for testing purposes.
 The designed system consists of a high bandwidth front-end sampling card, mounted on a back-end readout card integrating a new generation of \gls{rfsoc} for readout and processing of the acquired samples.
 
-When measuring a signal, first the signal is measured with a photodetector and then stretched using chirped optical pulses and exploiting the chromatic dispersion of two optical fibers.
-The analog signal is then sampled on the 16 channel front-end sampling card.
+The input signal (e.g. \si{\tera \hertz} pulse)is first stretched using chirped optical pulses and exploiting the chromatic dispersion of two optical fibers.
+The stretched signal is then detected by a photodetector.
+The analog signal is then sampled with the 16 channel front-end sampling card.
 Each channel contains a \gls{tha} and a \gls{adc} (integrated in the \gls{rfsoc}) capable of sampling at \SI{2.5}{\giga \sample \per \second}.
-The sampling time of each \gls{adc} can be delayed in time individually. 
+The sampling time of each \gls{tha} can be delayed in time individually. 
 Thereby the so-called time-interleaving method can be implemented, allowing for overall higher sampling rate.
 The design of the board allows it to be used with the time-stretch method as well as independently from it.
 Furthermore, the setup allows for different sampling modes.
 In single-channel mode one detector is connected to one channel, allowing to acquire data from up to 16 detectors at the same time with one sampling point per channel.
-In the multi-channel mode, several channels are connected to one detector via a power-splitter, therefore allowing multiple samples per detector. %todo sample time
+In the multi-channel mode, several channels are connected to one detector via a power-splitter, therefore allowing multiple samples per detector.
 
 The \gls{rfsoc} on the back-end readout card integrates a processing unit and a \gls{fpga}. 
-A custom firmware running on the \gls{fpga} is responsible for configuring and controlling the components on the sampling card, as well as continuously acquiring the samples and relaying them to the following processing system via high-speed ##on-chip## connections. %todo ?
+A custom firmware running on the \gls{fpga} is responsible for configuring and controlling the components on the sampling card, as well as continuously acquiring the samples and relaying them to the following processing system via high-speed on-chip connections.
 If the processing unit hosts an operating system, it allows the user to control and monitor the overall system via common periphery or over a network connection.
 
-Using the time-interleaving technique for all \glspl{adc} results in an maximal achievable sample rate of \SI{40}{\giga \sample \per \second}.  %todo sample rate of overall system
+Using the time-interleaving technique for all \glspl{adc} results in an overall achievable sample rate of \SI{40}{\giga \sample \per \second}.  %todo sample rate of overall system
 Using the system with the time-stretch setup, a time resolution in the range of hundreds of femtoseconds is possible, considering the currently achievable time-stretch factors.
 \gls{theresa} therefore achieves the requirements set by particle accelerator facilities and can be a viable tool to be used in beam diagnostics, e.g. at \gls{kara}.
