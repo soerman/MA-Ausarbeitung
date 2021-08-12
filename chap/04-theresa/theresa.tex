@@ -23,7 +23,6 @@ During the creation of the schematics, the following points have to be considere
 
 This list is certainly not complete, but provides an overview over the most important points which need to be taken into account during design.
 Decoupling techniques and separation of analog and digital ground are explained a bit more detailed, being very important and crucial steps for design of high-performance \gls{pcb}.
-%todo irgendeine überleitung hinschreiben
  
 \paragraph{Decoupling techniques}
 Probably the most important part in schematics design is proper decoupling of power supplies, as \glspl{ic} require a stable voltage on the power supply pins for optimal performance.
@@ -43,7 +42,7 @@ High frequency variation results from switching events in the device, occurring 
 Spikes due to \gls{emi} are also a source of high frequency variation and need to be compensated for. \cite{xilDecouple} 
 
 Ideally, one capacitor, which acts as a low-pass filter, should be enough to mitigate these variations.
-A real capacitor however has parasitics and thus can in general not be modeled by a ``pure'' capacitive behavior. This reduces the filtering performace  %todo define parasitics
+A real capacitor however has parasitics and thus can in general not be modeled by a ``pure'' capacitive behavior. This reduces the filtering performance at high frequencies. 
 Additional resistances and inductance need to be considered \cite{decouple}:
 \begin{itemize}
 	\item A parallel resistance $R_P$, which shunts the nominal capacitance ($C$), representing insulation resistance or leakage.
@@ -69,7 +68,7 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 \tikzexternalenable
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width =\textwidth]{chap/04-theresa/img/esl_esr.tikz}
+	\includegraphics[width =0.7\textwidth]{chap/04-theresa/img/esl_esr.tikz}
 	\caption[Impedance response of a real capacitor]{Qualitative impedance response of a real capacitance \cite{Dang2020}}
 	\label{fig:esl_esr}
 \end{figure}
@@ -137,18 +136,18 @@ It is therefore used in precision instrumentation and other laboratory applicati
 The design has been introduced as an open standard under the \gls{ieee} 287 Precision Connector Standards Committee.
 
 \autoref{fig:v_conn} shows a V connector in male and female type.
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/04-theresa/img/connectors/v_m}  
+		\includegraphics[width=0.7\textwidth]{chap/04-theresa/img/connectors/v_m}  
 		\caption{V connector, male type}
 		\label{fig:v_m}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[height=0.8\textwidth]{chap/04-theresa/img/connectors/v_f}  
+		\includegraphics[height=0.7\textwidth]{chap/04-theresa/img/connectors/v_f}  
 		\caption{V connector, female type}
 		\label{fig:v_f}
 	\end{subfigure}
@@ -288,18 +287,20 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 	\centering
 	%\includegraphics[scale=0.5]{chap/04-theresa/img/delay_sdi}
 	\resizebox{1\textwidth}{!}{\input{chap/04-theresa/img/delay_sdi.tikz}}
-	\caption[Delay chip SDI connections]{Diagram of the SDI control pins for the NB6L295 delay chip. The data (SDIN), clock (SCLK) and load (SLOAD) pins are shared by all chips. Only the enable (ENx) signals are routed individually.}
+	\caption[Delay chip SDI connections]{Diagram of the SDI control pins for the NB6L295 delay chip. The data (\texttt{SDIN}), clock (\texttt{SCLK}) and load (\texttt{SLOAD}) pins are shared by all chips. Only the enable (ENx) signals are routed individually.}
 	\label{fig:delay_sdi}
 \end{figure}
 
 The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
-%todo to texttt
+
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/delay_chip}
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
+%todo to texttt
+
 
 \paragraph{Inputs}
 The inputs of the delay chip are driven by the preceding low time-skew, low-jitter and high-performance clock distribution , the outputs of which are \gls{lvpecl} drivers.
@@ -398,7 +399,7 @@ The second point to consider is the common mode voltages.
 According to the data sheet of the \gls{tha}, the common mode voltage of the input clock pins is \SI{0.1}{\volt} (see \autoref{tab:hmc5640}).
 The common mode voltage of the delay chip is not explicitly mentioned in the data sheet, thus it has to be calculated.
 
-The common mode voltage $V_\text{CM}$ is just the mean value between the high level and the low level voltage of the output pins:
+The common mode voltage $V_\text{CM}$ is just the mean value between the HIGH level and the LOW level voltage of the output pins:
 \begin{equation}
 	V_\text{CM} = \frac{V_\text{out, LOW} + V_\text{out, HIGH}}{2}.
 \end{equation}
@@ -427,7 +428,8 @@ The LMK04808B contains two \glspl{pll} (therefore called ``dual-loop'').
 The first \gls{pll} is used to clean the jitter from the reference clock. 
 The second is then used to generate and distribute the cleaned clock signals to the outputs of the components.
 
-Time skew between the \gls{pll} outputs lies in the range of \SI{30}{\pico \second} (\cite{lmk04808b}) which is too high if high temporal accuracy is desired. 
+Time skew between the \gls{pll} outputs lies in the range of \SI{30}{\pico \second} (\cite{lmk04808b}).
+Compared to the \SI{11}{\pico \second} delay step this is very high and therefore not suitable for high temporal accuracy. 
 In order to guarantee low time skew (range of few picoseconds), two fanout buffers are used to distribute the cleaned clock signal to the components on the board.
 The fanout buffers used are the HMC987LP5E from \textit{Analog Devices}.
 Time skew of these components between channels typically lies in the range of \SI{1.5}{\pico \second}, 20 times smaller than the time skew of the \gls{pll}.
@@ -804,7 +806,6 @@ A via is metal-plated hole, which is used to route a trace in vertical direction
 	\caption[Via types]{Visualization of via types \cite{vias}}
 	\label{fig:vias}
 \end{figure}
-
 In this design only blind and through vias are used.
 
 \subsection{PCB Substrate Selection and Metal Layer Stackup}\label{ssec:substrate}
@@ -847,8 +848,8 @@ For single-ended signals the waveguide characteristic impedance for the front-en
 The impedance has to be matched especially for sensitive, high-speed signals, e.g. clock signals. 
 Proper calculation of the geometrical parameters is therefore very important to ensure signal integrity and reduce reflection and damping. 
 
-Formulas to calculate the characteristic impedance are quite complex and not easy to solve.
-To make the design of transmission lines easier, specific tools are used to quick calculations of the geometric values needed for impedance matching.
+Formulas to calculate the characteristic impedance are quite complex (see \autoref{app:waveguides}) and not easy to solve.
+To make the design of transmission lines easier, specific tools are used for quick calculations of the geometric values needed for impedance matching.
 For this design, the Si9000e tool for modeling \gls{pcb} transmission lines from \textit{Polar} is used to calculate the necessary trace widths, trace separations, etc.
 A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide is shown in \autoref{fig:polaris}. Note that the labels used in the tool to indicate the different geometry parameters are different from the ones used in this thesis.
 \begin{figure}[tb]
@@ -878,10 +879,10 @@ The single trace of thickness $t$ and width $a$ lies between two ground planes o
 Another ground plane is located at the bottom of the dielectric.
 Separation between trace and ground plane is defined as $(b-a)/2 := d$. 
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/cw.tikz}
-	\caption{Coplanar Waveguide with Ground}
+	\caption{Coplanar Waveguide with ground plane}
 	\label{fig:microstrip_geometry}
 \end{figure}
 
@@ -922,7 +923,7 @@ This result however does not take into account the real upper tracewidth.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_w1}
-	\caption[CWG, $Z_o$ vs. $a$]{$Z_o$ vs. lower trace thickness $a$, assuming $\varepsilon_r = 3.61$}
+	\caption[CWG, $Z_o$ vs. $a$]{$Z_o$ of a coplanar waveguide vs. lower trace thickness $a$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_w1}
 \end{figure}
 
@@ -932,7 +933,7 @@ With decreasing width the characteristic impedance approaches the desired \SI{50
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/surf_w2}
-	\caption{$Z_o$ vs. lower trace thickness}
+	\caption[CWG, $Z_o$ vs. upper trace width]{$Z_o$ of a coplanar waveguide vs. upper trace thickness}
 	\label{fig:surf_w2}
 \end{figure}
 
@@ -951,10 +952,10 @@ As can be derived from the plot, the attenuation lies well below \SI{1}{\decibel
 The geometry of the differential surface is similar to the waveguide type before, with the difference of having a pair of traces instead of one single trace (see \autopageref{fig:eccw_geometry}).
 The characteristic differential impedance $Z_\text{diff}$ of this transmission line type is determined by the trace width $w$, the trace separation $s$, the trace-to-ground-separation $d$, the thickness of the trace $t$ and thickness of the dielectric $h$.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/eccw.tikz}
-	\caption{Edge-Coupled Coplanar Waveguide}
+	\caption{Edge-coupled differential coplanar waveguide}
 	\label{fig:eccw_geometry}
 \end{figure}
 
@@ -974,7 +975,7 @@ The impedance $Z_\text{diff}$ lies around \SI{100}{\ohm} for a trace width $w \a
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w1}
-	\caption[DCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming $\varepsilon_r = 3.61$}
+	\caption[DCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguidevs. lower trace width $w$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w1}
 \end{figure}
 Setting the width to \SI{155}{\micro \meter} indeed gives an impedance of $Z_\text{diff} = \SI{99.37}{\ohm}$.
@@ -983,17 +984,17 @@ At the maximal value of $\varepsilon_r = 3.71$, the impedance lies around \SI{98
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_dk}
-	\caption[DCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$}
+	\caption[DCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguide vs. dielectric constant $\varepsilon_r$}
 	\label{fig:surf_diff_dk}
 \end{figure}
 
 
-Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autopageref{fig:surf_diff_w2}.
+Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autoref{fig:surf_diff_w2}.
 
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w2}
-	\caption[DCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\varepsilon_r = 3.61$}
+	\caption[DCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguide vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w2}
 \end{figure}
 
@@ -1011,13 +1012,13 @@ As can be derived from the plot, the attenuation lies under \SI{2}{\decibel}, wh
 
 \paragraph{Differential Pairs between Layers}
 The analog signals from the \glspl{tha}, as well as the clock signals, are propagated through differential pair traces on the inner layers of the \gls{pcb}. 
-This forms an offset coplanar waveguide as seen in \autoref{fig:docw_d1}.
+This forms a symmetrical differential coplanar waveguide as seen in \autoref{fig:docw_d1}.
 The impedance of this waveguide type depends on the trace width $w$, the trace separation $s$, the trace-to-ground separation $d$, the thickness $t$ of the trace, as well as the thickness of the dielectrics $h_1$ and $h_2$ and their respective dielectric constant $\varepsilon_1$ and $\varepsilon_2$.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/docw.tikz}
-	\caption{Offset Differential Coplanar waveguide}
+	\caption{Symmetrical differential coplanar waveguide}
 	\label{fig:docw_d1}
 \end{figure}
 
@@ -1036,7 +1037,7 @@ Therefore this option is not feasible.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_w1}
-	\caption[DOWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ vs. lower trace width $w$, assuming upper trace width equals to $w$}
+	\caption[SCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ of a symmetrical differential coplanar waveguide vs. lower trace width $w$, assuming upper trace width equals to $w$}
 	\label{fig:off_diff_w1}
 \end{figure}
 
@@ -1048,7 +1049,7 @@ Taking this into consideration, as well as the available space on the board, the
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_s1}
-	\caption[DOWG, $Z_\text{diff}$ vs. $s$]{$Z_\text{diff}$ vs. trace separation $s$, assuming trace width $w = \SI{88}{\micro \meter}$}
+	\caption[SCWG, $Z_\text{diff}$ vs. $s$]{$Z_\text{diff}$ of a symmetrical differential coplanar waveguidevs. trace separation $s$, assuming trace width $w = \SI{88}{\micro \meter}$}
 	\label{fig:off_diff_s1}
 \end{figure}
 
@@ -1059,7 +1060,7 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_dk}
-	\caption[DOWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ vs. dielectric constant $\varepsilon_r$, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
+	\caption[SCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ symmetrical differential coplanar waveguide vs. dielectric constant $\varepsilon_r$, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_dk}
 \end{figure}
 
@@ -1067,7 +1068,7 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_w2}
-	\caption[DOWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
+	\caption[SCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ Symmetrical differential coplanar waveguide vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_w2}
 \end{figure}
 
@@ -1080,7 +1081,7 @@ During characterization the
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/loss}
-	\caption[DOWG]{Attenuation per trace length of the symmetrical differential coplanar waveguide over frequency simulated for trace length of \SI{200}{\mm}}
+	\caption[SCWG]{Attenuation per trace length of the symmetrical differential coplanar waveguide over frequency simulated for trace length of \SI{200}{\mm}}
 	\label{fig:off_diff_loss}
 \end{figure}
 

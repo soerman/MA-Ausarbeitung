@@ -8,7 +8,6 @@ The working principle of this system is explained in detail, as the new \gls{the
 Then, the architecture of the \gls{theresa} system itself is described.
 
 \section{State Of The Art Readout-Systems}
-%todo some intro sentence
 In this section first a short overview over commercially available real-time oscilloscopes and their performance is given. 
 Then, the \gls{kapture} system, which is in operation at \gls{kara}, is presented in detail.
 \subsection*{Real-Time Oscilloscopes}
@@ -70,7 +69,7 @@ Due to the high bandwidth nature of the detector signal, the analog front-end of
 
 The used \gls{lna} is based on a commercial GaAs \gls{mmic} which operates from \gls{dc} to \SI{50}{\giga \hertz}. 
 It is needed to compensate the insertion loss\footnote{\textit{Insertion loss} is the loss of signal power which occurs, when a signal passes through a component.} of the following power-splitter stage. 
-Classical power-splitters are not intrinsically wideband (\cite{caselle2014}). 
+Classical power-splitters are not intrinsically wideband (see \cite{caselle2014}). 
 For that reason, an wideband power-splitter was developed at \gls{ipe} which fulfills the bandwidth requirements. 
 The designed power-splitter works up to \SI{100}{\giga \hertz} with an insertion loss of \SI{8}{\decibel} (at \SI{100}{\GHz}) and a return loss\footnote{\textit{Return loss} is the loss of signal power due to reflection by a discontinuity in the transmission line.} of about \SI{20}{\decibel} at \SI{50}{\giga \hertz}. \cite{caselle2014}
 A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
@@ -117,13 +116,12 @@ The sampling points $S_n$ are acquired by setting the respective delay $\Delta t
 	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by KAPTURE v1, right by KAPTURE v2}
 	\label{fig:sig_kap1_kap2}
 \end{figure}
-%todo add plot for 8 and 16 samples
 
 \paragraph{GPU-DAQ System}
 The sampling system produces a large amount of data.
 In order to keep a continuous data  acquisition the necessary bandwidth is 
 \begin{equation}
-	12\;\text{bits} \cdot 8 \; \text{samples} \cdot \SI{1}{\GHz} = 96 \text{Gb/s}
+	12\;\text{bits} \cdot 8 \; \text{samples} \cdot \SI{1}{\GHz} = \SI{96}{\giga \bits \per \second}
 \end{equation}
 To ensure high data throughput, a high-speed \gls{pcie} readout card was developed (called ``High-Flex'') was developed.
 This card receives the samples and tags them with the respective bunch identification. 
@@ -163,11 +161,7 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\caption[Comparison between KAPTURE-1 and KAPTURE-2]{Comparison between the sampling concepts of KAPTURE-1 and KAPTURE-2}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
-%todo maybe write T_acq=T_pulse on the left
-
-
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture}-2.
-
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
@@ -217,7 +211,7 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/03-newSys/img/interleaving/adcInter.tikz}  
+		\includegraphics[width=0.9\textwidth]{chap/03-newSys/img/interleaving/adcInter.tikz}  
 		\caption{An array of $M$ time interleaved $N$-bit \glspl{adc} \cite{mangrob}}
 		\label{fig:adcInter}
 	\end{subfigure}
@@ -233,7 +227,6 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 	\caption[Time-Interleaving Method]{Array of $M$ time interleaved \glspl{adc} and clocking example for $M = 4$}
 	\label{fig:interleaving}
 \end{figure}
-%todo ADC_1 instead of ADC1 in image?
 
 \paragraph{Challenges}
 Spurs appear in the spectrum. There are several reasons for this which are described in the following.
@@ -260,7 +253,7 @@ This \textit{gain mismatch} has a frequency component to it, which in case of an
 	\label{fig:gain_mm}
 \end{figure}
 
-In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. %todo to tikz
+In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. 
 The group delay in analog circuitry can vary between the converters. 
 The clock skew has on the one hand an aperture uncertainty component at each of the \glspl{adc}. 
 On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} 
@@ -320,7 +313,6 @@ In some way, this implementation can therefore also be regarded as time-interlea
 The two sampling clocks, indicated with ``ADC1'' and ``ADC2'', need the to be phase-shifted by \ang{180}.
 In this way, an alternate clocking of the \glspl{adc} is made possible\footnote{As can be derived from the diagram, only the four respective \gls{adc} channels should be considered for signal conversion during one sampling point.}.
 
-%todo index number
 \begin{sidewaysfigure}[tbh]
 	\centering
 	\tikzexternaldisable
@@ -351,13 +343,14 @@ The card is described in detail in \autoref{chap:readout}.
 
 \begin{figure}[tb]
 	\centering
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\centering
 		\includegraphics{chap/03-newSys/img/footprint_1.tikz}  
 		\caption{Discrete components}
 		\label{fig:discreteComp}
 	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
+	\\[4ex]
+	\begin{subfigure}{0.5\textwidth}
 		\centering
 		\tikzexternaldisable
 		\includegraphics{chap/03-newSys/img/footprint_2.tikz}  

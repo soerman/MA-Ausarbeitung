@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\node {\includegraphics[width=10cm]{chap/02-theory/img/bd/scan_cleaned}};
+	
+	%left
+	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (-3.5,-0.4) {Short \\ laser pulse};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (-1.9,-1.1) {Delay line};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (-1.55,0.1) {P};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (0.1,1.5) {THz pulse};
+	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (0.6,-1.3) {EO \\ crystal};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (1.1,0.1) {QWP};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (1.55,-1.3) {WP};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (2,-0.25) {$I_1$};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (2,-0.95) {$I_2$};
+	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (3.17,-0.6) {BD \\ $I_1 - I_2$};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (5.1,-1.2) {Delay};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (4,0) {Signal};
+\end{tikzpicture}

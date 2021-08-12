@@ -26,13 +26,13 @@ axis line style={-Latex},
 clip=false,
 ]
 
-\draw[<->] (8,0.31) -- node[align=center,anchor=center,fill=white] {SFDR (dBc)} (8,0.80);
-\draw[<->] (16,0.31) -- node[align=center,anchor=center,fill=white,pos=0.358] {SFDR (dBFS)} (16,1);
+\draw[latex-latex] (8,0.31) -- node[align=center,anchor=center,fill=white] {SFDR (dBc)} (8,0.80);
+\draw[latex-latex] (16,0.31) -- node[align=center,anchor=center,fill=white,pos=0.358] {SFDR (dBFS)} (16,1);
 
 \draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,1}) node[align=center,anchor=west,fill=white] {Full scale (FS)} --  ({rel axis cs:0,0}|- {axis cs:0,1});
 \draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,0.8}) node[align=center,anchor=west,fill=white] {Input signal level (carrier)} -- ({rel axis cs:0,0}|-{axis cs:0,0.8});
 \draw[black,dashed] ({rel axis cs:0.95,0}|-{axis cs:0,0.31}) node[align=center,anchor=west,fill=white] {Worst spur level}-- ({rel axis cs:0,0}|-{axis cs:0,0.31});
-\addplot+ [semithick,color=black,mark=*,mark options={fill=white}]
+\addplot+ [semithick,color=black,mark=*,mark options={fill=black}]
   table[row sep=crcr]{%
 1 0.194\\
 2 0.18\\
@@ -53,11 +53,11 @@ clip=false,
 19 0.175\\
 20 0.224\\
 };
-\addplot+ [thick,color=kitgreen,mark=*,mark options={fill=white}]
+\addplot+ [thick,color=kitgreen,mark=*,mark options={fill=kitgreen}]
   table[row sep=crcr]{%
 3 0.8\\
 };
-\addplot+ [thick,color=kitblue,mark=*,mark options={fill=white}]
+\addplot+ [thick,color=kitblue,mark=*,mark options={fill=kitblue}]
   table[row sep=crcr]{%
 7 0.31\\
 };

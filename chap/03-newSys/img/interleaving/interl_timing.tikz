@@ -32,17 +32,17 @@
 		CLK  ADC$_2$  &  [thick,blue] 12{4C} G\\
 		\extracode
 		\tablerules
-		\draw [dashed,red] (A1) --node[midway, anchor = east]{ADC1} (B1) ;
-		\draw [dashed,blue] (A2) --node[midway, anchor = east]{ADC2} (B2) ;
-		\draw [dashed,red] (A3) --node[midway, anchor = east]{ADC1} (B3) ;
-		\draw [dashed,blue] (A4) --node[midway, anchor = east]{ADC2} (B4) ;
+		\draw [dashed,red] (A1) --node[midway, anchor = east]{ADC$_1$} (B1) ;
+		\draw [dashed,blue] (A2) --node[midway, anchor = east]{ADC$_2$} (B2) ;
+		\draw [dashed,red] (A3) --node[midway, anchor = east]{ADC$_1$} (B3) ;
+		\draw [dashed,blue] (A4) --node[midway, anchor = east]{ADC$_2$} (B4) ;
 
-		\draw [dashed,red] (A5) --node[midway, anchor = east]{ADC1} (B5) ;
-		\draw [dashed,blue] (A6) --node[midway, anchor = east]{ADC2} (B6) ;
-		\draw [dashed,red] (A7) --node[midway, anchor = east]{ADC1} (B7) ;
-		\draw [dashed,blue] (A8) --node[midway, anchor = east]{ADC2} (B8) ;
+		\draw [dashed,red] (A5) --node[midway, anchor = east]{ADC$_1$} (B5) ;
+		\draw [dashed,blue] (A6) --node[midway, anchor = east]{ADC$_2$} (B6) ;
+		\draw [dashed,red] (A7) --node[midway, anchor = east]{ADC$_1$} (B7) ;
+		\draw [dashed,blue] (A8) --node[midway, anchor = east]{ADC$_2$} (B8) ;
 
-	\draw [dashed,red] (A9) --node[midway, anchor = east]{ADC1} (B9);
-	\draw [dashed,blue] (A10) --node[midway, anchor = east]{ADC2} (B10) ;
-	\draw [dashed,blue] (A11) --node[midway, anchor = east]{ADC2} (B11) ;
+	\draw [dashed,red] (A9) --node[midway, anchor = east]{ADC$_1$} (B9);
+	\draw [dashed,blue] (A10) --node[midway, anchor = east]{ADC$_2$} (B10) ;
+	\draw [dashed,blue] (A11) --node[midway, anchor = east]{ADC$_2$} (B11) ;
 	\end{tikztimingtable}

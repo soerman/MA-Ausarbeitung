@@ -16,7 +16,7 @@
 	(0.625,0) node[anchor=north ] {5/8}
 	(0.750,0) node[anchor=north ] {3/4}
 	(0.875,0) node[anchor=north ] {7/8}
-	(1,0) node[anchor=north, yshift = -2mm] {FS};
+	(1,0) node[anchor=north] {FS};
 	
 	%y-labels		
 	\draw	(0,0) node[anchor=east] {000}

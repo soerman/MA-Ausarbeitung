@@ -168,7 +168,8 @@ A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the \gls{thz} pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/scanning_eo}
+	%\includegraphics{chap/02-theory/img/bd/scan_eo.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/02-theory/img/bd/scan_eo.tikz}}
 	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
 	\label{fig:scan_eo}
 \end{figure}
@@ -179,7 +180,7 @@ In contrast to the \gls{eos}, single-acquisition is possible with the spectrally
 The short laser pulse is first stretched to a duration similar to the \gls{thz} pulse in a dispersive material, called stretcher.
 In this way the pulse is chirped, meaning the instantaneous frequency of the pulse varies over time.
 Together with the \gls{thz} pulse, the laser pulse propagates through an \gls{eo} crystal.
-Again, the induced birefringence modulates the laser pulse, not only in time, but also in the spectral domain. %todo 'not only' -> due to the time/spectral duality or sth
+Again, the induced birefringence modulates the laser pulse in time and in the spectral domain. 
 The polarization state of the pulse is converted into an amplitude/intensity modulation.
 This is done with a series of \gls{qwp}, \gls{hwp} and a polarizer (P) (as shown in \autoref{fig:spectral_eo}).
 To retrieve the \gls{thz} pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
@@ -187,7 +188,7 @@ A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{rous
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/spectral_eo}
+	\includegraphics{chap/02-theory/img/bd/spectral_eo}
 	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
 	\label{fig:spectral_eo}
 \end{figure}
@@ -227,9 +228,9 @@ As example, assume the length of the dispersive media as $L_1 = \SI{10}{\meter}$
 With \autoref{eq:ts} the stretching factor for this set-up is $M \approx 200$. The input pulse is stretched to $T_2 = M \cdot T_1 = 200 \cdot \SI{1}{\pico \second} = \SI{200}{\pico \second} = \SI{0.2}{\nano \second}$.
 This corresponds to a frequency of $\SI{5}{\GHz}$ which is much easier to handle e.g. for an oscilloscope.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/time_stretch.png}
+	\includegraphics{chap/02-theory/img/ts.tikz}
 	\caption{Working principle of the electro-optical time-stretch technique \cite{roussel2014}}
 	\label{fig:eo_ts}
 \end{figure}
@@ -285,7 +286,6 @@ The input voltage is resolved to the code of the nearest code center.
 If the level of the analog signal changes by more than one \gls{lsb} during this period, this can result in large errors in the output signal.
 Therefore so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time.
 
-A general block diagram of a \gls{sha} is shown in \autoref{fig:tha}. %todo correct figure? THA vs SHA?
 It consists of an input and output buffer, a switch controlled by the sampling clock and a capacitor.
 The analog input is buffered in an input buffer which leads to a switch that is controlled by a sampling clock.
 During the sample mode, i.e. during the negative sampling clock cycle, the switch is open.
@@ -303,25 +303,37 @@ As conclusion, the upper frequency limitation is not determined by the \gls{adc}
 	\caption[SHA timing example]{Example for appropriate sampling timing when using Sample-And-Hold-Amplifier. The sample points of the \gls{adc} should be inside the period, where the \gls{sha} holds the input value.}
 	\label{fig:sha_timing}
 \end{figure}
+
 \paragraph{Track-And-Hold Amplifier}
-Apart from the \glspl{sha} there also exists the so called \gls{tha}.
+Apart from the \glspl{sha} there also exists the so called \gls{tha}. 
+A general block diagram of a \gls{tha} is shown in \autoref{fig:tha_low}.
 Though the names are often used interchangeably, there exists one fundamental difference between a \gls{sha} and a \gls{tha}.
 Strictly speaking, the output of a \gls{sha} is not defined during the sample period. 
 Only when switching to the hold mode, the output is assigned to a defined value: the voltage level at the input in that moment.
 Contrary to that, the \gls{tha} acts as a unity gain amplifier during the sample period, meaning the output is just a replication of the input. 
-The \gls{tha} ``tracks'' the input signal (see also \autoref{fig:sha_timing}).
+The \gls{tha} ``tracks'' the input signal (see also \autoref{fig:tha_up}).
 Therefore, instead of speaking of a ``sample'' period, the term used here is the ``track'' period.
 When switching to hold mode, the instantaneous input level is held over the course of the hold period.
 This principle allows to improve the sampling rate, as the settling time of an \gls{tha} is in general smaller than one of a \gls{sha}.
 Settling time denotes the amount of time needed for the output voltage to be at a stable level, after the transition from track/sample to hold mode.
 This process is quicker, when the output voltage is already in the range of the sampled input at the moment, instead of when the hold capacitor first has to be charged to the input voltage. \cite{Reeder2017}
 
-
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth]{chap/02-theory/img/adc/tha}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.85\textwidth]{chap/02-theory/img/adc/tha_low.tikz}  
+		\caption{Schematic of a THA}
+		\label{fig:tha_low}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{chap/02-theory/img/adc/tha_up.tikz}  
+		\caption{Working principle of the THA}
+		\label{fig:tha_up}
+	\end{subfigure}
 	\caption{Track-And-Hold-Amplifier schematic and principle \cite{walt}}
-	\label{fig:tha}
+	\label{fig:tha_principle}
 \end{figure}
 
 \subsection{Characteristics of Analog-To-Digital-Converters}\label{ssec:adc_charac}
@@ -532,7 +544,7 @@ It is measured over the whole Nyquist bandwidth from \gls{dc} to $f_s/2$, with $
 
 The \gls{sfdr} is an important characteristic in the sense, that it indicates the smallest signal which can still be distinguished from a strong interfering signal. \cite{walt2009} 
 
-The \gls{sfdr} in dBc can be calculated as (see \cite{xilinx_adc})%todo what is dbc?
+The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc})%todo what is dbc?
 \begin{equation}
 	\text{SFDR}_\text{dBc} = 20 \log \left( \frac{\text{Fundamental Amplitude (RMS)}}{\text{Largest Spur Amplitude (RMS)}} \right).
 \end{equation}
@@ -597,7 +609,7 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
-		\includegraphics[height=\textwidth]{chap/02-theory/img/adc/jitterTimeDomain.tikz}  
+		\includegraphics[height=0.9\textwidth]{chap/02-theory/img/adc/jitterTimeDomain.tikz}  
 		\caption{Effect of aperture jitter}
 		\label{fig:jitter}
 	\end{subfigure}
@@ -617,48 +629,50 @@ The \textit{transient response} denotes the settling time of an \gls{adc} until 
 
 
 \subsubsection{Sampling Theory}
-%todo cite http://fab.cba.mit.edu/classes/S62.12/docs/Shannon_noise.pdf and https://ieeexplore.ieee.org/document/5055024
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
 The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$
 \begin{equation}
 	y (t) \, \laplace  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
-\end{equation} %todo one bobble at fourier missing?
+\end{equation} 
 it has to be sampled with a frequency $f_s$ respecting
 \begin{equation} \label{eq:nyquist}
 	f_s > B \quad \text{or} \quad f_s > 2 f_a,
 \end{equation}
 with $f_a$ being the highest frequency contained in the signal. \cite{walt,puente2015}
 The range from \SI{0}{\Hz} to $\nicefrac{f_s}{2}$ is also called \textit{Nyquist-Zone} (or ``1st Nyquist zone'', see \autoref{fig:alias_f}).
-%todo why not relate f_a to B?
+
 
 Violation of this rule leads to \textit{aliasing}.
 The effects of aliasing are shown in \autoref{fig:aliasing}.
 
-When a harmonic wave of the frequency $f_a$ is sampled with the frequency $f_s$, this leads to periodic repetition of the signal spectrum in frequency domain in intervals of $f_s$, or ``images'' (see dashed, red frequency components in \autoref{fig:alias_f}). 
+When a harmonic wave of the frequency $f_a$ is sampled with the frequency $f_s$, this leads to periodic repetition of the signal spectrum in frequency domain in intervals of $f_s$, or ``images'' (see dashed, red frequency components in \autoref{fig:sampling}). 
 If \autoref{eq:nyquist} is respected, i.e. $f_a$ lies inside the Nyquist bandwidth, there is no overlap with the images created by the sampling process.
 
-Now assuming a signal frequency $f_a \approx f_s$, the sampling process leads to an image falling inside the Nyquist bandwidth.
+Now assuming a signal frequency $f_a \approx f_s$, the sampling process leads to an image falling inside the Nyquist bandwidth (see \autoref{fig:alias_f}).
 The reconstructed signal then lies at the frequency of this image which is much lower than the original frequency.
-The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}. \cite{nyquist, shannon, walt}
+The result of this \textit{undersampling} is shown in \autoref{fig:alias_signal}. \cite{nyquist, shannon, walt}
 \begin{figure}[tb]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{chap/02-theory/img/adc/alias_f}  
-		\caption{Sampling process visualized in frequency domain}
+		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/sampling.tikz}  
+		\label{fig:sampling}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias_f.tikz}  
 		\label{fig:alias_f}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{chap/02-theory/img/adc/alias_t}  
-		\caption{Effect of aliasing shown in time domain}
-		\label{fig:alias_t}
+		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias.tikz}  
+		\label{fig:alias_signal}
 	\end{subfigure}
+
 	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria (see \autoref{fig:alias_f}). \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
-	\label{fig:aliasing}
+	\label{fig:alias}
 \end{figure}
-%todo low-pass filter to get B/2<f_s? maybe
 
 
 

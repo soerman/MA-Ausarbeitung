@@ -1,13 +1,14 @@
 %needs \usepackage{nicefrac} and circuitikz (compile with "new" texlive version, there was a bug in circuitikz where not all rotary switch anchors were drawn)
-
 % see https://tex.stackexchange.com/questions/222424/circuitikz-dac-and-adc-shapes
 \newcommand{\myADC}[3] % #1 = name, #2=color
 {
 \draw[fill=#2] (#1)  +(-16.5pt,0pt) --+(-6pt,6pt) --+(16.5pt,6pt) --+(16.5pt,-6pt) --+(-6pt,-6pt) --cycle;
 \draw[] (#1) node[yshift=-1,xshift=3]{\tiny #3};
 }
-
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
 \usetikzlibrary{calc}
+
 \begin{tikzpicture}
 \draw (1,0) node[anchor=east] {$V_\text{in}$} to[short,o-] (2,0) node[rotary switch ->=3 in 40 wiper 20,anchor=in] (A) {};
 \draw (9,0) node[anchor=west] {$D_\text{out}$} to[short,o-] node[xshift=0.3cm,pos=1,label={[yshift=-4,font=\small]above:n}] {/} (8,0) node[rotary switch <-=3 in 40 wiper -20,anchor=in,rotate=180] (B) {};
@@ -16,6 +17,6 @@
 \draw (A.aout 3)  -- (4,-2) node[anchor=north] {$\nicefrac{f_s}{M}$} to[short] (5,-2) node[adcshape,fill=white,label={[font=\footnotesize,yshift=-0.1cm]above:$\text{ADC}_M$}] {} -- +(1,0) -- node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 1);
 \node[] at (5,-0.5) {\large \vdots};
 
-\node[rectangle,draw,minimum height=6cm,minimum width=7cm] (border) at (5,0.25) {};
+\node[rectangle,draw,minimum height=8cm,minimum width=7cm] (border) at (5,0.25) {};
  \draw[-Latex] (1,2) node[anchor=east] {$f_s$} to[short,o-]  (\tikztostart -| border.west);
 \end{tikzpicture}
