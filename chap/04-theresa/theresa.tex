@@ -1055,7 +1055,7 @@ Taking this into consideration, as well as the available space on the board, the
 The influence of the dielectric constant $\varepsilon_r$ is shown in \autoref{fig:off_diff_dk}. 
 $Z_\text{diff}$ decreases with higher value of $\varepsilon_r$ and even get below \SI{90}{\ohm}, exceeding the \SI{10}{\percent} tolerance.
 However, the upper trace width has also to be taken into account, which is in any case smaller than the lower trace width due to the etching process during manufacturing.
-As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than calculated by assuming both width equal. Therefor the impedance can still be regarded as falling into the tolerance band.
+As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than calculated by assuming both width equal. Therefore the impedance can still be regarded as falling into the tolerance band.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_dk}
@@ -1066,20 +1066,23 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/loss}
-	\caption[DOWG]{Attenuation per trace length of the symmetrical differential coplanar waveguide over frequency simulated for trace length of \SI{200}{\mm}}
-	\label{fig:off_diff_loss}
-\end{figure}
-
-
-
-\begin{figure}[tb]
-	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_w2}
 	\caption[DOWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ vs. upper trace width, assuming lower trace width $w = \SI{88}{\micro \meter}$ and $\varepsilon_r = 3.61$}
 	\label{fig:off_diff_w2}
 \end{figure}
 
+\autoref{fig:off_diff_loss} shows the calculated attenuation (combination of conductor and dielectric loss) of the coplanar waveguide with the given geometries over a frequency range \SIrange{0.1}{2}{\GHz}. 
+This attenuation was calculated for the trace length of \SI{200}{\mm}, an upper estimate of the length of the traces carrying the output signal from the \glspl{tha} to the connector.
+As can be derived from the plot, the attenuation lies reaches up to \SI{4}{\decibel}.
+Considering the length of the traces this is an expected result. 
+The traces need therefore to be routed in the lowest noise conditions possible, i.e. through shielding by ground layers and placing via fences around the trace, to ensure that the signal under study is propagated correctly to the connectors.
+During characterization the 
+\begin{figure}[tb]
+	\centering
+	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/loss}
+	\caption[DOWG]{Attenuation per trace length of the symmetrical differential coplanar waveguide over frequency simulated for trace length of \SI{200}{\mm}}
+	\label{fig:off_diff_loss}
+\end{figure}
 
 
 \subsection{Component Placement and Routing}
@@ -1138,7 +1141,7 @@ Furthermore, via-fences act as a barrier also for the signal, therefore guiding 
 
 \autoref{fig:sampling_card} shows the 3D model of the final design of the sampling card.
 On the top side (\autoref{fig:pcb_front}), the digital parts and clock distribution is placed. 
-The clock distribution is placed on the bottem, as close as possible to the \glspl{tha}, with the main \gls{pll} in the middle.
+The clock distribution is placed on the bottom, as close as possible to the \glspl{tha}, with the main \gls{pll} in the middle.
 Two \glspl{pll}, providing the high frequency clock necessary for the data converters in the \gls{fpga}, are placed close to the main \gls{pll}.
 Furthermore, the \gls{fmc}+ connector is located on the top, in order to connect the board with the \gls{fpga} and to provide the slow-control signals.
 
@@ -1147,11 +1150,11 @@ The output of the \glspl{tha} is propagated to the \gls{rf} connector (on the le
 To propagate test signals from the \glspl{dac} on the \gls{fpga}, the connector on the right is used.
 The small connector on the top propagates the clock signal, coming from the high-frequency \glspl{pll}, to the data converters 
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=0.9\textwidth]{chap/04-theresa/img/pcb/front}  
+		\includegraphics[width=0.85\textwidth]{chap/04-theresa/img/pcb/front_2}  
 		\caption{Top side}
 		\label{fig:pcb_front}
 	\end{subfigure}

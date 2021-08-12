@@ -1,13 +1,13 @@
 The back-end readout card for the system under development, the Zynq UltraScale+ RFSoC ZCU216 Evaluation Card, has been chosen taking into consideration the points described in \autoref{sec:selection}.
 In this section, the overall architecture and features of the card are presented.
 A possibility for evaluation of the card is also demonstrated.
-At last, a design for the read-out firmware is proposed. 
+At last, a design for the read-out firmware is proposed and an overview of the firmware elements is given. 
 
 \section{Xilinx ZCU216 Evaluation Card}
 The ZCU216 Evaluation Card is equipped with the ZU49DR Zynq Ultrascale+ \gls{rfsoc} (Gen 3). 
 It allows for quick evaluation of the on-chip \gls{rf} data converters and quick prototyping of different user-defined systems.
 
-The features which are important for the designed read-out system are listed in the following:
+The features which are important for the designed read-out system are listed in the following (as seen in \cite{zcu216}):
 \begin{itemize}[noitemsep]
 	\item Sixteen 14-bit, \SI{2.5}{\giga \sample \per \second} \gls{rf}-\gls{adc}
 	\item Sixteen 14-bit, \SI{10}{\giga \sample \per \second} \gls{rf}-\gls{dac}
@@ -17,12 +17,12 @@ The features which are important for the designed read-out system are listed in 
 	\item High-speed I/Os: $2\times2$ \gls{sfp}/SFP+/zSFP+/SFP28 modules
 	\item Breakout cards for evaluation of the \gls{adc} and \gls{dac} performance, together with a clock add-on card for internal/external reference clocking
 \end{itemize}
-Other peripheral connections and features are shown in the top view of the board in \autoref{fig:zcu216}.
+Other peripheral connections and features are shown in the top view of the board in \autoref{fig:zcu216}. 
 
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216}
-	\caption{Topview of ZCU216 evaluation board with labeled components}
+	\caption{Topview of ZCU216 evaluation board with labeled components \cite{zcu216}}
 	\label{fig:zcu216}
 \end{figure}
 
@@ -43,18 +43,19 @@ At the moment of writing, this is the industry's only single-chip, adaptable rad
 
 
 \paragraph{Evaluation Tool}
-In order to provide a quick evaluation of data converter performance an evaluation framework from Xilinx can be deployed on the card (see \autoref{fig:evalTool}). 
+In order to provide a quick evaluation of data converter performance an evaluation framework from \textit{Xilinx} can be deployed on the card. 
+The architecture of the tool is shown in \autoref{fig:evalTool}. \cite{zcu216evaltool}
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216evaltool}
-	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board}
+	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board \cite{zcu216evaltool}}
 	\label{fig:evalTool}
 \end{figure}
 
-It enables control of the ZCU216 \glspl{ip} and the associated designs from a host PC. 
-With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed.  
-For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors. %todo rfmc? gls?
+It enables control of the ZCU216 \gls{ip} cores and the associated designs from a host PC. 
+With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed.  \cite{zcu216evaltool}
+For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors\footnote{\gls{fmc} connector for \gls{rf} signals}.
 
 The RF DC (Data Converter) Evaluation Tool consists of two parts:
 \begin{itemize}
@@ -105,7 +106,7 @@ Access to the \gls{ps} is provided by for example via Ethernet or \gls{usb}.
 
 
 \subsection{Programmable Logic - Hardware design}
-For synthesis and analysis of the \gls{hdl} design for the \gls{pl}, the \gls{ide} Xilinx Vivado \gls{ide} is used.
+For synthesis and analysis of the \gls{hdl} design for the \gls{pl}, the \gls{ide} \textit{Xilinx Vivado} \gls{ide} is used.
 To configure and control the data converters, the \gls{rf} Data Converter \gls{ip} Core from Xilinx is used.
 In order to program the components on the sampling board, appropriate \gls{spi} interfaces are implemented, respecting the recommendations in the data sheet.
 
@@ -148,6 +149,7 @@ In a similar way, the interface for other components is to be implemented.
 
 \subsubsection*{RDMA over Converged Ethernet (RoCE)}
 The high speed data interface is implemented using the \gls{roce}.
+
 \Gls{rdma} allows direct memory access from one computer to another over an Ethernet network. This permits high-throughput, low-latency communication between applications which are hosted on clusters of servers or storage arrays. 
 
 \Gls{roce} is a network protocol defined in the \gls{ibta} standard, allowing \gls{rdma} over converged Ethernet network. 
@@ -156,6 +158,16 @@ The transport processing and memory translation are performed by hardware.
 \Gls{roce} has the benefits of the \gls{rdma} technology and the ease of use and availability of Ethernet.
 
 The ERNIC (Xilinx Embedded RDMA enabled NIC) \gls{ip} provides an Initiator and Target  implementation of \gls{rocev2} enabled \gls{nic} functionality. This \gls{ip} is specifically designed for embedded applications that require reliable transmission over Ethernet networks.
+
+\autoref{fig:ernic} shows a possible working principle of a system with multiple host CPUs and multiple native \gls{nvme}\footnote{ \gls{nvme} is an open, logical-device interface specification for accessing a computer's non-volatile storage} devices talking over a network fabric through the Xilinx \gls{ernic} \gls{ip}
+subsystem.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{chap/05-readout/img/ernic}
+	\caption{Xilinx ERNIC working principle example}
+	\label{fig:ernic}
+\end{figure}
 
 \subsection{Processing Unit - Software Design}
 In order for the user to be able to control the whole system, some kind of application has to be implemented for control of the hardware design.
@@ -168,3 +180,7 @@ The aforementioned evaluation tool for example uses the Linux application \texti
 For interaction and monitoring of the data converters the RFdc driver \gls{api} needs to be used.
 It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction woth the RF Data Converter \gls{ip}
 
+In order to implement and build software applications, the novel \textit{Xilinx Vitis} unified software platform is used.
+It enables the development of embedded software and accelerated applications on heterogeneous \textit{Xilinx} platforms including \glspl{fpga} and \glspl{soc}.
+It offers \glspl{api} and libraries for accelerated development of software applications for the system under development.
+The applications can be programmed with common languages like C, C++, and Python.

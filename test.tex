@@ -125,10 +125,31 @@ outer color=transparent!100
 
 
 \begin{document}
-\begin{figure}[tbh]
-	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/loss}
-	\caption{Attenuation over frequency simulated for trace length of \SI{10}{\mm}}
-	\label{fig:surf_loss}
-\end{figure}
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
+\newcommand{\myADC}[3] % #1 = name, #2=color
+{
+	\draw[fill=#2] (#1)  +(-16.5pt,0pt) --+(-6pt,6pt) --+(16.5pt,6pt) --+(16.5pt,-6pt) --+(-6pt,-6pt) --cycle;
+	\draw[] (#1) node[yshift=0,xshift=3]{\small #3};
+}
+\newcommand{\myDAC}[3] % #1=name, #2=color
+{
+	\draw[fill=#2] (#1)  +(16.5pt,0pt) --+(6pt,6pt) --+(-16.5pt,6pt) --+(-16.5pt,-6pt) --+(6pt,-6pt) --cycle;
+	\draw[] (#1)node[yshift=0, xshift = -3]{\small #3};
+}
+
+\begin{tikzpicture}
+	\node[adcshape,anchor=0](ad1) at (3.5,0) {};
+	\node[dacshape,anchor=0](da1) at (5,0) {};
+	
+	\draw (1,0) node[anchor=east] {$x(t)$} to (ad1.west);
+	
+	\draw (ad1.east) -- (da1.west);
+	\node (a)  [draw,fill=white,circle, inner sep=1pt] at (6,-1.15) {$+$}  ;
+	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (da1.east) -| (a.north) node[anchor = west, midway] {$x_q(t)$};
+	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (1.5,0) node[fill,draw,circle,minimum size=0.15cm,inner sep=0cm] {}|- (a.west) node[anchor = south east, yshift = 0mm] {-}; 
+	\draw [-{Latex[length=\arrlen, width=\arrwidth]}] (a.east) -- (7,-1.15) node[anchor = west] {$e_q(t)$} ;
+\end{tikzpicture}
 \end{document}
