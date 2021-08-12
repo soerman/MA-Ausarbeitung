@@ -1,3 +1,7 @@
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
 \begin{tikzpicture}
 	\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5,anchor = north, yshift=-3mm](gnd){GND};
 	\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2);
@@ -12,13 +16,13 @@
 	\filldraw[color=black, fill=black] (5,3) rectangle ++(1,.2) node[pos=.5](cond2){};
 	\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5, anchor = south, yshift=2mm ](GND2){GND};
 	
-	\draw[ <->] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=east](){\(h_1\)};
-	\draw[<->] (-0.5,3) -- (-0.5,5) node[pos=.5,anchor=east](){\(h_2\)};
-	\draw[<->] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
-	\draw[<->] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
-	\draw[<->] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
-	\draw[->] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-	\draw[->] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
+	\draw[latex-latex] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=east](){\(h_1\)};
+	\draw[latex-latex] (-0.5,3) -- (-0.5,5) node[pos=.5,anchor=east](){\(h_2\)};
+	\draw[latex-latex] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
+	\draw[latex-latex] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
+	\draw[latex-latex] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
+	\draw[-latex] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+	\draw[-latex] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
 	
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,6);
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,6);

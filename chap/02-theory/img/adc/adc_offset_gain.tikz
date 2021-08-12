@@ -1,3 +1,7 @@
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
 \begin{tikzpicture}
 	% axes
 	\draw[Latex-Latex] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};

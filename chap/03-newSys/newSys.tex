@@ -2,7 +2,7 @@ This section is dedicated to describing the general concept of the new readout-s
 The system was given the name \gls{theresa} and in the sections to follow  this name will be used to denote the new system.
 
 First, a short overview of state of the art systems is given, including commercially available real-time oscilloscopes and \gls{kapture}.
-This system was developed at \gls{ipe} at \gls{kit} specifically addressing the needs of \gls{thz} diagnostics at \gls{kara}.
+This system was developed at the \gls{ipe} at \gls{kit} specifically addressing the needs of \gls{thz} diagnostics at \gls{kara}.
 The working principle of this system is explained in detail, as the new \gls{theresa} system is an evolution of the \gls{kapture} system. 
 
 Then, the architecture of the \gls{theresa} system itself is described.
@@ -348,9 +348,23 @@ This \gls{soc} integrates 16 high-speed data converters (\glspl{adc} and \glspl{
 An evaluation card, containing all necessary peripherals (optical interfaces, USB-interface, \dots) and integrating the \gls{rfsoc}, was chosen for the implementation of the \gls{theresa} system.
 The card is described in detail in \autoref{chap:readout}.
 
-\begin{figure}[tbh]
+
+\begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/footprint}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics{chap/03-newSys/img/footprint_1.tikz}  
+		\caption{Discrete components}
+		\label{fig:discreteComp}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\tikzexternaldisable
+		\includegraphics{chap/03-newSys/img/footprint_2.tikz}  
+		\caption{Integrated circuit}
+		\tikzexternalenable
+		\label{fig:integratedComp}
+	\end{subfigure}
 	\caption[Discrete components vs. IC]{Footprint of discrete components vs. footprint of \gls{ic} integrating the components}
 	\label{fig:footprint}
 \end{figure}

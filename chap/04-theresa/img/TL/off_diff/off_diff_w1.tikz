@@ -17,7 +17,7 @@ ylabel={ $Z_\text{diff}$ (\SI{}{\ohm})},
 ymin=84.257135, ymax=115.315965,
 ytick style={color=black}
 ]
-\addplot [thick, color0, mark= *]
+\addplot [thick, color0]
 table {%
 50 113.9042
 55 110.1483

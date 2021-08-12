@@ -8,28 +8,28 @@
     ]
 		CLK  \SI{1}{\GHz}     & [C] 16C N(C1) 16C N(C3) 16C G \\
 		\\
-		$THA_1$ Clocking &  [C] 8H N(A1) 8H 8L N(A5) 8L 8H N(A9) 8H G\\
-		$THA_2$ Clocking & 1L 16H 16L 15H \\
-		$THA_3$ Clocking& 2L 16H 16L 14H \\
-		$THA_4$ Clocking& 3L 5H N(B1) 11H 5L N(B5) 11L 5H N(B9) 8H\\
+		THA$_1$ Clocking &  [C] 8H N(A1) 8H 8L N(A5) 8L 8H N(A9) 8H G\\
+		THA$_2$ Clocking & 1L 16H 16L 15H \\
+		THA$_3$ Clocking& 2L 16H 16L 14H \\
+		THA$_4$ Clocking& 3L 5H N(B1) 11H 5L N(B5) 11L 5H N(B9) 8H\\
 		\\
-		$THA_5$ Clocking& 4L 8H N(A2) 8H 8L N(A6) 8L 8H N(A10) 4H \\
-		$THA_6$ Clocking & 5L 16H 16L 11H \\
-		$THA_7$ Clocking& 6L 16H 16L 10H  \\
-		$THA_8$ Clocking& 7L 5H N(B2) 11H 5L N(B6) 11L 5H N(B10) 4H  \\
+		THA$_5$ Clocking& 4L 8H N(A2) 8H 8L N(A6) 8L 8H N(A10) 4H \\
+		THA$_6$ Clocking & 5L 16H 16L 11H \\
+		THA$_7$ Clocking& 6L 16H 16L 10H  \\
+		THA$_8$ Clocking& 7L 5H N(B2) 11H 5L N(B6) 11L 5H N(B10) 4H  \\
 		\\
-		$THA_{9}$ Clocking & 8L 8H N(A3) 8H 8L N(A7) 8L 8H \\
-		$THA_{10}$ Clocking& 9L 16H 16L 7H \\
-		$THA_{11}$ Clocking& 10L 16H 16L 6H \\
-		$THA_{12}$ Clocking& 11L 5H N(B3) 11H 5L N(B7) 11L 5H \\
+		THA$_{9}$ Clocking & 8L 8H N(A3) 8H 8L N(A7) 8L 8H \\
+		THA$_{10}$ Clocking& 9L 16H 16L 7H \\
+		THA$_{11}$ Clocking& 10L 16H 16L 6H \\
+		THA$_{12}$ Clocking& 11L 5H N(B3) 11H 5L N(B7) 11L 5H \\
 		\\
-		$THA_{13}$ Clocking& 4L N(A11) 8L  8H N(A4) 8H 8L N(A8) 8L 4H \\
-		$THA_{14}$ Clocking& 13L 16H 16L 3H \\
-		$THA_{15}$ Clocking& 14L 16H 16L  2H\\
-		$THA_{16}$ Clocking& 4L N(B11) 11L 1H N(C2) 4H N(B4) 11H 5L N(B8) 11L 1H \\
+		THA$_{13}$ Clocking& 4L N(A11) 8L  8H N(A4) 8H 8L N(A8) 8L 4H \\
+		THA$_{14}$ Clocking& 13L 16H 16L 3H \\
+		THA$_{15}$ Clocking& 14L 16H 16L  2H\\
+		THA$_{16}$ Clocking& 4L N(B11) 11L 1H N(C2) 4H N(B4) 11H 5L N(B8) 11L 1H \\
 		\\
-		CLK  $ADC_1$  &  [C]  [thick,red] 12{4C} G\\
-		CLK  $ADC_2$  &  [thick,blue] 12{4C} G\\
+		CLK  ADC$_1$  &  [C]  [thick,red] 12{4C} G\\
+		CLK  ADC$_2$  &  [thick,blue] 12{4C} G\\
 		\extracode
 		\tablerules
 		\draw [dashed,red] (A1) --node[midway, anchor = east]{ADC1} (B1) ;

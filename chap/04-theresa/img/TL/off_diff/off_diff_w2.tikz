@@ -2,7 +2,6 @@
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
-
 \begin{axis}[
 legend cell align={left},
 legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black},
@@ -17,7 +16,7 @@ ylabel={$Z_\text{diff}$ (\SI{}{\ohm})},
 ymin=90.096, ymax=97.35,
 ytick style={color=black}
 ]
-\addplot [thick, color0, mark =*]
+\addplot [thick, color0]
 table {%
 53 97.17
 58 96.47

@@ -1,3 +1,8 @@
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
+
 \begin{tikzpicture}
 	\begin{axis}[
 		width=6cm,

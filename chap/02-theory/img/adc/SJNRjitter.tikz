@@ -3,6 +3,11 @@
 \usetikzlibrary{arrows.meta}
 \pgfplotsset{compat=1.11}
 
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
+
 \begin{tikzpicture}
 \begin{axis}[%
 axis lines=left,

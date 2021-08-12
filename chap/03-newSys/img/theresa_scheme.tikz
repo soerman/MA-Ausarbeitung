@@ -1,3 +1,7 @@
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
 \begin{tikzpicture}[amp/.style = {regular polygon, regular polygon sides=3,
               draw, fill=white, text width=1em,
               inner sep=1mm, outer sep=0mm,

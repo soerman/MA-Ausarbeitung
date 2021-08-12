@@ -18,7 +18,7 @@ xtick distance=0.2,
 ymin=98.25474, ymax=99.42206,
 ytick style={color=black}
 ]
-\addplot [thick, color0, mark=*]
+\addplot [thick, color0]
 table {%
 3.61 99.369
 3.62 99.2613

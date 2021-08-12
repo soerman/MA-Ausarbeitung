@@ -1,0 +1,4 @@
+﻿\usetikzlibrary{arrows.meta}
+\begin{tikzpicture}
+\node[draw,align=center,minimum width=3cm,minimum height=7.5cm,fill=black!10] at (4.75,-3) {RFSoC\\[2ex](contains\\UltraScale+ FPGA,\\ 16 ADC, 16 DAC\\ and multi-core\\ ARM processor)};
+\end{tikzpicture}

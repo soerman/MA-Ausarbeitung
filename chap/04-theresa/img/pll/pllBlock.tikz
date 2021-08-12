@@ -1,4 +1,6 @@
-﻿\usetikzlibrary{calc}
+\usetikzlibrary{calc}
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
 \begin{tikzpicture}
 \node[draw,circle,minimum size=1cm,align=center,label={[align=center]below:OSC},label={[]above:}] (osc) at (0.5,0) {$\sim$};
 \node[draw,rectangle,minimum width=1.5cm,minimum height=1cm,align=center,label={[align=center]below:R divider},label={[]above:}] (r) at (3,0) {$\frac{1}{R}$};

@@ -69,7 +69,7 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 \tikzexternalenable
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/04-theresa/img/esl_esr}
+	\includegraphics[width =\textwidth]{chap/04-theresa/img/esl_esr.tikz}
 	\caption[Impedance response of a real capacitor]{Qualitative impedance response of a real capacitance \cite{Dang2020}}
 	\label{fig:esl_esr}
 \end{figure}
@@ -314,7 +314,7 @@ $V_\text{out}$ is calculated as
 \end{equation}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.3\textwidth]{chap/04-theresa/img/voltage_divider.pdf}
+	\includegraphics[height = 0.5\textwidth]{chap/04-theresa/img/voltage_divider.tikz}
 	\caption{Schematic of a resistive voltage divider}
 	\label{fig:v_divider}
 \end{figure}
@@ -634,7 +634,7 @@ Furthermore, in order
 
 \autoref{tab:theresacomp} lists the power supply requirements of all the components used on the board.
 
-\begin{table}[tb]
+\begin{table}[H]
 	\caption{Power consumption of components on the board}
 	\label{tab:theresacomp}
 	\begin{minipage}{\textwidth}
@@ -664,7 +664,7 @@ This configuration guarantees that high frequency components on the power supply
 At each power supply one \gls{emi} filter has been placed. 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/schematic/emi_filter}
+	\includegraphics[width = 0.7\textwidth]{chap/04-theresa/img/schematic/emi_filter.tikz}
 	\caption{EMI-filter used for power supply}
 	\label{fig:emi_filter}
 \end{figure}
@@ -850,7 +850,7 @@ Proper calculation of the geometrical parameters is therefore very important to 
 Formulas to calculate the characteristic impedance are quite complex and not easy to solve.
 To make the design of transmission lines easier, specific tools are used to quick calculations of the geometric values needed for impedance matching.
 For this design, the Si9000e tool for modeling \gls{pcb} transmission lines from \textit{Polar} is used to calculate the necessary trace widths, trace separations, etc.
-A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide is shown in \autoref{fig:polaris}.
+A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide is shown in \autoref{fig:polaris}. Note that the labels used in the tool to indicate the different geometry parameters are different from the ones used in this thesis.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/polaris}
@@ -1130,8 +1130,6 @@ To achieve high signal integrity, ``via-fences'' are placed next to the traces c
 These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation. 
 This forms a shield against any electromagnetic interference originating from other components on the board.
 Furthermore, via-fences act as a barrier also for the signal, therefore guiding it on the desired path and keeping it to its respective area.
-
-
  \begin{figure}[tb]
  	\centering
  	\includegraphics[width = \textwidth]{chap/04-theresa/img/pcb/tha_pcb}
@@ -1150,7 +1148,7 @@ The output of the \glspl{tha} is propagated to the \gls{rf} connector (on the le
 To propagate test signals from the \glspl{dac} on the \gls{fpga}, the connector on the right is used.
 The small connector on the top propagates the clock signal, coming from the high-frequency \glspl{pll}, to the data converters 
 
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering

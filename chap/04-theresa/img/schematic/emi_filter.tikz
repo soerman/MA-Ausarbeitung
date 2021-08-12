@@ -1,0 +1,8 @@
+﻿\begin{tikzpicture}
+\draw (0,-0.5) node[vcc](vcc){\SI{3.3}{\volt}} to[C=\SI{4.7}{\micro\farad}] (0,-3.5) node[ground] {};
+
+\draw (0,-1) to[short,*-] (-2,-1) to[cute choke,name=ch] (-4,-1) to[short,-o] (-6,-1) node[anchor=south west] {3P3\_Vdc0};
+\coordinate (a) at (0,-3);
+\draw (ch.midtap) to[short] (ch.midtap |- a)  to[short,-*] (0,-3);
+\draw (-2,-1) to[C=\SI{100}{\micro\farad},*-*] (-2,-3);
+\end{tikzpicture}

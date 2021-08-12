@@ -1,0 +1,4 @@
+﻿\begin{tikzpicture}
+\draw (0,0) node[vcc](vcc){$V_\text{in}$} to[R=$R_1$] (0,-2) coordinate (a) to[R=$R_2$] (0,-4) node[ground] {};
+\draw (a) to[short,*-o]  +(1,0) node[anchor=west] {$V_\text{out}$};
+\end{tikzpicture}

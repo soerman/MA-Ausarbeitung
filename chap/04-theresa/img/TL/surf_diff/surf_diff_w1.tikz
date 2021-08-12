@@ -17,7 +17,7 @@
 		ymin=93.231075, ymax=132.558825,
 		ytick style={color=black}
 		]
-		\addplot [semithick, color0, mark=*]
+		\addplot [semithick, color0]
 		table {%
 			80 130.7712
 			85 127.9234

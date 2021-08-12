@@ -1,3 +1,7 @@
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\usetikzlibrary{calc}
+
 \begin{tikzpicture}
 	\filldraw[color=black, fill=black] (0,0.7) rectangle ++(9,0.3) node[pos=.5,anchor = north, yshift=-3mm](gnd){GND};
 	\filldraw[color=black, fill=gray!20] (0,1) rectangle ++(9,2) node[pos=.5]{\(\varepsilon_r\)};
