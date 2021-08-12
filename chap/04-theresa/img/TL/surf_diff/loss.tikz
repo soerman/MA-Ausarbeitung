@@ -1,0 +1,98 @@
+% This file was created by tikzplotlib v0.9.5.
+\begin{tikzpicture}
+	
+	\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+	\definecolor{color1}{rgb}{1,0.498039215686275,0.0549019607843137}
+	\definecolor{color2}{rgb}{0.172549019607843,0.627450980392157,0.172549019607843}
+	\definecolor{color3}{rgb}{0.83921568627451,0.152941176470588,0.156862745098039}
+	\definecolor{color4}{rgb}{0.580392156862745,0.403921568627451,0.741176470588235}
+	
+	\begin{axis}[
+		tick align=outside,
+		tick pos=left,
+		legend cell align={left},
+		x grid style={white!69.0196078431373!black},
+		xlabel={Frequency (\si{\GHz})},
+		xmin=-0.395, xmax=10.495,
+		xtick style={color=black},
+		y grid style={white!69.0196078431373!black},
+		ylabel={Attenuation (\si{\dB})},
+		ymin=-1.918235, ymax=0.022935,
+		ytick style={color=black}
+		]
+		\addplot [semithick, color0]
+		table {%
+			0.1 -0.0518
+			0.621 -0.13
+			1.14 -0.177
+			1.66 -0.214
+			2.18 -0.245
+			2.71 -0.273
+			3.23 -0.298
+			3.75 -0.321
+			4.27 -0.343
+			4.79 -0.363
+			5.31 -0.382
+			5.83 -0.401
+			6.35 -0.418
+			6.87 -0.435
+			7.39 -0.451
+			7.92 -0.467
+			8.44 -0.482
+			8.96 -0.497
+			9.48 -0.511
+			10 -0.525
+		};
+		\addlegendentry{Conductor Loss};
+		
+		\addplot [semithick, color2]
+		table {%
+			0.1 -0.0135
+			0.621 -0.0821
+			1.14 -0.151
+			1.66 -0.219
+			2.18 -0.287
+			2.71 -0.355
+			3.23 -0.423
+			3.75 -0.492
+			4.27 -0.56
+			4.79 -0.628
+			5.31 -0.696
+			5.83 -0.764
+			6.35 -0.832
+			6.87 -0.9
+			7.39 -0.969
+			7.92 -1.04
+			8.44 -1.1
+			8.96 -1.17
+			9.48 -1.24
+			10 -1.31
+		};
+		\addlegendentry{Dielectric Loss};
+		
+		\addplot [semithick, color1]
+		table {%
+			0.1 -0.0653
+			0.621 -0.213
+			1.14 -0.328
+			1.66 -0.433
+			2.18 -0.532
+			2.71 -0.628
+			3.23 -0.721
+			3.75 -0.813
+			4.27 -0.903
+			4.79 -0.991
+			5.31 -1.08
+			5.83 -1.16
+			6.35 -1.25
+			6.87 -1.34
+			7.39 -1.42
+			7.92 -1.5
+			8.44 -1.59
+			8.96 -1.67
+			9.48 -1.75
+			10 -1.83
+		};
+		\addlegendentry{Attenuation};
+	\end{axis}
+\end{tikzpicture}

@@ -10,6 +10,7 @@
 	\begin{axis}[
 		tick align=outside,
 		tick pos=left,
+		legend cell align={left},
 		x grid style={white!69.0196078431373!black},
 		xlabel={Frequency (\si{\GHz})},
 		xmin=-4.895, xmax=104.995,

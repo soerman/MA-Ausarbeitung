@@ -20,7 +20,7 @@ It can be calculated as
 	\text{Acquisition Time} = \frac{\text{Memory Depth}}{\text{Max. Sample Rate}}
 \end{equation}
 As can be derived from the table, the acquisition time of such oscilloscopes is quite limited, not allowing for continuous sampling of fast input signals.
-\begin{table}[tbh]
+\begin{table}[tb]
 	\caption[Real Time Oscilloscopes Examples]{Some example real-time oscilloscopes with (max.) key characteristics}
 	\label{tab:real_time_osc}
 	\centering
@@ -54,7 +54,7 @@ Each channel contains a \gls{tha} and an \gls{adc}.
 This card is connected to a read-out card by a high-speed and high-density connector. 
 The \gls{fpga} sets the sampling time for each individual sampling channel and reads, processes and sends all acquired data to a \gls{cpu}/\gls{gpu} cluster for further processing. \cite{caselle2014}
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/kapture/thzChain.tikz}
 	\caption[THz measurement with KAPTURE]{\gls{thz} radiation measurement setup with \gls{kapture} (redrawn from \cite{caselle2014})}
@@ -71,7 +71,7 @@ For that reason, an wideband power-splitter was developed at \gls{ipe} which ful
 The designed power-splitter works up to \SI{100}{\giga \hertz} with an insertion loss of \SI{8}{\decibel} (at \SI{100}{\GHz}) and a return loss\footnote{\textit{Return loss} is the loss of signal power due to reflection by a discontinuity in the transmission line.} of about \SI{20}{\decibel} at \SI{50}{\giga \hertz}. \cite{caselle2014}
 A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.6\textwidth]{chap/03-newSys/img/kapture/power_split}
 	\caption{Photo of the power-splitter developed at IPE}
@@ -80,7 +80,7 @@ A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 
 \paragraph{Sampling Board}
 The archtiecture of the front-end board with the power-splitter is shown in \autoref{fig:kapture}. 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/kapture/kapture.tikz}
 	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} front-end sampling card (cf. \cite[p.2]{caselleKAP})}
@@ -97,7 +97,7 @@ In this way, the pulse can be ``locally sampled'' by adjusting the different del
 A simplified representation of the local sampling of the signal is shown in \autoref{fig:sig_kap1_kap2}.
 The plot shows on the left the sampling of the signal for \gls{kapture} v1 and on the right for \gls{kapture} v2 (described below).
 The sampling points $S_n$ are acquired by setting the respective delay $\Delta t_n$ of the sampling times. 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
@@ -141,7 +141,7 @@ In \gls{kapture2}, two front-end boards can be connected to directly sample the 
 Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
 In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
@@ -164,7 +164,7 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture}-2.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
 	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture}-2 setup}
@@ -209,7 +209,7 @@ At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$,
 After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc} \cite{mangrob}.
 An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTime}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
@@ -239,7 +239,7 @@ Each \gls{adc} is characterized by a \gls{dc} offset. Considering as example an 
 This output switches at the frequency $\nicefrac{f_s}{2}$. Therefore this introduces spurious harmonic components at the frequency $\nicefrac{f_s}{2}$ in the spectrum (see \autoref{fig:offset_mm}). 
 The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving//offset_mm}
 	\caption{Offset-Mismatch in Interleaving \cite{Harris2019}}
@@ -249,7 +249,7 @@ The magnitude of the spur depends on the offset difference between the \glspl{ad
 Besides of the offset also the gain of the converters can be mismatched. 
 This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $\nicefrac{f_s}{2} \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/gain_mm}
 	\caption{Gain-Mismatch in Interleaving \cite{Harris2019}}
@@ -262,7 +262,7 @@ The clock skew has on the one hand an aperture uncertainty component at each of 
 On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} 
 This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\text{in}$ (see \autoref{fig:timing_mm}).
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/timing_mm}
 	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
@@ -274,7 +274,7 @@ Due to bandwidth mismatch, different gain values at different frequencies can be
 An additional timing component causes different delays for signals at different frequencies through each \gls{adc}. 
 Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\nicefrac{f_s}{2} \pm f_\text{in}$.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/bandwidth_mm}
 	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
@@ -327,7 +327,7 @@ In this way, an alternate clocking of the \glspl{adc} is made possible\footnote{
 \end{sidewaysfigure}
 
  
-\subsection{Readout Card}
+\subsection{Readout Card}\label{sec:selection}
 The most important points to consider when choosing the readout card is its capability to handle high data-throughput, provide the possibility for user-defined firmware and control of the system.
 This flexibility is provided by \gls{fpga}-based \glspl{soc}, which also integrate the required high-speed peripheral connections for data transfer.
 An important point for \gls{theresa} is also to integrate the \glspl{adc} inside the \gls{soc}. 

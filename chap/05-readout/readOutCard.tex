@@ -115,7 +115,7 @@ The \gls{ip} core provides a configuration screen, which is used to
 \begin{itemize}
 	\item enable the data converter tiles
 	\item configure decimation, interpolation and mixing 
-	\item set up the sampling rates, \gls{pl} word wodths and data types
+	\item set up the sampling rates, \gls{pl} word widths and data types
 	\item enable optional interface ports.
 \end{itemize}
 Handling of the configuration and power-up of the data converters is covered by the \gls{ip} core. 
@@ -147,6 +147,7 @@ The \gls{hdl} implementation for this interface is listed in \autoref{app:code}.
 In a similar way, the interface for other components is to be implemented.
 
 \subsubsection*{RDMA over Converged Ethernet (RoCE)}
+The high speed data interface is implemented using the \gls{roce}.
 \Gls{rdma} allows direct memory access from one computer to another over an Ethernet network. This permits high-throughput, low-latency communication between applications which are hosted on clusters of servers or storage arrays. 
 
 \Gls{roce} is a network protocol defined in the \gls{ibta} standard, allowing \gls{rdma} over converged Ethernet network. 

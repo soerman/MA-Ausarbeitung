@@ -1,0 +1,83 @@
+% This file was created by tikzplotlib v0.9.5.
+\begin{tikzpicture}
+	
+	\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+	\definecolor{color1}{rgb}{1,0.498039215686275,0.0549019607843137}
+	\definecolor{color2}{rgb}{0.172549019607843,0.627450980392157,0.172549019607843}
+	\definecolor{color3}{rgb}{0.83921568627451,0.152941176470588,0.156862745098039}
+	\definecolor{color4}{rgb}{0.580392156862745,0.403921568627451,0.741176470588235}
+	
+	\begin{axis}[
+		tick align=outside,
+		tick pos=left,
+		legend cell align={left},
+		x grid style={white!69.0196078431373!black},
+		xlabel={Frequency (\si{\GHz})},
+		xmin=0.005, xmax=2.095,
+		xtick style={color=black},
+		y grid style={white!69.0196078431373!black},
+		ylabel={Attenuation (\si{\dB})},
+		ymin=-4.6057, ymax=0,
+		ytick style={color=black}
+		]
+		\addplot [semithick, color0]
+		table {%
+			0.1 -0.362
+			0.236 -0.603
+			0.371 -0.783
+			0.507 -0.914
+			0.643 -1.03
+			0.779 -1.13
+			0.914 -1.22
+			1.05 -1.31
+			1.19 -1.39
+			1.32 -1.47
+			1.46 -1.54
+			1.59 -1.61
+			1.73 -1.68
+			1.86 -1.75
+			2 -1.81
+		};
+		\addlegendentry{Conductor Loss};
+		
+		\addplot [semithick, color2]
+		table {%
+			0.1 -0.134
+			0.236 -0.314
+			0.371 -0.492
+			0.507 -0.668
+			0.643 -0.845
+			0.779 -1.02
+			0.914 -1.2
+			1.05 -1.37
+			1.19 -1.55
+			1.32 -1.72
+			1.46 -1.9
+			1.59 -2.08
+			1.73 -2.25
+			1.86 -2.43
+			2 -2.6
+		};
+		\addlegendentry{Dielectric Loss};
+		
+		\addplot [semithick, color1]
+		table {%
+			0.1 -0.496
+			0.236 -0.918
+			0.371 -1.27
+			0.507 -1.58
+			0.643 -1.87
+			0.779 -2.15
+			0.914 -2.42
+			1.05 -2.68
+			1.19 -2.94
+			1.32 -3.2
+			1.46 -3.44
+			1.59 -3.69
+			1.73 -3.93
+			1.86 -4.17
+			2 -4.41
+		};
+		\addlegendentry{Attenuation};
+	\end{axis}
+\end{tikzpicture}
