@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+\node {\includegraphics[width=8cm]{chap/05-readout/img/zcu216-cleared}};
+
+%left
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.6) {USB (JTAG/UART)};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.38) {JTAG PC4};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.13) {Micro SD};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,0.9) {Ethernet};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,0.58) {USB 3.0};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,0) {PMBUS};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,-0.35) {MSP430 JTAG};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,-0.74) {Push Buttons};
+\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,-1.28) {User 8-pole\\DIP Switch};
+
+%bottom
+\node[fill=none,font=\tiny,align=center,anchor=north] at (-1.39,-1.7) {Pmods ($2 \times$)};
+\node[fill=none,font=\tiny,align=center,anchor=north] at (-0.24,-1.7) {RFMC 2.0\\(DAC)};
+\node[fill=none,font=\tiny,align=center,anchor=north] at (0.51,-1.7) {CLK104 \\ Connector};
+\node[fill=none,font=\tiny,align=center,anchor=north] at (1.26,-1.7) {RFMC 2.0\\(ADC)};
+
+%right
+\node[fill=none,font=\tiny,align=left,anchor=west] at (2.13,1.19) {SATA M.2};
+\node[fill=none,font=\tiny,align=left,anchor=west] at (2.13,0.14) {XCZU49DR-2FFVF1760E};
+\node[fill=none,font=\tiny,align=left,anchor=north west] at (2.13,-0.6) {Under the board:\\DDR4 4$\times$ 8-bit Clamshell\\Component Memory (4 GB)\\[2ex]DDR4 4$\times$ 8-bit Clamshell\\Component Memory (4 GB)\\[2ex]DDR4 SODIMM Socket with\\64-bit DDR4 SODIMM};
+
+%top
+\node[fill=none,font=\tiny,align=center,anchor=south] at (1.07,1.91) {SFP28 (4$\times$)};
+\node[fill=none,font=\tiny,align=center,anchor=south] at (0.07,1.91) {FMC+};
+\node[fill=none,font=\tiny,align=center,anchor=south] at (-0.45,2.13) {SMA\\MGMT\\CLK};
+\node[fill=none,font=\tiny,align=center,anchor=south] at (-0.85,1.91) {12 V};
+\node[fill=none,font=\tiny,align=center,anchor=south east] at (-0.98,1.64) {Power\\Switch};
+\end{tikzpicture}
