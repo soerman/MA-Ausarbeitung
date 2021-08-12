@@ -19,7 +19,7 @@ The features which are important for the designed read-out system are listed in 
 \end{itemize}
 Other peripheral connections and features are shown in the top view of the board in \autoref{fig:zcu216}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216}
 	\caption{Topview of ZCU216 evaluation board with labeled components}
@@ -34,7 +34,7 @@ At the moment of writing, this is the industry's only single-chip, adaptable rad
 
 \autoref{fig:rfsoc} shows the general block diagram of the \gls{rfsoc}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/rfsoc_blockdiagram}
 	\caption[Zynq Ultrascale+ RFSoC block diagram]{Zynq Ultrascale+ RFSoC block diagram, showing in detail the different components of the \gls{ps} and \gls{pl}}
@@ -45,7 +45,7 @@ At the moment of writing, this is the industry's only single-chip, adaptable rad
 \paragraph{Evaluation Tool}
 In order to provide a quick evaluation of data converter performance an evaluation framework from Xilinx can be deployed on the card (see \autoref{fig:evalTool}). 
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/zcu216evaltool}
 	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board}
@@ -69,7 +69,7 @@ The RF DC (Data Converter) Evaluation Tool consists of two parts:
 \end{itemize}
 
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/evaltool}
 	\caption{\gls{gui} of the RF Data Converter Evaluation Tool}
@@ -83,7 +83,7 @@ This means it should provide the necessary interfaces to configure the data conv
 Furthermore, the high-speed data-throughput interface should be implemented.
 
 \autoref{fig:firmware} shows the general schematic of the firmware on the readout card.
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/firmware.tikz}
 	\caption{Schematic of the firmware and processing unit on the readout card}
@@ -120,7 +120,7 @@ The \gls{ip} core provides a configuration screen, which is used to
 \end{itemize}
 Handling of the configuration and power-up of the data converters is covered by the \gls{ip} core. 
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/rf_data_converter}
 	\caption{Simple example design with the \gls{rf} Data Converter}
@@ -137,7 +137,7 @@ The data pin, \texttt{SDIN}, which is clocked in by the \texttt{SCLK} signal, ha
 At the end, \texttt{SLOAD} has to be asserted HIGH, in order to signal the chip to load the received data into the chip's internal register.
 The \gls{hdl} implementation for this interface is listed in \autoref{app:code}. %todo use ref
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/sdi_interface_delay}
 	\caption{\gls{sdi} timing diagram for the NB6L295 delay chip \cite{NB6L295}}

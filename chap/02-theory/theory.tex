@@ -32,7 +32,7 @@ Due to emission of \gls{sr} at each bend, the electrons lose energy, which has t
 This is done by accelerating them with an electric field inside a \gls{rf} cavity.
 Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014,rota2018}
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/bd/synchrotron.pdf}
 	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
@@ -62,7 +62,7 @@ Therefore, a short overview of some parameters of this facility has been given b
 The storage ring can be filled up with up to 184 electron bunches with a distance of \SI{2}{\nano\second} ($\eqdev$ \SI{500}{\mega\hertz}) between two adjacent bunches.
 The main accelerator parameters are listed in \autoref{tab:kara}. 
 
-\begin{table}[tbh]
+\begin{table}[tb]
 	\caption{Some KARA parameters \cite{rota2018}}
 	\label{tab:kara}
 	\centering
@@ -90,7 +90,7 @@ Higher brilliance allows to see more detail in the material under study.
 The higher brilliance is achieved by shortening the electron bunches. 
 As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to THz.
 Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
@@ -117,7 +117,7 @@ Due to this \gls{csr} the bunches interact with their own radiation as shown in 
 \end{figure}
 
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/bd/electronInteraction.tikz}
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
@@ -166,7 +166,7 @@ To sample the pulse, the delay between the laser and the \gls{thz} pulse is vari
 To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. \glspl{qwp} and \gls{wp} (as shown in \autoref{fig:scan_eo}).
 A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the \gls{thz} pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/scanning_eo}
 	\caption{Scheme of Scanning-Type Electro-Optical Sampling System \cite{roussel2014}}
@@ -185,7 +185,7 @@ This is done with a series of \gls{qwp}, \gls{hwp} and a polarizer (P) (as shown
 To retrieve the \gls{thz} pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
 A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/bd/spectral_eo}
 	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
@@ -227,7 +227,7 @@ As example, assume the length of the dispersive media as $L_1 = \SI{10}{\meter}$
 With \autoref{eq:ts} the stretching factor for this set-up is $M \approx 200$. The input pulse is stretched to $T_2 = M \cdot T_1 = 200 \cdot \SI{1}{\pico \second} = \SI{200}{\pico \second} = \SI{0.2}{\nano \second}$.
 This corresponds to a frequency of $\SI{5}{\GHz}$ which is much easier to handle e.g. for an oscilloscope.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/time_stretch.png}
 	\caption{Working principle of the electro-optical time-stretch technique \cite{roussel2014}}
@@ -242,7 +242,7 @@ Irradiating diode with photons of sufficient energy generates electron-hole pair
 If the electron-hole pairs are produced in the depleted region of the $p/n$-junction, they are separated by the electric field applied across it, before they can recombine. 
 This creates a so called photo-current which can be measured. \cite{photodiode} %todo with a trans impedance amplifier maybe for the 'voltages' in the next section
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[]{chap/02-theory/img/pn.tikz}
 	\caption{pn-junction with depleted region \cite{pn-junc}}
@@ -317,7 +317,7 @@ Settling time denotes the amount of time needed for the output voltage to be at 
 This process is quicker, when the output voltage is already in the range of the sampled input at the moment, instead of when the hold capacitor first has to be charged to the input voltage. \cite{Reeder2017}
 
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/adc/tha}
 	\caption{Track-And-Hold-Amplifier schematic and principle \cite{walt}}
@@ -348,7 +348,7 @@ This difference is called the \textit{quantization error}. For an equidistant qu
 	\left| e_q(t) \right| = \left| x(t) - x_q(t) \right| \leq \frac{q}{2}.
 \end{equation}
 A setup in order to measure this quantization error is shown in \autoref{fig:qe_m}. 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/quant_err_meas.tikz}
 	\caption[Measurement setup for quantization error]{Setup for measuring the quantization error of an (ideal) \gls{adc} with input signal $x(t)$}
@@ -364,7 +364,7 @@ Then, the quantization error $e_q(t)$ can be approximated with a sawtooth signal
 	e_q(t) = st, \quad -\frac{q}{2s} < t < \frac{q}{2s} 
 \end{equation}
 The function in \autoref{eq:qe_saw} is plotted in \autoref{fig:eq}.
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/02-theory/img/adc/quantization_error.tikz}
 	\caption{Quantization noise as function of time (redrawn from \cite{walt})}
@@ -422,7 +422,7 @@ The \textit{offset error} is defined as the deviation of the actual \gls{adc} tr
 
 \textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. %todo state eq for 'transfer function' otherwise 'line', 'zero' and 'full-scale point' undefined here
 \autoref{fig:offsetErr} visualizes the effects of both offset and gain error. 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/adc_offset_gain.tikz}
 	\caption[Effects of Offset and Fain error in ADC]{Offset and Gain Error in the \gls{adc} characteristic transfer function. The offset error is indicated with the red arrow. The gain error expresses itself via different slope of the real \gls{adc} (dotted) compared to the ideal \gls{adc} (dashed)}
@@ -453,7 +453,7 @@ It results from the integral non-linearities of the front-end, \gls{sha} and als
 \gls{dnl} is the deviation in actual code width from the ideal width of 1 \gls{lsb}. This non-linearity stems exclusively from the encoding process in the \gls{adc} \cite{Lundberg,walt} . 
 
 The effect of these errors is shown in \autoref{fig:nld}.
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/nonlinear.tikz}
 	\caption[ADC Nonlinearities]{Transfer function of a real \gls{adc} showing \gls{dnl} and \gls{inl}.\cite{Lundberg}}
@@ -540,7 +540,7 @@ The \gls{sfdr} in dBc can be calculated as (see \cite{xilinx_adc})%todo what is 
 
 \autoref{fig:sfdr} illustrates the \gls{sfdr} in terms of \gls{dbfs} and \gls{dbc}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/02-theory/img/adc/sfdr.tikz}
 	\caption[SFDR definition]{Visualization of the \gls{sfdr}. It can be indicated either with reference to the carrier frequency in ``dBc'' or with reference to the Full-Scale Input in ``dBFS''. \cite{walt2009}}
@@ -593,7 +593,7 @@ As variations in aperture time occur randomly, these errors behave like a random
 
 The voltage error due to jitter and the \gls{sjnr} for different aperture jitter values are shown in \autoref{fig:ap_jit}.
 
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
@@ -641,7 +641,7 @@ If \autoref{eq:nyquist} is respected, i.e. $f_a$ lies inside the Nyquist bandwid
 Now assuming a signal frequency $f_a \approx f_s$, the sampling process leads to an image falling inside the Nyquist bandwidth.
 The reconstructed signal then lies at the frequency of this image which is much lower than the original frequency.
 The result of this \textit{undersampling} is shown in \autoref{fig:alias_t}. \cite{nyquist, shannon, walt}
-\begin{figure}[tbh]
+\begin{figure}[tb]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
