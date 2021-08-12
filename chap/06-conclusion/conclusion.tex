@@ -1,40 +1,43 @@
-Analysis of events occurring in the range of femtoseconds is desired in many scientific experiments.
-The high temporal resolution needed for measuring such events imposes a great technological challenge for \glspl{daq} and \glspl{adc}.
-In order to relax the requirements on the acquisition systems, the so-called optical time-stretch technique is used to stretch the analog input signal in time.
-In this way, data converters at relatively moderate sample rate can be used.
-Measuring the signal with commercial \glspl{daq}, such as real-time oscilloscope, still poses another challenge.
-Due to the limited acquisition time windows of such systems, continuous measurements at high sampling rate over long time is not possible.
-In applications, where measurements of long-term evolution of the ultra-fast events is desired, this is a major limitation.
-Therefore new concepts of \gls{daq} based on the time-stretch method need to be considered in order to overcome this limitation. 
+% todo: how to swap the abbreviation with long term
 
-In this thesis, a first demonstrator of such a new \gls{daq} system based on the photonic time-stretch method was developed.
-The system consists of a high bandwidth front-end sampling card, mounted on a back-end card integrating a new generation of \gls{rfsoc} for readout of the acquired samples. The name given to the system is \gls{theresa}.
+Analysis of events occurring in the range of femtoseconds is necessary in many scientific experiments.
+Continuous measurement of such events over a long period of time is desired in order to study the long-term evolution of such events.
+With currently commercially available \gls{daq} systems this is not possible due to the high sampling rates required and the limited memory space of such systems. 
 
-The front-end sampling card integrates 16 sampling channels, each containing a \gls{tha} with individually programmable delay in sampling time. 
-The design of the board allows it to be used in two different modes: with and without the time-stretch setup.
+In this thesis, a first demonstrator of a new type of \gls{daq} system has been developed to overcome these limitations.
+This system consists of a high bandwidth front-end sampling card, mounted on a back-end card integrating a new generation of \gls{rfsoc} for readout of the acquired samples. 
+It is based on the photonic time-stretch method, using chirped laser pulses and dispersion in fibers to stretch the signal under study in time.
+In this way, the signal can then be measured with a lower sampling rate than would actually be needed to measure events with a femtosecond resolution.
+The name given to the system is \gls{theresa}.
+
+The \gls{theresa} front-end sampling card integrates 16 sampling channels, each containing a \gls{tha} with individually programmable delay in sampling time. 
+With this setup, the so called time-interleaving technique can be implemented. 
+
+The design of the board allows it to be used either with the time-stretch setup or independently from it.
 In single-channel mode one detector is connected to one sampling channel, therefore allowing sampling of up to 16 detectors at the same time with one sampling point per channel.
-In the second mode, several channels are connected to one detector via power-splitter, therefore allowing multiple sampling points for one detector/per channel by setting the delay times accordingly. 
+In the second mode, several channels are connected to one detector via power-splitter, therefore allowing multiple sampling points for one detector per channel by setting the delay times accordingly. 
 
 High-speed \glspl{adc}, integrated in the \gls{rfsoc}, with 14-bit resolution and a sample rate of up to \SI{2.5}{\giga \sample\per\second} allow continuous sampling of the signal with high time resolution. 
-Using the time-interleaving technique for all sixteen \glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga\sample\per\second} possible.  
-When using in combination with the time-stretch technique and considering typical stretch-factors, these \SI{11}{\pico \second} are translated into a range of femtoseconds in the original signal.
+Using the time-interleaving technique for all sixteen \glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga\sample\per\second}. 
+When used in combination with the time-stretch technique and considering typical stretch-factors, the signal can be sampled with a time resolution corresponding to hundreds of femtoseconds in the original signal.
 
-The sampling card was furthermore designed to fully exploit all the features of the \gls{rfsoc}, which integrates a processing unit together with a \gls{fpga}.
-An evaluation tool framework is provided for the selected read-out card, allowing for on-board data generation and capture.
-This tool was also evaluated; allowing for quick set-up and measurement of key data converter characteristics (\gls{sinad}, \gls{sfdr}, \ldots) it provides an invaluable tool in order to get a first impression of the performance of the sampling card.
+The sampling card has furthermore been designed to fully exploit all the features of the \gls{rfsoc}, which integrates a processing unit together with a \gls{fpga}.
 
 The on-chip \gls{fpga} provides the possibility to flexibly adjust the firmware to user needs. 
 Slow-control implemented in the \gls{fpga} takes care of programming the components on the sampling card, such as the delay chips.
-High-speed interfaces, allowing speeds over \SI{100}{\giga\bits\per\second}, are a crucial component for the high throughput of the large amount of data generated by the data converters; with the given resolution and max. sample rate this touches the range of \si{\tera\bits\per\second}.
+High-speed interfaces, allowing transfer speeds over \SI{100}{\giga\bits\per\second}, are a crucial component for the high throughput of the large amount of data continuously generated by the data converters.
+With the evaluation tool provided by the manufacturer a quick set-up and measurement of key data converter characteristics (e.g. \gls{sinad} or \gls{sfdr}) is possible. 
+Together with provided add-on cards, a quick evaluation of the data converter performance has been possible.  %todo konkrete dinge sagen? 
 
-
-The design of the sampling card was approved and the card has been deployed in production.
-Quick characterization of the card is possible due to the tool provided for the readout-card and can be carried out using the methods described in \autoref{ssec:adc_charac}.
+The design of the sampling card was approved by \gls{ipe} and the card is currently in production.
+It has been shown, that the evaluation tool provided for the readout card allows to perform the necessary measurements (see \autoref{ssec:adc_charac}) for a quick characterization of the sampling card.
 \gls{theresa} will then be commissioned and taken into operation, improving the research in various scientific fields, especially beam diagnostics at e.g. at \gls{kara}. 
 There it can be used for studying \gls{csr}, in the far-field and near-field \gls{eo} setup, for study of fast laser dynamics and many other applications.
-The selected \gls{fpga} is suitable for deploying \gls{ai} applications (i.e. reinforcement learning).
+The selected \gls{fpga} is powerful and suitable for deploying \gls{ai} applications (i.e. reinforcement learning).
 Therefore the system can also be used for interfacing with the Bunch-By-Bunch feedback at \gls{kara}.
-In the context of the \gls{ultrasync} project, funded by \gls{anr} and \gls{dfg}, \gls{theresa} can be used in order to study the control of electron bunches in accelerators at \gls{kara} and \gls{soleil}, therefore being an important step towards new usable \gls{thz} sources. 
- 
+In the context of the \gls{ultrasync} project, funded by \gls{anr} and \gls{dfg}, \gls{theresa} can be used to study the control of electron bunches in accelerators at \gls{kara} and \gls{soleil}. 
+
+Therefore the newly developed \gls{theresa} system is an important step towards new usable \gls{thz} sources and can be deployed to improve beam diagnostics at several renowned sources. 
+  
 
 %There is a disturbing lack of benches in \sout{Ramset Park} Campus North. I want to sit more!

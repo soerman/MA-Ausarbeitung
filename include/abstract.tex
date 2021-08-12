@@ -27,10 +27,11 @@ The \gls{rfsoc} on the back-end readout card integrates a processing unit and a 
 A firmware running on the \gls{fpga} is responsible for programming and controlling the components on the sampling card, as well as collecting the acquired samples and sending it to the following processing system via high-speed connections.
 The processing unit, hosting e.g. an operating system or a standalone application, allows for the user to control and monitor the overall system via common periphery, e.g. Ethernet.
 
-The name given to the system is Theresa, an acronym for ``Terahertz Readout Sampling''.
+The name given to the system is \gls{theresa}.
 The high-speed \glspl{adc}, integrated in the read-out card are capable of a sample rate of up to \SI{2.5}{\giga \sample \per \second}.
 Using the time-interleaving technique for all available glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga \sample \per \second}.  %todo sample rate of overall system
-When used in combination with the time-stretch technique and considering currently achievable time-stretch factors, a time resolution in the range of hundred of femtoseconds is possible. %todo resultat am ende , messungen am kara %abschluss
+When used in combination with the time-stretch technique and considering currently achievable time-stretch factors, a time resolution in the range of hundred of femtoseconds is possible. 
+\gls{theresa} is therefore suitable to be used in beam diagnostics, e.g. at the \gls{kara}.
 
 \chapter*{Zusammenfassung}
 \chapter*{Résumé}

@@ -18,7 +18,7 @@
 \usepackage{siunitx}
 \sisetup{range-phrase=--} %used for \SIrange{1}{2}{\volt}
 \DeclareSIUnit{\sample}{S}
-\DeclareSIUnit{\bits}{B}
+\DeclareSIUnit{\bits}{b}
 \usepackage{nicefrac}
 \usepackage{amsmath}
 \usepackage[normalem]{ulem}
@@ -138,7 +138,6 @@
     \tableofcontents % listoftables on new pages
     \listoffigures
     \listoftables
-    \printglossary
     \endgroup
     \cleardoublepage
     \glsresetall
@@ -156,7 +155,7 @@
    	\chapter{Back-End Readout Card and System Integration}\label{chap:readout}
    			\input{./chap/05-readout/readOutCard}	
 	\glsresetall
-    \chapter{Conclusion and Outlook}
+    \chapter{Summary and Outlook}
    			\input{./chap/06-conclusion/conclusion}		
 	\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}
 			\input{include/ack.tex}
@@ -164,7 +163,7 @@
     \Appendix
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
     		\input{./chap/07-appendix/appendix}
-
+	\printglossary
 	\TheBibliography
 	\bibliographystyle{babalpha}
 	\bibliography{lit}
