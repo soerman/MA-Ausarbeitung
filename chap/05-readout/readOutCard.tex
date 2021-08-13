@@ -1,4 +1,4 @@
-The back-end readout card for the designed system, the Zynq UltraScale+ RFSoC ZCU216 Evaluation Card, has been chosen taking into consideration the points described in \autoref{sec:selection}.
+The back-end readout card for the system under development, the Zynq UltraScale+ RFSoC ZCU216 Evaluation Card, has been chosen taking into consideration the points described in \autoref{sec:selection}.
 In this section, the overall architecture and features of the card are presented.
 A possibility for evaluation of the card is also demonstrated.
 At last, a design for the read-out firmware is proposed and an overview of the firmware elements is given. 
@@ -36,7 +36,7 @@ Other peripheral connections and features are shown in the top view of the board
 		\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,-1.28) {User 8-pole\\DIP Switch};
 		
 		%bottom
-		\node[fill=none,font=\tiny,align=center,anchor=north] at (-1.39,-1.7) {Pmods ($2 \times$)};
+		\node[fill=none,font=\tiny,align=center,anchor=north] at (-1.41,-1.7) {Pmods ($2 \times$)};
 		\node[fill=none,font=\tiny,align=center,anchor=north] at (-0.24,-1.7) {RFMC 2.0\\(DAC)};
 		\node[fill=none,font=\tiny,align=center,anchor=north] at (0.51,-2.1) {CLK104 \\ Connector};
 		\node[fill=none,font=\tiny,align=center,anchor=north] at (1.26,-1.7) {RFMC 2.0\\(ADC)};
@@ -48,7 +48,7 @@ Other peripheral connections and features are shown in the top view of the board
 		
 		%top
 		\node[fill=none,font=\tiny,align=center,anchor=south] at (1.07,1.91) {SFP28 (4$\times$)};
-		\node[fill=none,font=\tiny,align=center,anchor=south] at (0.07,1.91) {FMC+};
+		\node[fill=none,font=\tiny,align=center,anchor=south] at (0.07,1.8) {FMC+};
 		\node[fill=none,font=\tiny,align=center,anchor=south] at (-0.45,2.13) {SMA\\MGMT\\CLK};
 		\node[fill=none,font=\tiny,align=center,anchor=south] at (-0.85,1.91) {12 V};
 		\node[fill=none,font=\tiny,align=center,anchor=south east] at (-0.98,1.64) {Power\\Switch};
@@ -64,26 +64,26 @@ Other peripheral connections and features are shown in the top view of the board
 %\end{figure}
 
 \paragraph{ZU49DR RFSoC}
-Together with an UltraScale+ programmable logic, the ZU49DR \gls{rfsoc} integrates an Arm Cortex-A53 \gls{ps}.
-This \gls{ps} contains a 64-bit quad-core Arm Cortex-A53, serving as \gls{apu}, and a dual core ARM Cortex-R5F, serving as \gls{rpu}.
+Together with an UltraScale+ programmable logic, the ZU49DR \gls{rfsoc} integrates an ARM\textregistered Cortex\texttrademark-A53 \gls{ps}.
+This \gls{ps} contains a 64-bit quad-core ARM\textregistered Cortex\texttrademark-A53, serving as \gls{apu}, and a dual core ARM Cortex-R5F, serving as \gls{rpu}.
 Furthermore, the system integrates \gls{rf} data converters, allowing to use the system for \gls{rf} applications.
 At the moment of writing, this is the industry's only single-chip, adaptable radio platform. \cite{zu49}
 
 \autoref{fig:rfsoc} shows the general block diagram of the \gls{rfsoc}.
+The \gls{ps} hosts the Arm cores, together with a memory controller and connectivity for high-speed and general data transfer.
+On the \gls{pl} the \gls{rf} data converters are located, as well es gonnectivity for high-speed data transfer and for general purpose connections. 
+The \gls{ps} also has an own data storage block.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/rfsoc_blockdiagram}
 	\caption[Zynq Ultrascale+ RFSoC block diagram]{Zynq Ultrascale+ RFSoC block diagram, showing in detail the different components of the \gls{ps} and \gls{pl}}
 	\label{fig:rfsoc}
 \end{figure}
 
-
+\clearpage
 \paragraph{Evaluation Tool}
-In order to provide a quick evaluation of the data converter performance an evaluation framework from \textit{Xilinx} can be deployed on the card. 
-It enables control of the ZCU216 \gls{ip} cores and the associated designs from a host PC. 
-With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed (see \cite{zcu216evaltool}).
-For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors\footnote{\gls{fmc} connector for \gls{rf} signals}.
+In order to provide a quick evaluation of data converter performance an evaluation framework from \textit{Xilinx} can be deployed on the card. 
 The architecture of the tool is shown in \autoref{fig:evalTool}. \cite{zcu216evaltool}
 
 \begin{figure}[H]
@@ -92,6 +92,10 @@ The architecture of the tool is shown in \autoref{fig:evalTool}. \cite{zcu216eva
 	\caption[ZCU216 Evaluation Tool]{Concept of the Evaluation Tool for the ZCU216, showing the interactions between the host PC and the board \cite{zcu216evaltool}}
 	\label{fig:evalTool}
 \end{figure}
+
+It enables control of the ZCU216 \gls{ip} cores and the associated designs from a host PC. 
+With the tool, different \gls{rf} configurations can be explored, \gls{rf} data can be generated and captured and different \gls{rf} metrics (see \autoref{ssec:adc_charac}) can be observed.  \cite{zcu216evaltool}
+For this, the breakout card provided with the board, or any other user-designed board, needs to be attached to the evaluation card via the RFMC connectors\footnote{\gls{fmc} connector for \gls{rf} signals}.
 
 The RF DC (Data Converter) Evaluation Tool consists of two parts:
 \begin{itemize}
@@ -102,8 +106,9 @@ The RF DC (Data Converter) Evaluation Tool consists of two parts:
 	Based on the commands, it performs the according action, e.g. setting the sampling clock or enabling/disabling data converter channels.
 	The \gls{gui} provides a convenient possibility to configure the data converters.
 	Data generation via \glspl{dac} can be started, as well as data capture with the \glspl{adc}.
-	Furthermore, the tool provides a \gls{gui} to quickly characterize the performance of the data converters (see \autoref{fig:gui}) from which the performance of the plugged break-out board can be derived.
+	Furthermore, the tool provides methods to quickly characterize the performance of the data converters (see \autoref{fig:gui}) from which the performance of the plugged break-out board can be derived.
 \end{itemize}
+
 
 \begin{figure}[tb]
 	\centering
@@ -128,7 +133,7 @@ Furthermore, the high-speed data-throughput interface should be implemented.
 
 The sampled data is propagated from the sampling card to the \glspl{adc} inside the \gls{fpga}. 
 This data is written in the \gls{ddr}, from which it is accessible by the data interface, which is responsible for the high-speed data transfer to the following processing node in the \gls{daq} system.
-A built-in test-loop is implemented with two integrated \gls{dac} channels, in order to produce test signals which are propagated to the sampling board.
+A built-in test-loop is implemented with an integrated \gls{dac}, in order to produce test signals which are propagated to the sampling board.
 Configuration of the data converters is done via the Xilinx ``RF Data Converter'' which is described below. 
 
 Components on the sampling board, such as the delay chips, are controlled via a \gls{spi} interface. 
@@ -155,11 +160,11 @@ The \gls{ip} core provides a configuration screen, which is used to
 	\item enable optional interface ports.
 \end{itemize}
 Handling of the configuration and power-up of the data converters is covered by the \gls{ip} core. 
-
+\autoref{fig:rf_dc_ex} shows a simple design example with the RF Data Converter IP. It implements the RF Data Converter \gls{ip} core, which configures one \gls{dac} to generate data and one \gls{adc} to capture incoming data.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/rf_data_converter}
-	\caption{Simple example design with the \gls{rf} Data Converter}
+	\caption{Simple example design with the \gls{rf} Data Converter IP core}
 	\label{fig:rf_dc_ex}
 \end{figure}
 
@@ -171,7 +176,7 @@ The delay chip only accepts data when the EN input is HIGH.
 Therefore, this signal has to remain high in the course of the whole data transaction. 
 The data pin, \texttt{SDIN}, which is clocked in by the \texttt{SCLK} signal, has to respect the following structure: delay channel select bit, mode select bit, followed by 9 data bits, which represent the desired delay value in binary format.
 At the end, \texttt{SLOAD} has to be asserted HIGH, in order to signal the chip to load the received data into the chip's internal register.
-The \gls{hdl} implementation for this interface is listed in \autoref{app:code}. %todo use ref
+The \gls{hdl} implementation for this interface is listed in \autoref{app:code} in the appendix. 
 
 \begin{figure}[tb]
 	\centering
@@ -194,13 +199,13 @@ The transport processing and memory translation are performed by hardware.
 
 The ERNIC (Xilinx Embedded RDMA enabled NIC) \gls{ip} provides an Initiator and Target  implementation of \gls{rocev2} enabled \gls{nic} functionality. This \gls{ip} is specifically designed for embedded applications that require reliable transmission over Ethernet networks.
 
-\autoref{fig:ernic} shows a possible working principle of a system with multiple host CPUs and multiple native \gls{nvme}\footnote{ \gls{nvme} is an open, logical-device interface specification for accessing a computer's non-volatile storage} devices talking over a network fabric through the Xilinx \gls{ernic} \gls{ip}
-subsystem.
+\autoref{fig:ernic} shows a possible working principle of a system with multiple host CPUs and multiple native \gls{nvme}\footnote{ \gls{nvme} is an open, logical-device interface specification for accessing a computer's non-volatile storage} devices talking over a network fabric through the \gls{ernic} \gls{ip}
+subsystem. \cite{ernic}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/ernic}
-	\caption{Xilinx ERNIC working principle example}
+	\caption{Xilinx ERNIC working principle example \cite{ernic}}
 	\label{fig:ernic}
 \end{figure}
 
@@ -211,13 +216,12 @@ The ARM Cortex processor allows to implement standalone C application, as well e
 Providing a number of peripheral connections, like Ethernet or \gls{usb}, the \gls{ps} can easily be accessed by the user from another host computer, given the necessary drivers and protocols are implemented. 
 The aforementioned evaluation tool for example uses the Linux application \textit{rftool} in order to receive commands and perform the according action.
 
-<<<<<<< HEAD
 For interaction and monitoring of the data converters the RFdc driver \gls{api} needs to be used.
 It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction woth the RF Data Converter \gls{ip}
-=======
+
 For interaction and monitoring of the data converters, the RFdc driver \gls{api} needs to be used.
 It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction with the RF Data Converter \gls{ip}
->>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
+
 
 In order to implement and build software applications, the novel \textit{Xilinx Vitis} unified software platform is used.
 It enables the development of embedded software and accelerated applications on heterogeneous \textit{Xilinx} platforms including \glspl{fpga} and \glspl{soc}.
