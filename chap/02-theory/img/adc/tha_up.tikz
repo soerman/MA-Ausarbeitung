@@ -59,7 +59,7 @@ legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!bl
 0.9527332321025148 0.06242280676196932\\
 0.9812321765860524 0.12094783569388179\\
 };
-\addlegendentry{After Hold}
+\addlegendentry{Before Hold}
 
 \addplot [semithick,color=black,smooth]
   table[row sep=crcr]{%
@@ -109,7 +109,7 @@ legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!bl
 0.9527332321025148 0.06242280676196932\\
 0.9812321765860524 0.12094783569388179\\
 };
-\addlegendentry{Before Hold}
+\addlegendentry{After Hold}
 \draw (0,-0.4) -- (0.31,-0.4) -- (0.31,-0.2) -- (0.55,-0.2) -- (0.55,-0.4) -- (1,-0.4);
 \draw[dotted] (0.31,-0.2) -- +(0,1.4);
 \draw[dotted] (0.55,-0.2) -- +(0,1.4);

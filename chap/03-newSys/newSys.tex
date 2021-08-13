@@ -128,7 +128,7 @@ The \gls{gpu} node reconstructs the pulse based on the given sampling points and
 It also performs an online \gls{fft} for frequency analysis.
 To store the data temporary before it is sent to the \gls{daq} system, a large \gls{ddr3} memory device is used, as seen in \autoref{fig:thz_chain}. \cite{caselleKAP}
 
-\clearpage
+
 \subsection{KAPTURE-2}
 The first version of \gls{kapture} has a limitation concerning the number of sampling points per pulse and does not allow to sample the baseline of the detector.
 Analyzing the baseline however is very important, as it is changing slightly and affects the pulse amplitude of the bunch. 
@@ -137,11 +137,6 @@ For this reason, a second version of \gls{kapture} has been designed in order to
 The \gls{pll} on the sampling board allows for synchronization between two or more \glspl{pll} located on different boards.
 With this feature, the sampling time of two boards can be synchronized and in this way extend the number of sampling points beyond four.
 A comparison of the sampling concepts is shown in \autoref{fig:kap1_vs_kap2}.
-
-In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
-Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
-In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
-
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
@@ -160,6 +155,9 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\caption[Comparison between KAPTURE and KAPTURE-2]{Comparison between the sampling concepts of \gls{kapture} and \gls{kapture2}}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
+In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
+Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
+In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture2}.
 \begin{figure}[H]
 	\centering
@@ -167,9 +165,8 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\caption[Photo of KAPTURE v2 system]{Photo of the \gls{kapture2} setup}
 	\label{fig:kapturesys}
 \end{figure}
+\clearpage
 
-
-\newpage
 \section{Proposed Architecture for THERESA}
 In this section the architecture for the \gls{theresa} system is described.
 The system consists of the optical time-stretch setup, which stretches the analog input signal and the photodetector in order to convert the optical signal into an electrical one.
