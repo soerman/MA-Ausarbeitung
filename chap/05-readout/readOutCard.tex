@@ -173,7 +173,7 @@ The delay chip only accepts data when the EN input is HIGH.
 Therefore, this signal has to remain high in the course of the whole data transaction. 
 The data pin, \texttt{SDIN}, which is clocked in by the \texttt{SCLK} signal, has to respect the following structure: delay channel select bit, mode select bit, followed by 9 data bits, which represent the desired delay value in binary format.
 At the end, \texttt{SLOAD} has to be asserted HIGH, in order to signal the chip to load the received data into the chip's internal register.
-The \gls{hdl} implementation for this interface is listed in \autoref{app:code}. %todo use ref
+The \gls{hdl} implementation for this interface is listed in \autoref{app:code}. 
 
 \begin{figure}[tb]
 	\centering

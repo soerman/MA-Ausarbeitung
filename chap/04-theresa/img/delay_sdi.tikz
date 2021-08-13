@@ -52,13 +52,13 @@
 	\draw[-Latex] (-3,5) -| ($(c8.north west)!0.6!(c8.north east)$) ;
 
 	\draw[Latex-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_1$}; 
-	\draw[Latex-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,5) node[above] {\Huge EN2}; 
-	\draw[Latex-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,5) node[above] {\Huge EN3}; 
-	\draw[Latex-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,5) node[above] {\Huge EN4}; 
-	\draw[Latex-]  ($(c5.north west)!0.8!(c5.north east)$) --  ++(0,5) node[above] {\Huge EN5}; 
-	\draw[Latex-]  ($(c6.north west)!0.8!(c6.north east)$) --  ++(0,5) node[above] {\Huge EN6}; 
-	\draw[Latex-]  ($(c7.north west)!0.8!(c7.north east)$) --  ++(0,5) node[above] {\Huge EN7}; 
-	\draw[Latex-]  ($(c8.north west)!0.8!(c8.north east)$) --  ++(0,5) node[above] {\Huge EN8}; 
+	\draw[Latex-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_2$}; 
+	\draw[Latex-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_3$}; 
+	\draw[Latex-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_4$}; 
+	\draw[Latex-]  ($(c5.north west)!0.8!(c5.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_5$}; 
+	\draw[Latex-]  ($(c6.north west)!0.8!(c6.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_6$}; 
+	\draw[Latex-]  ($(c7.north west)!0.8!(c7.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_7$}; 
+	\draw[Latex-]  ($(c8.north west)!0.8!(c8.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_8$}; 
 
 
 	\filldraw[black] (1) circle (2pt); 

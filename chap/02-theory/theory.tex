@@ -47,7 +47,7 @@ It prevents unnecessary exposure of the matter outside the area of interest and 
 Well defined duration of the pulses allows to observe chemical reactions on short time scales.
 Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
 
-\begin{figure}[b]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/bd/spectrum.tikz}
 	\caption{Electromagnetic spectrum}
@@ -92,7 +92,7 @@ Higher brilliance allows to see more detail in the material under study.
 The higher brilliance is achieved by shortening the electron bunches. 
 As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to \si{\tera \hertz}.
 Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
-<<<<<<< HEAD
+
 These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
 These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
 This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
@@ -139,7 +139,7 @@ This imposes on one side a huge limitation to the stable operation of the overal
 On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
 Such applications however require a stable power of the radiation. 
 Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
-A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
+A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}\\
 In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
 
 \subsection*{Control of Micro-Bunching Instabilities}
@@ -150,8 +150,8 @@ The goal is to obtain a high power and stable coherent emission.
 The current experimental setup uses a relatively simple feedback loop:
 \begin{itemize}
 	\item A bolometer/Schottky barrier diode detector which produces the input signal for the feedback loop.
-	\item A low-cost \gls{fpga} (Red Pitaya) that controls the the accelerating voltage of the synchrotron based on the input
-\end{itemize} %todo Red Pitaya?
+	\item A low-cost \gls{fpga} that controls the the accelerating voltage of the synchrotron based on the input
+\end{itemize}
 
 However, there are limitations in the controllable bunch charge in the accelerator this feedback loop can handle, which is around \SI{10}{\milli \ampere}. 
 Therefore, an open question is whether measuring each \gls{thz} pulse using the setup
@@ -267,7 +267,7 @@ This creates a so called photo-current which can be measured and converted into 
 \section{Analog-To-Digital Converter}
 \Glspl{adc} are used to translate analog signals, like voltages, into the digital representation of these signals.
 This \textit{digitized} version can then be stored and processed by information processing, computing, data transmission and control systems. 
-This translation, also called ``conversion'', can be seen as encoding a continuous-time analog input $V_\text{in}$ (voltage) into a series of discrete, $N$-bit words. %todo $V_\text{in}(t)$ ?
+This translation, also called ``conversion'', can be seen as encoding a continuous-time analog input $V_\text{in}$(t) (voltage) into a series of discrete, $N$-bit words. 
 This process is also called \textit{sampling}. 
 With the full-scale voltage of $V_{\text{FS}}$, the individual output bits $b_k$ and the quantization error $\epsilon$, the \gls{adc} should satisfy the relation
 \begin{equation} \label{eq:adc_sample}
@@ -360,12 +360,12 @@ These can be divided into the categories according to \cite{Lundberg}:
 	\item Static parameters
 	\item Frequency-domain dynamic parameters
 	\item Time-domain dynamic parameters
-\end{itemize} %todo which of those are static, which dynamic?
+\end{itemize} 
 This section provides an overview of these figures of merit.
 Which of them are needed to specify the necessary performance of the \gls{adc} has to be chosen for each application accordingly.
 
 \subsubsection{Quantization Noise}\label{par:quant_noise}
-Even an ideal $N$-bit converter has errors resulting from the quantization process which behave like noise. %todo maybe can be modelled as noise, or shows as noise instead of behave
+Even an ideal $N$-bit converter has errors resulting from the quantization process which can be modeled like noise. 
 The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide and centered around a code center (see \autoref{fig:idealADC}). \cite{Lundberg}
 
 The input voltage is assigned to the word of the nearest code center.
@@ -636,7 +636,7 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 		\caption{SJNR for different aperture jitter values}
 		\label{fig:sjnr}
 	\end{subfigure}
-	\caption[Aperture jitter and SJNR]{Effects of aperture jitter and SJNR. Left: In time domain, Right: SJNR for different aperture jitter \cite{Lundberg}}
+	\caption[Aperture jitter and SJNR]{Effects of aperture jitter on the output voltage and SJNR. Left: In time domain, Right: SJNR for different aperture jitter \cite{Lundberg}}
 	\label{fig:ap_jit}
 \end{figure}
 
@@ -689,7 +689,6 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_signal}
 		\label{fig:alias_signal}
 	\end{subfigure}
 	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (\autoref{fig:sampling}) and not respecting (\autoref{fig:alias_f}) the Nyquist criteria. \autoref{fig:alias_signal} shows the effect of aliasing in time domain. \cite{walt}}
-	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (\autoref{fig:sampling}) and not respecting (\autoref{fig:alias_f}) the Nyquist criteria. \autoref{fig:alias_t} shows the effect of aliasing in time domain. \cite{walt}}
 	\label{fig:alias}
 \end{figure}
 
