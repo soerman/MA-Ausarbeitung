@@ -379,7 +379,7 @@ Furthermore, resistors are place at the pins to reduce possible voltage overshoo
 The output of the delay chip is using a \gls{lvpecl} signaling interface, which is based on an open-emitter topology (see \autoref{fig:lvpecl}).
 This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} resistors (recommended in the data sheet).
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/lvpecl}
 	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
@@ -455,14 +455,12 @@ When there is a varying phase difference, it means that the signals are at diffe
 As soon as the phase difference stays constant, it means that both of the frequencies are the same or one is a multiple of the other. 
 In this state the \gls{pll} is called to be ``locked''.
 The general architecture of a \gls{pll} is shown in \autoref{fig:pll_block}.
-
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pllBlock.tikz}
 	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
 	\label{fig:pll_block}
 \end{figure}
-
 For proper noise performance, a properly designed loop filter for both \glspl{pll} is needed. 
 The output of the loop filter is the voltage for controlling the \gls{vco}.
 The \gls{vco} output of is a frequency $f_\text{VCO}$ proportional to the applied voltage.
@@ -473,7 +471,7 @@ These pulses are filtered by the low pass loop filter, which basically converts 
 The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, \ldots) and therefore has to be designed carefully.
 
 
-To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
+To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used. 
 This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
 A passive fourth order loop filter is shown in \autoref{fig:loop_filter}.
 In order to implement a lower order filter, some components need to be left out.
