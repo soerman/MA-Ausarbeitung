@@ -16,7 +16,7 @@
 		xlabel={Frequency $f$},
 		ylabel={Impedance $Z$},
 		axis background/.style={fill=white},
-		axis line style={-latex},
+		axis line style={-{Latex[length=\arrlen,width=\arrwidth]}},
 		clip=false,
 		xlabel style={yshift=-0.5cm}
 		]
@@ -39,9 +39,9 @@
 		\draw[dashed] (0.4,0) node[anchor=north] {$f_1$} -- (0.4,1.1);
 		\draw[dashed] (0.6,0) node[anchor=north] {$f_1$} -- (0.6,1.1);
 		
-		\draw[<->] (0.07,1) -- node[fill=white] {I} (0.39,1);
-		\draw[<->] (0.41,1) -- node[fill=white] {II} (0.59,1);
-		\draw[<->] (0.61,1) -- node[fill=white] {III} (0.9,1);
+		\draw[{latex[length=\arrlen,width=\arrwidth]}-{latex[length=\arrlen,width=\arrwidth]}] (0.07,1) -- node[fill=white] {I} (0.39,1);
+		\draw[{latex[length=\arrlen,width=\arrwidth]}-{latex[length=\arrlen,width=\arrwidth]}] (0.41,1) -- node[fill=white] {II} (0.59,1);
+		\draw[{latex[length=\arrlen,width=\arrwidth]}-{latex[length=\arrlen,width=\arrwidth]}] (0.61,1) -- node[fill=white] {III} (0.9,1);
 		
 		\draw[densely dotted] (0.1,0.7) -- (0.8,0.1);
 		\draw[densely dotted] (0.3,0.1) -- (0.8,0.8);

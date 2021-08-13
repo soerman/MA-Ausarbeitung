@@ -16,12 +16,12 @@
 		\node (th) at (2,0.9) [multiblock,minimum width=2cm,minimum height=1cm] {{T/H}};
 		\node (adda) at (2,2.2) [multiblock,minimum width=2cm,minimum height=1cm] {{ADC/DAC}};
 		
-		\draw[-Latex] (-6.5,2.2) node[anchor=south west] {Reference Clock} -- (pll);
-		\draw[-Latex] (vcxo) -- ([yshift=-1.3cm]pll.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-6.5,2.2) node[anchor=south west] {Reference Clock} -- (pll);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (vcxo) -- ([yshift=-1.3cm]pll.west);
 		
-		\draw[-Latex] ([yshift=+1.3cm]pll.east) -- (fpga.west);
-		\draw[-Latex] ([yshift=-1.3cm]pll.east) -- (fanout.west);
-		\draw[-Latex] ([yshift=+0cm]pll.east) -- (lmx.west);
-		\draw[-Latex] (fanout.east) -- (th.west);
-		\draw[-Latex] (lmx.east) -- (adda.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ([yshift=+1.3cm]pll.east) -- (fpga.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ([yshift=-1.3cm]pll.east) -- (fanout.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ([yshift=+0cm]pll.east) -- (lmx.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fanout.east) -- (th.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (lmx.east) -- (adda.west);
 \end{tikzpicture}

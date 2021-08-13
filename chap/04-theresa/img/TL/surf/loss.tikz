@@ -18,7 +18,8 @@
 		y grid style={white!69.0196078431373!black},
 		ylabel={Attenuation (\si{\dB})},
 		ymin=-0.88043, ymax=0.03103,
-		ytick style={color=black}
+		ytick style={color=black},
+		legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!black}
 		]
 		\addplot [semithick, color0]
 		table {%

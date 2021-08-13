@@ -3,47 +3,27 @@
 
 Characteristic impedance (see \cite[~p197-198]{wadell}): 
 \begin{align}
-	Z_{0,o} &= \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)\\
-	Z_{0,e} &= \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
+	Z_{0,o} & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)         \\
+	Z_{0,e} & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
 \end{align}    
 
 \begin{align}
-	\epsilon_{\text{eff},o} &= \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\\
-	\epsilon_{\text{eff},e} &= \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
+	\epsilon_{\text{eff},o} & = \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}                 \\
+	\epsilon_{\text{eff},e} & = \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
 \end{align}
 
 with
 
 \begin{align}
-	k_o &= \Lambda \frac{-\sqrt{\Lambda^2 - t_c^2} + \sqrt{\Lambda^2 - t_B^2}}{t_B\sqrt{\Lambda^2 - t_c^2} + t_c \sqrt{\Lambda^2 - t_B^2}}\\
-	k_e &= \Lambda' \frac{-\sqrt{\Lambda'^2 - t_c'^2} + \sqrt{\Lambda'^2 - t_B'^2}}{t_B'\sqrt{\Lambda'^2 - t_c'^2} + t_c' \sqrt{\Lambda'^2 - t_B'^2}}
+	k_o      & = \Lambda \frac{-\sqrt{\Lambda^2 - t_c^2} + \sqrt{\Lambda^2 - t_B^2}}{t_B\sqrt{\Lambda^2 - t_c^2} + t_c \sqrt{\Lambda^2 - t_B^2}}            \\
+	k_e      & = \Lambda' \frac{-\sqrt{\Lambda'^2 - t_c'^2} + \sqrt{\Lambda'^2 - t_B'^2}}{t_B'\sqrt{\Lambda'^2 - t_c'^2} + t_c' \sqrt{\Lambda'^2 - t_B'^2}} \\
+	\Lambda  & = \frac{\sinh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}                                                                        \\
+	t_c      & = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda                                                                             \\
+	t_B      & = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda                                                                                       \\
+	\Lambda' & = \frac{\cosh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}                                                                        \\
+	t_c'     & = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda' + 1.0                                                                      \\
+	t_B'     & = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda + 1.0
 \end{align}
-
-
-\begin{equation}
-	\Lambda = \frac{\sinh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
-\end{equation}
-
-\begin{equation}
-	t_c = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda
-\end{equation}
-
-\begin{equation}
-	t_B = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda
-\end{equation}
-
-
-\begin{equation}
-	\Lambda' = \frac{\cosh^2 \left( \frac{\pi (s/2.0 + w + d)}{2.0 h} \right) }{2}
-\end{equation}
-
-\begin{equation}
-	t_c' = \sinh^2 \left( \frac{\pi (s/2.0 + w)}{2.0 h} \right) - \Lambda' + 1.0
-\end{equation}
-
-\begin{equation}
-	t_B' = \sinh^2 \left( \frac{\pi s}{4.0 h} \right) - \Lambda + 1.0
-\end{equation}
 
 The parameters have to be chosen according to 
 \begin{equation}

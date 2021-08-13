@@ -9,11 +9,11 @@
 \node[draw,rectangle,minimum width=1.5cm,minimum height=1cm,align=center,label={[align=center]below:N divider},label={[]above:}] (n) at (9,2) {$\frac{1}{N}$};
 \node[draw,circle,minimum size=1cm,align=center,label={[align=center]below:VCO},label={[]above:}] (vco) at (11.5,0) {$\sim$};
 
-\draw[-{Latex[length=3mm]}] (osc) -- node[pos=0.5,anchor=south] {$f_\text{osc}$} (r);
-\draw[-{Latex[length=3mm]}] (r) -- node[pos=0.5,anchor=south] {$f_\text{pd}$} ($(kpd.west)+(0,-0.5)$);
-\draw[-{Latex[length=3mm]}] ($(kpd.east)+(0,-0.5)$) --  (z);
-\draw[-{Latex[length=3mm]}] (z) -- (vco);
-\draw[-{Latex[length=3mm]}] (vco) -- node[pos=0.75,anchor=south] {$f_\text{vco}$} +(2,0);
-\draw[-{Latex[length=3mm]}] (vco.east)+(0.5,0) node[fill,circle,inner sep=0,minimum size=0.2cm] {} |-  (n);
-\draw[-{Latex[length=3mm]}] (n) -| node[pos=0.8,anchor=east] {$f_\text{N}$} ($(kpd.west)+(-0.5,+0.5)$) --($(kpd.west)+(0,+0.5)$) ;
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (osc) -- node[pos=0.5,anchor=south] {$f_\text{osc}$} (r);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (r) -- node[pos=0.5,anchor=south] {$f_\text{pd}$} ($(kpd.west)+(0,-0.5)$);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(kpd.east)+(0,-0.5)$) --  (z);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (z) -- (vco);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (vco) -- node[pos=0.75,anchor=south] {$f_\text{vco}$} +(2,0);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (vco.east)+(0.5,0) node[fill,circle,inner sep=0,minimum size=0.2cm] {} |-  (n);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (n) -| node[pos=0.8,anchor=east] {$f_\text{N}$} ($(kpd.west)+(-0.5,+0.5)$) --($(kpd.west)+(0,+0.5)$) ;
 \end{tikzpicture}

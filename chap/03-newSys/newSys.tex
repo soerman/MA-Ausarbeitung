@@ -75,7 +75,7 @@ A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = 0.6\textwidth]{chap/03-newSys/img/kapture/power_split}
+	\includegraphics[width = 0.8\textwidth]{chap/03-newSys/img/kapture/power_split}
 	\caption{Photo of the power-splitter developed at IPE}
 	\label{fig:power_splitter}
 \end{figure}
@@ -93,7 +93,7 @@ The sampling time of each unit can be adjusted individually with a delay chip wi
 The delay chips are programmed with the \gls{fpga} on the readout card.
 The clock signal is provided by \gls{kara}, which is cleared from jitter by a \gls{pll}. 
 This ensures the synchronization of the \glspl{adc} with the \gls{rf} system. 
-The cleaned clock signal is distributed to the delay chips via fan-out buffer \cite{caselleKAP}.
+The cleaned clock signal is distributed to the delay chips via fan-out buffer. \cite{caselleKAP}
 In this way, the pulse can be ``locally sampled'' with a maximum rate of \SI{330}{\giga\sample\per\second} by adjusting the different delays. \newline
 A simplified representation of the local sampling of the signal is shown in \autoref{fig:sig_kap1_kap2}.
 The plot shows on the left the sampling of the signal for \gls{kapture} and on the right for \gls{kapture2} (described below).
@@ -138,6 +138,10 @@ The \gls{pll} on the sampling board allows for synchronization between two or mo
 With this feature, the sampling time of two boards can be synchronized and in this way extend the number of sampling points beyond four.
 A comparison of the sampling concepts is shown in \autoref{fig:kap1_vs_kap2}.
 
+In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
+Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
+In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
@@ -156,16 +160,11 @@ A comparison of the sampling concepts is shown in \autoref{fig:kap1_vs_kap2}.
 	\caption[Comparison between KAPTURE and KAPTURE-2]{Comparison between the sampling concepts of \gls{kapture} and \gls{kapture2}}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
-
-In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
-Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
-In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
-
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture2}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
-	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture2} setup}
+	\includegraphics[width = \textwidth]{chap/03-newSys/img/kapture/kapture2.png}
+	\caption[Photo of KAPTURE v2 system]{Photo of the \gls{kapture2} setup}
 	\label{fig:kapturesys}
 \end{figure}
 
@@ -343,23 +342,21 @@ Integrating the converters inside the \gls{soc} therefore resolves these challen
 
 The currently only commercially available system, meeting the mentioned requirements, is the Xilinx ZU49DR Zynq Ultrascale+ \gls{rfsoc}.
 This \gls{soc} integrates 16 high-speed data converters (\glspl{adc} and \glspl{dac}), ARM processor cores and programmable logic (the \gls{fpga}).
-An evaluation card, containing all necessary peripherals (optical interfaces, \gls{usb}, \dots) and integrating the \gls{rfsoc}, was chosen for the implementation of the \gls{theresa} system.
+An evaluation card, containing all necessary peripherals (optical interfaces, \gls{usb}, \ldots) and integrating the \gls{rfsoc}, was chosen for the implementation of the \gls{theresa} system.
 The card is described in detail in \autoref{chap:readout}.
 
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\begin{subfigure}{\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/footprint_1.tikz} 
-		%\resizebox{0.5\textwidth}{!}{\input{chap/03-newSys/img/footprint_1.tikz}
+		\resizebox{!}{\textwidth}{\includegraphics{chap/03-newSys/img/footprint_1.tikz}}
 		\caption{Discrete components}
 		\label{fig:discreteComp}
-	\end{subfigure}
-	\\[4ex]
-	\begin{subfigure}{\textwidth}
+	\end{subfigure}\hfill
+	\begin{subfigure}{0.4\textwidth}
 		\centering
-		\includegraphics{chap/03-newSys/img/footprint_2.tikz}  
+		\resizebox{!}{\textwidth}{\includegraphics{chap/03-newSys/img/footprint_2.tikz}} 
 		\caption{Integrated circuit}
 		\label{fig:integratedComp}
 	\end{subfigure}
