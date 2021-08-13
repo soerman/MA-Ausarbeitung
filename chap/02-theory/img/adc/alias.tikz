@@ -255,7 +255,7 @@ legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=white!80!bl
 0.7835578262888991 0.4406991260923845\\
 0.9233627496516488 0.6392009987515606\\
 };
-\draw[<->] (0.6479331165815141,0.1) -- node[fill=white] {$\frac{1}{f_s}$} (0.7835578262888991,0.1);
+\draw[latex-latex] (0.6479331165815141,0.1) -- node[fill=white] {$\frac{1}{f_s}$} (0.7835578262888991,0.1);
 \end{axis}
 \end{tikzpicture}
 

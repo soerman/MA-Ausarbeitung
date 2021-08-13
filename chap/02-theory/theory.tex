@@ -1,4 +1,4 @@
-As the main aspired use case of the newly developed time-stretch \gls{daq} lies in accelerator physics applications. Especially \gls{thz} science e.g. at \gls{kara} is of interest.
+The main aspired use case of the newly developed time-stretch \gls{daq} lies in accelerator physics applications. Especially \gls{thz} science e.g. at \gls{kara} is of interest.
 Therefore an introduction into this topic is given in the first section of this chapter. 
 
 After that the general architecture and basic theory of a photonic time-stretch \gls{daq} is given.
@@ -13,8 +13,8 @@ It is therefore of great interest to use \gls{thz} radiation in fields like biol
 However, until recently the usage of \gls{thz} radiation was very limited, as generation of such radiation has proven to be difficult.
 %todo what about the usage of thz for spectroscopy since the thz hv-energy matches some interesting bonds in chemistry/bio.
 
-Synchrotrons and storage rings are a potential source of \gls{thz}-radiation.
-The emission of \gls{thz} radiation is closely linked to instabilities of the charged particles which are accelerated in a synchrotron. \cite{mueller2012}
+Synchrotrons and storage rings are a potential source of \gls{thz} radiation.
+The emission of \gls{thz} radiation is closely linked to instabilities of the charged particles which are accelerated in a synchrotron (see \cite{mueller2012}). 
 These instabilities occur in the time range of femtoseconds and cause bursts of \gls{thz} radiation.
 The periodicity of these bursts depends on multiple parameters of the synchrotron and therefore imposes a challenge on controlling the emission of \gls{thz} radiation.
 Studying the dynamics of these instabilities is an important step towards the application of synchrotrons as source of \gls{thz} radiation. \cite{rota2018}
@@ -22,15 +22,15 @@ Studying the dynamics of these instabilities is an important step towards the ap
 
 
 \subsection{Coherent Synchrotron Radiation}
-In synchrotron radiation facilities, \gls{sr} is produced by accelerating relativistic electrons.
-Emission of \gls{sr} occurs, when electron beams are bent or deflected with dipole magnets or using undulators. The latter are used to make the electrons oscillate by generating a periodic magnetic field.  
+In synchrotron radiation facilities \gls{sr} is produced by accelerating relativistic electrons.
+Emission of \gls{sr} occurs when electron beams are bent or deflected with dipole magnets or using undulators. The latter are used to make the electrons oscillate by generating a periodic magnetic field.  
 \autoref{fig:storageRing} shows the general scheme of an electron storage ring.
 
 Electrons, which are grouped to ``electron bunches'', are generated with an electron gun and accelerated to relativistic speeds\footnote{almost speed of light} by a pre-accelerator (often a \gls{linac}, a booster ring accelerator or a microtron with a booster). 
-After being brought up to their nominal energy (not shown in \autoref{fig:storageRing}), the bunches are injected into the storage ring.
+After being brought up to their nominal energy, the bunches are injected into the storage ring.
 In the ring, the path of the electron bunches is altered by dipole magnets, guiding them on a circular trajectory.
 Due to emission of \gls{sr} at each bend, the electrons lose energy, which has to be compensated for.
-This is done by accelerating them with an electric field inside a \gls{rf} cavity.
+This is done by accelerating the electrons with an electric field inside a \gls{rf} cavity.
 Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014,rota2018}
 
 \begin{figure}[H]
@@ -45,7 +45,7 @@ The range of \gls{sr} reaches from hard X-rays down to the infrared region of th
 High intensity is necessary for better penetration of the matter under study.
 It prevents unnecessary exposure of the matter outside the area of interest and improves the image quality by producing less scatter radiation from these areas.
 Well defined duration of the pulses allows to observe chemical reactions on short time scales.
-Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
+Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more. \cite{esrf}
 
 \begin{figure}[H]
 	\centering
@@ -54,7 +54,7 @@ Due to this properties, synchrotrons are used for microscopy, spectroscopy, and 
 	\label{fig:spectrum}
 \end{figure}
 
-
+\clearpage
 \paragraph{Karlsruhe Research Accelerator}
 At the synchrotron light source \gls{kara}, the possibility to utilize a synchrotron as a source of \gls{thz} is actively researched. 
 The photonic time-stretch \gls{daq}, which has been developed in this thesis, should also be integrated into the beam diagnostics system at \gls{kara}. 
@@ -83,17 +83,17 @@ The main accelerator parameters are listed in \autoref{tab:kara}.
 	\end{tabular}
 \end{table}
 
-One scientific focus at \gls{kara} lies in the study of so-called ``micro-bunching instabilities'' which are described next.
+One scientific focus at \gls{kara} lies in the study of so-called micro-bunching instabilitie' which are described next.
 
 \subsubsection*{Micro-Bunching Instabilities}
 Increasing demands in current and future accelerators applications call for higher brilliance of the emitted radiation. 
 Brilliance denotes both the brightness and the angular spread of the beam. 
-Higher brilliance allows to see more detail in the material under study.
+Higher brilliance allows to see more detail in the material under study. \cite{esrf}
 The higher brilliance is achieved by shortening the electron bunches. 
 As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to \si{\tera \hertz}.
-Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
+Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics. \cite{rota2018,brosi}
 
-These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
+These dynamics are the so called micro-bunching instabilities: the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
 These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
 This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
 On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
@@ -132,16 +132,6 @@ In order to make such investigations possible, appropriate beam diagnostic syste
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
 	\label{fig:electronInteract}
 \end{figure}
-
-These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
-These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
-This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
-On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
-Such applications however require a stable power of the radiation. 
-Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
-A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}\\
-In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
-
 \subsection*{Control of Micro-Bunching Instabilities}
 The \gls{ultrasync} project, funded by ANR-DFG\footnote{\gls{anr}, \gls{dfg}}, has an objective of ultrafast study and control of electron bunches in synchrotron light sources.
 
@@ -160,7 +150,7 @@ Therefore, an open question is whether measuring each \gls{thz} pulse using the 
 	\item Association with the new \gls{fpga}-based system, i.e. \gls{theresa} system
 	\item Finding adequate feedback, programmed in the \gls{fpga}
 \end{itemize}
-would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}) \cite{bielwaski}.
+would help in solving the problem and allow the control to succeed also at higher currents (goal: \SI{15}{\milli \ampere}). \cite{bielwaski}
 
 \subsection{Electro-Optic Techniques for Longitudinal Bunch Profile Diagnostics}
 Methods for analyzing the longitudinal profile of electron bunches are based on a similar, if not the same, \gls{eo} concept as the time-stretch method. 
@@ -210,7 +200,7 @@ The temporal resolution of this method is limited due to the finite chirp rate
 	\text{chirp rate} = \frac{\text{laser bandwidth}}{\text{laser pulse duration after stretcher}}.
 \end{equation}
 
-The minimal resolution $T_{\text{min}}$ depends on the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$:
+The minimal resolution $T_{\text{min}}$ depends on the bandwidth-limited pulse duration (before stretcher) $T_0$ and the duration of the chirped laser pulse $T_c$ (see \cite{roussel2014}):
 \begin{equation}
 	T_{\text{min}} = \sqrt{T_0 T_c}
 \end{equation}
@@ -232,14 +222,13 @@ The Pockels effect describes the phenomenon of occurring and change of existing 
 After that, the modulated chirped pulse propagates through another dispersive medium, a fiber of the length $L_2$.
 In this way, the temporal modulation of the pulse is further stretched to the duration $T_2$, which is long enough for detection with photodetectors and the digitizing with \Glspl{adc}. \cite{roussel2014} 
 
-The factor $M$, by which the pulse is slowed down, is calculated as
+The factor $M$, by which the pulse is slowed down, is calculated as (see \cite{roussel2014})
 \begin{equation}\label{eq:ts}
 	M = 1 + \frac{L_2}{L_1}.
 \end{equation}
-As example, assume the length of the dispersive media as $L_1 = \SI{10}{\meter}$ and $L_2 = \SI{2}{\kilo \meter}$ and an input signal with the duration $t_\text{sig} = T_1 = \SI{1}{\pico \second}$. %todo small or capital t in t_sig?
+As example, assume the length of the dispersive media as $L_1 = \SI{10}{\meter}$ and $L_2 = \SI{2}{\kilo \meter}$ and an input signal with the duration $T_\text{sig} = T_1 = \SI{1}{\pico \second}$.
 With \autoref{eq:ts} the stretching factor for this set-up is $M \approx 200$. The input pulse is stretched to $T_2 = M \cdot T_1 = 200 \cdot \SI{1}{\pico \second} = \SI{200}{\pico \second} = \SI{0.2}{\nano \second}$.
 This corresponds to a frequency of $\SI{5}{\GHz}$ which is much easier to handle e.g. for an oscilloscope.
-
 \begin{figure}[H]
 	\centering
 	%\includegraphics{chap/02-theory/img/ts.tikz}
@@ -269,12 +258,12 @@ This creates a so called photo-current which can be measured and converted into 
 This \textit{digitized} version can then be stored and processed by information processing, computing, data transmission and control systems. 
 This translation, also called ``conversion'', can be seen as encoding a continuous-time analog input $V_\text{in}$(t) (voltage) into a series of discrete, $N$-bit words. 
 This process is also called \textit{sampling}. 
-With the full-scale voltage of $V_{\text{FS}}$, the individual output bits $b_k$ and the quantization error $\epsilon$, the \gls{adc} should satisfy the relation
+With the full-scale voltage of $V_{\text{FS}}$\footnote{Maximal voltage the converter can output}, the individual output bits $b_k$ and the quantization error $\epsilon$ (see \autoref{par:quant_noise}), the \gls{adc} should satisfy the relation (see \cite{Lundberg})
 \begin{equation} \label{eq:adc_sample}
-	V_{\text{in}} = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon.
+	V_{\text{in}}()t) = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon.
 \end{equation}
-%todo what is full scale voltage, lsb, v_q, \epsi?
-This can also be rewritten in terms of the \gls{lsb} or quantum level $V_Q$
+%todo what is full scale voltage, lsb, v_q?
+This can also be rewritten in terms of the \gls{lsb} or quantum level $V_Q$ (see \cite{Lundberg})
 \begin{equation}
 	1 \; \text{LSB} = \frac{V_\text{FS}}{2^N} = V_Q.
 \end{equation}
@@ -284,7 +273,7 @@ With \autoref{eq:adc_sample} this leads to
 \end{equation}
 
 \autoref{fig:idealADC} shows the ideal transfer function of a 3-bit \gls{adc}. 
-Each digital $N$-bit word corresponds to a range of input voltage values (\textit{code width}), which is centered around a \textit{code center}.
+Each digital $N$-bit word corresponds to a range of input voltage values (\textit{code width}), which is centered around a \textit{code center}. \cite{Lundberg}
 The input voltage is resolved to the code of the nearest code center.
 \begin{figure}[H]
 	\centering
@@ -293,16 +282,16 @@ The input voltage is resolved to the code of the nearest code center.
 	\label{fig:idealADC}
 \end{figure}
 
-
+\clearpage
 \paragraph{Sample-And-Hold-Amplifier}
 \Glspl{adc} need a certain amount of time to sample the input signal.
 If the level of the analog signal changes by more than one \gls{lsb} during this period, this can result in large errors in the output signal.
-Therefore so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time.
+Therefore so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time. \cite{walt}
 
 It consists of an input and output buffer, a switch controlled by the sampling clock and a capacitor.
 The analog input is buffered in an input buffer which leads to a switch that is controlled by a sampling clock.
 During the sample mode, i.e. during the negative sampling clock cycle, the switch is open.
-At the transition from negative to positive clock cycle, the switch closes, connecting the input signal with the capacitor which is charged in this way. %todo i think "buffer" here means unit-gain amp and the capacitor does the buffering/storing/holding/... ?!
+At the transition from negative to positive clock cycle, the switch closes, connecting the input signal with the capacitor which is charged in this way. \cite{walt} %todo i think "buffer" here means unit-gain amp and the capacitor does the buffering/storing/holding/... ?!
 
 The \gls{adc} sampling time needs to be timed in such way, that the whole duration of an analog-to-digital conversion falls into the hold period of the \gls{sha} and does not exceed into the sample period. 
 \autoref{fig:sha_timing} shows a qualitative example for proper sample timing. 
@@ -327,7 +316,7 @@ Contrary to that, the \gls{tha} acts as a unity gain amplifier during the sample
 The \gls{tha} ``tracks'' the input signal (see also \autoref{fig:tha_up}).
 Therefore, instead of speaking of a ``sample'' period, the term used here is the ``track'' period.
 When switching to hold mode, the instantaneous input level is held over the course of the hold period.
-This principle allows to improve the sampling rate, as the settling time of an \gls{tha} is in general smaller than one of a \gls{sha}.
+This principle allows to improve the sampling rate, as the settling time of an \gls{tha} is in general smaller than the one of a \gls{sha}.
 Settling time denotes the amount of time needed for the output voltage to be at a stable level, after the transition from track/sample to hold mode.
 This process is quicker, when the output voltage is already in the range of the sampled input at the moment, instead of when the hold capacitor first has to be charged to the input voltage. \cite{Reeder2017}
 
@@ -420,7 +409,7 @@ In decibel, the \gls{snr} is calculated as (see \cite{puente2015, walt}):
 	\text{SNR}|_{\text{dB}} = 10\log\left(2^{2N}\cdot 1.5\right) = 6.02 N + 1.76
 \end{equation}
 
-
+\clearpage
 \subsubsection{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
@@ -447,7 +436,7 @@ The \textit{offset error} is defined as the deviation of the actual \gls{adc} tr
 
 \textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function.
 \autoref{fig:offsetErr} visualizes the effects of both offset and gain error. 
-\begin{figure}[tb]
+\begin{figure}[t]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/adc/adc_offset_gain.tikz}
 	\caption[Effects of Offset and Fain error in ADC]{Offset and Gain Error in the \gls{adc} characteristic transfer function. The offset error is indicated with the red arrow. The gain error expresses itself via different slope of the real \gls{adc} (dotted) compared to the ideal \gls{adc} (dashed)}
@@ -484,7 +473,7 @@ The effect of these errors is shown in \autoref{fig:nld}.
 
 These non-linearities could be measured with a histogram test.
 A voltage ramp is applied at the input and the number of occurrences of each \gls{adc} output code, $n(\text{code})$, is measured.
-With the ramp slope $s$ of an ideal \gls{adc} with the sampling frequency $f_s$ would give
+With the ramp slope $s$ ([s] = \si{\volt \per \second}) of an ideal \gls{adc} with the sampling frequency $f_s$ would give (see \cite{inlDnl})
 \begin{equation}
 	n(\text{code}) = \frac{\text{LSB}}{s} \cdot f_s = n_\text{avg},
 \end{equation}
@@ -501,7 +490,7 @@ Any real \gls{adc} is subject to noise distortion.
 \textit{Noise} denotes any unwanted random signal, which interferes with the measuring of the desired signal. 
 Examples are quantization noise or random fluctuations due to thermal noise. 
 \textit{Distortion} is the term for alteration of the shape of the original signal. 
-As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{nd}
+As an example, distortion of the amplitude might result due to not equal amplification of the parts of a signal. \cite{wiley}
 
 In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
@@ -513,7 +502,7 @@ In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which i
 For quantification of noise and distortion, frequency-domain metrics are used. 
 Therefore the figures of merit described in the following paragraphs are also called frequency-domain dynamic parameters. 
 These parameters are measured with the help of the \gls{fft} meaning any modern oscilloscope can be used to quickly assess the frequency-domain dynamic performance for a given input at the \gls{adc}.
-As some parameters, such as \gls{sfdr}, are only defined for one carrier input frequency, several measurements at different input frequencies need to be made in order to fully characterize the \gls{adc}.
+As some parameters, such as \gls{sfdr}, are only defined for one carrier input frequency, several measurements at different input frequencies need to be carried out in order to fully characterize the \gls{adc}.
 
 In the following paragraphs, an overview of the metrics for quantification of the noise and distortion of an \gls{adc} is given. 
 
@@ -531,9 +520,9 @@ Usually, the \gls{snr} degrades at higher frequencies due to sampling jitter. \c
 \paragraph{Signal-to-Noise-and-Distortion Ratio}
 \gls{sinad} (also called SNDR or S/N+D) denotes the ratio between the \gls{rms} of the signal amplitude to the mean value of the \gls{rss} of all other spectral components, including harmonics, but excluding \gls{dc} (\SI{0}{\hertz}). 
 \gls{sinad} is a good indication over the general dynamic performance of the \gls{adc}, as it includes all contributions from noise and distortion.
-The higher the \gls{sinad} the stronger the input power is differentiated from noise and spurious components. 
+The higher the \gls{sinad} the stronger the input power is differentiated from noise and spurious components. \cite{xilinx_adc} 
 
-\gls{sinad} can be calculated from the average power of the input signal $P_\text{signal}$, noise $P_\text{noise}$ and $P_\text{distortion}$:
+\gls{sinad} can be calculated from the average power of the input signal $P_\text{signal}$, noise $P_\text{noise}$ and $P_\text{distortion}$ (see \cite{xilinx_adc}):
 \begin{equation}
 	\text{SINAD} = 10 \log \left( \frac{P_\text{signal}}{P_\text{noise} + P_\text{distortion}} \right)
 \end{equation}
@@ -576,12 +565,12 @@ The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc}).%todo w
 \textit{Effective Resolution Bandwidth} denotes the frequency of the input signal, at which the \gls{sinad} has fallen by \SI{3}{\decibel} ($\eqdev$ 0.5 bit in terms of \gls{enob}) compared to the \gls{sinad} at lower frequency range. \cite{Lundberg}
 
 \paragraph{Analog Input Bandwidth}
-\textit{Analog Input Bandwidth} is the analog input frequency at which the power of the fundamental is reduced by \SI{3}{\dB} with respect to the low-frequency value. \cite{Lundberg}
-It is not to be confused with the maximal analog input frequency which the \gls{adc} is able to sample.
+\textit{Analog Input Bandwidth} is the analog input frequency at which the power of the fundamental component is reduced by \SI{3}{\dB} with respect to the low-frequency value. \cite{Lundberg}
+It is not to be confused with the maximal input frequency which the \gls{adc} is able to sample.
 
 \paragraph{Full-Linear Bandwidth}
 The \textit{Full-Linear Bandwidth} is defined as the frequency at which the slew-rate of the \gls{sha} starts to distort the input signal by a specified value. \cite{Lundberg} 
-The \gls{sr} is defined as the rate of how much the voltage $v$ changes over time $t$:
+The slew-rate (SR) is defined as the rate of how much the voltage $v$ changes over time $t$:
 \begin{equation}
 	\text{SR} = \frac{\text{d}v}{\text{d}t}
 \end{equation}
@@ -601,9 +590,9 @@ Time-Domain Dynamic parameters describe the deviation of the converter's behavio
 Jitter can cause significant error in the voltage and decreases the overall \gls{snr} of a converter.
 Especially for high-speed \glspl{adc} jitter poses a limit in performance.
 
-Assuming a full-scale sine wave $V_{\text{in}}$ as input signal with 
+Assuming a full-scale sine wave $V_{\text{in}}$(t) as input signal with 
 \begin{equation}
-	V_{\text{in}} = V_{\text{FS}} \sin(\omega t)
+	V_{\text{in}}(t) = V_{\text{FS}} \sin(\omega t)
 \end{equation}
 the maximal slope of this signal is then
 \begin{equation}
@@ -647,7 +636,7 @@ The \textit{transient response} denotes the settling time of an \gls{adc} until 
 \subsubsection{Sampling Theory}
 An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
-The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$
+The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$ (see \cite{puente2015})
 \begin{equation}
 	y (t) \, \laplace \,  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation} 
@@ -656,11 +645,10 @@ it has to be sampled with a frequency $f_s$ respecting
 	f_s > B \quad \text{or} \quad f_s > 2 f_a,
 \end{equation}
 with $f_a$ being the highest frequency contained in the signal. \cite{walt,puente2015}
+
 The range from \SI{0}{\Hz} to $\nicefrac{f_s}{2}$ is also called \textit{Nyquist-Zone} (or ``1st Nyquist zone'', see \autoref{fig:alias_f}).
-
-
 Violation of this rule leads to \textit{aliasing}.
-The effects of aliasing are shown in \autoref{fig:aliasing}.
+The effects of aliasing are shown in \autoref{fig:alias}.
 
 When a harmonic wave of the frequency $f_a$ is sampled with the frequency $f_s$, this leads to periodic repetition of the signal spectrum in frequency domain in intervals of $f_s$, or ``images'' (see dashed, red frequency components in \autoref{fig:sampling}). 
 If \autoref{eq:nyquist} is respected, i.e. $f_a$ lies inside the Nyquist bandwidth, there is no overlap with the images created by the sampling process.
@@ -676,12 +664,14 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_signal}
 		\caption{Analog signal with frequency $f_a$ sampled at $f_s$ respecting the Nyquist criteria}
 		\label{fig:sampling}
 	\end{subfigure}
+	\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias_f.tikz} 
 		\caption{Analog signal with frequency $f_a$ sampled at $f_s$ not respecting the Nyquist criteria}
 		\label{fig:alias_f}
 	\end{subfigure}
+	\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\includegraphics[height=0.5\textwidth, width = \textwidth]{chap/02-theory/img/adc/alias.tikz}  
