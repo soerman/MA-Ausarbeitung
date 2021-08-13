@@ -4,8 +4,8 @@
 \begin{tikzpicture}
 	\usetikzlibrary{calc}
 	% horizontal axis
-	\draw[-Latex] (-2.5,0) -- (2.5,0) node[anchor=north] {$t$};
-	\draw[-Latex] (0,-1.5) -- (0,1.5) node[anchor=west] {$e_q(t)$};
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-2.5,0) -- (2.5,0) node[anchor=north] {$t$};
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (0,-1.5) -- (0,1.5) node[anchor=west] {$e_q(t)$};
 	% labels
 	\draw	(1,0) node[anchor=north west] {$\frac{q}{2s}$}
 			(-1,0) node[anchor=north west] {$-\frac{q}{2s}$};

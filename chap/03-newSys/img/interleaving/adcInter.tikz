@@ -18,5 +18,5 @@
 \node[] at (5,-0.5) {\large \vdots};
 
 \node[rectangle,draw,minimum height=8cm,minimum width=7cm] (border) at (5,0.25) {};
- \draw[-Latex] (1,2) node[anchor=east] {$f_s$} to[short,o-]  (\tikztostart -| border.west);
+ \draw[-{Latex[length=\arrlen,width=\arrwidth]}] (1,2) node[anchor=east] {$f_s$} to[short,o-]  (\tikztostart -| border.west);
 \end{tikzpicture}

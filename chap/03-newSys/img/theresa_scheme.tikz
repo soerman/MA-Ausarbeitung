@@ -29,35 +29,35 @@
 
 		\node[twoportshape,t=PLL,anchor=0](pll) at (-3,-5) {};
 	
-		\draw[-Latex]  (th1) to (ad1);
-		\draw[-Latex]  (th2) to (ad2);
-		\draw[-Latex]  (th3) to (ad3);
-		\draw[-Latex]  (th4) to (ad4);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (th1) to (ad1);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (th2) to (ad2);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (th3) to (ad3);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (th4) to (ad4);
 		
 		
-		\draw[-Latex]  (d1.north) to (th1.south);
-		\draw[-Latex]  (d2.north) to (th2.south);
-		\draw[-Latex]  (d3.north) to (th3.south);
-		\draw[-Latex]  (d4.north) to (th4.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (d1.north) to (th1.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (d2.north) to (th2.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (d3.north) to (th3.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (d4.north) to (th4.south);
 		
-		\draw[-Latex]  ([yshift=+2.3cm]ps.east) to (th1.west);
-		\draw[-Latex]  ([yshift=+0.8cm]ps.east) to (th2.west);
-		\draw[-Latex]  ([yshift=-0.7cm]ps.east) to (th3.west);
-		\draw[-Latex]  ([yshift=-2.2cm]ps.east) to (th4.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  ([yshift=+2.3cm]ps.east) to (th1.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  ([yshift=+0.8cm]ps.east) to (th2.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  ([yshift=-0.7cm]ps.east) to (th3.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  ([yshift=-2.2cm]ps.east) to (th4.west);
 		
 		
-		\draw[-Latex] (-7.5,2.2) node[anchor=south west] {From Detector} -- (ps);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-7.5,2.2) node[anchor=south west] {From Detector} -- (ps);
 
-		\draw[-Latex] (fanout.west) to (d1.south);
-		\draw[-Latex] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
-		\draw[-Latex] ([xshift=-0.28cm,yshift=0.5cm]fanout.east) to (d3.south);
-		\draw[-Latex] (fanout.east) to (d4.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fanout.west) to (d1.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ([xshift=0.28cm,yshift=0.5cm]fanout.west) to (d2.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ([xshift=-0.28cm,yshift=0.5cm]fanout.east) to (d3.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fanout.east) to (d4.south);
 
-		\draw[-Latex]  (pll.east) - | (fanout.south);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}]  (pll.east) - | (fanout.south);
 
-        \draw[-Latex] (-7,-5) node[anchor=south west] {Ref. Clock} -- (pll);
+        \draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-7,-5) node[anchor=south west] {Ref. Clock} -- (pll);
 
-		\draw[-Latex] (fpga.east) to (10.5,2.2) node[anchor=south east] {To computer} ;
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fpga.east) to (10.5,2.2) node[anchor=south east] {To computer} ;
 
 		\node[right,label=below right:{Picosecond Delay Chips}] at (3.5,-1.65) {};
 \end{tikzpicture}

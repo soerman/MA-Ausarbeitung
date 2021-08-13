@@ -1,11 +1,13 @@
-﻿\begin{tikzpicture}
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+\begin{tikzpicture}
 
 \draw (0,0) node[anchor=east,align=right] {Analog\\Input} to[amp,o-] (2,0) to[spst] (3,0) to[amp] (5,0) -- (6,0) node[name=enc,draw,fill=white,minimum width=2cm,minimum height=1.5cm,align=center] {ADC\\Encoder};
-\draw[-Latex] (enc) -- +(2,0) node[xshift=0.3cm,pos=0.2,label={[yshift=-4,font=\small]above:n}] {/};
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (enc) -- +(2,0) node[xshift=0.3cm,pos=0.2,label={[yshift=-4,font=\small]above:n}] {/};
 \draw (3,0) to[C=$C$,*-] +(0,-2) node[ground] {};
 
 \draw (0,2.5) node[anchor=east,align=right] {Sampling\\Clock} to[short,o-] (2.5,2.5) node[name=timing,draw,fill=white,minimum width=2cm,minimum height=1cm,align=center] {Timing};
-\draw[-Latex] (timing) -| (enc);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (timing) -| (enc);
 \draw[dashed] (timing) -- node[anchor=east] {Switch control}+(0,-2.1);
 
 \end{tikzpicture}

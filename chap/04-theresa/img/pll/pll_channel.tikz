@@ -1,4 +1,7 @@
-﻿\begin{tikzpicture}	
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+
+\begin{tikzpicture}	
 		\draw[step=1.0,white,thin] (-8,-1) grid (0.5,6);
 
 		\node (fdd) at (-6,2.2) [draw,thick,minimum width=2cm,minimum height=2cm,label=, text width=1.5cm,align=left] {Fixed  Digital Delay};
@@ -8,12 +11,12 @@
 		\node (adl2) at (0,0.5) [draw,thick,minimum width=2cm,minimum height=2cm,label=, text width=1.5cm,align=left] {Analog Delay Y};
 
 
-        \draw[-Latex] (-8,2.2) node[anchor=east] {CLK distribution path} -- (fdd.west);
-		\draw[-Latex] (fdd.east) -- (ddl1.west);
-		\draw[-Latex] (fdd.east) -- (ddl2.west);
-		\draw[-Latex] (ddl1.east) -- (adl1.west);
-		\draw[-Latex] (ddl2.east) -- (adl2.west);
+        \draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-8,2.2) node[anchor=east] {CLK distribution path} -- (fdd.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fdd.east) -- (ddl1.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (fdd.east) -- (ddl2.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (ddl1.east) -- (adl1.west);
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (ddl2.east) -- (adl2.west);
 		
-		\draw[-Latex] (adl1.east) -- (2.7,4) node[anchor=north] {CLKOut X}  ;
-		\draw[-Latex] (adl2.east) -- (2.7,0.5) node[anchor=north] {CLKOut Y}  ;
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (adl1.east) -- (2.7,4) node[anchor=north] {CLKOut X}  ;
+		\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (adl2.east) -- (2.7,0.5) node[anchor=north] {CLKOut Y}  ;
 \end{tikzpicture}

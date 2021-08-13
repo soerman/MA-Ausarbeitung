@@ -18,7 +18,7 @@ ymax=110,
 ylabel={SJNR (\si{\dB})},
 xlabel={Input Frequency (\si{\MHz})},
 axis background/.style={fill=white},
-axis line style={-latex},
+axis line style={-{Latex[length=\arrlen,width=\arrwidth]}},
 clip=false,
 ]
 

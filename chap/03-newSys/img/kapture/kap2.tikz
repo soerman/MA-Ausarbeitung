@@ -2,7 +2,9 @@
 \definecolor{kitblue}{rgb}{0.274509803921569,0.392156862745098,0.666666666666667}
 \usetikzlibrary{arrows.meta}
 \pgfplotsset{compat=1.11}
-\sisetup{range-phrase=-}
+
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
 
 \begin{tikzpicture}
 \begin{axis}[%
@@ -14,7 +16,7 @@ ymax=1.2,
 ylabel={Amplitude (\si{\mV})},
 xlabel={Time},
 axis background/.style={fill=white},
-axis line style={-Latex},
+axis line style={-{Latex[length=\arrlen,width=\arrwidth]}},
 clip=true,
 ]
 
@@ -129,8 +131,8 @@ clip=true,
 0.6310211946050097  0.11857048851268503\\
 0.659922928709056  0.1236265166901005\\
 };
-\draw[Latex-Latex] (0.25,1) -- node[anchor=south] {$T_\text{acq}=\SIrange{0.5}{5}{\ns}$}(0.55,1);
-\draw[-Latex] (0.15,0.45) -- (0.22,0.45);
-\draw[-Latex] (0.36,0.45) node[anchor=west] {\SI{40}{\ps}} -- (0.29,0.45);
+\draw[{latex[length=\arrlen,width=\arrwidth]}-{latex[length=\arrlen,width=\arrwidth]}] (0.25,1) -- node[anchor=south] {$T_\text{acq}=\SIrange{0.5}{5}{\ns}$}(0.55,1);
+\draw[-{latex[length=\arrlen,width=\arrwidth]}] (0.15,0.45) -- (0.22,0.45);
+\draw[-{latex[length=\arrlen,width=\arrwidth]}] (0.36,0.45) node[anchor=west] {\SI{40}{\ps}} -- (0.29,0.45);
 \end{axis}
 \end{tikzpicture}

@@ -2,8 +2,9 @@
 \definecolor{kitgreen}{rgb}{0,0.588235294117647,0.509803921568627}
 \definecolor{kitblue}{rgb}{0.274509803921569,0.392156862745098,0.666666666666667}
 
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
 
-%myArrow/.style={Latex[length=5mm, width=2mm]}}
 \begin{tikzpicture}
 \node[rectangle,draw,fill=green!20,minimum height=1.5cm,minimum width=1.5cm,align=center] (adc) at (0,0) {ADC};
 \node[rectangle,draw,minimum height=1.5cm,minimum width=1.5cm,align=center,font=\footnotesize] (rf) at (0,-2) {RF-Data\\Converter};
@@ -21,23 +22,23 @@
 \draw[dashed] (-1.75,1.5) -- +(0,-11);
 \draw[dashed] (6.625,1.5) -- +(0,-11);
 
-\draw[Latex-Latex] (rf) to (\tikztostart -| axi.west);
-\draw[Latex-Latex] (user) to (\tikztostart -| axi.west);
-\draw[-Latex] (user) to (spi);
-\draw[-Latex] (spi) to (\tikztostart -| th.east);
-\draw[-Latex] (dac) to (\tikztostart -| th.east);
-\draw[Latex-] (adc) to (\tikztostart -| th.east);
-\draw[-Latex] (rf) to (adc);
-\draw[-Latex] (rf) to (dac);
-\draw[Latex-Latex] (di) to (\tikztostart -| axi.east);
-\draw[-Latex] (di) to +(6,0) coordinate (endref) node[anchor=south east] {Data};
-\draw[Latex-Latex] (cpu) to (\tikztostart -| axi.east);
-\draw[Latex-Latex] (ddr) to (\tikztostart -| axi.east);
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (rf) to (\tikztostart -| axi.west);
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (user) to (\tikztostart -| axi.west);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (user) to (spi);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (spi) to (\tikztostart -| th.east);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (dac) to (\tikztostart -| th.east);
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-] (adc) to (\tikztostart -| th.east);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (rf) to (adc);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (rf) to (dac);
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (di) to (\tikztostart -| axi.east);
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (di) to +(6,0) coordinate (endref) node[anchor=south east] {Data};
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (cpu) to (\tikztostart -| axi.east);
+\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (ddr) to (\tikztostart -| axi.east);
 
 \coordinate (cpuA) at ($(cpu.east)+(0,1)$);
 \coordinate (cpuB) at ($(cpu.east)+(0,-1)$);
-\draw[-Latex] (cpuA) to (endref |- cpuA) node[anchor=south east] {USB};
-\draw[-Latex] (cpuB) to (endref |- cpuB) node[anchor=south east] {Ethernet};
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (cpuA) to (endref |- cpuA) node[anchor=south east] {USB};
+\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (cpuB) to (endref |- cpuB) node[anchor=south east] {Ethernet};
 
 \draw [decorate,decoration={brace,amplitude=10pt}] (6.5,-10) -- +(-8,0) node [black,midway,yshift=-0.8cm] {FPGA};
 \end{tikzpicture}

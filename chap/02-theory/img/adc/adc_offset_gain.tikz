@@ -4,7 +4,7 @@
 
 \begin{tikzpicture}
 	% axes
-	\draw[Latex-Latex] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (1.1,0) -- node[midway, below, yshift = -5mm] {Analog Input} (0,0) -- (0,1) node[midway, above, rotate=90, yshift = 7mm] {Digital Output};
 	% x- labels
 	\draw (0,0) node[anchor=north ] {0}
 	(0.125,0) node[anchor=north ] {1/8}
@@ -33,7 +33,7 @@
 	\draw (0.2, 0.3) node[anchor=east] {ideal};
 	\draw [thick, gray] (0,0) -- (0.0625,0) -- (0.0625, 0.125) -- (0.1875, 0.125) -- (0.1875, 0.250) -- (0.3125, 0.250) --  (0.3125, 0.375) -- (0.4375, 0.375) -- (0.4375, 0.5) -- (0.5625,  0.5) -- (0.5625,  0.625) -- (0.6875,  0.625) -- (0.6875,  0.750) -- (0.8125,  0.750) -- (0.8125,  0.875) -- (0.9375,  0.875) --  (1, 0.875) ;
 	
-	\draw[latex-latex, thick, red] (0,0) -- (0.125,0) node[midway, anchor = north] {b};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}, thick, red] (0,0) -- (0.125,0) node[midway, anchor = north] {b};
 \begin{scope}[xshift=1mm] 
 	\draw[dotted, thick] (0.03,0) -- (1.01,0.875);
 	

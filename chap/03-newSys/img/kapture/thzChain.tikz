@@ -4,12 +4,9 @@
 		draw, fill=white,
 		shape border rotate=-90}}
 	
-	
 \def\arrlen{3mm}
 \def\arrwidth{2mm}
 \usetikzlibrary{calc}
-	
-	
 	
 \begin{tikzpicture}
 	\node[draw,rectangle,minimum width=1.5cm,minimum height=1cm,align=center,label={[align=center]below:Terahertz\\detector},label={[]above:}] (d) at (0.5,0) {};
@@ -21,34 +18,26 @@
 	\node[draw,fill=darkgray,rectangle,minimum width=1.5cm,minimum height=1.5cm,align=center,label={[align=center]below:},label={[]above:DMA/PCIe},text=white] (fpga) at (11.5,0) {FPGA};
 	\node[draw,rectangle,minimum width=2cm,minimum height=1cm,align=center,label={[align=center]above:Memory}] (ddr) at (11.5,3) {DDR3};
 	
-	\draw[-{Latex[length=3mm]},decorate,decoration={coil,aspect=0},red!80!black,text=black] (d)+(-2.5,0) -- node[pos=0.5,anchor=south,align=center,yshift=0.6cm] {Coherent\\THz\\radiation} (d);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]},decorate,decoration={coil,aspect=0},red!80!black,text=black] (d)+(-2.5,0) -- node[pos=0.5,anchor=south,align=center,yshift=0.6cm] {Coherent\\THz\\radiation} (d);
 	\draw[-{Latex[length=3mm]}] (d) -- (lna);
-	\draw[-{Latex[length=3mm]}] (lna) -- (ps);
-	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,0.25)$) --($(psb.west)+(0,0.25)$);
-	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,-0.25)$) --($(psb.west)+(0,-0.25)$);
-	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,0.75)$) --($(psb.west)+(0,0.75)$);
-	\draw[-{Latex[length=3mm]}] ($(ps.east)+(0,-0.75)$) --($(psb.west)+(0,-0.75)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (lna) -- (ps);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(ps.east)+(0,0.25)$) --($(psb.west)+(0,0.25)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(ps.east)+(0,-0.25)$) --($(psb.west)+(0,-0.25)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(ps.east)+(0,0.75)$) --($(psb.west)+(0,0.75)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(ps.east)+(0,-0.75)$) --($(psb.west)+(0,-0.75)$);
 	
-	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,0.25)$) --($(rb.west)+(0,0.25)$);
-	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,-0.25)$) --($(rb.west)+(0,-0.25)$);
-	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,0.75)$) --($(rb.west)+(0,0.75)$);
-	\draw[-{Latex[length=3mm]}] ($(psb.east)+(0,-0.75)$) --($(rb.west)+(0,-0.75)$);
-	\draw[-{Latex[length=3mm]}] ($(rb.west)+(0,-1.25)$) --($(psb.east)+(0,-1.25)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(psb.east)+(0,0.25)$) --($(rb.west)+(0,0.25)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(psb.east)+(0,-0.25)$) --($(rb.west)+(0,-0.25)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(psb.east)+(0,0.75)$) --($(rb.west)+(0,0.75)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(psb.east)+(0,-0.75)$) --($(rb.west)+(0,-0.75)$);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(rb.west)+(0,-1.25)$) --($(psb.east)+(0,-1.25)$);
 	
-	\draw[-{Latex[length=3mm]}] (rb.east) -- node[pos=0.5,anchor=south,align=center,yshift=0.2] {PC/\\DAQ} +(2,0);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (rb.east) -- node[pos=0.5,anchor=south,align=center,yshift=0.2] {PC/\\DAQ} +(2,0);
 	
 	\coordinate (a) at ($(ddr.south)+(0.5,0)$);
 	\coordinate (b) at ($(ddr.south)-(0.5,0)$);
-	\draw[-{Latex[length=3mm]}] ($(ddr.south)+(0.5,0)$) -- (rb.north -| a);
-	\draw[{Latex[length=3mm]}-] ($(ddr.south)+(-0.5,0)$) -- (rb.north -| b);
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] ($(ddr.south)+(0.5,0)$) -- (rb.north -| a);
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-] ($(ddr.south)+(-0.5,0)$) -- (rb.north -| b);
 	
 	\draw [decorate,decoration={brace,amplitude=10pt}] (6.8,-4) -- (2.2,-4) node [black,midway,yshift=-0.8cm] {Analog blocks};
-	
-	% \draw[-{Latex[length=3mm]}] (osc) -- node[pos=0.5,anchor=south] {$f_\text{osc}$} (r);
-	% \draw[-{Latex[length=3mm]}] (r) -- node[pos=0.5,anchor=south] {$f_\text{pd}$} ($(kpd.west)+(0,-0.5)$);
-	% \draw[-{Latex[length=3mm]}] ($(kpd.east)+(0,-0.5)$) --  (z);
-	% \draw[-{Latex[length=3mm]}] (z) -- (vco);
-	% \draw[-{Latex[length=3mm]}] (vco) -- node[pos=0.75,anchor=south] {$f_\text{vco}$} +(2,0);
-	% \draw[-{Latex[length=3mm]}] (vco.east)+(0.5,0) node[fill,circle,inner sep=0,minimum size=0.2cm] {} |-  (n);
-	% \draw[-{Latex[length=3mm]}] (n) -| node[pos=0.8,anchor=east] {$f_\text{N}$} ($(kpd.west)+(-0.5,+0.5)$) --($(kpd.west)+(0,+0.5)$) ;
 \end{tikzpicture}
