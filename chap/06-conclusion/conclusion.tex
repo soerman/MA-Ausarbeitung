@@ -15,11 +15,12 @@ With this setup, the so called time-interleaving technique can be implemented.
 This allows to sample the signal at higher sampling rate than one single data converter can achieve.
 
 The design of the board allows it to be used either with the time-stretch setup or independently from it.
+Furthermore, two different sampling modes are possible.
 In single-channel mode one detector is connected to one sampling channel, therefore allowing sampling of up to 16 detectors at the same time with one sampling point per channel.
-In the second mode, several channels are connected to one detector via power-splitter, therefore allowing multiple sampling points for one detector per channel by setting the delay times accordingly. 
+In the multi-channel mode, several channels are connected to one detector via power-splitter, therefore allowing multiple sampling points for one detector per channel by setting the delay times accordingly. 
 
 High-speed \glspl{adc}, integrated in the \gls{rfsoc}, with 14-bit resolution and a sample rate of up to \SI{2.5}{\giga \sample\per\second} allow continuous sampling of the signal with high time resolution. 
-Using the time-interleaving technique for all sixteen \glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga\sample\per\second}. 
+Using the time-interleaving technique for all available \glspl{adc} results in an overall maximal achievable sample rate of \SI{40}{\giga\sample\per\second}. 
 When used in combination with the time-stretch method and considering typical stretch-factors the signal can be sampled with a time resolution corresponding to hundreds of femtoseconds in the original signal.
 
 The sampling card has furthermore been designed to fully exploit all the features of the \gls{rfsoc}, which integrates a processing unit together with a \gls{fpga}. 

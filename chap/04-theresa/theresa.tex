@@ -2,7 +2,7 @@ In this chapter, the process of designing the front-end sampling card is describ
 Designing a \gls{pcb} is a two step process: circuit design and layout design.
 In this thesis, the software used to cover both of these steps is PADS xDx Designer (for schematic capture) and PADS Layout/Router (for \gls{pcb} layout design) from \textit{Mentor Graphics} (subsidiary of \textit{Siemens}).
 
-\section{Schematics}
+\section{Schematics}\label{sec:schematics}
 Without knowing which components are needed and how they are interconnected, it is impossible to manufacture any board, no matter how high or low the level of complexity is. 
 The schematic is a graphical documentation of an electrical circuit, showing the necessary components and their interconnections using standardized symbols. 
 Furthermore, a schematic provides a starting point for automatic placement and routing, i.e. where the components are placed and how they are connected on the physical \gls{pcb}, which is done with the layout design tool.
@@ -60,7 +60,7 @@ Region (III) showcases the effect of the \gls{esl}.
 To extend the capacitive behavior over a wider frequency range, at least two capacitors are placed.
 
 \tikzexternaldisable
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = .7\textwidth]{chap/04-theresa/img/real_cap.tikz}
 	\caption[Capacitor equivalent circuit]{Equivalent circuit of a real capacitance (redrawn from \cite{decouple})}
@@ -132,7 +132,8 @@ Furthermore, the connector provides pins for power supply from carrier board to 
 \paragraph{Analog Signals}
 The analog signals coming from the power-splitter are propagated to the \glspl{tha} through \SI{1.85}{\mm} high-frequency connectors. 
 These connectors use an air dielectric filled interface which enables operation up to \SI{65}{\GHz}. 
-This type of connector is also called ``V connector''; due to its frequency range it is considered as a mm-wave \gls{rf} connector.
+This type of connector is also called ``V connector''. 
+Due to its frequency range it is considered as a mm-wave \gls{rf} connector.
 It is therefore used in precision instrumentation and other laboratory applications.
 The design has been introduced as an open standard under the \gls{ieee} 287 Precision Connector Standards Committee. \cite{v_conn}
 
@@ -260,7 +261,7 @@ The diodes should limit this voltage to around \SI{0.6}{\volt}.
 \end{figure}
 
 \subsubsection*{Delay Chip}
-The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
+The delay chips are used to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
 To optimize the performance of \gls{theresa} and allowing a sample rate up to \SI{40}{\giga\sample\per\second} (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
@@ -367,7 +368,6 @@ The schematic of the transceiver is shown in \autoref{fig:level_trans}.
 In this design, the bus transceiver is configured to propagate signals from the ``A'' ports (coming from the \gls{fmc}+ connector) to the ``B'' ports (going to the delay chips), shifting the signals from the $V_\text{ADJ}$ (\SI{1.8}{\volt}) of the \gls{fmc}+ connector to \SI{2.5}{\volt} (see \autoref{fig:level_trans}).
 To guarantee signal integrity and to decouple the components, the digital signals are propagated in a ``fanout configuration'', i.e. one digital signal at the input is propagated to eight outputs.
 Furthermore, resistors are place at the pins to reduce possible voltage overshoots which result from reflections on the line. 
-
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/level_trans}
@@ -400,6 +400,7 @@ The second point to consider is the common mode voltages.
 According to the data sheet of the \gls{tha}, the common mode voltage of the input clock pins is \SI{0.1}{\volt} (see \autoref{tab:hmc5640}).
 The common mode voltage of the delay chip is not explicitly mentioned in the data sheet, thus it has to be calculated.
 
+\clearpage
 The common mode voltage $V_\text{CM}$ is just the mean value between the HIGH level and the LOW level voltage of the output pins:
 \begin{equation}
 	V_\text{CM} = \frac{V_\text{out, LOW} + V_\text{out, HIGH}}{2}.
@@ -420,8 +421,6 @@ The clock distribution is designed as shown in \autoref{fig:clocking}.
 	\caption{Overview of the clocking paths on the sampling board}
 	\label{fig:clocking}
 \end{figure}
-
-
 The LMK04808B low-noise clock jitter cleaner with dual-loop \glspl{pll} from \textit{Texas Instruments} cleans the incoming reference clock provided from the system (e.g. from \gls{kara}) for high temporal precision \cite{caselle2013}.
 It is used with an external \gls{vcxo} from \textit{ABRACON}. 
 
@@ -473,6 +472,8 @@ The phase detector produces current correction pulses (with magnitude $K_\text{P
 These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
 The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, \ldots) and therefore has to be designed carefully.
 
+\clearpage
+
 To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
 This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
 A passive fourth order loop filter is shown in \autoref{fig:loop_filter}.
@@ -482,12 +483,6 @@ The input of the filter is connected to the output of the charge pump from which
 The output of the filter is the voltage $V_\text{tune}$ which is the input to the \gls{vco}.
 
 
-\begin{figure}[tb]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pll.PNG}
-	\caption[PLL block diagram]{Screenshot of the TI PLLatinum Sim tool for loop filter design and \gls{pll} performance simulation}
-	\label{fig:ti_pll}
-\end{figure}
 
 
 \begin{figure}[tb]
@@ -545,12 +540,14 @@ The schematic and layout of the filter have been implemented in a way to enable 
 The schematic and layout have been implemented in order to enable flexible change.
 This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
 The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
+
+
+
 \begin{table}[tb]
 	\caption[LMX2594 loop filter characteristics]{Loop filter characteristics of the LMX3594}
 	\label{tab:lmx2594_filter}
 	\centering
 	\begin{tabularx}{\textwidth}{Xl}
-		 \multicolumn{2}{c}{\textbf{PLL parameters}}                             \\
 		\toprule
 		\textbf{Parameter}                         & \textbf{Value}             \\ 
 		\midrule
@@ -570,18 +567,16 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 		$R_{3}$                          & \SI{180}{\ohm}             \\ \bottomrule
 	\end{tabularx}
 \end{table}
-
+Both \glspl{pll} are supplied by the digital \SI{3.3}{\volt} coming from the \gls{fmc}+ connector.
+For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide effective filtering of the voltage level.
+The output pins are pulled-up and filtered via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
+For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/lmx2594}
 	\caption{Schematics of the LMX2594}
 	\label{fig:lmx2594}
 \end{figure}
-
-Both \glspl{pll} are supplied by the digital \SI{3.3}{\volt} coming from the \gls{fmc}+ connector.
-For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide effective filtering of the voltage level.
-The output pins are pulled-up and filtered via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
-For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 
 \subsubsection*{Fanout Buffer}
 The fanout buffer receives as input the clock signal from the main \gls{pll} and distributes it to the delay chips.
@@ -616,7 +611,7 @@ The single-ended output is connected to a miniature \gls{rf} connector from \tex
 The programmable analog waveform, generated by the \gls{dac} (operating up to \SI{10}{\giga \sample \per \second}), can be applied to the input of the sampling board as a test signal and be employed for testing, characterizing and calibrating each sampling channel individually.
 
 The schematic of a \gls{dac} channel is shown in \autoref{fig:dac_channel}.
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/dac_channel}
 	\caption{DAC-channel with balun. Signal propagates from right to left.}
@@ -642,7 +637,7 @@ Furthermore, in order
 			\textbf{Component}         & $V_\text{cc}$ (V) & $I_\text{max}$ (A)                        & $P_\text{max}$ (W) & $\#_\text{parts}$ & $I_\text{tot, max}$\footnote{for 16 \glspl{adc}} (A) \\ \midrule
 			HMC5649 (\gls{tha})        & 2                 & 0.221                                     & 0.442              & 16                & 3.536                                                \\
 			NB6L295 (Delay chip)       & 2.5               & 0.170                                     & 0.425              & 8                 & 1.36                                                 \\
-			HMC987LP5E (Fanout buffer) & 3.3               & 0.234\footnote{All Outputs and RF-Buffer} & 0.772              & 2                 & 0.468                                                \\
+			HMC987LP5E (Fanout) & 3.3               & 0.234\footnote{All Outputs and RF-Buffer} & 0.772              & 2                 & 0.468                                                \\
 			LMK04808B (\gls{pll})      & 3.3               & 0.590\footnote{All CLKs}                  & 1.947              & 1                 & 0.590                                                \\
 			LMX2594 (\gls{pll})        & 3.3               & 0.340                                     & 1.122              & 2                 & 2.244                                                \\
 			VCXO                       & 3.3               & 0.03                                      & 0.198              & 1                 & 0.03                                                 \\ \bottomrule
@@ -763,6 +758,7 @@ Furthermore, a matrix of vias is placed underneath the component area in order t
 This should be enough to handle the calculated power dissipation.
 Heat sinks could be added later during operation, if the deployed method is not sufficient to dissipate the produced heat.
 
+\clearpage
 \section{Layout}
 After completing the schematic capture, the following step is the \gls{pcb} layout design.
 During this process, the following points need to be considered:
@@ -780,9 +776,6 @@ For better understanding, first a general overview over \gls{pcb} structures is 
 Then the steps mentioned above are described.
 \subsection*{PCB Structures Overview} \label{ssec:pcb_structs}
 In this section an overview over the basic structures on a \gls{pcb} is given.
-
-%todo itemize
-
 \paragraph{Traces}
 A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
 
@@ -816,7 +809,7 @@ Characteristics of this material are:
 \item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
 \item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
 \item Low transmission loss
-\item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
+\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
 \end{itemize}
 
 Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed in order to integrate the analog and digital signal lines, as well as the necessary power planes.
@@ -850,14 +843,14 @@ For single-ended signals the waveguide characteristic impedance for the front-en
 The impedance has to be matched especially for sensitive, high-speed signals, e.g. clock signals. 
 Proper calculation of the geometrical parameters is therefore very important to ensure signal integrity and reduce reflection and damping. 
 
-Formulas to calculate the characteristic impedance are quite complex (see \autoref{app:waveguides}) and not easy to solve.
+Formulas to calculate the characteristic impedance are quite complex (see \autoref{app:waveguides} in appendix) and not easy to solve.
 To make the design of transmission lines easier, specific tools are used for quick calculations of the geometric values needed for impedance matching.
-For this design, the Si9000e tool for modeling \gls{pcb} transmission lines from \textit{Polar} is used to calculate the necessary trace widths, trace separations, etc.
+For this design, the \textit{Si9000e} tool for modeling \gls{pcb} transmission lines from \textit{Polar} is used to calculate the necessary trace widths, trace separations, etc.
 A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide is shown in \autoref{fig:polaris}. Note that the labels used in the tool to indicate the different geometry parameters are different from the ones used in this thesis.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/polaris}
-	\caption[Screenshot of the Polaris Si9000e]{Screenshot of the Polaris Si9000e tool for modeling \gls{pcb} transmission lines, showing calculation of characteristic impedance of a coplanar waveguide}
+	\caption[Screenshot of the \textit{Polar Si9000e}]{Screenshot of the \textit{Polar Si9000e} tool for modeling \gls{pcb} transmission lines, showing calculation of characteristic impedance of a coplanar waveguide}
 	\label{fig:polaris}
 \end{figure}
 
@@ -873,8 +866,9 @@ Three types of transmission lines have been designed for this layout:
 	\item Differential surface coplanar waveguide with ground layer for output from the delay chips to the \glspl{tha}
 	\item Symmetrical differential coplanar waveguide for clock signals and signals coming from the \glspl{tha}
 \end{itemize}
-These waveguide types and the respective geometric dimensions calculated with the Si9000e tool are presented.
+These waveguide types and the respective geometric dimensions calculated with the \textit{Si9000e} tool are presented.
 
+\clearpage
 \paragraph{Surface Coplanar Waveguide with Ground}
 The surface coplanar waveguide has the geometry shown in \autoref{fig:microstrip_geometry}.
 The single trace of thickness $t$ and width $a$ lies between two ground planes on a dielectric of thickness $h$ and the effective dielectric constant $\varepsilon_r$.
@@ -888,12 +882,12 @@ Separation between trace and ground plane is defined as $(b-a)/2 := d$.
 	\label{fig:microstrip_geometry}
 \end{figure}
 
-To have a rough starting point of the dimensions of the parameters, the following widths are taken from the \gls{kapture} board:
+To have a first starting point of the dimensions of the parameters, the following widths are taken from the \gls{kapture} board:
 \begin{itemize}
 	\item $a = \SI{213}{\micro \meter}$
 	\item $d = \SI{250}{\micro \meter}$
 \end{itemize}
-In the Si9000e tool, an upper and a lower trace width can be specified taking into account the etching process during manufacturing.
+In the \textit{Si9000e} tool, an upper and a lower trace width can be specified taking into account the etching process during manufacturing.
 The exact production parameters are not known, therefore there is no knowledge about the exact upper trace width.
 Therefore, for the calculation of the characteristic impedance the upper and lower trace widths are assumed to be of the same value.
 The influence of the variation of the upper trace width is simulated with the tool in order to give an estimation for the characteristic impedance to be expected.
@@ -908,10 +902,20 @@ This lies well in the 10\% tolerance range of \SIrange{45}{55}{\ohm}.
 
 According to the datasheet of the Megtron6 substrate, the dielectric constant $\varepsilon_r$ changes over frequency (see \autoref{ssec:substrate}).
 As the dielectric constant $\varepsilon_r$ of the Megtron6 substrate varies between 3.61 and 3.71 depending on the frequency, the effect of the changing $\varepsilon_r$ should also be studied. 
-The Si9000e tool provides the possibility to simulate the characteristic impedance versus a changing parameter.
+The \textit{Si9000e} tool provides the possibility to simulate the characteristic impedance versus a changing parameter.
+
 In \autoref{fig:surf_dk} the characteristic impedance $Z_o$ is plotted against $\varepsilon_r$.
 It can be seen that with higher effective dielectric constant the characteristic impedance decreases.
 The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, which is still inside the 10\% tolerance range.
+
+Furthermore, the effect of changing the trace width on $Z_o$ is studied and shown in \autoref{fig:surf_w1}.
+This plot shows that for best matching of the impedance a trace thickness of around \SI{200}{\micro \meter} is the best choice.
+This result however does not take into account the real upper tracewidth.
+
+For an estimation of the effect of the upper trace width on the impedance, a constant lower trace width of \SI{213}{\micro \meter} and $\varepsilon_r = 3.61$ is assumed, while varying the upper trace width from \SIrange{183}{213}{\micro \meter}.
+The result is shown in \autoref{fig:surf_w2}.
+With decreasing width the characteristic impedance approaches the desired \SI{50}{\ohm}.
+
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf/surf_dk.tikz}
@@ -919,9 +923,6 @@ The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, whi
 	\label{fig:surf_dk}
 \end{figure}
 
-Furthermore, the effect of changing the trace width on $Z_o$ is studied and shown in \autoref{fig:surf_w1}.
-This plot shows that for best matching of the impedance a trace thickness of around \SI{200}{\micro \meter} is the best choice.
-This result however does not take into account the real upper tracewidth.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf/surf_w1}
@@ -929,9 +930,6 @@ This result however does not take into account the real upper tracewidth.
 	\label{fig:surf_w1}
 \end{figure}
 
-For an estimation of the effect of the upper trace width on the impedance, a constant lower trace width of \SI{213}{\micro \meter} and $\varepsilon_r = 3.61$ is assumed, while varying the upper trace width from \SIrange{183}{213}{\micro \meter}.
-The result is shown in \autoref{fig:surf_w2}.
-With decreasing width the characteristic impedance approaches the desired \SI{50}{\ohm}.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf/surf_w2}
@@ -944,7 +942,7 @@ This attenuation was calculated for the trace length of \SI{10}{\mm}, higher tha
 As can be derived from the plot, the attenuation lies well below \SI{1}{\decibel}, therefore ensuring high bandwidth of the trace.
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf/loss}
+	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf/loss}
 	\caption[Attenuation CPWG for \SI{10}{\mm}]{Attenuation per trace length of the surface coplanar waveguide over frequency simulated for trace length of \SI{10}{\mm}}
 	\label{fig:surf_loss}
 \end{figure}
@@ -968,8 +966,9 @@ For the other parameters first the following values are assumed:
 	\item Trace separation $s = \SI{150}{\micro \meter}$
 	\item Trace-to-ground separation $d = \SI{600}{\micro \meter}$
 \end{itemize}
-For these parameters and an $\varepsilon_r = 3.61$ an impedance of \SI{92.35}{\ohm} is calculated with the Si9000e tool.
+For these parameters and an $\varepsilon_r = 3.61$ an impedance of \SI{92.35}{\ohm} is calculated with the \textit{Si9000e} tool.
 This is still inside the tolerance band, but can potentially be improved.
+The lower trace width is chosen as changing parameter in order to improve the characteristic impedance.
 
 In \autoref{fig:surf_diff_w1} a the characteristic impedance $Z_\text{diff}$ is plotted against the trace width\footnote{Assuming lower and upper trace width are equal.}. 
 The impedance $Z_\text{diff}$ lies around \SI{100}{\ohm} for a trace width $w \approx$\SI{155}{\micro \meter}.
@@ -1009,7 +1008,7 @@ As can be derived from the plot, the attenuation lies under \SI{2}{\decibel}, wh
 
 \begin{figure}[bhbh]
 	\centering
-	\includegraphics[width=\textwidth, height = 0.5\textwidth]{chap/04-theresa/img/TL/surf_diff/loss}
+	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/loss}
 	\caption[Attenuation DCWG for \SI{200}{\mm}]{Attenuation per trace length of the surface differential coplanar waveguide over frequency simulated for trace length of \SI{50}{\mm}}
 	\label{fig:surf_diff_loss}
 \end{figure}
@@ -1111,8 +1110,8 @@ Some signals need to be routed from top layer to bottom and vice versa by throug
 In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground) plane has to be ensured.
 
 At some point, the analog and digital grounds need to be connected together. 
-As mentioned in the section about the schematic capture, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds.
-This way, any noise coming from the digital ground is compensated for. 
+As mentioned in \autoref{sec:schematics}, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds.
+This way, any noise coming from the digital ground is compensated. 
 \gls{rf} filtering at the \gls{tha} is placed in the same manner, in order to mitigate any noise which could interfere with the sensitive analog signal.
 
 Sensitive, i.e. analog components, should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
@@ -1145,12 +1144,12 @@ Furthermore, via-fences act as a barrier also for the signal, therefore guiding 
  \end{figure}
 
 \autoref{fig:sampling_card} shows the 3D model of the final design of the sampling card.
-On the top side (\autoref{fig:pcb_front}), the digital parts and clock distribution is placed. 
+On the top sideof the board (\autoref{fig:pcb_front}), the digital components, signals and clock distribution is placed. 
 The clock distribution is placed on the bottom, as close as possible to the \glspl{tha}, with the main \gls{pll} in the middle.
 Two \glspl{pll}, providing the high frequency clock necessary for the data converters in the \gls{fpga}, are placed close to the main \gls{pll}.
 Furthermore, the \gls{fmc}+ connector is located on the top, in order to connect the board with the \gls{fpga} and to provide the slow-control signals.
 
-On the bottom (\autoref{fig:pcb_back}) side of the board, the analog components, i.e. the \glspl{tha} and analog voltage regulators are placed. 
+On the bottom side of the board (\autoref{fig:pcb_back}), the analog components, i.e. the \glspl{tha} and analog voltage regulators are placed. 
 The output of the \glspl{tha} is propagated to the \gls{rf} connector (on the left in \autoref{fig:pcb_back}) which propagates the signal to the \gls{fpga}. 
 To propagate test signals from the \glspl{dac} on the \gls{fpga}, the connector on the right is used.
 The small connector on the top propagates the clock signal, coming from the high-frequency \glspl{pll}, to the data converters 

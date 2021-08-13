@@ -73,7 +73,7 @@ For that reason, an wideband power-splitter was developed at \gls{ipe} which ful
 The designed power-splitter works up to \SI{100}{\giga \hertz} with an insertion loss of \SI{8}{\decibel} (at \SI{100}{\GHz}) and a return loss\footnote{\textit{Return loss} is the loss of signal power due to reflection by a discontinuity in the transmission line.} of about \SI{20}{\decibel} at \SI{50}{\giga \hertz}. \cite{caselle2014}
 A photo of the power-splitter is shown in \autoref{fig:power_splitter}.
 
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.6\textwidth]{chap/03-newSys/img/kapture/power_split}
 	\caption{Photo of the power-splitter developed at IPE}
@@ -241,7 +241,7 @@ The magnitude of the spur depends on the offset difference between the \glspl{ad
 \begin{figure}[H]
 	\centering
 	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving//offset_mm.tikz}}
-	\caption{Offset-mismatch in Interleaving \cite{Harris2019}}
+	\caption{Offset-mismatch in time interleaving method \cite{Harris2019}}
 	\label{fig:offset_mm}
 \end{figure}
 
@@ -252,7 +252,7 @@ This \textit{gain mismatch} has a frequency component to it, which in case of an
 \begin{figure}[H]
 	\centering
 	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/gain_mm.tikz}}
-	\caption{Gain-mismatch in Interleaving \cite{Harris2019}}
+	\caption{Gain-mismatch in time interleaving method \cite{Harris2019}}
 	\label{fig:gain_mm}
 \end{figure}
 
@@ -265,7 +265,7 @@ This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\te
 \begin{figure}[H]
 	\centering
 	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/timing_mm.tikz}}
-	\caption{Timing-mismatch in Interleaving \cite{Harris2019}}
+	\caption{Timing-mismatch in time interleaving method \cite{Harris2019}}
 	\label{fig:timing_mm}
 \end{figure}
 
@@ -277,7 +277,7 @@ Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\ni
 \begin{figure}[H]
 	\centering
 	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/bandwidth_mm.tikz}}
-	\caption{Bandwidth-mismatch in Interleaving \cite{Harris2019}}
+	\caption{Bandwidth-mismatch in time interleaving method \cite{Harris2019}}
 	\label{fig:bandwidth_mm}
 \end{figure}
 
