@@ -472,7 +472,6 @@ The phase detector produces current correction pulses (with magnitude $K_\text{P
 These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
 The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, \ldots) and therefore has to be designed carefully.
 
-\clearpage
 
 To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
 This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
@@ -481,10 +480,6 @@ In order to implement a lower order filter, some components need to be left out.
 To implement an active filter an additional operational amplifier is necessary.
 The input of the filter is connected to the output of the charge pump from which it receives the current pulses.
 The output of the filter is the voltage $V_\text{tune}$ which is the input to the \gls{vco}.
-
-
-
-
 \begin{figure}[tb]
 	\centering
 	\tikzexternaldisable
@@ -493,13 +488,11 @@ The output of the filter is the voltage $V_\text{tune}$ which is the input to th
 	\tikzexternalenable
 	\label{fig:loop_filter}
 \end{figure}
-
 The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2).
 For both the loop filter has to be calculated separately. 
 Both filters are implemented as second order filters, the calculated parameters are listed in \autoref{tab:lmk04808B_filter}.
 Note that PLL2 has already a partially integrated loop filter.
-
-\begin{table}[tb]
+\begin{table}[H]
 	\caption[LMK04808B loop filter characteristics]{Loop filter characteristics of the LMK04808B}
 	\label{tab:lmk04808B_filter}
 	\centering
@@ -541,7 +534,12 @@ The schematic and layout have been implemented in order to enable flexible chang
 This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
 The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/lmx2594}
+	\caption{Schematics of the LMX2594}
+	\label{fig:lmx2594}
+\end{figure}
 
 \begin{table}[tb]
 	\caption[LMX2594 loop filter characteristics]{Loop filter characteristics of the LMX3594}
@@ -568,12 +566,7 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\end{tabularx}
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/lmx2594}
-	\caption{Schematics of the LMX2594}
-	\label{fig:lmx2594}
-\end{figure}
+
 
 \subsubsection*{Fanout Buffer}
 The fanout buffer receives as input the clock signal from the main \gls{pll} and distributes it to the delay chips.
