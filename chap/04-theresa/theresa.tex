@@ -9,16 +9,16 @@ Furthermore, a schematic provides a starting point for automatic placement and r
 During the creation of the schematics, the following points have to be considered:
 
 \begin{itemize}
-	\item Deciding which components are needed and what the performance requirements are. Especially for high-speed components carefully considering specifications like signal rise and fall times, jitter, skew, etc. is crucial to achieve the overall expected performance.
+	\item Deciding which components are needed and what the performance requirements are. Especially for high-speed components carefully considering specifications like signal rise- and fall-times, jitter, skew, etc. is crucial to achieve the overall expected performance.
 	\item Keeping in mind how many pins are available for high- and low-speed peripheral connections, control signals, etc. Many components have an interface for programming (e.g. \gls{spi}) which requires several pins that need to be connected to the controlling unit. Especially for boards with a lot of components this can quickly become an issue.
 	\item Checking the signaling interfaces of the components. Additional circuitry might be needed for interfacing between two different components. Some signaling interfaces, like \gls{lvds}, require a specific voltage level, which might result in the need of voltage level translators.
-	\item Keep in mind the different common mode voltages at input/output pins of different components and placing decoupling capacitors if needed.
+	\item Keeping in mind the different common mode voltages at input/output pins of different components and placing decoupling capacitors if needed.
 	\item Consider placing additional filtering for power supplies in order to reduce noise and \gls{pcb}, as well as recommended filters from manufacturers of the components. 
-	\item Choose suitable type and amount of power supplies/voltage regulators.
-	\item Keep in mind the packaging and size of the components. The size of the component is important, as space on the board is limited. The package introduces additional capacitive/inductive parasitics, which can be a problem for precise filtering circuits. 
-	\item Consider the power dissipation of the components. Components like for example voltage regulators might need coolers or heat sinks. These additional elements might not pose any problems for components which are located on the top side of the board. However, components on the bottom side might create a space issue, if the designed \gls{pcb} should be mounted on another board.
+	\item Choosing suitable type and amount of power supplies/voltage regulators.
+	\item Keeping in mind the packaging and size of the components. The size of the component is important, as space on the board is limited. The package introduces additional capacitive/inductive parasitics, which can be a problem for precise filtering circuits. 
+	\item Considering the power dissipation of the components. Components like for example voltage regulators might need coolers or heat sinks. These additional elements might not pose any problems for components which are located on the top side of the board. However, components on the bottom side might create a space issue, if the designed \gls{pcb} should be mounted on another board.
 	\item For mixed-signal boards, i.e. boards containing digital and analog signal paths, analog and digital ground should be separated. For \glspl{ic} like \glspl{tha} or \glspl{adc}, where both analog and digital signals are present, connecting the grounds via appropriate components needs to be considered.
-	\item Check if the components are still available and if they can be delivered in the given project time.
+	\item Checking if the components are still available and if they can be delivered in the given project time.
 \end{itemize}  
 
 This list is certainly not complete, but provides an overview over the most important points which need to be taken into account during design.
@@ -34,21 +34,21 @@ Variation on the power supply produces also a variation on the signal and can th
 Usually, manufacturers give information about proper power supply decoupling circuits for their component in the data sheet.
 If this is not the case, there are basic rules of thumb which can be followed to ensure proper decoupling. \cite{decouple}
 
-Basically, two types of voltage variations on the power supply pin can be distinguished: low frequency and high frequency variation.
-Low frequency variation occurs for example due to devices (or parts of them) being enabled/disabled or in the event of data traffic or data processing.
+Basically, two types of voltage variations on the power supply pin can be distinguished: low frequency and high frequency variations.
+Low frequency variations occur for example due to devices (or parts of them) being enabled/disabled or in the event of data traffic or data processing.
 The current draw during these occurrences cannot be compensated immediately by the voltage regulator providing the supply voltage, which leads to drops in the voltage level.
-Time frames of this variation vary in the range of milliseconds up to days.
-High frequency variation results from switching events in the device, occurring in the range of the clock frequency and the corresponding harmonics up to about \SI{5}{\giga \hertz}.
-Spikes due to \gls{emi} are also a source of high frequency variation and need to be compensated for. \cite{xilDecouple} 
+Time frames of these variations vary in the range of milliseconds up to days.
+High frequency variations result from switching events in the device, occurring in the range of the clock frequency and the corresponding harmonics up to about \SI{5}{\giga \hertz}.
+Spikes due to \gls{emi} are also a source of high frequency variations and need to be compensated for. \cite{xilDecouple} 
 
 Ideally, one capacitor, which acts as a low-pass filter, should be enough to mitigate these variations.
 A real capacitor however has parasitics and thus can in general not be modeled by a ``pure'' capacitive behavior. This reduces the filtering performance at high frequencies. 
 Additional resistances and inductance need to be considered (see \cite{decouple}):
 \begin{itemize}
 	\item A parallel resistance $R_P$, which shunts the nominal capacitance ($C$), representing insulation resistance or leakage.
-	\item A series resistance $R_S$, or \gls{esr}, which represents the plates and the leads of the capcitor.
+	\item A series resistance $R_S$, or \gls{esr}, which represents the plates and the leads of the capacitor.
 	\item A series inductance $L_S$, or \gls{esl}, that models the inductance of the plates and leads of the capacitor.
-	\item A parallel resistance and capacitance, $R_D$ and $R_C$, which model the effect called dielectric absorption. This denotes the phenomenon, that a capacitor which has been charged for a long time, does not fully discharge when briefly discharged. Dielectric absorption can be detrimental for high-precision use-cases, for power supply decoupling this effect doesn't have to be considered.
+	\item A parallel resistance and capacitance, $R_D$ and $R_C$, which model the effect called dielectric absorption. This denotes the phenomenon, that a capacitor which has been charged for a long time, does not fully discharge when briefly discharged. Dielectric absorption can be detrimental for high-precision use-cases, for power supply decoupling this effect does not have to be considered.
 \end{itemize}
 
 Consideration of all these effects leads to the equivalent circuit shown in \autoref{fig:real_cap}.
@@ -109,12 +109,13 @@ An assembly drawing of the \gls{fmc}+ connector is shown in \autoref{fig:fmcp}.
 	\label{fig:fmcp}
 \end{figure}
 
-The \gls{fmc}+ connector provides 560 pins arranged in a $14\times40$ array, 80 of which are additional high-speed interfaces, located on either side of the connector (therefore this connector type is also called \gls{hspce} connector, as opposed to the HSPC connector which doesn't have additional rows).
+The \gls{fmc}+ connector provides 560 pins arranged in a $14\times40$ array, 80 of which are additional high-speed interfaces, located on either side of the connector (therefore this connector type is also called \gls{hspce} connector, as opposed to the HSPC connector which has no additional rows).
 For user-defined purpose 160 pins are available. 
 They can be used as single-ended or differential pins.
 Clocking capable pins can be used to propagate clock signals from the mezzanine to the carrier board. 
 
-Furthermore, the connector provides pins for power supply from carrier board to mezzanine card. \cite{fmc} The voltage levels provided are listed in \autoref{tab:fmc_ps}.
+Furthermore, the connector provides pins for power supply from the carrier board to the mezzanine card. \cite{fmc} 
+The voltage levels provided are listed in \autoref{tab:fmc_ps}.
 
 \begin{table}[tb]
 	\caption[FMC+ Voltages]{Voltage levels provided by the \gls{fmc}+}
@@ -242,15 +243,15 @@ At the power pins, \gls{rf} filters containing decoupling capacitors and ferrite
 \end{figure}
 \clearpage
 \paragraph{Separating Analog and Digital Ground}
-Digital ground is more noisy than analog ground due to switching of the digital components. 
-Analog components are more sensitive to noise (due to e.g. lower amplitudes) than digital components\footnote{Digital components work with voltage thresholds, rather than concrete voltage levels.} and need a clean ground.
-In a mixed-signal (having both analog and digital signals) \gls{pcb} analog and digital ground should be therefore well separated.
+Digital grounds are more noisy than analog grounds due to switching events of the digital components. 
+Analog components are more sensitive to noise (due to e.g. lower signal amplitudes) than digital components\footnote{Digital components work with voltage thresholds, rather than continuous voltage levels.} and need a clean ground.
+In a mixed-signal (having both analog and digital signals) \gls{pcb}, analog and digital ground should therefore be well separated.
 For some mixed-signal components, such as \glspl{tha}, where separate analog and digital ground pins are provided, it is however recommended to connect both grounds directly at the component.
 For the \glspl{tha} in this design, this is done by connecting the ground pins via ferrite bead at each \gls{tha} (see \autoref{fig:gnd_agnd}). 
-The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise.
+The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise. %todo components?
 For every \gls{tha}, one ferrite bead is needed, making a total of 16 beads (see \autoref{fig:gnd_agnd}).
 
-Protection against a possible high voltage level between analog and digital grounds is implemented by two back-to-back diodes \autoref{fig:gnd_agnd}).
+Protection against possible high voltage levels between analog and digital grounds is implemented by two back-to-back diodes \autoref{fig:gnd_agnd}).
 The diodes should limit this voltage to around \SI{0.6}{\volt}.
 
 \begin{figure}[tb]
@@ -300,6 +301,7 @@ The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
+%todo to texttt
 
 
 \paragraph{Inputs}
@@ -384,6 +386,7 @@ This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} res
 	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
 	\label{fig:lvpecl}
 \end{figure}
+%TODO to tikz
 
 As the output will be connected to the \gls{tha}, it is necessary to check the compatibility of the maximum amplitude and common-mode of the pins.
 
@@ -412,6 +415,7 @@ This is higher than the maximal input common mode voltage of the \gls{tha}.
 
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
+%todo anchor south west
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/clocking_arch}
@@ -484,7 +488,7 @@ The output of the filter is the voltage $V_\text{tune}$ which is the input to th
 	\label{fig:loop_filter}
 \end{figure}
 The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2).
-For both the loop filter has to be calculated separately. 
+For both, the loop filter has to be calculated separately. 
 Both filters are implemented as second order filters, the calculated parameters are listed in \autoref{tab:lmk04808B_filter}.
 Note that PLL2 has already a partially integrated loop filter.
 \begin{table}[H]
@@ -561,6 +565,8 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\end{tabularx}
 \end{table}
 
+
+
 \subsubsection*{Fanout Buffer}
 The fanout buffer receives as input the clock signal from the main \gls{pll} and distributes it to the delay chips.
 In this design, the HMC987LP5E from \textit{Analog Devices} is chosen due to its low jitter and low skew performance. 
@@ -581,7 +587,7 @@ In this mode, the pins are either pulled up to $V_\text{cc}$ or connected to gro
 For the design, the parallel pin control mode is selected, therefore the \texttt{PMODE\_SEL} pin is pulled up to $V_\text{cc}$ ($\eqdev$ logic '1').
 In order to have the opportunity to enable the \gls{spi} mode in later usage, a jumper is placed at this pin so that it can be connected to ground if necessary ($\eqdev$ logic '0', enabling \gls{spi} mode).
 The \texttt{SCLK}, \texttt{SDI} and \texttt{SEN} pins are connected to the \gls{fmc}+ connector.
-To enable all outputs, the \gls{spi} pins need to be set to '111' according to the datasheet, i.e. pulled-up to $V_\text{cc}$. 
+To enable all outputs, the \gls{spi} pins need to be set to '111' according to the data sheet, i.e. pulled-up to $V_\text{cc}$. 
 Here, jumpers are foreseen as well, to allow enabling/disabling in later usage.
 
 \subsection{Digital-To-Analog-Converter Channels}
@@ -654,16 +660,16 @@ Linear voltage regulators are capable to maintain a stable output voltage and ar
 On the \gls{kapture} sampling board, the \gls{ldo} ADP1708 from \textit{Analog Devices} is used to provide a power supply for the \glspl{tha}. 
 A \gls{ldo} is able to operate at a low potential difference between the input and output voltage. 
 This low potential difference has the benefit of low power dissipation, which also reduces the heat produced by the components.  
-This power supply can provide at maximum \SI{1}{\ampere} to the load. 
+This power supply can provide a maximum of \SI{1}{\ampere} to the load. 
 In order to minimize the amount of components needed on the board and to save space, a different \gls{ldo} which provides higher currents should be used. 
 This way, one single voltage regulator can be used for more components.
 
 For the new board, the ADP1741 low-dropout voltage regulator from \textit{Analog Devices} has been selected. This voltage regulator has adjustable output voltage from \SIrange{1.6}{3.6}{\volt} and a maximum output current of \SI{2}{\ampere}. 
 
-It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} on is listed in \autoref{tab:theresacomp}. 
+It is necessary to think about the number of voltage regulators needed. As a rule of thumb, the power supply should provide at least twice the maximum current (i.e. power) needed by the components it drives. \cite{michele} The power consumption/maximum current for the \glspl{tha} are listed in \autoref{tab:theresacomp}. 
 
 The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\ampere}.
-With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 
+With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number of components $N$ which the \gls{ldo} can handle is calculated as 
 
 \begin{align*}
 	I_\text{max, LDO}                              & > 2 \cdot N \cdot I_\text{m, THA} \\
@@ -673,9 +679,9 @@ With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \
 \end{align*}
 This means, 4 \glspl{ldo} are needed to cover 16 \glspl{tha}.
 
-The output voltage level of the regulator is set by an external divider with the resistors $R_1$ and $R_2$ (refer to \autoref{fig:adp1741}). According to the datasheet \cite{adp1741} the voltage $V_\text{OUT}$ is determined by
+The output voltage level of the regulator is set by an external divider with the resistors $R_1$ and $R_2$ (refer to \autoref{fig:adp1741}). According to the data sheet \cite{adp1741}, the voltage $V_\text{OUT}$ is determined by
 \begin{equation}\label{eq:ldo}
-	V_\text{OUT} = \SI{0.5}{\volt}\left(1 + \frac{R_1}{R_2} \right)
+	V_\text{OUT} = \SI{0.5}{\volt}\left(1 + \frac{R_1}{R_2} \right).
 \end{equation}
 In order to achieve the required \SI{2}{\volt}, the values of the resistors are chosen to $R_1 = \SI{30}{\kilo\ohm}$ and $R_2 = \SI{10}{\kilo \ohm}$. 
 
@@ -688,11 +694,12 @@ In order to achieve the required \SI{2}{\volt}, the values of the resistors are 
 
 As input voltage, the \SI{3.3}{\volt} from the external power supply is provided. 
 
-Capacitors and resistors are placed as recommended in the data sheet\cite{adp1741}(see \autoref{fig:adp1741}).
+Capacitors and resistors are placed as recommended in the data sheet \cite{adp1741}(see \autoref{fig:adp1741}).
 
 \subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
-The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can be again calculated as:
+The number of delay chips $N$ with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can again be calculated as:
+%todo nicefrac
 \begin{align*}
 	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
 	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
@@ -702,17 +709,17 @@ The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, w
 Therefore, two regulators are needed to cover the 8 delay chips.
 In order to keep the current draw evenly distributed among the regulators, 4 chips are assigned to one regulator respectively.
 
-In order to set the output voltage of the regulator to \SI{2.5}{\volt}, the resistor values $R_1 = \SI{12}{\kilo \ohm}$ and $R_1 = \SI{3}{\kilo \ohm}$ are chosen (refer to \autoref{fig:adp1741} and \autoref{eq:ldo}).
+In order to set the output voltage of the regulator to \SI{2.5}{\volt}, the resistor values $R_1 = \SI{12}{\kilo \ohm}$ and $R_1 = \SI{3}{\kilo \ohm}$ are chosen (refer to \autoref{fig:adp1741} and \autoref{eq:ldo}). %todo zweimal R1
 
 The \SI{2.5}{\volt} are also used as input for the bus transceiver which acts as a level translator. 
-The current draw from this component lies in the range of \SI{}{\micro \ampere} and can thus be neglected.
+The current draw from this component lies in the range of \si{\micro \ampere} and can thus be neglected.
 
 As input voltage these regulators receive the digital \SI{3.3}{\volt} from the \gls{fmc}+ connector.
 The ground pins are connected to the digital ground of the \gls{pcb}.
 This is important, in order to keep the analog and digital grounds and components separated.
 
 \paragraph{Power Dissipation of the Voltage Regulators}
-According to the data sheet of the ADP1741 \cite{adp1741}, the power dissipation $P_D$ of the regulator can be calculated with the input and output voltage $V_\text{IN}$ and $V_\text{OUT}$, load current $I_\text{LOAD}$ and ground current $I_\text{GND}$\footnote{difference between input and output current}:
+According to the data sheet of the ADP1741 \cite{adp1741}, the power dissipation $P_D$ of the regulator can be calculated with the input and output voltages $V_\text{IN}$ and $V_\text{OUT}$, load current $I_\text{LOAD}$ and ground current $I_\text{GND}$\footnote{difference between input and output current}:
 
 \begin{equation}
 	P_D = (V_\text{IN} - V_\text{OUT}) \cdot I_\text{LOAD} + (V_\text{IN} \cdot I_\text{GND})
@@ -750,8 +757,8 @@ During this process, the following points need to be considered:
 	\item Closely linked to the dielectric constant are the transmission lines. The geometry of these lines has to be calculated in order to meet the desired characteristic impedance (single-ended: \SI{50}{\ohm}, differential pair: \SI{100}{\ohm}). As this impedance also is defined by the dielectric constant, this step is closely linked to the selection of the substrate.
 	\item Components need to be placed in a way that minimizes traces and routing. Sensitive components, like \glspl{tha} have to be placed first 
 	\item Route traces, taking care that traces of the same group (e.g. clock signals distributed to the \glspl{tha}) have the same length. For sensitive signals take care that these are shielded by ground planes on the layers above and below.
-	\item Places additional structures to reduce cross-talk, \gls{emi}, etc. (via fences, stitching vias, \dots)
-	\item Create proper power distribution by placing planes at appropriate places, i.e. reducing overlapping with traces carrying signals that could induce noise on the power plane.
+	\item Placing additional structures to reduce cross-talk, \gls{emi}, etc. (via fences, stitching vias, \dots)
+	\item Creating proper power distribution by placing planes at appropriate places, i.e. reducing overlapping with traces carrying signals that could induce noise on the power plane.
 \end{itemize}
 
 For better understanding, first a general overview over \gls{pcb} structures is given. 
@@ -840,7 +847,7 @@ As there are a lot of parameters which can be tuned, as a starting point the geo
 These have been carefully designed for optimal transmission line geometry.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate selected for the new design. 
 Therefore, the impedance has to be recalculated. 
-For the resulsts, a deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
+For the results, a deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
 
 Three types of transmission lines have been designed for this layout:
 \begin{itemize}
@@ -882,7 +889,7 @@ For Megtron6 it is
 With all these parameters, the value for the characteristic impedance is calculated to $Z_o = \SI{47.33}{\ohm}$.
 This lies well in the 10\% tolerance range of \SIrange{45}{55}{\ohm}. 
 
-According to the datasheet of the Megtron6 substrate, the dielectric constant $\varepsilon_r$ changes over frequency (see \autoref{ssec:substrate}).
+According to the data sheet of the Megtron6 substrate, the dielectric constant $\varepsilon_r$ changes over frequency (see \autoref{ssec:substrate}).
 As the dielectric constant $\varepsilon_r$ of the Megtron6 substrate varies between 3.61 and 3.71 depending on the frequency, the effect of the changing $\varepsilon_r$ should also be studied. 
 The \textit{Si9000e} tool provides the possibility to simulate the characteristic impedance versus a changing parameter.
 
@@ -892,7 +899,7 @@ The lowest values lies around \SI{47}{\ohm}, a change of \SI{0.7}{\percent}, whi
 
 Furthermore, the effect of changing the trace width on $Z_o$ is studied and shown in \autoref{fig:surf_w1}.
 This plot shows that for best matching of the impedance a trace thickness of around \SI{200}{\micro \meter} is the best choice.
-This result however does not take into account the real upper tracewidth.
+This result however does not take into account the real upper trace width.
 
 For an estimation of the effect of the upper trace width on the impedance, a constant lower trace width of \SI{213}{\micro \meter} and $\varepsilon_r = 3.61$ is assumed, while varying the upper trace width from \SIrange{183}{213}{\micro \meter}.
 The result is shown in \autoref{fig:surf_w2}.
@@ -1028,11 +1035,11 @@ Therefore this option is not feasible.
 	\label{fig:off_diff_w1}
 \end{figure}
 
-Keeping the trace width constant at $w = \SI{88}{\micro \meter}$ the trace separation could also be changed.
+Keeping the trace width constant at $w = \SI{88}{\micro \meter}$, the trace separation could also be changed.
 \autoref{fig:off_diff_s1} shows $Z_\text{diff}$ plotted against the trace separation $s$.
 It can be seen that $Z_\text{diff}$ does not change significantly over a large range of $s$.
-For a trace separation of around \SI{300}{\micro \meter} (more than 3 times larger than the trace width itself) $Z_\text{diff} \approx \SI{94}{\ohm}$ and not significantly improved.
-Taking this into consideration, as well as the available space on the board, the parameters are left as is.  
+For a trace separation of around \SI{300}{\micro \meter} (more than 3 times larger than the trace width itself), $Z_\text{diff}$ is approximately $\SI{94}{\ohm}$ and is not significantly improved.
+Taking this, as well as the available space on the board into consideration, the parameters are left as they are.  
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/off_diff_s1}
@@ -1041,8 +1048,8 @@ Taking this into consideration, as well as the available space on the board, the
 \end{figure}
 
 The influence of the dielectric constant $\varepsilon_r$ is shown in \autoref{fig:off_diff_dk}. 
-$Z_\text{diff}$ decreases with higher value of $\varepsilon_r$ and even get below \SI{90}{\ohm}, exceeding the \SI{10}{\percent} tolerance.
-However, the upper trace width has also to be taken into account, which is in any case smaller than the lower trace width due to the etching process during manufacturing.
+$Z_\text{diff}$ decreases with higher value of $\varepsilon_r$ and even gets below \SI{90}{\ohm}, exceeding the \SI{10}{\percent} tolerance.
+However, the upper trace width has to be considered as well, which is in any case smaller than the lower trace width due to the etching process during manufacturing.
 As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than calculated by assuming both width equal. Therefore the impedance can still be regarded as falling into the tolerance band.
 \begin{figure}[tb]
 	\centering
@@ -1059,12 +1066,15 @@ As \autoref{fig:off_diff_w2} shows, the impedance is potentially higher than cal
 	\label{fig:off_diff_w2}
 \end{figure}
 
-\autoref{fig:off_diff_loss} shows the calculated attenuation (combination of conductor and dielectric loss) of the coplanar waveguide with the given geometries over a frequency range \SIrange{0.1}{2}{\GHz}. 
-This attenuation was calculated for the trace length of \SI{200}{\mm}, an upper estimate of the length of the traces carrying the output signal from the \glspl{tha} to the connector.
-As can be derived from the plot, the attenuation lies reaches up to \SI{4}{\decibel}.
-Considering the length of the traces this is an expected result. 
+\autoref{fig:off_diff_loss} shows the calculated attenuation (combination of conductor- and dielectric-loss) of the coplanar waveguide with the given geometries over a frequency range \SIrange{0.1}{2}{\GHz}. 
+This attenuation has been calculated for the trace length of \SI{200}{\mm}, an upper estimate of the length of the traces carrying the output signal from the \glspl{tha} to the connector.
+As can be derived from the plot, the attenuation reaches up to \SI{4}{\decibel}.
+Considering the length of the traces, this is an expected result. 
 The traces need therefore to be routed in the lowest noise conditions possible, i.e. through shielding by ground layers and placing via fences around the trace, to ensure that the signal under study is propagated correctly to the connectors.
-During characterization the 
+
+During characterization the %todo hier fehlt was
+
+
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/off_diff/loss}
@@ -1081,22 +1091,22 @@ Due to the complexity of the board, the respective grounds need to cover the who
 Therefore, in order to guarantee a full separation without any interference between the two parts, the \gls{pcb} is split into two parts.
 The topside part is dedicated to the digital components and the routing of digital signal. 
 These layers cover the clocking distribution as well as the slow control signal paths leading from the \gls{fpga} to the respective components.
-The bottomside part of the \gls{pcb} is dedicated to the analog components and integrates the analog signal paths coming from the \glspl{tha}.
+The bottomside of the \gls{pcb} is dedicated to the analog components and integrates the analog signal paths coming from the \glspl{tha}.
 
 Closely linked to the structuring of the overall \gls{pcb} is the number of stacked-up metal layers used.
 In order to integrate all necessary signals and power planes, 16 layers in total are used.
 The topside 8 layers are therefore used for the digital part, the other 8 for the analog.
-For shielding purposes and to guarantee a small as possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two ground layers.
+For shielding purposes and to guarantee smallest possible signal return path for the transmission lines, layers carrying signal paths are ``sandwiched'' between two ground layers.
 
 Some signals need to be routed from top layer to bottom and vice versa by through vias. 
-In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground) plane has to be ensured.
+In order to maintain the separation between analog and digital parts in such cases, a sufficient isolation between the via and the surrounding (ground-) plane has to be ensured.
 
 At some point, the analog and digital grounds need to be connected together. 
 As mentioned in \autoref{sec:schematics}, these connections are deployed by placing ferrite beads at each \gls{tha} connecting analog and digital grounds.
 This way, any noise coming from the digital ground is compensated. 
 \gls{rf} filtering at the \gls{tha} is placed in the same manner, in order to mitigate any noise which could interfere with the sensitive analog signal.
 
-Sensitive, i.e. analog components, should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
+As they are sensitive to interference, analog components should be placed first in order to minimize the routing paths, therefore reducing additional inductance and possible interference due to longer traces.
 Also the transmission lines carrying sensitive analog signals should be routed first, in order to define the further routing of other signal paths, e.g. slow control signals. 
 These transmission lines should be separated from digital signal paths as much as possible in order to reduce cross-talk between the lines. 
 
@@ -1117,7 +1127,7 @@ An example for such accordions is shown in \autoref{fig:accordion}.
 To achieve high signal integrity, ``via-fences'' are placed next to the traces carrying analog signals. 
 These consist of via holes connected to analog ground, placed close enough together to form a barrier for electromagnetic wave propagation. 
 This forms a shield against any electromagnetic interference originating from other components on the board.
-Furthermore, via-fences act as a barrier also for the signal, therefore guiding it on the desired path and keeping it to its respective area.
+Furthermore, via-fences act as a barrier for the signal too, therefore guiding it on the desired path and limiting it to its respective area.
  \begin{figure}[tb]
  	\centering
  	\includegraphics[width = 0.8\textwidth]{chap/04-theresa/img/pcb/tha_pcb}
@@ -1126,15 +1136,15 @@ Furthermore, via-fences act as a barrier also for the signal, therefore guiding 
  \end{figure}
 
 \autoref{fig:sampling_card} shows the 3D model of the final design of the sampling card.
-On the top sideof the board (\autoref{fig:pcb_front}), the digital components, signals and clock distribution is placed. 
+On the top side of the board (\autoref{fig:pcb_front}), the digital components, signals and clock distribution are placed. 
 The clock distribution is placed on the bottom, as close as possible to the \glspl{tha}, with the main \gls{pll} in the middle.
 Two \glspl{pll}, providing the high frequency clock necessary for the data converters in the \gls{fpga}, are placed close to the main \gls{pll}.
 Furthermore, the \gls{fmc}+ connector is located on the top, in order to connect the board with the \gls{fpga} and to provide the slow-control signals.
 
 On the bottom side of the board (\autoref{fig:pcb_back}), the analog components, i.e. the \glspl{tha} and analog voltage regulators are placed. 
-The output of the \glspl{tha} is propagated to the \gls{rf} connector (on the left in \autoref{fig:pcb_back}) which propagates the signal to the \gls{fpga}. 
+The output of the \glspl{tha} is propagated to the \gls{rf} connector (on the left in \autoref{fig:pcb_back}), which propagates the signal to the \gls{fpga}. 
 To propagate test signals from the \glspl{dac} on the \gls{fpga}, the connector on the right is used.
-The small connector on the top propagates the clock signal, coming from the high-frequency \glspl{pll}, to the data converters 
+The small connector on the top propagates the clock signal, coming from the high-frequency \glspl{pll}, to the data converters.
 
 \begin{figure}[tb]
 	\centering
