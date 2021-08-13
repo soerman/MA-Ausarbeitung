@@ -9,13 +9,13 @@
 	\filldraw[color=black, fill=black] (3,3) rectangle ++(1,.2) node[pos=.5](cond1){};
 	\filldraw[color=black, fill=black] (5,3) rectangle ++(1,.2) node[pos=.5](cond2){};
 	\filldraw[color=black, fill=black] (7,3) rectangle ++(2,.2) node[pos=.5,anchor = south, yshift=2mm](GND2){GND};
-	\draw[latex-latex] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=east](){\(h\)};
-	\draw[latex-latex] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
-	\draw[latex-latex] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
-	\draw[latex-latex] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (-0.5,1) -- (-0.5,3) node[pos=.5,anchor=east](){\(h\)};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (2,4) -- ++(1,0) node[pos=.5,anchor=south](){\(d\)};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (3,3.8) -- ++(1,0) node[pos=.5,anchor=south](){\(w\)};
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-{Latex[length=\arrlen,width=\arrwidth]}] (4,3.6) -- ++(1,0) node[pos=.5,anchor=south](){\(s\)};
 	
-	\draw[-latex] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
-	\draw[-latex] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (10,4) -- (10,3.2) node[pos=.5,anchor=west](){\(t\)};
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (10,2.2) -- (10,3) node[pos=.5,anchor=west](){};
 	
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8.9pt, white] (9,0) -- (9,4);
 	\draw[decorate,decoration={zigzag,segment length=10mm, amplitude=1mm},double, double distance = 8pt, white] (0,-0.5) -- (0,4);

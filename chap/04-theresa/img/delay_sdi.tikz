@@ -1,5 +1,11 @@
   \tikzset{myblock/.style = {rectangle, draw, minimum width=3cm, minimum height = 3cm}}
 	 %, minimum width=3cm, minimum height = 3cm
+
+\def\arrlen{3mm}
+\def\arrwidth{2mm}
+
+
+
 \begin{tikzpicture}%[scale=0.6, every node/.style={scale=0.6}]
 	    \node (c1)[myblock]{\Large Chip 1};
 	\begin{scope}[shift={(4,0)}]
@@ -24,62 +30,62 @@
 		\node (c8)[myblock]{\Large  Chip 8};
 	\end{scope}
 
-	\draw[-Latex] (-3,3) node[left] {\Huge \texttt{SLOAD}} -| coordinate (1)  ($(c1.north west)!0.2!(c1.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (2)  ($(c2.north west)!0.2!(c2.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (3)  ($(c3.north west)!0.2!(c3.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (4)  ($(c4.north west)!0.2!(c4.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (5)  ($(c5.north west)!0.2!(c5.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (6)  ($(c6.north west)!0.2!(c6.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (7)  ($(c7.north west)!0.2!(c7.north east)$) ;
-	\draw[-Latex] (-3,3) -| coordinate (8)  ($(c8.north west)!0.2!(c8.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) node[left] {\Huge \texttt{SLOAD}} -| coordinate (1)  ($(c1.north west)!0.2!(c1.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (2)  ($(c2.north west)!0.2!(c2.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (3)  ($(c3.north west)!0.2!(c3.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (4)  ($(c4.north west)!0.2!(c4.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (5)  ($(c5.north west)!0.2!(c5.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (6)  ($(c6.north west)!0.2!(c6.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (7)  ($(c7.north west)!0.2!(c7.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,3) -| coordinate (8)  ($(c8.north west)!0.2!(c8.north east)$) ;
 
-	\draw[-Latex] (-3,4) node[left] {\Huge \texttt{SCLK}} -|  coordinate (9) ($(c1.north west)!0.4!(c1.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (10) ($(c2.north west)!0.4!(c2.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (11) ($(c3.north west)!0.4!(c3.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (12) ($(c4.north west)!0.4!(c4.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (13) ($(c5.north west)!0.4!(c5.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (14) ($(c6.north west)!0.4!(c6.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (15) ($(c7.north west)!0.4!(c7.north east)$) ;
-	\draw[-Latex] (-3,4) -| coordinate (16) ($(c8.north west)!0.4!(c8.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) node[left] {\Huge \texttt{SCLK}} -|  coordinate (9) ($(c1.north west)!0.4!(c1.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (10) ($(c2.north west)!0.4!(c2.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (11) ($(c3.north west)!0.4!(c3.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (12) ($(c4.north west)!0.4!(c4.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (13) ($(c5.north west)!0.4!(c5.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (14) ($(c6.north west)!0.4!(c6.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (15) ($(c7.north west)!0.4!(c7.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,4) -| coordinate (16) ($(c8.north west)!0.4!(c8.north east)$) ;
 
-	\draw[-Latex] (-3,5) node[left] {\Huge \texttt{SDIN}} -| coordinate (17) ($(c1.north west)!0.6!(c1.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (18) ($(c2.north west)!0.6!(c2.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (19) ($(c3.north west)!0.6!(c3.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (20) ($(c4.north west)!0.6!(c4.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (21) ($(c5.north west)!0.6!(c5.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (22) ($(c6.north west)!0.6!(c6.north east)$) ;
-	\draw[-Latex] (-3,5) -| coordinate (23) ($(c7.north west)!0.6!(c7.north east)$) ;
-	\draw[-Latex] (-3,5) -| ($(c8.north west)!0.6!(c8.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) node[left] {\Huge \texttt{SDIN}} -| coordinate (17) ($(c1.north west)!0.6!(c1.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (18) ($(c2.north west)!0.6!(c2.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (19) ($(c3.north west)!0.6!(c3.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (20) ($(c4.north west)!0.6!(c4.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (21) ($(c5.north west)!0.6!(c5.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (22) ($(c6.north west)!0.6!(c6.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| coordinate (23) ($(c7.north west)!0.6!(c7.north east)$) ;
+	\draw[-{Latex[length=\arrlen,width=\arrwidth]}] (-3,5) -| ($(c8.north west)!0.6!(c8.north east)$) ;
 
-	\draw[Latex-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_1$}; 
-	\draw[Latex-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_2$}; 
-	\draw[Latex-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_3$}; 
-	\draw[Latex-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_4$}; 
-	\draw[Latex-]  ($(c5.north west)!0.8!(c5.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_5$}; 
-	\draw[Latex-]  ($(c6.north west)!0.8!(c6.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_6$}; 
-	\draw[Latex-]  ($(c7.north west)!0.8!(c7.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_7$}; 
-	\draw[Latex-]  ($(c8.north west)!0.8!(c8.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_8$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{1}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{2}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{3}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{4}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c5.north west)!0.8!(c5.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{5}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c6.north west)!0.8!(c6.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{6}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c7.north west)!0.8!(c7.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{7}$}; 
+	\draw[{Latex[length=\arrlen,width=\arrwidth]}-]  ($(c8.north west)!0.8!(c8.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_\texttt{8}$}; 
 
-
-	\filldraw[black] (1) circle (2pt); 
-	\filldraw[black] (2) circle (2pt); 
-	\filldraw[black] (3) circle (2pt); 
-	\filldraw[black] (4) circle (2pt); 
-	\filldraw[black] (5) circle (2pt); 
-	\filldraw[black] (6) circle (2pt); 
-	\filldraw[black] (7) circle (2pt); 
-	\filldraw[black] (9) circle (2pt); 
-	\filldraw[black] (10) circle (2pt); 
-	\filldraw[black] (11) circle (2pt); 
-	\filldraw[black] (12) circle (2pt); 
-	\filldraw[black] (13) circle (2pt); 
-	\filldraw[black] (14) circle (2pt); 
-	\filldraw[black] (15) circle (2pt); 
-	\filldraw[black] (17) circle (2pt); 
-	\filldraw[black] (18) circle (2pt); 
-	\filldraw[black] (19) circle (2pt); 
-	\filldraw[black] (20) circle (2pt); 
-	\filldraw[black] (21) circle (2pt); 
-	\filldraw[black] (22) circle (2pt); 
-	\filldraw[black] (23) circle (2pt);
+	\def\bobbleSize{5pt};
+	\filldraw[black] (1) circle (\bobbleSize); 
+	\filldraw[black] (2) circle (\bobbleSize); 
+	\filldraw[black] (3) circle (\bobbleSize); 
+	\filldraw[black] (4) circle (\bobbleSize); 
+	\filldraw[black] (5) circle (\bobbleSize); 
+	\filldraw[black] (6) circle (\bobbleSize); 
+	\filldraw[black] (7) circle (\bobbleSize); 
+	\filldraw[black] (9) circle (\bobbleSize); 
+	\filldraw[black] (10) circle (\bobbleSize); 
+	\filldraw[black] (11) circle (\bobbleSize); 
+	\filldraw[black] (12) circle (\bobbleSize); 
+	\filldraw[black] (13) circle (\bobbleSize); 
+	\filldraw[black] (14) circle (\bobbleSize); 
+	\filldraw[black] (15) circle (\bobbleSize); 
+	\filldraw[black] (17) circle (\bobbleSize); 
+	\filldraw[black] (18) circle (\bobbleSize); 
+	\filldraw[black] (19) circle (\bobbleSize); 
+	\filldraw[black] (20) circle (\bobbleSize); 
+	\filldraw[black] (21) circle (\bobbleSize); 
+	\filldraw[black] (22) circle (\bobbleSize); 
+	\filldraw[black] (23) circle (\bobbleSize);
 \end{tikzpicture}

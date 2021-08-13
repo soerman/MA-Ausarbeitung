@@ -1,16 +1,16 @@
-﻿\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows.meta}
 \begin{tikzpicture}
-\node[draw,align=center,minimum width=3.5cm,minimum height=3.5cm,fill=yellow!30] at (-3,-3) {Multi-core\\ARM};
+\node[draw,align=center,minimum width=3.5cm,minimum height=3.5cm,fill=yellow!30,inner sep=0] at (-3,-3) {Multi-core\\ARM};
 
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30] at (0,0) {4 Ch.\\ADC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30] at (0,-2) {4 Ch.\\ADC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30] at (0,-4) {4 Ch.\\DAC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30] at (0,-6) {4 Ch.\\DAC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30,inner sep=0] at (0,0) {4 Ch.\\ADC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30,inner sep=0] at (0,-2) {4 Ch.\\ADC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30,inner sep=0] at (0,-4) {4 Ch.\\DAC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30,inner sep=0] at (0,-6) {4 Ch.\\DAC};
 
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30] at (2,0) {4 Ch.\\ADC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30] at (2,-2) {4 Ch.\\ADC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30] at (2,-4) {4 Ch.\\DAC};
-\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30] at (2,-6) {4 Ch.\\DAC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30,inner sep=0] at (2,0) {4 Ch.\\ADC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=green!30,inner sep=0] at (2,-2) {4 Ch.\\ADC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30,inner sep=0] at (2,-4) {4 Ch.\\DAC};
+\node[draw,align=center,minimum width=1.5cm,minimum height=1.5cm,fill=blue!30,inner sep=0] at (2,-6) {4 Ch.\\DAC};
 
-\node[draw,align=center,minimum width=3cm,minimum height=7.5cm,fill=black!10] at (4.75,-3) {UltraScale+\\FPGA};
+\node[draw,align=center,minimum width=3cm,minimum height=7.5cm,fill=black!10,inner sep=0] at (4.75,-3) {UltraScale+\\FPGA};
 \end{tikzpicture}
