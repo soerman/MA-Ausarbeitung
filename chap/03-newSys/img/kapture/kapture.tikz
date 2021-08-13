@@ -14,10 +14,13 @@
 	\node[twoportshape,t=T/H,anchor=0](th3) at (2,1.5) {};
 	\node[twoportshape,t=T/H,anchor=0](th4) at (3.5,0) {};
 	
-	\node[adcshape,anchor=0](ad1) at (5,4.5) {};
-	\node[adcshape,anchor=0](ad2) at (5,3) {};
-	\node[adcshape,anchor=0](ad3) at (5,1.5) {};
-	\node[adcshape,anchor=0](ad4) at (5,0) {};
+	\begin{scope}[xshift = 4mm]
+		\node[adcshape,anchor=0](ad1) at (5,4.5) {};
+		\node[adcshape,anchor=0](ad2) at (5,3) {};
+		\node[adcshape,anchor=0](ad3) at (5,1.5) {};
+		\node[adcshape,anchor=0](ad4) at (5,0) {};
+	\end{scope}
+
 	
 	\node[twoportshape,t=$\Delta t_{1}$,anchor=0](d1) at (-1,-2) {};
 	\node[twoportshape,t=$\Delta t_{2}$,anchor=0](d2) at (0.5,-2) {};
