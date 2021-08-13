@@ -67,6 +67,6 @@
 
 \draw[densely dotted] (0.51,0.375) -- (0.51,0.65);
 \draw[densely dotted] (0.38,0.375) -- (0.38,0.65);
-\draw[<->] (0.51,0.62) -- node[align=center,anchor=south,yshift=5] {Maximum\\$\text{INL} = 1\;\text{LSB}$} (0.38,0.62);
+\draw[latex-latex] (0.51,0.65) -- node[align=center,anchor=south,yshift=5mm] {Maximum\\$\text{INL} = 1\;\text{LSB}$} (0.38,0.65);
 	
 \end{tikzpicture}

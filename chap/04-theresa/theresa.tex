@@ -158,7 +158,7 @@ The design has been introduced as an open standard under the \gls{ieee} 287 Prec
 \end{figure}
 
 On the read-out board two RFMC 2.0 (\gls{rf} Mezzanine Card) interface connectors are provided.
-The connectors used are \gls{lpaf} connectors from \textit{SAMTEC} with 400 pins arranged in a $8\times50$ array.
+The connectors used are \gls{lpaf} connectors from \textit{SAMTEC} with 400 pins arranged in a 8$\times$50 array.
 One connector is dedicated for transmitting signals from the mezzanine card to the on-board \glspl{adc}.
 The other provides the analog output from the on-board \glspl{dac}\footnote{A \gls{dac} translates digital values into an analog signal.} to the mezzanine card.
 On the sampling board, the male counterpart of the connectors, \gls{lpam}, is used (see \autoref{fig:lpam1}).
@@ -288,7 +288,7 @@ In this way, only 11 pins (8 enable pins and 3 pins for data, clock and load) ar
 	\centering
 	%\includegraphics[scale=0.5]{chap/04-theresa/img/delay_sdi}
 	\resizebox{1\textwidth}{!}{\input{chap/04-theresa/img/delay_sdi.tikz}}
-	\caption[Delay chip SDI connections]{Diagram of the SDI control pins for the NB6L295 delay chip. The data (\texttt{SDIN}), clock (\texttt{SCLK}) and load (\texttt{SLOAD}) pins are shared by all chips. Only the enable (\texttt{EN}$_x$) signals are routed individually.}
+	\caption[Delay chip SDI connections]{Diagram of the SDI control pins for the NB6L295 delay chip. The data (\texttt{SDIN}), clock (\texttt{SCLK}) and load (\texttt{SLOAD}) pins are shared by all chips. Only the enable (\texttt{EN}$_\texttt{x}$) signals are routed individually.}
 	\label{fig:delay_sdi}
 \end{figure}
 
@@ -322,7 +322,7 @@ $V_\text{out}$ is calculated as
 The resistor values are chosen to be $R_1 = \SI{43}{\kilo\ohm}$ and $R_2 = \SI{11}{\kilo\ohm}$.
 According to \autoref{eq:vdiv} this results in a voltage of
 \begin{equation}
-	V_\text{cc} \frac{\SI{11}{\kilo\ohm}}{\SI{11}{\kilo\ohm} + \SI{43}{\kilo\ohm}} = \SI{0.5093}{\volt} \approx \SI{0.5}{\volt}
+	V_\text{out} = V_\text{cc} \frac{\SI{11}{\kilo\ohm}}{\SI{11}{\kilo\ohm} + \SI{43}{\kilo\ohm}} = \SI{0.5093}{\volt} \approx \SI{0.5}{\volt}
 \end{equation}
 at the VTx and $\overline{\text{VTx}}$ pins.
 Resistor values are chosen high to minimize current flow.
@@ -1015,7 +1015,7 @@ The parameters are assumed as
 	\item Trace separation $s = \SI{150}{\micro \meter}$
 	\item Trace-to-ground separation $d = \SI{250}{\micro \meter}$
 \end{itemize}
-The thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\varepsilon_1 = \varepsilon_2 = \varepsilon_r = 3.61$.)
+The thickness of the dielectrics is $h_1 = h_2 = \SI{150}{\micro \meter}$  and the dielectric constant is equal for both ($\varepsilon_1 = \varepsilon_2 = \varepsilon_r = 3.61$).
 With these parameters the impedance is calculated as $Z_\text{diff} = \SI{90.40}{\ohm}$.
 In \autoref{fig:off_diff_w1} $Z_\text{diff}$ is plotted against the trace width $w$ (assuming upper trace width equal to $w$). It can be seen, that in order to improve the impedance, one should decrease the trace width. 
 Due to the manufacturing technology the minimal trace width possible is \SI{88}{\micro \meter}. 
