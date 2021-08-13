@@ -13,8 +13,9 @@ Compile with LuaLatex (`lualatex -synctex=1 -interaction=nonstopmode --shell-esc
 - [x] git branches aufräumen
 - [x] README aufräumen
 - [ ] v vs V vs V(t) einheitlich
-- [ ] All caps für logic-level? Dann nicht für manche signale
-- [ ] wie wärs mit alle signale, wie EN oder so als \texttt{EN} zu schreiben?
+- [x] All caps für logic-level? Dann nicht für manche signale
+- [x] wie wärs mit alle signale, wie EN oder so als \texttt{EN} zu schreiben?
 - [x] doch nochmal an (sub) section hirarchie rütteln? toc könnte ein paar mehr unterpunkt brauchen
 - [x] bei den figures entweder den enddor oder den colon nach Figure 3.6.: weg
 - [ ] überall kapture kapture-1 nennen?
+  - [ ] nicht sicher, eigentlich ist KAPTURE ja der offizielle name, also ohne die 1

@@ -86,7 +86,7 @@ This capacitor should bypass (therefore also called \textit{bypass capacitor}) t
 To cover a larger frequency range, multiple capacitors can be used.
 
 All capacitors should be connected through vias or short traces to a large area, low impedance ground plane.
-vias on a \gls{pcb} are used to connect different layers, a plane is an uninterrupted area of metal covering the whole (or part) of a \gls{pcb} layer (basic \gls{pcb} structures are also  explained in \autoref{ssec:pcb_structs}). 
+Vias on a \gls{pcb} are used to connect different layers, a plane is an uninterrupted area of metal covering the whole (or part) of a \gls{pcb} layer (basic \gls{pcb} structures are also  explained in \autoref{ssec:pcb_structs}). 
 Connecting capacitors in this way minimizes the inductance due to connection traces. \cite{decouple}
 
 An optional ferrite bead in series with the supply pin keeps external high frequency from the device and the noise generated inside the component from the rest of the board. \cite{decouple}
@@ -194,6 +194,7 @@ The sampling time of the \gls{tha}, derived from the clock coming from the main 
 The \gls{tha} used is the same as in \gls{kapture}. 
 The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds). \cite{caselle2013} 
 Therefore it is also a good candidate for the new \gls{theresa} sampling board.
+
 
 The main features of the \gls{tha} are listed in \autoref{tab:hmc5640}.
 These input specifications are important for the later interface with the \gls{adc} with the delay chip.
@@ -672,8 +673,8 @@ With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \
 
 \begin{align*}
 	I_\text{max, LDO}                              & > 2 \cdot N \cdot I_\text{m, THA} \\
-	I_\text{max, LDO}/(2 \cdot I_\text{m, THA})    & > N                               \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.221}{\ampere}) & > N                               \\
+	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, THA}) }   & > N                               \\
+	\nicefrac{\SI{2}{\ampere}}{(2 \cdot \SI{0.221}{\ampere})}& > N                               \\
 	4.52                                           & > N \quad \rightarrow N = 4
 \end{align*}
 This means, 4 \glspl{ldo} are needed to cover 16 \glspl{tha}.
@@ -702,7 +703,7 @@ The number of delay chips $N$ with a maximal current draw $I_\text{m, Delay}$, w
 \begin{align*}
 	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
 	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.170}{\ampere})            & > N                                 \\
+	\SI{2}{\ampere} / (2 \cdot \SI{0.170}{\ampere})            & > N                                 \\
 	5.88                                                      & > N \quad \rightarrow N = 5
 \end{align*}
 Therefore, two regulators are needed to cover the 8 delay chips.
@@ -797,7 +798,7 @@ Characteristics of this material are:
 \item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
 \item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
 \item Low transmission loss
-\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
+\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} 
 \end{itemize}
 
 Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed in order to integrate the analog and digital signal lines, as well as the necessary power planes.
@@ -843,7 +844,7 @@ A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide i
 \end{figure}
 
 As there are a lot of parameters which can be tuned, as a starting point the geometrical parameters of the \gls{kapture} \gls{pcb} design are applied. 
-These were carefully designed for optimal transmission line geometry.
+These have been carefully designed for optimal transmission line geometry.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate selected for the new design. 
 Therefore, the impedance has to be recalculated. 
 For the results, a deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.
