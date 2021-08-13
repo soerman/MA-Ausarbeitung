@@ -138,7 +138,7 @@ It is therefore used in precision instrumentation and other laboratory applicati
 The design has been introduced as an open standard under the \gls{ieee} 287 Precision Connector Standards Committee. \cite{v_conn}
 
 \autoref{fig:v_conn} shows a V connector in male and female type.
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.4\textwidth}
 		\centering
@@ -234,7 +234,7 @@ The schematics of the \gls{tha} is shown in \autoref{fig:hmc5640}.
 
 At the power pins, \gls{rf} filters containing decoupling capacitors and ferrite beads are placed. The \gls{tha} is a crucial component, as it samples the sensor signal, therefore any possible noise should be reduced to a minimum by proper filtering.
 
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/hmc5640}
 	\caption[HMC5640 THA schematic]{HMC5640 \gls{tha} schematic}
@@ -379,6 +379,14 @@ Furthermore, resistors are place at the pins to reduce possible voltage overshoo
 The output of the delay chip is using a \gls{lvpecl} signaling interface, which is based on an open-emitter topology (see \autoref{fig:lvpecl}).
 This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} resistors (recommended in the data sheet).
 
+\begin{figure}[tb]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/lvpecl}
+	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
+	\label{fig:lvpecl}
+\end{figure}
+%TODO to tikz
+
 As the output will be connected to the \gls{tha}, it is necessary to check the compatibility of the maximum amplitude and common-mode of the pins.
 
 According to the data sheet \cite{NB6L295}, the voltage level of the output can vary between  $V_\text{cc} - \SI{1825}{\milli\volt}$ and $V_\text{cc} - \SI{825}{\milli\volt}$ (see \autoref{tab:nb6l295}).
@@ -403,13 +411,6 @@ According to this, the common mode voltage $V_{\text{CM}}$ of the delay chip out
 \end{equation}
 This is higher than the maximal input common mode voltage of the \gls{tha}.
 \gls{ac} coupling is therefore necessary in this case, i.e. connecting the pins via capacitors.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-theresa/img/lvpecl}
-	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
-	\label{fig:lvpecl}
-\end{figure}
 
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
@@ -446,7 +447,7 @@ The reference clock signal is provided by outputs from different output groups o
 
 One output of the \gls{pll} is propagated to the \gls{fmc}+ connector as reference clock for the \gls{fpga}.
 
-\newpage
+
 \subsubsection*{PLLs}
 A \gls{pll} is a control loop, used to synchronize an output oscillator signal with a reference signal.
 The principle lies in comparing the phases between the two inputs. 
@@ -454,6 +455,13 @@ When there is a varying phase difference, it means that the signals are at diffe
 As soon as the phase difference stays constant, it means that both of the frequencies are the same or one is a multiple of the other. 
 In this state the \gls{pll} is called to be ``locked''.
 The general architecture of a \gls{pll} is shown in \autoref{fig:pll_block}.
+
+\begin{figure}[tb]
+	\centering
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pllBlock.tikz}
+	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
+	\label{fig:pll_block}
+\end{figure}
 
 For proper noise performance, a properly designed loop filter for both \glspl{pll} is needed. 
 The output of the loop filter is the voltage for controlling the \gls{vco}.
@@ -464,12 +472,7 @@ The phase detector produces current correction pulses (with magnitude $K_\text{P
 These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
 The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, \ldots) and therefore has to be designed carefully.
 
-\begin{figure}[tb]
-	\centering
-	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/pllBlock.tikz}
-	\caption[PLL block diagram]{General block diagram of a \gls{pll} \cite{pll_design}}
-	\label{fig:pll_block}
-\end{figure}
+\clearpage
 
 To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
 This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
@@ -478,6 +481,9 @@ In order to implement a lower order filter, some components need to be left out.
 To implement an active filter an additional operational amplifier is necessary.
 The input of the filter is connected to the output of the charge pump from which it receives the current pulses.
 The output of the filter is the voltage $V_\text{tune}$ which is the input to the \gls{vco}.
+
+
+
 
 \begin{figure}[tb]
 	\centering
@@ -492,19 +498,6 @@ The LMK04808B has two \glspl{pll} inside (PLL1 and PLL2).
 For both the loop filter has to be calculated separately. 
 Both filters are implemented as second order filters, the calculated parameters are listed in \autoref{tab:lmk04808B_filter}.
 Note that PLL2 has already a partially integrated loop filter.
-
-The loop filter for the LMX2594 is designed in the same way as described above with the \textit{PLLatinum Sim} tool. 
-The calculated values for the components to be implemented are shown in \autoref{tab:lmx2594_filter}.
-The filter is implemented as a third order passive filter.
-The schematic and layout of the filter have been implemented in a way to enable alteration of the filter, i.e. changing the filter order or component values.
-The schematic and layout have been implemented in order to enable flexible change.
-This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
-The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
-
-Both \glspl{pll} are supplied by the digital \SI{3.3}{\volt} coming from the \gls{fmc}+ connector.
-For the output buffer supply (\texttt{VCC\_RFBUF}) of the LMX2594, an additional \gls{emi} filter is used to provide effective filtering of the voltage level.
-The output pins are pulled-up and filtered via ferrite bead to \texttt{VCC\_RFBUF} as recommended in the data sheet.
-For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 
 \begin{table}[tb]
 	\caption[LMK04808B loop filter characteristics]{Loop filter characteristics of the LMK04808B}
@@ -539,6 +532,15 @@ For the schematic of the LMX2594 see \autoref{fig:lmx2594}.
 		$R_{2}$                                                                   & \SI{3.3}{\kilo\ohm}      \\ \bottomrule
 	\end{tabularx}
 \end{table}
+
+The loop filter for the LMX2594 is designed in the same way as described above with the \textit{PLLatinum Sim} tool. 
+The calculated values for the components to be implemented are shown in \autoref{tab:lmx2594_filter}.
+The filter is implemented as a third order passive filter.
+The schematic and layout of the filter have been implemented in a way to enable alteration of the filter, i.e. changing the filter order or component values.
+The schematic and layout have been implemented in order to enable flexible change.
+This gives the possibility to experimentally find the correct order and components for best performance by real measurements with the board.
+The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
+
 
 
 \begin{table}[tb]
@@ -693,7 +695,7 @@ In order to achieve the required \SI{2}{\volt}, the values of the resistors are 
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{chap/04-theresa/img/schematic/adp1741_d}
+	\includegraphics[width = \textwidth]{chap/04-theresa/img/schematic/adp1741_d}
 	\caption{Recommended schematic of the ADP1741 voltage regulator \cite{adp1741}}
 	\label{fig:adp1741}
 \end{figure}
@@ -779,7 +781,6 @@ A \textit{trace} is a strip of metal, which establishes an electrical connection
 If this area only covers a part of the layer, it is called a \textit{planelet}.
 These areas provide power distribution or ground across the \gls{pcb} and present an important transmission medium for the return currents\footnote{Any current that is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
 
-\newpage
 \paragraph{Vias}
 A via is metal-plated hole, which is used to route a trace in vertical direction, i.e. from the \gls{pcb} outer layer to the inner layers.
 They carry signals and power. Three types of vias are \cite{vias}:
@@ -871,7 +872,7 @@ The single trace of thickness $t$ and width $a$ lies between two ground planes o
 Another ground plane is located at the bottom of the dielectric.
 Separation between trace and ground plane is defined as $(b-a)/2 := d$. 
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/TL/cw.tikz}
 	\caption{Coplanar Waveguide with ground plane}
@@ -969,45 +970,40 @@ The lower trace width is chosen as changing parameter in order to improve the ch
 In \autoref{fig:surf_diff_w1} a the characteristic impedance $Z_\text{diff}$ is plotted against the trace width\footnote{Assuming lower and upper trace width are equal.}. 
 The impedance $Z_\text{diff}$ lies around \SI{100}{\ohm} for a trace width $w \approx$\SI{155}{\micro \meter}.
 
-
-
-Setting the width to \SI{155}{\micro \meter} indeed gives an impedance of $Z_\text{diff} = \SI{99.37}{\ohm}$.
-The influence of the changing dielectric constant $\varepsilon_r$ is studied in this case as well (see \autoref{fig:surf_diff_dk}). 
-At the maximal value of $\varepsilon_r = 3.71$, the impedance lies around \SI{98.4}{\ohm} corresponding to a change of \SI{0.88}{\percent} compared to the value at $\varepsilon_r = 3.61$. 
-
-
-
-Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autoref{fig:surf_diff_w2}.
-
-
-
-\autoref{fig:surf_diff_loss} shows the calculated attenuation (combination of conductor and dielectric loss) of the coplanar waveguide with the given geometries over a frequency range \SIrange{0.1}{10}{\GHz}.
-This range is interesting as the signals propagated on these lines (e.g. clock signals) do not extend \SI{10}{\GHz}.
-This attenuation was calculated for the trace length of \SI{50}{\mm}, an estimation of the maximal length of such lines.
-As can be derived from the plot, the attenuation lies under \SI{2}{\decibel}, which is an acceptable result for the design.
-
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w1}
 	\caption[DCWG, $Z_\text{diff}$ vs. $w$]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguide vs. lower trace width $w$, assuming $\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w1}
 \end{figure}
 
-\begin{figure}[H]
+Setting the width to \SI{155}{\micro \meter} indeed gives an impedance of $Z_\text{diff} = \SI{99.37}{\ohm}$.
+The influence of the changing dielectric constant $\varepsilon_r$ is studied in this case as well (see \autoref{fig:surf_diff_dk}). 
+At the maximal value of $\varepsilon_r = 3.71$, the impedance lies around \SI{98.4}{\ohm} corresponding to a change of \SI{0.88}{\percent} compared to the value at $\varepsilon_r = 3.61$. 
+
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_dk}
 	\caption[DCWG, $Z_\text{diff}$ vs. $\varepsilon_r$]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguide vs. dielectric constant $\varepsilon_r$}
 	\label{fig:surf_diff_dk}
 \end{figure}
 
-\begin{figure}[H]
+
+Furthermore, assuming $\varepsilon_r = 3.61$ and a lower trace width $w = \SI{155}{\micro \meter}$, the impedance over a varying upper trace width is plotted in \autoref{fig:surf_diff_w2}.
+
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/surf_diff_w2}
 	\caption[DCWG, $Z_\text{diff}$ vs. upper trace width]{$Z_\text{diff}$ of an edge-coupled differential coplanar waveguide vs. upper trace width, assuming lower trace width $w = \SI{155}{\micro \meter}$ and$\varepsilon_r = 3.61$}
 	\label{fig:surf_diff_w2}
 \end{figure}
 
-\begin{figure}[H]
+\autoref{fig:surf_diff_loss} shows the calculated attenuation (combination of conductor and dielectric loss) of the coplanar waveguide with the given geometries over a frequency range \SIrange{0.1}{10}{\GHz}.
+This range is interesting as the signals propagated on these lines (e.g. clock signals) do not extend \SI{10}{\GHz}.
+This attenuation was calculated for the trace length of \SI{50}{\mm}, an estimation of the maximal length of such lines.
+As can be derived from the plot, the attenuation lies under \SI{2}{\decibel}, which is an acceptable result for the design.
+
+\begin{figure}[bhbh]
 	\centering
 	\includegraphics[width=\textwidth, height = 0.4\textwidth]{chap/04-theresa/img/TL/surf_diff/loss}
 	\caption[Attenuation DCWG for \SI{200}{\mm}]{Attenuation per trace length of the surface differential coplanar waveguide over frequency simulated for trace length of \SI{50}{\mm}}
@@ -1163,7 +1159,6 @@ The small connector on the top propagates the clock signal, coming from the high
 		\caption{Top side}
 		\label{fig:pcb_front}
 	\end{subfigure}
-	\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chap/04-theresa/img/pcb/back}  
