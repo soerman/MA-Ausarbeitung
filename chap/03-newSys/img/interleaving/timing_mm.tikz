@@ -1,8 +1,8 @@
-﻿%needs \usepackage{amssymb}
+%needs \usepackage{amssymb}
 \begin{tikzpicture}
 \draw (0,0) node[anchor=east] {$V_\text{in}$}to[short,o-*] (0.5,0);
-\draw (0.5,0) |- (2,1) node[draw,circle,minimum size=1.5cm,fill=white] {$\varnothing 1$} -- (4,1) node[adcshape,fill=white] {} -- (5,1);
-\draw (0.5,0) |- (2,-1) node[draw,circle,minimum size=1.5cm,fill=white] {$\varnothing 2$} -- (4,-1) node[adcshape,fill=white] {} -- (5,-1);
+\draw (0.5,0) |- (2,1) node[draw,circle,minimum size=1cm,fill=white] {$\varnothing 1$} -- (4,1) node[adcshape,fill=white] {} -- (5,1);
+\draw (0.5,0) |- (2,-1) node[draw,circle,minimum size=1cm,fill=white] {$\varnothing 2$} -- (4,-1) node[adcshape,fill=white] {} -- (5,-1);
 
 \begin{scope}[shift={(6,-1.5)}]
 \draw[Latex-Latex] (0,3) node[anchor=west] {$V$}-- (0,0) -- (3,0) node[anchor=south] {$t$};

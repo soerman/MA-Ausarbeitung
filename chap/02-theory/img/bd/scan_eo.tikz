@@ -11,7 +11,7 @@
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (1.55,-1.3) {WP};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (2,-0.25) {$I_1$};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (2,-0.95) {$I_2$};
-	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (3.17,-0.6) {BD \\ $I_1 - I_2$};
+	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (3.18,-0.6) {BD \\ $I_1 - I_2$};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (5.1,-1.2) {Delay};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (4,0) {Signal};
 \end{tikzpicture}
