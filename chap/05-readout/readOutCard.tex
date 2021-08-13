@@ -96,7 +96,7 @@ This data is written in the \gls{ddr}, from which it is accessible by the data i
 A built-in test-loop is implemented with an integrated \gls{dac}, in order to produce test signals which are propagated to the sampling board.
 Configuration of the data converters is done via the Xilinx ``RF Data Converter'' which is described below. 
 
-Components on the sampling board, such as the delay chips, are controlled via \gls{spi} interface. 
+Components on the sampling board, such as the delay chips, are controlled via a \gls{spi} interface. 
 This interface is connected to a user bank register, where the user can specify e.g. the desired delay values.
 
 The \gls{ps} communicates with the \gls{pl} via \gls{axi}.
@@ -173,12 +173,11 @@ subsystem.
 In order for the user to be able to control the whole system, some kind of application has to be implemented for control of the hardware design.
 For this the \gls{ps} side of the \gls{rfsoc} is used. 
 The ARM Cortex processor allows to implement standalone C application, as well es hosting an operating system like Linux. 
-Providing a number of peripheral connections, like Ethernet or \gls{usb}, the \gls{ps} can easily be accessed by the user from another host computer, given the necessary drivers and protocols are implemented. %todo RJ-45 is a bit dangerous (the real name is 8P8C or 8P4C). better say ethernet
+Providing a number of peripheral connections, like Ethernet or \gls{usb}, the \gls{ps} can easily be accessed by the user from another host computer, given the necessary drivers and protocols are implemented. 
 The aforementioned evaluation tool for example uses the Linux application \textit{rftool} in order to receive commands and perform the according action.
 
-
-For interaction and monitoring of the data converters the RFdc driver \gls{api} needs to be used.
-It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction woth the RF Data Converter \gls{ip}
+For interaction and monitoring of the data converters, the RFdc driver \gls{api} needs to be used.
+It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction with the RF Data Converter \gls{ip}
 
 In order to implement and build software applications, the novel \textit{Xilinx Vitis} unified software platform is used.
 It enables the development of embedded software and accelerated applications on heterogeneous \textit{Xilinx} platforms including \glspl{fpga} and \glspl{soc}.

@@ -1,5 +1,5 @@
 This section is dedicated to describing the general concept of the new readout-system. 
-The system was given the name \gls{theresa} and in the sections to follow  this name will be used to denote the new system.
+The system was given the name \gls{theresa} and in the sections to follow, this name will be used to denote the new system.
 
 First, a short overview of state of the art systems is given, including commercially available real-time oscilloscopes and \gls{kapture}.
 This system was developed at the \gls{ipe} at \gls{kit} specifically addressing the needs of \gls{thz} diagnostics at \gls{kara}.
@@ -25,14 +25,12 @@ As can be derived from the table, the acquisition time of such oscilloscopes is 
 	\caption[Real Time Oscilloscopes Examples]{Some example real-time oscilloscopes with (max.) key characteristics}
 	\label{tab:real_time_osc}
 	\centering
-	\begin{tabularx}{\textwidth}{Xcccc} %todo to num und s-column %todo größerem zeiekabstand
-		\toprule
-		\textbf{Model}            & \textbf{Bandwidth} &         \textbf{Sample Rate}         &  \textbf{Memory Depth}  & \textbf{Acquisition time} \\ 
-		\midrule
+	\begin{tabularx}{\textwidth}{Xcccc}
+		%todo to num und s-column %todo größerem zeiekabstand\toprule
+		\textbf{Model}            & \textbf{Bandwidth} &         \textbf{Sample Rate}         &  \textbf{Memory Depth}  & \textbf{Acquisition time} \\ \midrule
 		Keysight MXR608A          &    \SI{6}{\GHz}    & \SI{16}{\giga \sample \per \second}  & \SI{1.6}{\giga \sample} &  \SI{10}{\milli \second}  \\
-		Tektronix DPO70000SX      &   \SI{70}{\GHz}    & \SI{200}{\giga \sample \per \second} &  \SI{1}{\giga \sample}  &  \SI{5}{\milli \second}  \\ 
-		LeCroy LabMaster 10-100Zi &   \SI{65}{\GHz}    & \SI{160}{\giga \sample \per \second} & \SI{512}{\mega \sample} & \SI{3.2}{\milli \second}  \\ 
-		\bottomrule
+		Tektronix DPO70000SX      &   \SI{70}{\GHz}    & \SI{200}{\giga \sample \per \second} &  \SI{1}{\giga \sample}  &  \SI{5}{\milli \second}   \\
+		LeCroy LabMaster 10-100Zi &   \SI{65}{\GHz}    & \SI{160}{\giga \sample \per \second} & \SI{512}{\mega \sample} & \SI{3.2}{\milli \second}  \\ \bottomrule
 	\end{tabularx}
 \end{table}
 \endgroup
@@ -98,7 +96,7 @@ This ensures the synchronization of the \glspl{adc} with the \gls{rf} system.
 The cleaned clock signal is distributed to the delay chips via fan-out buffer \cite{caselleKAP}.
 In this way, the pulse can be ``locally sampled'' by adjusting the different delay with a maximum rate of \SI{330}{\giga\sample\per\second} possible. 
 A simplified representation of the local sampling of the signal is shown in \autoref{fig:sig_kap1_kap2}.
-The plot shows on the left the sampling of the signal for \gls{kapture} v1 and on the right for \gls{kapture} v2 (described below).
+The plot shows on the left the sampling of the signal for \gls{kapture} and on the right for \gls{kapture2} (described below).
 The sampling points $S_n$ are acquired by setting the respective delay $\Delta t_n$ of the sampling times. 
 \begin{figure}[tb]
 	\centering
@@ -148,24 +146,24 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\begin{subfigure}{0.48\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{chap/03-newSys/img/kapture/kap1.tikz}  
-		\caption{Sampling concept in KAPTURE-1}
+		\caption{Sampling concept in KAPTURE v1}
 		\label{fig:kap1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\textwidth}
 		\centering
 		\includegraphics[height=0.8\textwidth]{chap/03-newSys/img/kapture/kap2.tikz}  
-		\caption{Sampling concept in KAPTURE-2}
+		\caption{Sampling concept in KAPTURE v2}
 		\label{fig:kap2}
 	\end{subfigure}
-	\caption[Comparison between KAPTURE-1 and KAPTURE-2]{Comparison between the sampling concepts of KAPTURE-1 and KAPTURE-2}
+	\caption[Comparison between KAPTURE v1 and KAPTURE v2]{Comparison between the sampling concepts of KAPTURE v1 and KAPTURE v2}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
-\autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture}-2.
+\autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture2}.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
-	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture}-2 setup}
+	\caption[Photo of KAPTURE v2 system]{Photo of the \gls{kapture2} setup}
 	\label{fig:kapturesys}
 \end{figure}
 
@@ -197,15 +195,17 @@ The main clock is provided by a main \gls{pll}, which cleans the reference clock
 \end{figure}
 
 \subsubsection{Time Interleaving}\label{sssec:time-interleaving}
-In order to increase the sampling rate, the so called time-interleaving technique is used. In this section, first basic theory about this technique is given. Then, the implementation in the new system is described.
+In order to increase the sampling rate, the so called time-interleaving technique is used.
+In this section, first the fundamental theory about this technique is given.
+Then, the implementation in the new system is described.
 
 \paragraph{Theory}
 In the \textit{Time Interleaving} technique multiple \glspl{adc} are used in such way, that allows to sample data at a faster rate than the respective sample rate of each individual \gls{adc}. 
 The principle is based on time-multiplexing an array of $M$ identical \glspl{adc} (see \autoref{fig:adcInter}), each operating at a sampling rate of $f_c = \nicefrac{f_s}{M}$ individually. 
 The sampling times of the \glspl{adc} are shifted in phase as shown in \autoref{fig:adcInterTime} with the example of 4 time-interleaved \glspl{adc}.  
 At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$, after a defined time delay $\Delta t_i$ the second \gls{adc} samples and converts $V_i(t_0 + t_i)$, the third converts $V_i(t_0 + 2t_i)$ and so on. 
-After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc} \cite{mangrob}.
-An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTime}.
+After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc}. \cite{mangrob}
+An example for such a cycle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTime}.
 
 \begin{figure}[tb]
 	\centering
@@ -279,7 +279,7 @@ Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\ni
 \end{figure}
 %todo zweimal timing mismatch
 
-Due to the presented mismatchtes, a proper characterization of the \glspl{adc}.
+Due to the presented mismatches, a proper characterization of the \glspl{adc}. %todo hier fehlt was
 The characterization is required in order to account for all systematical errors in the \glspl{adc} and to reduce the spurious components in the spectrum.
 For this purpose, a circuit on the \gls{theresa} sampling board is foreseen, in order to provide the possibility to generate test signals from the readout card.
 
@@ -296,7 +296,8 @@ This means, a delay step can not be greater than $\nicefrac{\SI{400}{\pico\secon
 With this method, the maximal achievable sampling rate of the card is $16 \cdot \SI{2.5}{\giga\sample\per\second}  = \SI{40}{\giga\sample\per\second}$. 
 
 On the selected readout card, sampling clock signals are not propagated individually to the respective \glspl{adc}.
-The converters are grouped grouped together into tiles, each tile containing four converters. One single reference clock signal is propagated to all tiles. 
+The converters are grouped grouped together into tiles, each tile containing four converters.
+One single reference clock signal is propagated to all tiles. 
 To implement the optimal time-interleaving method with this card, four individual sampling clocks to all tiles shifted by \ang{90} would be necessary.
 Analyzing the schematic of the readout board revealed however, that only two individual sampling clocks can be provided to the card.
 
@@ -310,7 +311,7 @@ The maximal delay step size to cover the whole period of the clock is calculated
 \end{equation}
 
 In some way, this implementation can therefore also be regarded as time-interleaving, as each \gls{tha} holds a different sample point in time, which can then be converted by the \glspl{adc}.
-The two sampling clocks, indicated with ``ADC1'' and ``ADC2'', need the to be phase-shifted by \ang{180}.
+The two sampling clocks, indicated with ``ADC1'' and ``ADC2'', need the to be phase-shifted by \ang{180}. %todo ADC_1 statt ADC1?
 In this way, an alternate clocking of the \glspl{adc} is made possible\footnote{As can be derived from the diagram, only the four respective \gls{adc} channels should be considered for signal conversion during one sampling point.}.
 
 \begin{sidewaysfigure}[tbh]
@@ -337,7 +338,7 @@ Integrating the converters inside the \gls{soc} therefore resolves these challen
 
 The currently only commercially available system, meeting the mentioned requirements, is the Xilinx ZU49DR Zynq Ultrascale+ \gls{rfsoc}.
 This \gls{soc} integrates 16 high-speed data converters (\glspl{adc} and \glspl{dac}), ARM processor cores and programmable logic (the \gls{fpga}).
-An evaluation card, containing all necessary peripherals (optical interfaces, USB-interface, \dots) and integrating the \gls{rfsoc}, was chosen for the implementation of the \gls{theresa} system.
+An evaluation card, containing all necessary peripherals (optical interfaces, \gls{usb}, \dots) and integrating the \gls{rfsoc}, was chosen for the implementation of the \gls{theresa} system.
 The card is described in detail in \autoref{chap:readout}.
 
 
