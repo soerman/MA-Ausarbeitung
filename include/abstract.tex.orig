@@ -1,7 +1,13 @@
 \chapter*{Abstract}
+<<<<<<< HEAD
+In many physical experiments and applications, e.g. beam diagnostics, measuring events occurring in the time range of femtoseconds over a long period of time is necessary. 
+This imposes a great technological challenge on \glspl{daq} concerning sampling rate and memory space.
+In order to relax the requirements on these systems, the photonic time-stretch technique can be used to stretch the analog input signal in time.
+=======
 In many physical experiments and applications, e.g. beam diagnostics, measuring events occurring in the time range of femtoseconds over long periods of time is necessary. 
 This imposes great technological challenges on \glspl{daq} and the \glspl{adc} in them concerning sampling rate and memory space.
 In order to relax the requirements on the acquisition systems, the photonic time-stretch technique can be used to stretch the analog input signal in time.
+>>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
 This way, the \glspl{adc} can be operated at a lower sample rate than the several \si{\THz} that would be required without it. 
 Measuring the signal with commercial \glspl{daq}, e.g. with digital storage oscilloscopes, there still is another challenge.
 Due to the limited memory of such systems, continuous measurements at high sampling rates over a long period of time is not possible.

@@ -47,7 +47,7 @@ It prevents unnecessary exposure of the matter outside the area of interest and 
 Well defined duration of the pulses allows to observe chemical reactions on short time scales.
 Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
 
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/bd/spectrum.tikz}
 	\caption{Electromagnetic spectrum} %todo of what?
@@ -92,6 +92,7 @@ Higher brilliance allows to see more detail in the material under study.
 The higher brilliance is achieved by shortening the electron bunches. 
 As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to \si{\tera \hertz}.
 Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
+<<<<<<< HEAD
 These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
 These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
 This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
@@ -100,6 +101,9 @@ Such applications however require a stable power of the radiation.
 Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
 A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
 In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
+=======
+
+>>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
 \begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.4\textwidth}
@@ -125,15 +129,24 @@ In order to make such investigations possible, appropriate beam diagnostic syste
 	\caption[Incoherent and coherent SR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
 	\label{fig:csr}
 \end{figure}
-
-
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/bd/electronInteraction.tikz}
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
 	\label{fig:electronInteract}
 \end{figure}
+<<<<<<< HEAD
+=======
 
+These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
+These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
+This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
+On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
+Such applications however require a stable power of the radiation. 
+Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
+A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
+In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
+>>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
 
 \subsection*{Control of Micro-Bunching Instabilities}
 The \gls{ultrasync} project, funded by ANR-DFG\footnote{\gls{anr}, \gls{dfg}}, has an objective of ultrafast study and control of electron bunches in synchrotron light sources.
@@ -158,6 +171,7 @@ would help in solving the problem and allow the control to succeed also at highe
 \subsection{Electro-Optic Techniques for Longitudinal Bunch Profile Diagnostics}
 Methods for analyzing the longitudinal profile of electron bunches are based on a similar, if not the same, \gls{eo} concept as the time-stretch method. 
 Two most prominent methods are briefly described for the sake of completeness.
+
 \subsubsection*{Scanning-Type Electro-Optic Sampling}
 The scanning-type\gls{eos} samples one point at the time of the \gls{thz} pulse, emitted e.g. from an electron bunch, at each acquisition, hence the naming of this method.
 
@@ -359,6 +373,7 @@ Which of them are needed to specify the necessary performance of the \gls{adc} h
 \subsubsection{Quantization Noise}\label{par:quant_noise}
 Even an ideal $N$-bit converter has errors resulting from the quantization process which behave like noise. %todo maybe can be modelled as noise, or shows as noise instead of behave
 The reason is that each $N$-bit word represents a certain range of analog input values, which is 1 \gls{lsb} wide and centered around a code center (see \autoref{fig:idealADC}). \cite{Lundberg}
+
 The input voltage is assigned to the word of the nearest code center.
 This means that there will always be a difference between the corresponding voltage of the respective digital code $x_q(t)$ and the actual analog input voltage $x(t)$.
 This difference is called the \textit{quantization error}. For an equidistant quantization, the quantization error for a code width $q$ is (see \cite{puente2015})
@@ -412,8 +427,6 @@ In decibel, the \gls{snr} is calculated as (see \cite{puente2015, walt}):
 \end{equation}
 
 
-
-
 \subsubsection{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
@@ -438,7 +451,7 @@ It can be calculated as
 \paragraph{Offset and Gain Error}
 The \textit{offset error} is defined as the deviation of the actual \gls{adc} transfer function from the ideal \gls{adc} transfer function in the point of zero. It is measured in \gls{lsb}. 
 
-\textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. %todo state eq for 'transfer function' otherwise 'line', 'zero' and 'full-scale point' undefined here
+\textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function.
 \autoref{fig:offsetErr} visualizes the effects of both offset and gain error. 
 \begin{figure}[tb]
 	\centering
@@ -461,11 +474,8 @@ In order to obtain the offset error $b$, the linear equation
 \end{equation}
 is solved.
 
-
-%todo where is this full-scale point here in the fig?
-
 \paragraph{Integral and Differential Non-Linearity Distortion} 
-\gls{inl} is the distance of the code centers on the actual \gls{adc} transfer function from the ideal line (dashed line in \autoref{fig:nld}). %todo which transfer function?
+\gls{inl} is the distance of the code centers on the actual \gls{adc} transfer function from the ideal line (dashed line in \autoref{fig:nld}). 
 It results from the integral non-linearities of the front-end, \gls{sha} and also the \gls{adc} itself \cite{walt, Lundberg}. 
 
 \gls{dnl} is the deviation in actual code width from the ideal width of 1 \gls{lsb}. This non-linearity stems exclusively from the encoding process in the \gls{adc}. \cite{Lundberg,walt}
@@ -564,6 +574,7 @@ The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc})%todo wh
 	\caption[SFDR definition]{Visualization of the \gls{sfdr}. It can be indicated either with reference to the carrier frequency in ``dBc'' or with reference to the Full-Scale Input in ``dBFS''. \cite{walt2009}}
 	\label{fig:sfdr}
 \end{figure}
+
 \paragraph{Total Harmonic Distortion}
 \textit{Total Harmonic Distortion} describes the ratio of the \gls{rms} sum of the first five harmonic components (or aliased versions of them) to the \gls{rms} of the considered fundamental signal. \cite{Lundberg}
 
@@ -576,11 +587,12 @@ It is not to be confused with the maximal analog input frequency which the \gls{
 
 \paragraph{Full-Linear Bandwidth}
 The \textit{Full-Linear Bandwidth} is defined as the frequency at which the slew-rate of the \gls{sha} starts to distort the input signal by a specified value. \cite{Lundberg} 
-The slew-rate (SR) is defined as the rate of how much the voltage $v$ changes over time $t$:
+The \gls{sr} is defined as the rate of how much the voltage $v$ changes over time $t$:
 \begin{equation}
 	\text{SR} = \frac{\text{d}v}{\text{d}t}
 \end{equation}
-A slew-rate of \SI{1}{\volt \per \micro \second} for example means, that the output of the amplifier can not change more than \SI{1}{\volt} over the course of \SI{1}{\micro \second}.\cite{2021Slew} 
+
+A slew-rate of \SI{1}{\volt \per \micro \second} for example means, that the output of the amplifier can not change more than \SI{1}{\volt} over the course of \SI{1}{\micro \second}. \cite{2021Slew} 
 
 \subsubsection{Time-Domain Dynamic Parameters}\label{ssec:time_param}
 Time-Domain Dynamic parameters describe the deviation of the converter's behavior from the ideal one in time domain. 
@@ -682,7 +694,12 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_signal}
 		\label{fig:alias_signal}
 	\end{subfigure}
 
+<<<<<<< HEAD
 	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (\autoref{fig:sampling}) and not respecting (\autoref{fig:alias_f}) the Nyquist criteria. \autoref{fig:alias_signal} shows the effect of aliasing in time domain. \cite{walt}}
+=======
+	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria (see \autoref{fig:alias_f}). \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
+	%todo passt die caption noch? vll captions an die subfigs?
+>>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
 	\label{fig:alias}
 \end{figure}
 

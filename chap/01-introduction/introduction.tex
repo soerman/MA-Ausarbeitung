@@ -1,10 +1,10 @@
-In many scientific applications and experiments the observation of non-repetitive, statistically rare events with very fast occurrences is desired.
-As these events might occur on a time range of femtoseconds, real-time measurement systems with fine temporal resolution and capable of long acquisition times are necessary.
+In many scientific applications and experiments, the observation of non-repetitive, statistically rare events with very high occurrence rates is desired.
+As these events might occur on a time scale of femtoseconds, real-time measurement systems with fine temporal resolution are needed that are also capable of long acquisition times.
 This imposes high technological challenges on \glspl{daq} and \glspl{adc}.
 
-One bottleneck in the acquisition of ultra-fast events is the limited performance of commercially available \glspl{adc}. 
+One bottleneck in the acquisition of ultra-fast events is the limited timing performance of commercially available \glspl{adc}. 
 The limitation posed by the converters is a trade-off between the dynamic range (\gls{enob}) and sampling rate of the converters.
-As the sampling rate increases, ambiguity of the comparators (output neither '0' nor '1') in the \gls{adc} and sampling errors due to clock jitter become major limiting factors on the overall performance. \cite{Mahjoubfar2017}
+With an increase in the the sampling rate, ambiguity of the comparators (output neither '0' nor '1') in the \gls{adc} and sampling errors due to clock jitter become major limiting factors on the overall performance. \cite{Mahjoubfar2017}
 
 A first demonstration of a concept to overcome these limitations was presented in 1999 by \cite{ts_adc}. 
 The idea is to stretch the analog signal in time before digitizing it in the converter and hence relax the demands on the data converter performance. 
@@ -22,28 +22,28 @@ This is a source of intense pulses of terahertz radiation (\gls{csr}) and theref
 A first demonstration of direct observation of these instabilities was performed at the synchrotron facility \gls{soleil} using a time-stretched signal together with a real-time oscilloscope. \cite{Roussel2015}
 
 The use of the time-stretch method in different applications has demonstrated the advantages to measure events with femtosecond resolution.
-However, commercially available real-time diagnostics systems are limited in memory space (currently maximal memory depth lies in the range of few Gigasamples). 
+However, commercially available real-time diagnostics systems are limited in memory space (currently maximal memory depth lies in the range of few giga samples). 
 This limits the acquisition time of such systems at maximum sampling rate, which lies in the range of a few milliseconds at best.
-It is therefore not possible to measure data continuously over a large period of time. 
+It is therefore not possible to measure data continuously over a long period of time. 
 This creates a problem in applications where a longer observation time (up to hours) is required, e.g. in accelerator applications where the turn-by-turn analysis\footnote{Turn-by-turn denotes the analysis of a specific bunch for every turn, bunch-by-bunch denotes the analysis between individual bunches} of the electron bunches is desired in order to study the evolution of the bunch profiles. 
 
 This challenge was the motivation to design novel ultra-fast acquisition systems based on the photonic time-stretch \gls{adc}. 
-Together with the next generation of \gls{fpga}-based systems with integrated high-performance \glspl{adc} this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
-The photonic time-stretch \gls{daq} consists of a photonic part, which consists of the time-stretching section and the conversion of photons into electrical signal with a photo-detector. 
-Furthermore, such a system has one or multiple \glspl{adc} converting the analog values into digital signals.
-The digital signals are then processed in a computing unit and broadcast to other units as needed if the system is integrated e.g. into a cluster of distributed instrumentation systems. 
+Together with the next generation of \gls{fpga}-based systems with integrate high-performance \glspl{adc}, this gives rise to a new concept of \gls{daq}, the photonic time-stretch \gls{daq}.
+The photonic time-stretch \gls{daq} consists of a photonic part, containing the time-stretching section and the conversion of photons into electrical signal with a photo-detector. 
+Furthermore, such a system has one or multiple \glspl{adc} converting the analog signals into digital samples.
+The digital samples are then processed in a computing unit and broadcast to other units as needed if the system is integrated e.g. into a cluster of distributed instrumentation systems. 
  
 
 \section{Objective}
 In this thesis, a first demonstrator of a \gls{daq}-system based on the time-stretch concept is developed.
-This system, called \gls{theresa} system, enables high-speed measurements of ultrafast events with a time resolution in the range of femtoseconds.
+This system, called \gls{theresa}, enables high-speed measurements of ultrafast events with a time resolution in the range of femtoseconds.
 
 In order to achieve such high resolution, the time-stretch technique will be used in order to stretch the input signal in the range of pico- to nano-seconds.
-The input signal will be continuously sampled by high-speed \glspl{adc} with a temporal resolution defined by the user as needed.
+The input signal is continuously sampled by high-speed \glspl{adc} with a temporal resolution defined by the user as needed.
 To sample the signal, the \glspl{adc} need to have a sampling rate in the order of several \si{\GHz}.
-The amplitudes of the signals to be measured are very small and an appropriate resolution of the \glspl{adc} has to be chosen in order to guarantee an \gls{enob} of at least 10 bits. \cite{bielwaski}
+The amplitudes of the signals to be measured are very small and an \glspl{adc} with an appropriate resolution has to be chosen in order to guarantee an \gls{enob} of at least \SI{10}{\bits}. \cite{bielwaski}
 
-This leads to the next challenge: Sampling at several \si{\GHz} with high resolution, implies a large amount of data, leading to a data rate in the range of Terabits per second.
+This leads to the next challenge: Sampling at several \si{\GHz} with high resolution, implies a large amount of data, leading to a data rate in the range of terabits per second.
 In order to enable such a high data-throughput, the system will be based on a new generation of \gls{soc}, integrating a \gls{fpga} and a processing unit together with the high-speed \glspl{adc}. 
 The \gls{soc} will have high-speed peripherals in order to guarantee the continuous high-speed data-throughput. 
 Combination with the \gls{fpga} should allow for flexible system tuning for a user-defined application.
@@ -56,10 +56,9 @@ Furthermore, the \gls{daq} should be designed in such way that usage independent
 The overall thesis is structured in the following way: 
 \autoref{chap:motivation} gives the necessary theoretical background for the new \gls{theresa} system. 
 The subject of \gls{thz} science in particular is touched being the main motivation for the design of the novel time-stretch sampling system.
-\autoref{chap:new_sys} covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially the \gls{kapture} which is in operation at the \gls{kara}.
+\autoref{chap:new_sys} covers the general architecture of \gls{theresa}, including also state of the art readout-systems, especially \gls{kapture} which is in operation at \gls{kara}.
 \autoref{chap:theresa} describes the design steps of the front-end sampling card of \gls{theresa} in detail.
 \autoref{chap:readout} covers the description of the back-end readout card, as well as the design of the appropriate firmware.
 At last, results are concluded and an outlook for the newly developed system is given.
-%todo use autoref or ref to have hyperlinks here
 
 \glsresetall

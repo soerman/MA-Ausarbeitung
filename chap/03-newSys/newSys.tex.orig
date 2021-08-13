@@ -159,11 +159,20 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\caption[Comparison between KAPTURE v1 and KAPTURE v2]{Comparison between the sampling concepts of KAPTURE v1 and KAPTURE v2}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
+<<<<<<< HEAD
+
+\autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture}-2.
+\begin{figure}[tb]
+	\centering
+	\includegraphics[height = 0.4\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
+	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture}-2 setup}
+=======
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture2}.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
 	\caption[Photo of KAPTURE v2 system]{Photo of the \gls{kapture2} setup}
+>>>>>>> d28bff5cf4a03d1cb841bbf944611179b67da38a
 	\label{fig:kapturesys}
 \end{figure}
 

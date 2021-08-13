@@ -1,6 +1,6 @@
 In this chapter, the process of designing the front-end sampling card is described.
 Designing a \gls{pcb} is a two step process: circuit design and layout design.
-In this thesis, the software used to cover both of these steps is PADS xDx Designer (for schematic capture) and PADS Layout/Router (for \gls{pcb} layout design) from Mentor Graphics (subsidiary of Siemens).
+In this thesis, the software used to cover both of these steps is PADS xDx Designer (for schematic capture) and PADS Layout/Router (for \gls{pcb} layout design) from \textit{Mentor Graphics} (subsidiary of Siemens).
 
 \section{Schematics}
 Without knowing which components are needed and how they are interconnected, it is impossible to manufacture any board, no matter how high or low the level of complexity is.
@@ -36,7 +36,7 @@ If this is not the case, there are basic rules of thumb which can be followed to
 
 Basically, two types of voltage variations on the power supply pin can be distinguished: low frequency and high frequency variation.
 Low frequency variation occurs for example due to devices (or parts of them) being enabled/disabled or in the event of data traffic or data processing.
-The current draw during these occurrences can not be compensated immediately by the voltage regulator providing the supply voltage, which leads to drops in the voltage level.
+The current draw during these occurrences cannot be compensated immediately by the voltage regulator providing the supply voltage, which leads to drops in the voltage level.
 Time frames of this variation vary in the range of milliseconds up to days.
 High frequency variation results from switching events in the device, occurring in the range of the clock frequency and the corresponding harmonics up to about \SI{5}{\giga \hertz}.
 Spikes due to \gls{emi} are also a source of high frequency variation and need to be compensated for. \cite{xilDecouple} 
@@ -48,10 +48,11 @@ Additional resistances and inductance need to be considered \cite{decouple}:
 	\item A parallel resistance $R_P$, which shunts the nominal capacitance ($C$), representing insulation resistance or leakage.
 	\item A series resistance $R_S$, or \gls{esr}, which represents the plates and the leads of the capcitor.
 	\item A series inductance $L_S$, or \gls{esl}, that models the inductance of the plates and leads of the capacitor.
-	\item A parallel resistance and capacitance, $R_D$ and $R_C$, which model the effect called dielectric absorption. This denotes the phenomenon, that a capacitor which has been charged for a long time, doesn't fully discharge when briefly discharged. Dielectric absorption can be detrimental for high-precision use-cases, for power supply decoupling this effect doesn't have to be considered.
+	\item A parallel resistance and capacitance, $R_D$ and $R_C$, which model the effect called dielectric absorption. This denotes the phenomenon, that a capacitor which has been charged for a long time, does not fully discharge when briefly discharged. Dielectric absorption can be detrimental for high-precision use-cases, for power supply decoupling this effect doesn't have to be considered.
 \end{itemize}
+
 Consideration of all these effects leads to the equivalent circuit shown in \autoref{fig:real_cap}.
-It can be seen that this forms a RLC circuit, meaning the capacitor will not have the ideal behavior over the whole frequency range. 
+It can be seen that this forms a $RLC$ circuit, meaning the capacitor will not have the ideal behavior over the whole frequency range. 
 In fact, a real capacitor shows an impedance response as seen in \autoref{fig:esl_esr}, which resembles one of a band stop, rather than a low pass.
 Typical capacitive behavior is seen in region (I).
 Region (II) shows the influence of the \gls{esr}, which is why there is a residual impedance at the lowest point.
@@ -66,6 +67,7 @@ To extend the capacitive behavior over a wider frequency range, at least two cap
 	\label{fig:real_cap}
 \end{figure}
 \tikzexternalenable
+
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.6\textwidth]{chap/04-theresa/img/esl_esr.tikz}
@@ -83,7 +85,8 @@ This capacitor should bypass (therefore also called \textit{bypass capacitor}) t
 
 To cover a larger frequency range, multiple capacitors can be used.
 
-All capacitors should be connected through vias or short traces to a large area, low impedance ground plane. Vias on a \gls{pcb} are used to connect different layers, a plane is an uninterrupted area of metal covering the whole (or part) of a \gls{pcb} layer (basic \gls{pcb} structures are also  explained in \autoref{ssec:pcb_structs}). 
+All capacitors should be connected through vias or short traces to a large area, low impedance ground plane.
+Vias on a \gls{pcb} are used to connect different layers, a plane is an uninterrupted area of metal covering the whole (or part) of a \gls{pcb} layer (basic \gls{pcb} structures are also  explained in \autoref{ssec:pcb_structs}). 
 Connecting capacitors in this way minimizes the inductance due to connection traces. \cite{decouple}
 
 An optional ferrite bead in series with the supply pin keeps external high frequency from the device and the noise generated inside the component from the rest of the board. \cite{decouple}
@@ -119,17 +122,15 @@ Furthermore, the connector provides pins for power supply from carrier board to 
 		\centering
 		\begin{tabularx}{\textwidth}{Xcc}
 			\toprule
-			\textbf{Voltage} & \textbf{Max. current} & \textbf{Max. capacitive load}\\
-			\midrule
-			$V_\text{ADJ}$, \SIrange{0}{3.3}{\volt} & \SI{4}{\ampere} & \SI{1000}{\micro \farad}\\
-			\SI{3.3}{\volt} & \SI{3}{\ampere} & \SI{1000}{\micro \farad}\\
-			\SI{12}{\volt} & \SI{1}{\ampere} & \SI{1000}{\micro \farad}\\
-			\bottomrule
+			\textbf{Voltage}                        & \textbf{Max. current} & \textbf{Max. capacitive load} \\ \midrule
+			$V_\text{ADJ}$, \SIrange{0}{3.3}{\volt} &    \SI{4}{\ampere}    &   \SI{1000}{\micro \farad}    \\
+			\SI{3.3}{\volt}                         &    \SI{3}{\ampere}    &   \SI{1000}{\micro \farad}    \\
+			\SI{12}{\volt}                          &    \SI{1}{\ampere}    &   \SI{1000}{\micro \farad}    \\ \bottomrule
 		\end{tabularx}
 \end{table}
 
 \paragraph{Analog Signals}
-The analog signals coming from the power splitter are propagated to the \glspl{tha} through \SI{1.85}{\mm} high-frequency connectors. 
+The analog signals coming from the power-splitter are propagated to the \glspl{tha} through \SI{1.85}{\mm} high-frequency connectors. 
 These connectors use an air dielectric filled interface which enables operation up to \SI{65}{\GHz}. 
 This type of connector is also called ``V connector''; due to its frequency range it is considered as a mm-wave \gls{rf} connector.
 It is therefore used in precision instrumentation and other laboratory applications.
@@ -189,7 +190,7 @@ The sampling time of the \gls{tha}, derived from the clock coming from the main 
 
 \subsubsection*{Track-And-Hold-Amplifier}
 The \gls{tha} used is the same as in \gls{kapture}. 
-The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds) \cite{caselle2013} . 
+The component was chosen due to its high bandwidth (> \SI{18}{\GHz}) and low aperture jitter (range of hundreds of femtoseconds). \cite{caselle2013} 
 Therefore it is also a good candidate for the new \gls{theresa} sampling board.
 
 
@@ -224,7 +225,7 @@ Switching characteristics are important for estimation of the maximal sample fre
 	\end{minipage}
 \end{table}
 
-The input coming from the power splitter is single-ended.
+The input coming from the power-splitter is single-ended.
 However, the analog input of the \gls{tha} is differential, therefore a \SI{50}{\ohm} termination on the unused input pin has been added, as recommended in the data sheet \cite{hmc5640}.
 
 The differential outputs are connected to the corresponding RFMC \gls{lpam} 8x50 connector pins.
@@ -247,10 +248,10 @@ For some mixed-signal components, such as \glspl{tha}, where separate analog and
 However, it is recommended to connect both grounds directly at the component.
 For the \glspl{tha} in this design, this is done by connecting the ground pins via ferrite bead at each \gls{tha} (see \autoref{fig:gnd_agnd}). 
 The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise.
-For every \gls{tha} one ferrite bead is needed, making in total 16 beads (see \autoref{fig:gnd_agnd}).
+For every \gls{tha}, one ferrite bead is needed, making a total of 16 beads (see \autoref{fig:gnd_agnd}).
 
 Protection against a possible high voltage level between analog and digital grounds is implemented by two back-to-back diodes \autoref{fig:gnd_agnd}).
-The diodes should limit this voltage around \SI{0.6}{\volt}.
+The diodes should limit this voltage to around \SI{0.6}{\volt}.
 
 \begin{figure}[tb]
 	\centering
@@ -262,7 +263,7 @@ The diodes should limit this voltage around \SI{0.6}{\volt}.
 \subsubsection*{Delay Chip}
 The delay chips are employed to create a delay in the sampling time of the \gls{tha} chips. For the selection of the delay chip, the most important characteristics, apart from time jitter, is the delay step size and delay range. 
 
-To optimize the performance of \gls{theresa} and allowing a sample rate up to 40 GS/s (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
+To optimize the performance of \gls{theresa} and allowing a sample rate up to \SI{40}{\giga\sample\per\second} (see \autoref{ssec:interl_impl}), the step-size of the delay chip must not exceed \SI{25}{\pico \second}.
 
 With the HMC856 delay chip from \textit{Analog Devices}, which is also used for the \gls{kapture} sampling board, a minimal step size of \SI{3}{\pico\second} \cite{hmc856} is possible.
 This is much less than  \SI{25}{\pico \second} and thus the chip could be potentially used for the intended purpose.
@@ -270,7 +271,7 @@ However, one drawback is the limited delay range of \SI{100}{\pico\second}.
 Considering a signal, which is stretched over several nanoseconds, this range limits the possibility to sample large time-stretched optical pulses.
 Another challenge, coming from the available number of I/Os, is the programming interface of the chip, which consists of five differential \gls{cml} inputs.
 This means, one chip already takes up 10 pins only for control signals.
-For in total 16 necessary delay chips, this results in 160 pins used only for control of the delay chips.
+For a total of 16 necessary delay chips, this results in 160 pins used only for control of the delay chips.
 This uses up all pins of the \gls{fmc}+ connector (see \autoref{sec:connectors}) available for user-defined purpose. 
 
 A better candidate is the dual channel programmable delay chip NB6L295 from \textit{ON Semiconductor}. 
@@ -365,7 +366,7 @@ Directly connecting to the \gls{fmc}+ connector pins is therefore not possible, 
 The SN74AVC32T245 bus transceiver from \textit{Texas Instruments} (see \autoref{fig:level_trans}) which allows for level shifting from \SI{3.3}{\volt} at the device input to \SI{1.8}{\volt} at the device output.
 In this design, the bus transceiver is configured to propagate signals from the ``A'' ports (coming from the \gls{fmc}+ connector) to the ``B'' ports (going to the delay chips), shifting the signals from the $V_\text{ADJ}$ (\SI{1.8}{\volt}) of the \gls{fmc}+ connector to \SI{2.5}{\volt} (see \autoref{fig:level_trans}).
 To guarantee signal integrity and to decouple the components, the digital signals are propagated in a ``fanout configuration'', i.e. one digital signal at the input is propagated to eight outputs.
-Furthermore, resistors are place at the pins to reduce possible voltage overshootings which result from reflections on the line. 
+Furthermore, resistors are place at the pins to reduce possible voltage overshoots which result from reflections on the line. 
 
 \begin{figure}[tb]
 	\centering
@@ -474,7 +475,7 @@ $f_\text{VCO}$ is divided by the \textit{N Divider} to the frequency $f_n$ and t
 $f_\text{PD}$ results from dividing the reference frequency $f_\text{OSC}$ with an \textit{R divider}. 
 The phase detector produces current correction pulses (with magnitude $K_\text{PD}$) with a duty cycle proportional to the phase error between $f_\text{PD}$ and $f_n$. 
 These pulses are filtered by the low pass loop filter, which basically converts these pulses into a voltage. \cite{pll_design}
-The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, ...) and therefore has to be designed carefully.
+The loop filter is one of the key component determining the \gls{pll} performance (concerning jitter, noise, \ldots) and therefore has to be designed carefully.
 
 To calculate the loop filter, the \textit{Texas Instruments} \textit{PLLatinum Sim} tool is used (see \autoref{fig:ti_pll}). 
 This tool provides a convenient way to calculate the necessary loop filter components, given the \gls{vco} characteristics, desired filter order, charge pump current and desired performance (e.g. optimize jitter). 
@@ -692,10 +693,10 @@ The maximal output current $I_\text{max, LDO}$ from the ADP1741 is \SI{2}{\amper
 With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \SI{0.221}{\ampere} from the \gls{tha}, the maximal number $N$ of components which the \gls{ldo} can handle is calculated as 
 
 \begin{align*}
-	I_\text{max, LDO} &> 2 \cdot N \cdot I_\text{m, THA} \\
-	I_\text{max, LDO}/(2 \cdot I_\text{m, THA}) &> N \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.221}{\ampere}) &> N \\
-	4.52 &> N \quad \rightarrow N = 4
+	I_\text{max, LDO}                              & > 2 \cdot N \cdot I_\text{m, THA} \\
+	I_\text{max, LDO}/(2 \cdot I_\text{m, THA})    & > N                               \\
+	\SI{2}{\ampere} / (2\cdot \SI{0.221}{\ampere}) & > N                               \\
+	4.52                                           & > N \quad \rightarrow N = 4
 \end{align*}
 This means, 4 \glspl{ldo} are needed to cover 16 \glspl{tha}.
 
@@ -714,17 +715,17 @@ In order to achieve the required \SI{2}{\volt}, the values of the resistors are 
 
 As input voltage, the \SI{3.3}{\volt} from the external power supply is provided. 
 
-Capacitors and resistors are placed as recommended in the datasheet\cite{adp1741}(see \autoref{fig:adp1741}).
+Capacitors and resistors are placed as recommended in the data sheet\cite{adp1741}(see \autoref{fig:adp1741}).
 
 \subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
 The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can be again calculated as:
 %todo nicefrac
 \begin{align*}
-	I_\text{max, LDO} &> 2 \cdot N \cdot I_\text{m, Delay} \\
-	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} &> N \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.170}{\ampere}) &> N \\
-	5.88 &> N \quad \rightarrow N = 5	
+	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
+	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
+	\SI{2}{\ampere} / (2\cdot \SI{0.170}{\ampere})            & > N                                 \\
+	5.88                                                      & > N \quad \rightarrow N = 5
 \end{align*}
 Therefore, two regulators are needed to cover the 8 delay chips.
 In order to keep the current draw evenly distributed among the regulators, 4 chips are assigned to one regulator respectively.
@@ -791,10 +792,13 @@ In this section an overview over the basic structures on a \gls{pcb} is given.
 A \textit{trace} is a strip of metal, which establishes an electrical connection and carries signals between two (or more) points in the horizontal plane of a \gls{pcb}. \cite{xilDecouple}
 
 \paragraph{Planes}
-\textit{Plane} denotes an uninterrupted area of metal, which covers the whole \gls{pcb} layer. If this area only covers a part of the layer, it is called a \textit{planelet}. These areas provide power distribution or ground across the \gls{pcb} and present an important transmission medium for the return currents\footnote{Any current that is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
+\textit{Plane} denotes an uninterrupted area of metal, which covers the whole \gls{pcb} layer.
+If this area only covers a part of the layer, it is called a \textit{planelet}.
+These areas provide power distribution or ground across the \gls{pcb} and present an important transmission medium for the return currents\footnote{Any current that is injected into the components/boards, needs a return path, as otherwise there is no closed circuit.}. \cite{xilDecouple}
 
 \paragraph{Vias}
-A via is metal-plated hole, which is used to route a trace in vertical direction, i.e. from the \gls{pcb} outer layer to the inner layers. They carry signals and power. Three types of vias are \cite{vias}:
+A via is metal-plated hole, which is used to route a trace in vertical direction, i.e. from the \gls{pcb} outer layer to the inner layers.
+They carry signals and power. Three types of vias are \cite{vias}:
 \begin{itemize}
 	\item Blind via: A blind via connects the surface layers with a few layers below.
 	\item Buried via: A buried via only connects internal layers.
@@ -816,7 +820,7 @@ Characteristics of this material are:
 \item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
 \item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
 \item Low transmission loss
-\item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius}
+\item High heat resistance: Decomposition temperature $T_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
 \end{itemize}
 
 Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed in order to integrate the analog and digital signal lines, as well as the necessary power planes.
