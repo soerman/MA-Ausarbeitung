@@ -1,0 +1,15 @@
+chap/02-theory/theory.tex:14:%todo what about the usage of thz for spectroscopy since the thz hv-energy matches some interesting bonds in chemistry/bio.
+chap/02-theory/theory.tex:265:%todo what is full scale voltage, lsb, v_q?
+chap/02-theory/theory.tex:294:At the transition from negative to positive clock cycle, the switch closes, connecting the input signal with the capacitor which is charged in this way. \cite{walt} %todo i think "buffer" here means unit-gain amp and the capacitor does the buffering/storing/holding/... ?!
+chap/02-theory/theory.tex:546:The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc}).%todo what is dbc?
+chap/02-theory/theory.tex:583:%todo is this a section/header/introduction for the next paragraphs?
+chap/07-appendix/appendix.tex:46:\section{Verilog Code for SPI Interface for Delay Chips} \label{app:code} %todo what code?
+chap/07-appendix/appendix.tex:48:%todo add linebreaks to the lstlisting style
+chap/03-newSys/newSys.tex:29:		%todo to num und s-column
+chap/05-readout/readOutCard.tex:22:%todo this is a workaround because strangely it doesn't work with includegraphics....
+chap/04-theresa/theresa.tex:303:%todo to texttt
+chap/04-theresa/theresa.tex:388:%TODO to tikz
+chap/04-theresa/theresa.tex:417:%todo anchor south west
+chap/04-theresa/theresa.tex:701:%todo nicefrac
+chap/04-theresa/theresa.tex:800:\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
+chap/06-conclusion/conclusion.tex:35:Together with provided add-on cards, a first evaluation of the data converter performance has been possible.  %todo konkrete dinge sagen? 
