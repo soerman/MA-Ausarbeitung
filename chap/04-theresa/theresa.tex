@@ -248,7 +248,7 @@ Analog components are more sensitive to noise (due to e.g. lower signal amplitud
 In a mixed-signal (having both analog and digital signals) \gls{pcb}, analog and digital ground should therefore be well separated.
 For some mixed-signal components, such as \glspl{tha}, where separate analog and digital ground pins are provided, it is however recommended to connect both grounds directly at the component.
 For the \glspl{tha} in this design, this is done by connecting the ground pins via ferrite bead at each \gls{tha} (see \autoref{fig:gnd_agnd}). 
-The ferrite bead mitigates any high-frequency components and therefore protects the analog ground from noise. %todo components?
+The ferrite bead mitigates any high-frequency spectral components and therefore protects the analog ground from noise. 
 For every \gls{tha}, one ferrite bead is needed, making a total of 16 beads (see \autoref{fig:gnd_agnd}).
 
 Protection against possible high voltage levels between analog and digital grounds is implemented by two back-to-back diodes \autoref{fig:gnd_agnd}).
@@ -301,8 +301,6 @@ The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
-%todo to texttt
-
 
 \paragraph{Inputs}
 The inputs of the delay chip are driven by the preceding low time-skew, low-jitter and high-performance clock distribution, the outputs of which are \gls{lvpecl} drivers.
@@ -386,7 +384,6 @@ This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} res
 	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
 	\label{fig:lvpecl}
 \end{figure}
-%TODO to tikz
 
 As the output will be connected to the \gls{tha}, it is necessary to check the compatibility of the maximum amplitude and common-mode of the pins.
 
@@ -415,7 +412,6 @@ This is higher than the maximal input common mode voltage of the \gls{tha}.
 
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
-%todo anchor south west
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/clocking_arch}
@@ -699,17 +695,16 @@ Capacitors and resistors are placed as recommended in the data sheet \cite{adp17
 \subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
 The number of delay chips $N$ with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can again be calculated as:
-%todo nicefrac
 \begin{align*}
 	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
 	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
-	\SI{2}{\ampere} / (2 \cdot \SI{0.170}{\ampere})            & > N                                 \\
+	\nicefrac{\SI{2}{\ampere}}{(2 \cdot \SI{0.170}{\ampere})}     & > N                                 \\
 	5.88                                                      & > N \quad \rightarrow N = 5
 \end{align*}
 Therefore, two regulators are needed to cover the 8 delay chips.
 In order to keep the current draw evenly distributed among the regulators, 4 chips are assigned to one regulator respectively.
 
-In order to set the output voltage of the regulator to \SI{2.5}{\volt}, the resistor values $R_1 = \SI{12}{\kilo \ohm}$ and $R_1 = \SI{3}{\kilo \ohm}$ are chosen (refer to \autoref{fig:adp1741} and \autoref{eq:ldo}). %todo zweimal R1
+In order to set the output voltage of the regulator to \SI{2.5}{\volt}, the resistor values $R_1 = \SI{12}{\kilo \ohm}$ and $R_2 = \SI{3}{\kilo \ohm}$ are chosen (refer to \autoref{fig:adp1741} and \autoref{eq:ldo}).
 
 The \SI{2.5}{\volt} are also used as input for the bus transceiver which acts as a level translator. 
 The current draw from this component lies in the range of \si{\micro \ampere} and can thus be neglected.
@@ -1071,8 +1066,7 @@ This attenuation has been calculated for the trace length of \SI{200}{\mm}, an u
 As can be derived from the plot, the attenuation reaches up to \SI{4}{\decibel}.
 Considering the length of the traces, this is an expected result. 
 The traces need therefore to be routed in the lowest noise conditions possible, i.e. through shielding by ground layers and placing via fences around the trace, to ensure that the signal under study is propagated correctly to the connectors.
-
-During characterization the %todo hier fehlt was
+During characterization of the sampling card, the attenuation of these lines should be measured in order to examine whether the simulated values prove true and if some additional measures should be taken into account in order to guarantee proper signal propagation.
 
 
 \begin{figure}[tb]
