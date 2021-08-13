@@ -23,7 +23,7 @@ Other peripheral connections and features are shown in the top view of the board
 \begin{figure}[tb]
 \resizebox{1\textwidth}{!}{
 	\begin{tikzpicture}[scale = 1.1]
-		\node {\includegraphics[width=8cm]{chap/05-readout/img/zcu216cleared}};
+		\node {\includegraphics[width=8cm]{chap/05-readout/img/zcu216-cleared}};
 		%left
 		\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.6) {USB (JTAG/UART)};
 		\node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.38) {JTAG PC4};
@@ -157,7 +157,7 @@ The \gls{ip} core provides a configuration screen, which is used to
 	\item enable optional interface ports.
 \end{itemize}
 Handling of the configuration and power-up of the data converters is covered by the \gls{ip} core. 
-
+\autoref{fig:rf_dc_ex} shows a simple design example. It implements the RF Data Converter \gls{ip} core, which configures one \gls{dac} to generate data and one \gls{adc} to capture incoming data.
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/rf_data_converter}
@@ -197,12 +197,12 @@ The transport processing and memory translation are performed by hardware.
 The ERNIC (Xilinx Embedded RDMA enabled NIC) \gls{ip} provides an Initiator and Target  implementation of \gls{rocev2} enabled \gls{nic} functionality. This \gls{ip} is specifically designed for embedded applications that require reliable transmission over Ethernet networks.
 
 \autoref{fig:ernic} shows a possible working principle of a system with multiple host CPUs and multiple native \gls{nvme}\footnote{ \gls{nvme} is an open, logical-device interface specification for accessing a computer's non-volatile storage} devices talking over a network fabric through the Xilinx \gls{ernic} \gls{ip}
-subsystem.
+subsystem. \cite{ernic}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/05-readout/img/ernic}
-	\caption{Xilinx ERNIC working principle example}
+	\caption{Xilinx ERNIC working principle example \cite{ernic}}
 	\label{fig:ernic}
 \end{figure}
 
@@ -213,8 +213,12 @@ The ARM Cortex processor allows to implement standalone C application, as well e
 Providing a number of peripheral connections, like Ethernet or \gls{usb}, the \gls{ps} can easily be accessed by the user from another host computer, given the necessary drivers and protocols are implemented. 
 The aforementioned evaluation tool for example uses the Linux application \textit{rftool} in order to receive commands and perform the according action.
 
+For interaction and monitoring of the data converters the RFdc driver \gls{api} needs to be used.
+It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction woth the RF Data Converter \gls{ip}
+
 For interaction and monitoring of the data converters, the RFdc driver \gls{api} needs to be used.
 It is available both as bare-metal and Linux driver and includes functionalities to respond to interrupt, change settings (e.g. mixer frequency of the data converters) and interaction with the RF Data Converter \gls{ip}
+
 
 In order to implement and build software applications, the novel \textit{Xilinx Vitis} unified software platform is used.
 It enables the development of embedded software and accelerated applications on heterogeneous \textit{Xilinx} platforms including \glspl{fpga} and \glspl{soc}.

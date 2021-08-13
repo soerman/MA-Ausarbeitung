@@ -5,7 +5,7 @@
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-3.8,0.75) {Laser};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-3.5,0) {$T_0$};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-3.5,-0.65) {\tiny Time};
-	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (-3.6,-1) {Short \\ laser pulse};
+	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (-3.5,-1) {Short \\ laser pulse};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-1.2,-0.65) {\tiny Time};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-2,0.2) {Fiber $L_1$};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (-2,1) {Dispersion};
@@ -20,5 +20,5 @@
 	
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (4.1,-0.9) {Stretched signal};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (4.5,0) {$T_2$};
-	\node[fill=none,font=\tiny,align=right,anchor=east] at (3.9,0.75) {Photodetector};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (4,0.8) {Photodetector};
 \end{tikzpicture}
