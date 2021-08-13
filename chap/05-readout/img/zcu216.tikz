@@ -13,7 +13,7 @@
 \node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,-1.28) {User 8-pole\\DIP Switch};
 
 %bottom
-\node[fill=none,font=\tiny,align=center,anchor=north] at (-1.39,-1.7) {Pmods ($2 \times$)};
+\node[fill=none,font=\tiny,align=center,anchor=north] at (-1.42,-1.7) {Pmods ($2 \times$)};
 \node[fill=none,font=\tiny,align=center,anchor=north] at (-0.24,-1.7) {RFMC 2.0\\(DAC)};
 \node[fill=none,font=\tiny,align=center,anchor=north] at (0.51,-1.7) {CLK104 \\ Connector};
 \node[fill=none,font=\tiny,align=center,anchor=north] at (1.26,-1.7) {RFMC 2.0\\(ADC)};

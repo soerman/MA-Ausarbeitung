@@ -20,13 +20,13 @@ It can be calculated as
 \end{equation}
 As can be derived from the table, the acquisition time of such oscilloscopes is quite limited, not allowing for continuous sampling of fast input signals.
 \begingroup
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.4}
 \begin{table}[tb]
 	\caption[Real Time Oscilloscopes Examples]{Some example real-time oscilloscopes with (max.) key characteristics}
 	\label{tab:real_time_osc}
 	\centering
 	\begin{tabularx}{\textwidth}{Xcccc}
-		%todo to num und s-column %todo größerem zeiekabstand\toprule
+		%todo to num und s-column %todo größerem zeiekabstand
 		\toprule
 		\textbf{Model}            & \textbf{Bandwidth} &         \textbf{Sample Rate}         &  \textbf{Memory Depth}  & \textbf{Acquisition time} \\ \midrule
 		Keysight MXR608A          &    \SI{6}{\GHz}    & \SI{16}{\giga \sample \per \second}  & \SI{1.6}{\giga \sample} &  \SI{10}{\milli \second}  \\
@@ -43,18 +43,9 @@ The system is able to sample pulses with a \gls{fwhm} between a few tens to a hu
 
 To showcase the revolution of this \gls{daq} system, the general architecture and concept is explained with the first version of \gls{kapture}.
 Then, the improved version \gls{kapture2} is presented.
-At the end, being a further evolution of these two versions, the architecture of \gls{theresa} is explained.
 
 \subsubsection*{General Concept}
 The system consists of two parts: the sampling front-end card and a \gls{fpga} readout card. In \autoref{fig:thz_chain} the setup for \gls{thz} radiation measurements with \gls{kapture} is shown. 
-
-The incoming radiation is fed into a detector, which converts the incident photons into an electrical signal. 
-This signal is then amplified in a wide-band \gls{lna}. 
-A wideband lossless power splitter, developed at \gls{ipe}, splits the detector signal into four identical signals, which are then propagated to the sampling front-end card. 
-The card consists of four parallel sampling channels with adjustable sampling time. 
-Each channel contains a \gls{tha} and an \gls{adc}. 
-This card is connected to a read-out card by a high-speed and high-density connector. 
-The \gls{fpga} sets the sampling time for each individual sampling channel and reads, processes and sends all acquired data to a \gls{cpu}/\gls{gpu} cluster for further processing. \cite{caselle2014}
 
 \begin{figure}[H]
 	\centering
@@ -62,9 +53,18 @@ The \gls{fpga} sets the sampling time for each individual sampling channel and r
 	\caption[THz measurement with KAPTURE]{\gls{thz} radiation measurement setup with \gls{kapture} (redrawn from \cite{caselle2014})}
 	\label{fig:thz_chain}
 \end{figure}
+The incoming radiation is fed into a detector, which converts the incident photons into an electrical signal. 
+This signal is then amplified in a wide-band \gls{lna}. 
+A wide-band lossless power-splitter, developed at \gls{ipe}, splits the detector signal into four identical signals, which are then propagated to the sampling front-end card. 
+The card consists of four parallel sampling channels with adjustable sampling time. 
+Each channel contains a \gls{tha} and an \gls{adc}. 
+This card is connected to a read-out card by a high-speed and high-density connector. 
+The \gls{fpga} sets the sampling time for each individual sampling channel and reads, processes and sends all acquired data to a \gls{cpu}/\gls{gpu} cluster for further processing. \cite{caselle2014}
+
+
 
 \paragraph{Analog Front-End}
-Due to the high bandwidth nature of the detector signal, the analog front-end of the system has to be wideband as well to be able to sample the signal with picosecond resolution. 
+Due to the high bandwidth nature of the detector signal, the analog front-end of the system has to be wide-band as well to be able to sample the signal with picosecond resolution. 
 
 The used \gls{lna} is based on a commercial GaAs \gls{mmic} which operates from \gls{dc} to \SI{50}{\giga \hertz}. 
 It is needed to compensate the insertion loss\footnote{\textit{Insertion loss} is the loss of signal power which occurs, when a signal passes through a component.} of the following power-splitter stage. 
@@ -94,10 +94,10 @@ The delay chips are programmed with the \gls{fpga} on the readout card.
 The clock signal is provided by \gls{kara}, which is cleared from jitter by a \gls{pll}. 
 This ensures the synchronization of the \glspl{adc} with the \gls{rf} system. 
 The cleaned clock signal is distributed to the delay chips via fan-out buffer \cite{caselleKAP}.
-In this way, the pulse can be ``locally sampled'' by adjusting the different delay with a maximum rate of \SI{330}{\giga\sample\per\second} possible. 
+In this way, the pulse can be ``locally sampled'' with a maximum rate of \SI{330}{\giga\sample\per\second} by adjusting the different delays. \newline
 A simplified representation of the local sampling of the signal is shown in \autoref{fig:sig_kap1_kap2}.
 The plot shows on the left the sampling of the signal for \gls{kapture} and on the right for \gls{kapture2} (described below).
-The sampling points $S_n$ are acquired by setting the respective delay $\Delta t_n$ of the sampling times. 
+The sampling points $S_n$ are acquired by setting the respective delay $\Delta t_n$ (see \autoref{fig:kapture}) of the sampling times. 
 \begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
@@ -121,8 +121,8 @@ In order to keep a continuous data  acquisition the necessary bandwidth is
 \begin{equation}
 	12\;\text{bits} \cdot 8 \; \text{samples} \cdot \SI{1}{\GHz} = \SI{96}{\giga \bits \per \second}
 \end{equation}
-To ensure high data throughput, a high-speed \gls{pcie} readout card was developed (called ``High-Flex'') was developed.
-This card receives the samples and tags them with the respective bunch identification. 
+To ensure high data throughput, a high-speed \gls{pcie} readout card (called ``High-Flex'') was developed.
+This card receives the acquired samples and tags them with the respective electron bunch identification. 
 The data is then sent to a \gls{gpu} using a \gls{pcie} connection based on direct \gls{fpga}-\gls{gpu} direct memory access architecture.
 The \gls{gpu} node reconstructs the pulse based on the given sampling points and calculates the amplitude and pulse arrival time. 
 It also performs an online \gls{fft} for frequency analysis.
@@ -132,12 +132,12 @@ To store the data temporary before it is sent to the \gls{daq} system, a large \
 The first version of \gls{kapture} has a limitation concerning the number of sampling points per pulse and does not allow to sample the baseline of the detector.
 Analyzing the baseline however is very important, as it is changing slightly and affects the pulse amplitude of the bunch. 
 Due to this distortion, calculating the correlation between bunches was limited. 
-For this reason, a second version of \gls{kapture} was designed in order to overcome these limitations. 
+For this reason, a second version of \gls{kapture} has been designed in order to overcome these limitations. 
 The \gls{pll} on the sampling board allows for synchronization between two or more \glspl{pll} located on different boards.
 With this feature, the sampling time of two boards can be synchronized and in this way extend the number of sampling points beyond four.
 A comparison of the sampling concepts is shown in \autoref{fig:kap1_vs_kap2}.
 
-In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at the pulse repetition rate \SI{2}{\GHz}. 
+In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
 Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
 In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
 
@@ -184,7 +184,7 @@ The concept of the front-end sampling card is based on and an evolution of the c
 The incoming signal is split into 16 identical signals, each leading to the respective sampling channel on the sampling board.
 These sampling channels consist of a high bandwidth (\SI{18}{\GHz}), low noise \gls{tha} and an \gls{adc}, which is integrated into the readout card.
 The sampling clock to these \glspl{tha} is provided by respective programmable delay chips.
-In this way, a time interleaving technique (described below) can be implemented by programming the delay chips accordingly. 
+In this way, a time interleaving technique (see \autoref{sssec:time-interleaving}) can be implemented by programming the delay chips accordingly. 
 The main clock is provided by a main \gls{pll}, which cleans the reference clock coming from the system in which the sampling system is integrated.
 \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
 \begin{figure}[H]
@@ -238,10 +238,9 @@ Considering as example an interleaving structure with two \glspl{adc} and a cons
 This output switches at the frequency $\nicefrac{f_s}{2}$. 
 Therefore this introduces spurious harmonic components at the frequency $\nicefrac{f_s}{2}$ in the spectrum (see \autoref{fig:offset_mm}). 
 The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
-
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving//offset_mm.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving//offset_mm.tikz}}
 	\caption{Offset-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:offset_mm}
 \end{figure}
@@ -249,9 +248,10 @@ The magnitude of the spur depends on the offset difference between the \glspl{ad
 Besides of the offset also the gain of the converters can be mismatched. 
 This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $\nicefrac{f_s}{2} \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
 
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/gain_mm.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/gain_mm.tikz}}
 	\caption{Gain-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:gain_mm}
 \end{figure}
@@ -259,12 +259,12 @@ This \textit{gain mismatch} has a frequency component to it, which in case of an
 In the time domain, \textit{timing mismatch} due to group delay in the analog circuitry of the \gls{adc} and clock skew\footnote{Difference in arrival time of the clock signal at different components.} can occur. 
 The group delay in analog circuitry can vary between the converters. 
 The clock skew has on the one hand an aperture uncertainty component at each of the \glspl{adc}. 
-On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} 
-This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\text{in}$ (see \autoref{fig:timing_mm}).
+On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. 
+This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\text{in}$ (see \autoref{fig:timing_mm}). \cite{Harris2019} 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/timing_mm.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/timing_mm.tikz}}
 	\caption{Timing-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:timing_mm}
 \end{figure}
@@ -276,7 +276,7 @@ Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\ni
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/bandwidth_mm.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/03-newSys/img/interleaving/bandwidth_mm.tikz}}
 	\caption{Bandwidth-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:bandwidth_mm}
 \end{figure}
@@ -288,7 +288,7 @@ For this purpose, a circuit on the \gls{theresa} sampling board is foreseen, in 
 \subsubsection{Implementation}\label{ssec:interl_impl}
 On the selected readout card for \gls{theresa}, 16 \glspl{adc} with a sampling rate up to \SI{2.5}{\GHz} are present.
 In order to implement the time-interleaving method, an appropriate delay step size for the sample time has to be calculated.
-To calculate the maximal step size possible can be calculated as follows: 
+The maximal step size possible can be calculated as follows: 
 The \glspl{adc} on the read-out card sample at a maximal sample rate of \SI{2.5}{\giga\sample\per\second}, meaning during the time
 \begin{equation}
 	t_s = \frac{1}{\SI{2.5}{\giga \sample \per \second}} = \SI{400}{\pico \second}
@@ -298,7 +298,7 @@ This means, a delay step can not be greater than $\nicefrac{\SI{400}{\pico\secon
 With this method, the maximal achievable sampling rate of the card is $16 \cdot \SI{2.5}{\giga\sample\per\second}  = \SI{40}{\giga\sample\per\second}$. 
 
 On the selected readout card, sampling clock signals are not propagated individually to the respective \glspl{adc}.
-The converters are grouped grouped together into tiles, each tile containing four converters.
+The converters are grouped together into tiles, each tile containing four converters.
 One single reference clock signal is propagated to all tiles. 
 To implement the optimal time-interleaving method with this card, four individual sampling clocks to all tiles shifted by \ang{90} would be necessary.
 Analyzing the schematic of the readout board revealed however, that only two individual sampling clocks can be provided to the card.
@@ -312,7 +312,7 @@ The maximal delay step size to cover the whole period of the clock is calculated
 	\frac{\SI{1}{\nano\second}}{16 \, \text{channels}} = \SI{62.5}{\pico\second}
 \end{equation}
 
-In some way, this implementation can therefore also be regarded as time-interleaving, as each \gls{tha} holds a different sample point in time, which can then be converted by the \glspl{adc}.
+In some way, this implementation can therefore also be regarded as time-interleaving, as each \gls{tha} holds a different sample point in time, which can then be converted by the \glspl{adc} in parallel.
 The two sampling clocks, indicated with ``$\text{ADC}_1$'' and ``$\text{ADC}_2$'', need to be phase-shifted by \ang{180}.
 In this way, an alternate clocking of the \glspl{adc} is made possible.
 As can be derived from the diagram, only the four respective \gls{adc} channels should be considered for signal conversion during one sampling point.
@@ -357,10 +357,8 @@ The card is described in detail in \autoref{chap:readout}.
 	\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
-		\tikzexternaldisable
 		\includegraphics{chap/03-newSys/img/footprint_2.tikz}  
 		\caption{Integrated circuit}
-		\tikzexternalenable
 		\label{fig:integratedComp}
 	\end{subfigure}
 	\caption[Discrete components vs. IC]{Footprint of discrete components vs. footprint of \gls{ic} integrating the components}
