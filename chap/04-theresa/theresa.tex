@@ -300,7 +300,6 @@ The schematic of the delay chips is shown in \autoref{fig:nb6l295}.
 	\caption{NB6L295 delay chip schematic}
 	\label{fig:nb6l295}
 \end{figure}
-%todo to texttt
 
 
 \paragraph{Inputs}
@@ -385,7 +384,6 @@ This requires a path to \gls{dc}, which is achieved by adding \SI{140}{\ohm} res
 	\caption[LVPECL driver topology]{LVPECL driver topology. Left side shows the emitter-follower based driver. On the right, an example biasing with resistors is shown. \cite{lvpecl}}
 	\label{fig:lvpecl}
 \end{figure}
-%TODO to tikz
 
 As the output will be connected to the \gls{tha}, it is necessary to check the compatibility of the maximum amplitude and common-mode of the pins.
 
@@ -414,7 +412,6 @@ This is higher than the maximal input common mode voltage of the \gls{tha}.
 
 \subsection{Clock Distribution}
 The clock distribution is designed as shown in \autoref{fig:clocking}.
-%todo anchor south west
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/04-theresa/img/pll/clocking_arch}
@@ -698,7 +695,6 @@ Capacitors and resistors are placed as recommended in the data sheet\cite{adp174
 \subsubsection*{Voltage Regulator for Delay Chips}
 The delay chips require a voltage level of \SI{2.5}{\volt}. As they propagate the sensitive clock signals they also need stable voltage levels. 
 The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, which one \gls{ldo} can handle, can be again calculated as:
-%todo nicefrac
 \begin{align*}
 	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
 	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
@@ -797,7 +793,7 @@ Characteristics of this material are:
 \item Low dielectric constant: $\varepsilon_r$ = 3.61 at \SI{10}{\giga \hertz}, 3.71 at \SI{1}{\giga \hertz}
 \item Low dielectric dissipation factor: 0.002 at \SI{10}{\giga \hertz}, 0.004 at \SI{1}{\giga \hertz}
 \item Low transmission loss
-\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} %todo celsius is vartheta, Kelvin uses T..., right?
+\item High heat resistance: Decomposition temperature $\vartheta_d$ = \SI{410}{\celsius} 
 \end{itemize}
 
 Another important step is deciding the number of layers. The complexity of the board implies that a lot of layers are needed in order to integrate the analog and digital signal lines, as well as the necessary power planes.
