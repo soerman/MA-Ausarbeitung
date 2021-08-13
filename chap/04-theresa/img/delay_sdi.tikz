@@ -24,7 +24,7 @@
 		\node (c8)[myblock]{\Large  Chip 8};
 	\end{scope}
 
-	\draw[-Latex] (-3,3) node[left] {\Huge SLOAD} -| coordinate (1)  ($(c1.north west)!0.2!(c1.north east)$) ;
+	\draw[-Latex] (-3,3) node[left] {\Huge \texttt{SLOAD}} -| coordinate (1)  ($(c1.north west)!0.2!(c1.north east)$) ;
 	\draw[-Latex] (-3,3) -| coordinate (2)  ($(c2.north west)!0.2!(c2.north east)$) ;
 	\draw[-Latex] (-3,3) -| coordinate (3)  ($(c3.north west)!0.2!(c3.north east)$) ;
 	\draw[-Latex] (-3,3) -| coordinate (4)  ($(c4.north west)!0.2!(c4.north east)$) ;
@@ -33,7 +33,7 @@
 	\draw[-Latex] (-3,3) -| coordinate (7)  ($(c7.north west)!0.2!(c7.north east)$) ;
 	\draw[-Latex] (-3,3) -| coordinate (8)  ($(c8.north west)!0.2!(c8.north east)$) ;
 
-	\draw[-Latex] (-3,4) node[left] {\Huge SCLK} -|  coordinate (9) ($(c1.north west)!0.4!(c1.north east)$) ;
+	\draw[-Latex] (-3,4) node[left] {\Huge \texttt{SCLK}} -|  coordinate (9) ($(c1.north west)!0.4!(c1.north east)$) ;
 	\draw[-Latex] (-3,4) -| coordinate (10) ($(c2.north west)!0.4!(c2.north east)$) ;
 	\draw[-Latex] (-3,4) -| coordinate (11) ($(c3.north west)!0.4!(c3.north east)$) ;
 	\draw[-Latex] (-3,4) -| coordinate (12) ($(c4.north west)!0.4!(c4.north east)$) ;
@@ -42,7 +42,7 @@
 	\draw[-Latex] (-3,4) -| coordinate (15) ($(c7.north west)!0.4!(c7.north east)$) ;
 	\draw[-Latex] (-3,4) -| coordinate (16) ($(c8.north west)!0.4!(c8.north east)$) ;
 
-	\draw[-Latex] (-3,5) node[left] {\Huge SDIN} -| coordinate (17) ($(c1.north west)!0.6!(c1.north east)$) ;
+	\draw[-Latex] (-3,5) node[left] {\Huge \texttt{SDIN}} -| coordinate (17) ($(c1.north west)!0.6!(c1.north east)$) ;
 	\draw[-Latex] (-3,5) -| coordinate (18) ($(c2.north west)!0.6!(c2.north east)$) ;
 	\draw[-Latex] (-3,5) -| coordinate (19) ($(c3.north west)!0.6!(c3.north east)$) ;
 	\draw[-Latex] (-3,5) -| coordinate (20) ($(c4.north west)!0.6!(c4.north east)$) ;
@@ -51,7 +51,7 @@
 	\draw[-Latex] (-3,5) -| coordinate (23) ($(c7.north west)!0.6!(c7.north east)$) ;
 	\draw[-Latex] (-3,5) -| ($(c8.north west)!0.6!(c8.north east)$) ;
 
-	\draw[Latex-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,5) node[above] {\Huge EN1}; 
+	\draw[Latex-]  ($(c1.north west)!0.8!(c1.north east)$) --  ++(0,5) node[above] {\Huge \texttt{EN}$_1$}; 
 	\draw[Latex-]  ($(c2.north west)!0.8!(c2.north east)$) --  ++(0,5) node[above] {\Huge EN2}; 
 	\draw[Latex-]  ($(c3.north west)!0.8!(c3.north east)$) --  ++(0,5) node[above] {\Huge EN3}; 
 	\draw[Latex-]  ($(c4.north west)!0.8!(c4.north east)$) --  ++(0,5) node[above] {\Huge EN4}; 

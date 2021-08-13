@@ -10,8 +10,8 @@
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (0,-0.8) {Time};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (1.2,1.5) {THz pulse};
 	\node[fill=none,font=\tiny,align=right,anchor=east, align = center] at (1.7,-1.2) {EO \\ crystal};
-	\node[fill=none,font=\tiny,align=right,anchor=east] at (2,0.1) {QWP};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (2.2,0.1) {QWP};
 	\node[fill=none,font=\tiny,align=right,anchor=east] at (2.7,0.1) {P};
-	\node[fill=none,font=\tiny,align=right,anchor=east] at (2.8,-1.2) {HWP};
-	\node[fill=none,font=\tiny,align=right,anchor=east] at (4.5,-1.1) {Spectrometer};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (2.9,-1.2) {HWP};
+	\node[fill=none,font=\tiny,align=right,anchor=east] at (4.6,-1.1) {Spectrometer};
 \end{tikzpicture}

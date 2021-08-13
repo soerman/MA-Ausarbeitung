@@ -1,5 +1,5 @@
 \begin{tikzpicture}
-\node {\includegraphics[width=8cm]{chap/05-readout/img/zcu216-cleared}};
+\node{\includegraphics[width=8cm]{chap/05-readout/img/zcu216-cleared}};
 
 %left
 \node[fill=none,font=\tiny,align=right,anchor=east] at (-2.1,1.6) {USB (JTAG/UART)};

@@ -32,7 +32,7 @@ Due to emission of \gls{sr} at each bend, the electrons lose energy, which has t
 This is done by accelerating them with an electric field inside a \gls{rf} cavity.
 Not shown in the drawing are the beamlines, which lead the \gls{sr} radiation, or rather chosen wavelength ranges, through an optical system to the respective user experiments. \cite{roussel2014,rota2018}
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{chap/02-theory/img/bd/synchrotron.pdf}
 	\caption{Basic scheme of an electron storage ring (redrawn from \cite{roussel2014})}
@@ -45,7 +45,7 @@ It prevents unnecessary exposure of the matter outside the area of interest and 
 Well defined duration of the pulses allows to observe chemical reactions on short time scales.
 Due to this properties, synchrotrons are used for microscopy, spectroscopy, and time-resolved experiments in such fields like condensed matter physics, biology, material science and many more.
 
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth, height = 0.5\textwidth]{chap/02-theory/img/bd/spectrum.tikz}
 	\caption{Electromagnetic spectrum} %todo of what?
@@ -90,6 +90,14 @@ Higher brilliance allows to see more detail in the material under study.
 The higher brilliance is achieved by shortening the electron bunches. 
 As illustrated in \autoref{fig:csr}, this results in emission of \gls{csr}, the spectrum of which spans from \SI{100}{\GHz} up to THz.
 Due to this \gls{csr} the bunches interact with their own radiation as shown in \autoref{fig:electronInteract}, which introduces complex longitudinal dynamics.
+These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
+These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
+This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
+On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
+Such applications however require a stable power of the radiation. 
+Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
+A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
+In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
 \begin{figure}[tb]
 	\centering
 	\begin{subfigure}{0.4\textwidth}
@@ -115,22 +123,12 @@ Due to this \gls{csr} the bunches interact with their own radiation as shown in 
 	\caption[Incoherent and coherent SR]{Incoherent \gls{sr} and coherent \gls{sr} due to shorter electron bunch length \cite{rota2018}}
 	\label{fig:csr}
 \end{figure}
-
-
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = 0.8\textwidth]{chap/02-theory/img/bd/electronInteraction.tikz}
 	\caption{Electrons interact with their own radiation \cite{Bielawski2019}}
 	\label{fig:electronInteract}
 \end{figure}
-These dynamics are the so called micro-bunching instabilities, the formation of micro-structures (in the sub-millimeter range) in the longitudinal density profile of the electron bunches.
-These instabilities occur in bursts and are hard to control, as they depend on a number of system parameters.
-This imposes on one side a huge limitation to the stable operation of the overall system at high current density/short bunch length mode.
-On the other side, these instabilities themselves emit brilliant \gls{thz} radiation that could be potentially used in imaging applications.
-Such applications however require a stable power of the radiation. 
-Therefore, a control of these instability bursts could potentially make them a source of \gls{thz} radiation for user-applications. 
-A thorough understanding and studying of these beam dynamics is therefore an important step towards providing an applicable \gls{thz} source. \cite{rota2018,brosi}
-In order to make such investigations possible, appropriate beam diagnostic systems are required, which are capable of both capturing (ultra-)fast and long-term changes in the bunch profile.  
 
 \subsection*{Control of Micro-Bunching Instabilities}
 The \gls{ultrasync} project, funded by ANR-DFG\footnote{\gls{anr}, \gls{dfg}}, has an objective of ultrafast study and control of electron bunches in synchrotron light sources.
@@ -166,7 +164,7 @@ To sample the pulse, the delay between the laser and the \gls{thz} pulse is vari
 To detect the changing polarization, the polarization of the laser pulse is transformed into an intensity modulation. This is done by using polarizers, e.g. \glspl{qwp} and \gls{wp} (as shown in \autoref{fig:scan_eo}).
 A general scheme of the system is shown in \autoref{fig:scan_eo}.
 For this technique a stable emission of the \gls{thz} pulses is crucial, as they are not measured in one acquisition. \cite{roussel2014}
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	%\includegraphics{chap/02-theory/img/bd/scan_eo.tikz}
 	\resizebox{1\textwidth}{!}{\input{chap/02-theory/img/bd/scan_eo.tikz}}
@@ -183,12 +181,13 @@ Together with the \gls{thz} pulse, the laser pulse propagates through an \gls{eo
 Again, the induced birefringence modulates the laser pulse in time and in the spectral domain. 
 The polarization state of the pulse is converted into an amplitude/intensity modulation.
 This is done with a series of \gls{qwp}, \gls{hwp} and a polarizer (P) (as shown in \autoref{fig:spectral_eo}).
-To retrieve the \gls{thz} pulse shape in time, the spectrum of the laser pulse is measured with a spectrometer. %todo what spectrometer (optical or electrical) or state model
+To retrieve the \gls{thz} pulse shape in time, the spectrum of the laser pulse is measured with an optical spectrometer. 
 A general scheme of the system is shown in \autoref{fig:spectral_eo}. \cite{roussel2014}
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics{chap/02-theory/img/bd/spectral_eo}
+	%\includegraphics{chap/02-theory/img/bd/spectral_eo}
+	\resizebox{1\textwidth}{!}{\input{chap/02-theory/img/bd/spectral_eo.tikz}}
 	\caption{Scheme of Spectrally Encoded Electro-Optical Detection System \cite{roussel2014}}
 	\label{fig:spectral_eo}
 \end{figure}
@@ -230,7 +229,8 @@ This corresponds to a frequency of $\SI{5}{\GHz}$ which is much easier to handle
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{chap/02-theory/img/ts.tikz}
+	%\includegraphics{chap/02-theory/img/ts.tikz}
+	\resizebox{1\textwidth}{!}{\input{chap/02-theory/img/ts.tikz}}
 	\caption{Working principle of the electro-optical time-stretch technique \cite{roussel2014}}
 	\label{fig:eo_ts}
 \end{figure}
@@ -243,14 +243,14 @@ Irradiating diode with photons of sufficient energy generates electron-hole pair
 If the electron-hole pairs are produced in the depleted region of the $p/n$-junction, they are separated by the electric field applied across it, before they can recombine. 
 This creates a so called photo-current which can be measured. \cite{photodiode} %todo with a trans impedance amplifier maybe for the 'voltages' in the next section
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[]{chap/02-theory/img/pn.tikz}
 	\caption{pn-junction with depleted region \cite{pn-junc}}
 	\label{fig:pn_junc}
 \end{figure}
 
-
+\newpage
 \section{Analog-To-Digital Converter}
 \Glspl{adc} are used to translate analog signals, like voltages, into the digital representation of these signals.
 This \textit{digitized} version can then be stored and processed by information processing, computing, data transmission and control systems. 
@@ -326,9 +326,10 @@ This process is quicker, when the output voltage is already in the range of the 
 		\caption{Schematic of a THA}
 		\label{fig:tha_low}
 	\end{subfigure}
+\\[4ex]
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{chap/02-theory/img/adc/tha_up.tikz}  
+		\includegraphics[height=0.6\textwidth, width = 0.7\textwidth]{chap/02-theory/img/adc/tha_up.tikz}  
 		\caption{Working principle of the THA}
 		\label{fig:tha_up}
 	\end{subfigure}
@@ -406,8 +407,6 @@ In decibel, the \gls{snr} is calculated as (see \cite{puente2015, walt}):
 \end{equation}
 
 
-
-
 \subsubsection{Static parameters}
 \textit{Static parameters} are specifications, which can be measured at low speed/DC. 
 \paragraph{Accuracy}
@@ -432,7 +431,7 @@ It can be calculated as
 \paragraph{Offset and Gain Error}
 The \textit{offset error} is defined as the deviation of the actual \gls{adc} transfer function from the ideal \gls{adc} transfer function in the point of zero. It is measured in \gls{lsb}. 
 
-\textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function. %todo state eq for 'transfer function' otherwise 'line', 'zero' and 'full-scale point' undefined here
+\textit{Gain Error} defines the deviation of the slope of the line going through the zero and full-scale point of the transfer function.
 \autoref{fig:offsetErr} visualizes the effects of both offset and gain error. 
 \begin{figure}[tb]
 	\centering
@@ -455,11 +454,8 @@ In order to obtain the offset error $b$, the linear equation
 \end{equation}
 is solved.
 
-
-%todo where is this full-scale point here in the fig?
-
 \paragraph{Integral and Differential Non-Linearity Distortion} 
-\gls{inl} is the distance of the code centers on the actual \gls{adc} transfer function from the ideal line (dashed line in \autoref{fig:nld}). %todo which transfer function?
+\gls{inl} is the distance of the code centers on the actual \gls{adc} transfer function from the ideal line (dashed line in \autoref{fig:nld}). 
 It results from the integral non-linearities of the front-end, \gls{sha} and also the \gls{adc} itself \cite{walt, Lundberg}. 
 
 \gls{dnl} is the deviation in actual code width from the ideal width of 1 \gls{lsb}. This non-linearity stems exclusively from the encoding process in the \gls{adc} \cite{Lundberg,walt} . 
@@ -496,7 +492,7 @@ As an example, distortion of the amplitude might result due to not equal amplifi
 In an \gls{adc} (with built-in \gls{sha}) there are a couple of sources, which introduce noise and distortion:
 \begin{itemize}
 	\item \textbf{Input Stage:} Wideband noise, non-linearity and bandwidth limitation
-	\item \textbf{\gls{sha}:} Non-linearity, aperture jitter(see paragraph about Time-Domain Dynamic Performances) and bandwidth limitation %todo use label/autoref here
+	\item \textbf{\gls{sha}:} Non-linearity, aperture jitter (see \autoref{ssec:time_param}) and bandwidth limitation 
 	\item \textbf{\gls{adc}:} Quantization noise, non-linearity
 \end{itemize}
 
@@ -532,7 +528,7 @@ It is commonly expressed in dB, \gls{dbc} or \gls{dbfs}.
 \paragraph{Effective-Number-Of-Bits}
 The \gls{enob} expresses the \gls{sinad} in terms of bits. It can be calculated as (see \cite{walt2009})
 \begin{equation}
-	\text{ENOB} = \frac{\text{SINAD}-\SI{1.76}{\decibel}}{\SI{6.02}{\decibel \per \bits}}. \quad 
+	\text{ENOB} = \frac{\text{SINAD}-\SI{1.76}{\decibel}}{\SI{6.02}{\decibel \per \bits}}. 
 \end{equation}
 This is derived from solving the equation of the ``ideal \gls{snr}'' (\autoref{eq:idealSNR}) for the number of bits $N$ and substituting \gls{snr} with \gls{sinad}.
 This however means, that this parameter assumes a full-scale input signal. Expressing the \gls{enob} for a smaller signal amplitude requires measuring the \gls{sinad} at this level and a correction factor. \cite{walt}
@@ -576,7 +572,7 @@ The slew-rate (SR) is defined as the rate of how much the voltage $v$ changes ov
 \end{equation}
 A slew-rate of \SI{1}{\volt \per \micro \second} for example means, that the output of the amplifier can not change more than \SI{1}{\volt} over the course of \SI{1}{\micro \second}.\cite{2021Slew} 
 
-\paragraph{Time-Domain Dynamic Parameters}
+\subsubsection{Time-Domain Dynamic Parameters}\label{ssec:time_param}
 Time-Domain Dynamic parameters describe the deviation of the converter's behavior from the ideal one in time domain. 
 
 \paragraph{Aperture Delay}
@@ -607,16 +603,16 @@ The voltage error due to jitter and the \gls{sjnr} for different aperture jitter
 
 \begin{figure}[tb]
 	\centering
-	\begin{subfigure}{0.48\textwidth}
+	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[height=0.9\textwidth]{chap/02-theory/img/adc/jitterTimeDomain.tikz}  
+		\includegraphics[height = 0.6\textwidth]{chap/02-theory/img/adc/jitterTimeDomain.tikz}  
 		\caption{Effect of aperture jitter}
 		\label{fig:jitter}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\textwidth}
+	\\[4ex]
+	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[height=\textwidth]{chap/02-theory/img/adc/SJNRjitter.tikz}  
+		\includegraphics[height = 0.6\textwidth]{chap/02-theory/img/adc/SJNRjitter.tikz}  
 		\caption{SJNR for different aperture jitter values}
 		\label{fig:sjnr}
 	\end{subfigure}
@@ -633,7 +629,7 @@ An \gls{adc} samples an analog signal with a sample frequency $f_s$.
 This frequency has to be chosen in such way, that the original signal can be fully reconstructed.
 The \textit{Nyquist criteria} states, that in order to accurately reconstruct continuous signal limited to the bandwidth $B$
 \begin{equation}
-	y (t) \, \laplace  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
+	y (t) \, \laplace \,  Y(f) \quad \text{with} \quad Y(f)=0\vert_{f>B/2}
 \end{equation} 
 it has to be sampled with a frequency $f_s$ respecting
 \begin{equation} \label{eq:nyquist}
@@ -657,20 +653,23 @@ The result of this \textit{undersampling} is shown in \autoref{fig:alias_signal}
 	\begin{subfigure}{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/sampling.tikz}  
+		\caption{Analog signal with frequency $f_a$ sampled at $f_s$ respecting the Nyquist criteria}
 		\label{fig:sampling}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias_f.tikz}  
+		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias_f.tikz} 
+		\caption{Analog signal with frequency $f_a$ sampled at $f_s$ not respecting the Nyquist criteria}
 		\label{fig:alias_f}
 	\end{subfigure}
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{chap/02-theory/img/adc/alias.tikz}  
+		\includegraphics[height=0.5\textwidth, width = \textwidth]{chap/02-theory/img/adc/alias.tikz}  
+		\caption{Effect of aliasing in time domain}
 		\label{fig:alias_signal}
 	\end{subfigure}
 
-	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (A) and not respecting (B) the Nyquist criteria (see \autoref{fig:alias_f}). \autoref{fig:alias_t} shows the effect of case B in time domain. \cite{walt}}
+	\caption[Aliasing]{Analog signal with frequency $f_a$ sampled at $f_s$ respecting (\autoref{fig:sampling}) and not respecting (\autoref{fig:alias_f}) the Nyquist criteria. \autoref{fig:alias_signal} shows the effect of aliasing in time domain. \cite{walt}}
 	\label{fig:alias}
 \end{figure}
 

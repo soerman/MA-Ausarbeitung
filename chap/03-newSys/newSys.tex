@@ -86,7 +86,7 @@ The archtiecture of the front-end board with the power-splitter is shown in \aut
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/kapture/kapture.tikz}
-	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} front-end sampling card (cf. \cite[p.2]{caselleKAP})}
+	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} (v1) front-end sampling card (cf. \cite[p.2]{caselleKAP})}
 	\label{fig:kapture}
 \end{figure}
 
@@ -113,7 +113,7 @@ The sampling points $S_n$ are acquired by setting the respective delay $\Delta t
 		\includegraphics[height=0.8\textwidth]{chap/03-newSys/img/kapture/signal_kap2.tikz}  
 		\label{fig:sig_kap2}
 	\end{subfigure}
-	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by KAPTURE v1, right by KAPTURE v2}
+	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by KAPTURE v1, right plot by KAPTURE v2}
 	\label{fig:sig_kap1_kap2}
 \end{figure}
 
@@ -143,7 +143,7 @@ In \gls{kapture2}, two front-end boards can be connected to directly sample the 
 Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
 In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
@@ -161,16 +161,17 @@ In this way, the read-out card can calculate the correct amplitude of the pulse 
 	\caption[Comparison between KAPTURE-1 and KAPTURE-2]{Comparison between the sampling concepts of KAPTURE-1 and KAPTURE-2}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
+
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture}-2.
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
+	\includegraphics[height = 0.4\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
 	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture}-2 setup}
 	\label{fig:kapturesys}
 \end{figure}
 
 
-
+\newpage
 \section{Proposed Architecture for THERESA}
 In this section the architecture for the \gls{theresa} system is described.
 The system consists of the optical time-stretch setup, which stretches the analog input signal and the photodetector in order to convert the optical signal into an electrical one.
@@ -189,7 +190,7 @@ The sampling clock to these \glspl{tha} is provided by respective programmable d
 In this way, a time interleaving technique (described below) can be implemented by programming the delay chips accordingly. 
 The main clock is provided by a main \gls{pll}, which cleans the reference clock coming from the system in which the sampling system is integrated.
 \autoref{fig:theresa_scheme} shows the general schema of the sampling system, reduced to four channels for presentation purposes.
-\begin{figure}[H]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/theresa_scheme.tikz}
 	\caption[General architecture of the THERESA sampling card]{General architecture of the THERESA sampling card with power splitter and \glspl{adc}. For presentation purposes only four of the sixteen channels are shown.}
@@ -207,7 +208,7 @@ At time $t_0$ the first \gls{adc} starts converting the input signal $V_i(t_0)$,
 After the $M$-th \gls{adc} has sampled the signal $V_i(t_0 + (M-1)t_i)$, the whole cycle starts anew with the first \gls{adc} \cite{mangrob}.
 An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTime}.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
@@ -232,24 +233,26 @@ An example for such a cyle for 4 \glspl{adc} is shown in \autoref{fig:adcInterTi
 Spurs appear in the spectrum. There are several reasons for this which are described in the following.
 
 First reason is the \textit{offset mismatch} between den \glspl{adc}. 
-Each \gls{adc} is characterized by a \gls{dc} offset. Considering as example an interleaving structure with two \glspl{adc} and a constant input voltage: when the samples are acquired back and forth between the two \glspl{adc}, the resulting output will switch back and forth between two levels due to the different offset levels of the \glspl{adc}. 
-This output switches at the frequency $\nicefrac{f_s}{2}$. Therefore this introduces spurious harmonic components at the frequency $\nicefrac{f_s}{2}$ in the spectrum (see \autoref{fig:offset_mm}). 
+Each \gls{adc} is characterized by a \gls{dc} offset. 
+Considering as example an interleaving structure with two \glspl{adc} and a constant input voltage: when the samples are acquired back and forth between the two \glspl{adc}, the resulting output will switch back and forth between two levels due to the different offset levels of the \glspl{adc}. 
+This output switches at the frequency $\nicefrac{f_s}{2}$. 
+Therefore this introduces spurious harmonic components at the frequency $\nicefrac{f_s}{2}$ in the spectrum (see \autoref{fig:offset_mm}). 
 The magnitude of the spur depends on the offset difference between the \glspl{adc}. \cite{Harris2019}
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving//offset_mm}
-	\caption{Offset-Mismatch in Interleaving \cite{Harris2019}}
+	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving//offset_mm.tikz}
+	\caption{Offset-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:offset_mm}
 \end{figure}
 
 Besides of the offset also the gain of the converters can be mismatched. 
 This \textit{gain mismatch} has a frequency component to it, which in case of an input signal of the frequency $f_{\text{in}}$ results in a spur at $\nicefrac{f_s}{2} \pm f_{\text{in}}$ (see \autoref{fig:gain_mm}). \cite{Harris2019}
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/gain_mm}
-	\caption{Gain-Mismatch in Interleaving \cite{Harris2019}}
+	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/gain_mm.tikz}
+	\caption{Gain-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:gain_mm}
 \end{figure}
 
@@ -259,10 +262,10 @@ The clock skew has on the one hand an aperture uncertainty component at each of 
 On the other hand it has a component related to the accuracy of the clock phases, which are input to each converter. \cite{Harris2019} 
 This mismatch also produces a spurious component at $\nicefrac{f_s}{2} \pm f_\text{in}$ (see \autoref{fig:timing_mm}).
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/timing_mm}
-	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
+	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/timing_mm.tikz}
+	\caption{Timing-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:timing_mm}
 \end{figure}
 
@@ -271,10 +274,10 @@ Due to bandwidth mismatch, different gain values at different frequencies can be
 An additional timing component causes different delays for signals at different frequencies through each \gls{adc}. 
 Just like gain and timing mismatch, the bandwidth mismatch causes a spur at $\nicefrac{f_s}{2} \pm f_\text{in}$.
 
-\begin{figure}[tb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/bandwidth_mm}
-	\caption{Timing-Mismatch in Interleaving \cite{Harris2019}}
+	\includegraphics[width = \textwidth]{chap/03-newSys/img/interleaving/bandwidth_mm.tikz}
+	\caption{Bandwidth-mismatch in Interleaving \cite{Harris2019}}
 	\label{fig:bandwidth_mm}
 \end{figure}
 %todo zweimal timing mismatch
@@ -301,7 +304,7 @@ To implement the optimal time-interleaving method with this card, four individua
 Analyzing the schematic of the readout board revealed however, that only two individual sampling clocks can be provided to the card.
 
 Therefore, another approach needs to be considered.
-\autoref{fig:THA} shows qualitatively the concept.
+\autoref{fig:THA} shows qualitatively the concept of the time-interleaving method implemented in this design.
 The main \SI{1}{\GHz} clock is propagated to the \glspl{tha}, which are in hold-mode when the clock signal is HIGH and in track-mode when the clock signal is LOW.
 As shown in \autoref{fig:THA} the clock signal to each \gls{tha} is provided with a respective delay.
 The maximal delay step size to cover the whole period of the clock is calculated by: 
@@ -343,14 +346,14 @@ The card is described in detail in \autoref{chap:readout}.
 
 \begin{figure}[tb]
 	\centering
-	\begin{subfigure}{0.5\textwidth}
+	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics{chap/03-newSys/img/footprint_1.tikz}  
+		\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/footprint_1.tikz}  
 		\caption{Discrete components}
 		\label{fig:discreteComp}
 	\end{subfigure}
 	\\[4ex]
-	\begin{subfigure}{0.5\textwidth}
+	\begin{subfigure}{\textwidth}
 		\centering
 		\tikzexternaldisable
 		\includegraphics{chap/03-newSys/img/footprint_2.tikz}  
