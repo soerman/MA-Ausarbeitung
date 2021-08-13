@@ -25,13 +25,13 @@ As can be derived from the table, the acquisition time of such oscilloscopes is 
 	\caption[Real Time Oscilloscopes Examples]{Some example real-time oscilloscopes with (max.) key characteristics}
 	\label{tab:real_time_osc}
 	\centering
-	\begin{tabularx}{\textwidth}{Xcccc}
-		%todo to num und s-column %todo größerem zeiekabstand
+	\begin{tabularx}{\textwidth}{XSSSS}
+		%todo to num und s-column
 		\toprule
-		\textbf{Model}            & \textbf{Bandwidth} &         \textbf{Sample Rate}         &  \textbf{Memory Depth}  & \textbf{Acquisition time} \\ \midrule
+		\textbf{Model}            & {\textbf{Bandwidth}} &         {\textbf{Sample Rate}}         &  \textbf{{Memory Depth}}  & {\textbf{Acquisition time}} \\ \midrule
 		Keysight MXR608A          &    \SI{6}{\GHz}    & \SI{16}{\giga \sample \per \second}  & \SI{1.6}{\giga \sample} &  \SI{10}{\milli \second}  \\
 		Tektronix DPO70000SX      &   \SI{70}{\GHz}    & \SI{200}{\giga \sample \per \second} &  \SI{1}{\giga \sample}  &  \SI{5}{\milli \second}   \\
-		LeCroy LabMaster 10-100Zi &   \SI{65}{\GHz}    & \SI{160}{\giga \sample \per \second} & \SI{512}{\mega \sample} & \SI{3.2}{\milli \second}  \\ \bottomrule
+		LeCroy LabMaster 10-100Zi &   \SI{65}{\GHz}    & \SI{160}{\giga \sample \per \second} & \SI{0.512}{\giga \sample} & \SI{3.2}{\milli \second}  \\ \bottomrule
 	\end{tabularx}
 \end{table}
 \endgroup
@@ -85,7 +85,7 @@ The architecture of the front-end board with the power-splitter is shown in \aut
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{chap/03-newSys/img/kapture/kapture.tikz}
-	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} (v1) front-end sampling card (cf. \cite[p.2]{caselleKAP})}
+	\caption[General architecture of the KAPTURE system]{General architecture of the \Gls{kapture} front-end sampling card (cf. \cite[p.2]{caselleKAP})}
 	\label{fig:kapture}
 \end{figure}
 The power-splitter splits the incoming signal into four identical signals, which are then fed into four parallel channels, consisting of a respective \gls{tha} unit and a 12-bit \gls{adc} sampling at \SI{500}{\mega\sample\per\second}. 
@@ -111,7 +111,7 @@ The sampling points $S_n$ are acquired by setting the respective delay $\Delta t
 		\includegraphics[height=0.8\textwidth]{chap/03-newSys/img/kapture/signal_kap2.tikz}  
 		\label{fig:sig_kap2}
 	\end{subfigure}
-	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by KAPTURE v1, right plot by KAPTURE v2}
+	\caption[KAPTURE Pulse Sampling]{Sample points $S_n$ acquired by setting the sampling delay times $\Delta t_n$ accordingly. Left plot shows pulse sampled by \gls{kapture}, right plot by \gls{kapture2}}
 	\label{fig:sig_kap1_kap2}
 \end{figure}
 
@@ -138,33 +138,34 @@ The \gls{pll} on the sampling board allows for synchronization between two or mo
 With this feature, the sampling time of two boards can be synchronized and in this way extend the number of sampling points beyond four.
 A comparison of the sampling concepts is shown in \autoref{fig:kap1_vs_kap2}.
 
-In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
-Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
-In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
-
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.48\textwidth}
 		\centering
 		\includegraphics[width=0.8\textwidth]{chap/03-newSys/img/kapture/kap1.tikz}  
-		\caption{Sampling concept in KAPTURE v1}
+		\caption{Sampling concept in \gls{kapture}}
 		\label{fig:kap1}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\textwidth}
 		\centering
 		\includegraphics[height=0.8\textwidth]{chap/03-newSys/img/kapture/kap2.tikz}  
-		\caption{Sampling concept in KAPTURE v2}
+		\caption{Sampling concept in \gls{kapture2}}
 		\label{fig:kap2}
 	\end{subfigure}
-	\caption[Comparison between KAPTURE v1 and KAPTURE v2]{Comparison between the sampling concepts of KAPTURE v1 and KAPTURE v2}
+	\caption[Comparison between KAPTURE and KAPTURE-2]{Comparison between the sampling concepts of \gls{kapture} and \gls{kapture2}}
 	\label{fig:kap1_vs_kap2}
 \end{figure}
+
+In \gls{kapture2}, two front-end boards can be connected to directly sample the pulses with up to eight sampling point at a pulse repetition rate of \SI{2}{\GHz}. 
+Alternatively, the system can sample the pulse and the baseline between two consecutive pulses with a constant pulse rate up to \SI{1}{\GHz} (see \autoref{fig:kap2}).
+In this way, the read-out card can calculate the correct amplitude of the pulse and send it to the \gls{gpu} for further processing \cite{caselleKAP}.
+
 \autoref{fig:kapturesys} shows a photo of the system setup of \gls{kapture2}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{chap/03-newSys/img/kapture/kapture2.png}
-	\caption[Photo of KAPTURE v2 system]{Photo of the \gls{kapture2} setup}
+	\caption[Photo of KAPTURE-2 system]{Photo of the \gls{kapture2} setup}
 	\label{fig:kapturesys}
 \end{figure}
 
