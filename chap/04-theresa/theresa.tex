@@ -561,8 +561,6 @@ The schematic of the LMX2594 is shown in \autoref{fig:lmx2594}.
 	\end{tabularx}
 \end{table}
 
-
-
 \subsubsection*{Fanout Buffer}
 The fanout buffer receives as input the clock signal from the main \gls{pll} and distributes it to the delay chips.
 In this design, the HMC987LP5E from \textit{Analog Devices} is chosen due to its low jitter and low skew performance. 
@@ -669,8 +667,8 @@ With the rule mentioned above and the maximal current draw $I_\text{m, THA}$ = \
 
 \begin{align*}
 	I_\text{max, LDO}                              & > 2 \cdot N \cdot I_\text{m, THA} \\
-	I_\text{max, LDO}/(2 \cdot I_\text{m, THA})    & > N                               \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.221}{\ampere}) & > N                               \\
+	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, THA}) }   & > N                               \\
+	\nicefrac{\SI{2}{\ampere}}{(2 \cdot \SI{0.221}{\ampere})}& > N                               \\
 	4.52                                           & > N \quad \rightarrow N = 4
 \end{align*}
 This means, 4 \glspl{ldo} are needed to cover 16 \glspl{tha}.
@@ -698,7 +696,7 @@ The number $N$ of delay chips with a maximal current draw $I_\text{m, Delay}$, w
 \begin{align*}
 	I_\text{max, LDO}                                         & > 2 \cdot N \cdot I_\text{m, Delay} \\
 	\nicefrac{I_\text{max, LDO}}{(2 \cdot I_\text{m, Delay})} & > N                                 \\
-	\SI{2}{\ampere} / (2\cdot \SI{0.170}{\ampere})            & > N                                 \\
+	\SI{2}{\ampere} / (2 \cdot \SI{0.170}{\ampere})            & > N                                 \\
 	5.88                                                      & > N \quad \rightarrow N = 5
 \end{align*}
 Therefore, two regulators are needed to cover the 8 delay chips.
@@ -839,7 +837,7 @@ A screenshot of the Polaris tool, showing the geometry of a coplanar waveguide i
 \end{figure}
 
 As there are a lot of parameters which can be tuned, as a starting point the geometrical parameters of the \gls{kapture} \gls{pcb} design are applied. 
-These were carefully designed for optimal transmission line geometry.
+These have been carefully designed for optimal transmission line geometry.
 However, the substrate used in the \gls{kapture} system, has a different dielectric constant than the Megtron6 substrate selected for the new design. 
 Therefore, the impedance has to be recalculated. 
 For the resulsts, a deviation of 10\% from the ideal \SI{50}{\ohm} and \SI{100}{\ohm} is still regarded as acceptable, as tolerances during manufacturing need to be considered.

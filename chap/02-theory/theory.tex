@@ -10,8 +10,8 @@ Knowledge and understanding of \gls{adc} characteristics is necessary to evaluat
 Recent years have seen an increasing interest in \gls{thz} radiation, ranging from \SI{3}{\tera \hertz} up to \SI{30}{\tera \hertz}\footnote{At \gls{kara}: \SIrange{0.1}{1.2}{\tera \hertz}}, as it allows non-destructive analysis of organic material. 
 This is possible because unlike e.g. X-Rays, \gls{thz} radiation is not ionizing.
 It is therefore of great interest to use \gls{thz} radiation in fields like biology, medicine or material science.
+In biomedical research, \gls{thz} radiation has been used for spectroscopy, as energies involved in many biological processes lie in the terahertz frequency range. \cite{Bowen}
 However, until recently the usage of \gls{thz} radiation was very limited, as generation of such radiation has proven to be difficult.
-%todo what about the usage of thz for spectroscopy since the thz hv-energy matches some interesting bonds in chemistry/bio.
 
 Synchrotrons and storage rings are a potential source of \gls{thz} radiation.
 The emission of \gls{thz} radiation is closely linked to instabilities of the charged particles which are accelerated in a synchrotron (see \cite{mueller2012}). 
@@ -258,12 +258,11 @@ This creates a so called photo-current which can be measured and converted into 
 This \textit{digitized} version can then be stored and processed by information processing, computing, data transmission and control systems. 
 This translation, also called ``conversion'', can be seen as encoding a continuous-time analog input $V_\text{in}$(t) (voltage) into a series of discrete, $N$-bit words. 
 This process is also called \textit{sampling}. 
-With the full-scale voltage of $V_{\text{FS}}$\footnote{Maximal voltage the converter can output}, the individual output bits $b_k$ and the quantization error $\epsilon$ (see \autoref{par:quant_noise}), the \gls{adc} should satisfy the relation (see \cite{Lundberg})
+With the full-scale voltage of $V_{\text{FS}}$, which denotes the maximal output voltage of the \gls{adc}, the individual output bits $b_k$ and the quantization error $\epsilon$ (see \autoref{par:quant_noise}), the \gls{adc} should satisfy the relation (see \cite{Lundberg})
 \begin{equation} \label{eq:adc_sample}
 	V_{\text{in}}(t) = V_{\text{FS}} \sum_{k = 0}^{N-1} \frac{b_k}{2^{k+1}} + \epsilon.
 \end{equation}
-%todo what is full scale voltage, lsb, v_q?
-This can also be rewritten in terms of the \gls{lsb} or quantum level $V_Q$ (see \cite{Lundberg})
+This can also be rewritten in terms of the \gls{lsb}, or quantum level $V_Q$, (see \cite{Lundberg})
 \begin{equation}
 	1 \; \text{LSB} = \frac{V_\text{FS}}{2^N} = V_Q.
 \end{equation}
@@ -288,10 +287,10 @@ The input voltage is resolved to the code of the nearest code center.
 If the level of the analog signal changes by more than one \gls{lsb} during this period, this can result in large errors in the output signal.
 Therefore so called \gls{sha} are used in front of the \gls{adc} to hold the input level constant for the needed amount of time. \cite{walt}
 
-It consists of an input and output buffer, a switch controlled by the sampling clock and a capacitor.
-The analog input is buffered in an input buffer which leads to a switch that is controlled by a sampling clock.
+It consists of an input and output unity gain amplifier, a switch controlled by the sampling clock and a capacitor.
+The analog input passes through the input unity gain amplifier which leads to a switch that is controlled by a sampling clock.
 During the sample mode, i.e. during the negative sampling clock cycle, the switch is open.
-At the transition from negative to positive clock cycle, the switch closes, connecting the input signal with the capacitor which is charged in this way. \cite{walt} %todo i think "buffer" here means unit-gain amp and the capacitor does the buffering/storing/holding/... ?!
+At the transition from negative to positive clock cycle, the switch closes, connecting the input signal with the capacitor which is charged in this way and buffers the input signal. \cite{walt} 
 
 The \gls{adc} sampling time needs to be timed in such way, that the whole duration of an analog-to-digital conversion falls into the hold period of the \gls{sha} and does not exceed into the sample period. 
 \autoref{fig:sha_timing} shows a qualitative example for proper sample timing. 
@@ -543,7 +542,7 @@ It is measured over the whole Nyquist bandwidth from \gls{dc} to $\nicefrac{f_s}
 
 The \gls{sfdr} is an important characteristic in the sense, that it indicates the smallest signal which can still be distinguished from a strong interfering signal. \cite{walt2009} 
 
-The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc}).%todo what is dbc?
+The \gls{sfdr} in \gls{dbc} can be calculated as (see \cite{xilinx_adc}).
 \begin{equation}
 	\text{SFDR}_\text{dBc} = 20 \log \left( \frac{\text{Fundamental Amplitude (RMS)}}{\text{Largest Spur Amplitude (RMS)}} \right).
 \end{equation}
@@ -570,17 +569,15 @@ It is not to be confused with the maximal input frequency which the \gls{adc} is
 
 \paragraph{Full-Linear Bandwidth}
 The \textit{Full-Linear Bandwidth} is defined as the frequency at which the slew-rate of the \gls{sha} starts to distort the input signal by a specified value. \cite{Lundberg} 
-The slew-rate (SR) is defined as the rate of how much the voltage $v$ changes over time $t$:
+The slew-rate (SR) is defined as the rate of how much the voltage $V(t)$ changes over time $t$:
 \begin{equation}
-	\text{SR} = \frac{\text{d}v}{\text{d}t}
+	\text{SR} = \frac{\text{d}V(t)}{\text{d}t}
 \end{equation}
 
 A slew-rate of \SI{1}{\volt \per \micro \second} for example means, that the output of the amplifier can not change more than \SI{1}{\volt} over the course of \SI{1}{\micro \second}. \cite{2021Slew} 
 
 \subsubsection{Time-Domain Dynamic Parameters}\label{ssec:time_param}
 Time-Domain Dynamic parameters describe the deviation of the converter's behavior from the ideal one in time domain. 
-
-%todo is this a section/header/introduction for the next paragraphs?
 
 \paragraph{Aperture Delay}
 \textit{Aperture Delay} (or \textit{aperture time}) is defined as delay between the triggering of the converter (e.g. rising edge of the sampling clock) and the actual conversion of the input voltage into the digitized value. \cite{Lundberg}
@@ -596,7 +593,7 @@ Assuming a full-scale sine wave $V_{\text{in}}$(t) as input signal with
 \end{equation}
 the maximal slope of this signal is then
 \begin{equation}
-	\frac{\text{d}V_{\text{in}}}{\text{d}t}\Bigr|_{\text{max}} = \omega V_{\text{FS}}
+	\frac{\text{d}V_{\text{in}}(t)}{\text{d}t}\Bigr|_{\text{max}} = \omega V_{\text{FS}}
 \end{equation}
 Aperture jitter $\Delta t_{\text{rms}}$ occurring during the sampling of this maximal slope produces the \gls{rms} voltage error 
 \begin{equation}
