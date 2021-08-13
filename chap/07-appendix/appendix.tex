@@ -3,11 +3,8 @@
 
 Characteristic impedance (see \cite[~p197-198]{wadell}): 
 \begin{align}
-	Z_{0,o} & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)         \\
-	Z_{0,e} & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)
-\end{align}    
-
-\begin{align}
+	Z_{0,o}                 & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},o}}} \left( \frac{1.0}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}\right)                        \\
+	Z_{0,e}                 & = \frac{\eta_0}{\sqrt{\epsilon_{\text{eff},e}}} \left( \frac{1.0}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}\right)                \\
 	\epsilon_{\text{eff},o} & = \frac{2.0 \epsilon_r \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}{2.0 \frac{K(k_o)}{K'(k_o)} + \frac{K(\beta_1)}{K'(\beta_1)}}                 \\
 	\epsilon_{\text{eff},e} & = \frac{2.0 \epsilon_r \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}{2.0 \frac{K(k_e)}{K'(k_e)} + \frac{K(\beta_1 k_1)}{K'(\beta_1 k_1)}}
 \end{align}
@@ -46,6 +43,5 @@ It comprises of the following components, with $K(k)$ being an elliptical integr
 	\epsilon_\text{eff} &= \frac{1.0 + \epsilon_r \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}{1.0 + \frac{K(k')}{K(k)} \frac{K(k_1)}{K(k_1')}}
 \end{align}
 
-\section{Verilog Code for SPI Interface for Delay Chips} \label{app:code} %todo what code?
+\section{Verilog Code for SPI Interface for Delay Chips} \label{app:code}
 \lstinputlisting[language=Verilog, basicstyle=\footnotesize]{chap/07-appendix/include/delayfirmware.v}
-%todo add linebreaks to the lstlisting style
