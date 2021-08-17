@@ -9,7 +9,7 @@
 \def\arrwidth{2mm}
 \usetikzlibrary{calc}
 
-\begin{tikzpicture}
+\begin{tikzpicture}	
 \draw (1,0) node[anchor=east] {$V_\text{in}$} to[short,o-] (2,0) node[rotary switch ->=3 in 40 wiper 20,anchor=in] (A) {};
 \draw (9,0) node[anchor=west] {$D_\text{out}$} to[short,o-] node[xshift=0.3cm,pos=1,label={[yshift=-4,font=\small]above:n}] {/} (8,0) node[rotary switch <-=3 in 40 wiper -20,anchor=in,rotate=180] (B) {};
 \draw (A.aout 1)  -- (4,2) node[anchor=south] {$\nicefrac{f_s}{M}$} to[short] (5,2) node[adcshape,fill=white,label={[font=\footnotesize,yshift=-0.1cm]above:$\text{ADC}_1$}] {} -- (6,2) --  node[pos=0.5,label={[yshift=-4,font=\small]above:n}] {/} (B.aout 3);
