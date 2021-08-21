@@ -52,7 +52,7 @@
 
 \usepackage[english,ngerman]{babel}             % babel language styles. you may
                                                 % add languages, if need to be.
-\usepackage[fixlanguage]{babelbib}              % use babel bibtex. fixlanguage 
+%\usepackage[fixlanguage]{babelbib}              % use babel bibtex. fixlanguage 
                                                 % = don't switch language
                                                 % between bib items
 %\usepackage{cite}                              % for bibtex without babel

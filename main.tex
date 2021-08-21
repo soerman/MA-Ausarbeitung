@@ -109,10 +109,7 @@
     pdfsubject={\thesislongtopic},
     pdfkeywords={kit,etit,master,thesis,\thesisauthor}
 }
-\hyphenation
-{
-    über-nom-me-nen an-ge-ge-be-nen
-}
+
 \DeclareSIUnit{\sample}{S}
 \sisetup{per-mode=symbol}
 
@@ -121,13 +118,12 @@
 \glstoctrue
 \makeglossaries
 \input{include/acrolist.tex}
-
-
-
-
+ 
+%bibliography
+\usepackage[backend=biber,style=alphabetic,language=english,autolang=other]{biblatex} 
+\addbibresource{lit.bib}
+ 
 \setcounter{tocdepth}{2}
-
-\def\subsubsectionautorefname{subsection}
 
 \begin{document}
     % Titlepage and ToC
@@ -169,7 +165,6 @@
     \chapter*{\appendixname} \addcontentsline{toc}{chapter}{\appendixname}
     		\input{./chap/07-appendix/appendix}
 	\printglossary
-	\TheBibliography
-	\bibliographystyle{babalpha}
-	\bibliography{lit}
+	\printbibliography
+	
 \end{document}
